@@ -168,6 +168,24 @@ body[data-theme="light"] .hint-box {
     margin: 20px 0;
 }
 
+/* Feedback icons */
+.feedback-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.correct-icon {
+    color: #28a745;
+}
+
+.incorrect-icon {
+    color: #dc3545;
+}
+
 .option {
     background-color: #3a3a3a;
     border: 2px solid #444;
@@ -178,6 +196,41 @@ body[data-theme="light"] .hint-box {
     transition: all 0.2s;
     display: flex;
     align-items: center;
+    position: relative;
+}
+
+/* Option analysis styling */
+.option-analysis {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #2b2b2b;
+    border-radius: 4px;
+}
+
+.status-correct {
+    color: #28a745;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.status-incorrect {
+    color: #dc3545;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+/* Hint review section */
+.hint-review {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #4a4a2f;
+    border-radius: 6px;
+    border: 1px solid #666633;
+}
+
+.hint-review h5 {
+    color: #ffd700;
+    margin-bottom: 10px;
 }
 
 body[data-theme="light"] .option {
