@@ -13,9 +13,9 @@
 
     <div class="main-container">
         <div class="nav-container">
-            <button class="nav-button active" data-screen="home">Home</button>
-            <button class="nav-button" data-screen="progress">Progress</button>
-            <button class="nav-button" data-screen="settings">Settings</button>
+            <button class="nav-button active" data-screen="home">🏠 Home</button>
+            <button class="nav-button" data-screen="progress">📊 Progress</button>
+            <button class="nav-button" data-screen="settings">⚙️ Settings</button>
         </div>
 
         <div id="main">
@@ -64,6 +64,98 @@
         </div>
     </div>
 
+    <!-- Keyword Highlight Button (will appear during questions) -->
+    <button id="highlightButton" class="highlight-button" style="display: none;" title="Toggle keyword highlighting">
+        🔍
+    </button>
+
     <script src="app.js"></script>
+    
+    <!-- Additional script for keyword highlighting -->
+    <script>
+        // Keyword highlighting functionality
+        let keywordsHighlighted = false;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const highlightButton = document.getElementById('highlightButton');
+            
+            highlightButton.addEventListener('click', function() {
+                toggleKeywordHighlight();
+            });
+        });
+        
+        function toggleKeywordHighlight() {
+            const highlightButton = document.getElementById('highlightButton');
+            const questionText = document.querySelector('.question-text');
+            
+            if (!questionText) return;
+            
+            keywordsHighlighted = !keywordsHighlighted;
+            highlightButton.classList.toggle('active', keywordsHighlighted);
+            
+            if (keywordsHighlighted) {
+                highlightKeywords();
+            } else {
+                removeHighlights();
+            }
+        }
+        
+        function highlightKeywords() {
+            const currentQuestionIndex = window.currentQuestion;
+            const question = window.selectedQuestions[currentQuestionIndex];
+            
+            if (!question || !question.keyWords) return;
+            
+            const questionText = document.querySelector('.question-text');
+            let html = questionText.innerHTML;
+            
+            // Sort keywords by length (longest first) to avoid nested replacements
+            const sortedKeywords = [...question.keyWords].sort((a, b) => b.length - a.length);
+            
+            sortedKeywords.forEach(keyword => {
+                const regex = new RegExp(`(${keyword})`, 'gi');
+                html = html.replace(regex, '<span class="keyword-highlight">$1</span>');
+            });
+            
+            questionText.innerHTML = html;
+        }
+        
+        function removeHighlights() {
+            const questionText = document.querySelector('.question-text');
+            const highlights = questionText.querySelectorAll('.keyword-highlight');
+            
+            highlights.forEach(highlight => {
+                const text = document.createTextNode(highlight.textContent);
+                highlight.parentNode.replaceChild(text, highlight);
+            });
+        }
+        
+        // Show/hide highlight button based on current screen
+        const originalShowQuestion = window.showQuestion;
+        window.showQuestion = function() {
+            originalShowQuestion.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'flex';
+            keywordsHighlighted = false;
+            document.getElementById('highlightButton').classList.remove('active');
+        };
+        
+        const originalLoadHomeScreen = window.loadHomeScreen;
+        window.loadHomeScreen = function() {
+            originalLoadHomeScreen.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'none';
+        };
+        
+        const originalLoadProgressScreen = window.loadProgressScreen;
+        window.loadProgressScreen = function() {
+            originalLoadProgressScreen.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'none';
+        };
+        
+        const originalLoadSettingsScreen = window.loadSettingsScreen;
+        window.loadSettingsScreen = function() {
+            originalLoadSettingsScreen.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'none';
+        };
+    </script>
 </body>
 </html>
