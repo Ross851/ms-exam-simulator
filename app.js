@@ -75,6 +75,15 @@ let examTimer = null;
 let startTime = null;
 let hintsUsed = {};
 
+// Performance tracking
+let performanceData = {
+    byTopic: {},
+    byCategory: {},
+    byDifficulty: {},
+    byConcept: {},
+    questionHistory: {}
+};
+
 // Mock exam configuration
 const mockExamConfig = {
     minQuestions: 40,
@@ -90,6 +99,9 @@ const mockExamConfig = {
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
     console.log(`Loaded ${questions.length} questions`);
+    
+    // Load performance data
+    loadPerformanceData();
     
     // Initialize the app
     initializeEventListeners();
@@ -142,6 +154,9 @@ function initializeEventListeners() {
 
 // Screen loaders
 function loadHomeScreen() {
+    const weakAreas = getWeakAreas();
+    const recommendations = getPersonalizedRecommendations();
+    
     const main = document.getElementById('main');
     main.innerHTML = `
         <div class="card">
@@ -149,12 +164,32 @@ function loadHomeScreen() {
             <p>Practice for your Microsoft certification exam with our comprehensive question bank.</p>
         </div>
         
+        ${weakAreas.length > 0 ? `
+        <div class="card alert-warning">
+            <h3>Areas Needing Practice</h3>
+            <ul>
+                ${weakAreas.map(area => `
+                    <li><strong>${area.name}</strong>: ${area.successRate}% success rate</li>
+                `).join('')}
+            </ul>
+            <button class="btn btn-warning" onclick="startWeakAreaPractice()">
+                Practice Weak Areas
+            </button>
+        </div>
+        ` : ''}
+        
         <div class="card">
             <h3>Exam Modes</h3>
             <button class="btn" onclick="openPracticeSetup()">
                 Practice Mode
                 <small style="display: block; font-weight: normal; margin-top: 4px;">
                     Choose questions, get hints, immediate feedback
+                </small>
+            </button>
+            <button class="btn btn-warning" onclick="startAdaptivePractice()">
+                Adaptive Practice
+                <small style="display: block; font-weight: normal; margin-top: 4px;">
+                    Focus on your weak areas automatically
                 </small>
             </button>
             <button class="btn btn-secondary" onclick="openMockExamSetup()">
@@ -165,9 +200,20 @@ function loadHomeScreen() {
             </button>
         </div>
         
+        ${recommendations.length > 0 ? `
+        <div class="card">
+            <h3>Personalized Recommendations</h3>
+            <ul>
+                ${recommendations.map(rec => `<li>${rec}</li>`).join('')}
+            </ul>
+        </div>
+        ` : ''}
+        
         <div class="card">
             <h3>Quick Stats</h3>
             <p>Total Questions: ${questions.length}</p>
+            <p>Questions Attempted: ${getAttemptedQuestionCount()}</p>
+            <p>Overall Success Rate: ${getOverallSuccessRate()}%</p>
             <p>Categories:</p>
             <ul style="margin-left: 20px;">
                 <li>Solution Envisioning: ${getCategoryCount('Perform solution envisioning and requirement analysis')} questions</li>
@@ -180,6 +226,10 @@ function loadHomeScreen() {
 
 function loadProgressScreen() {
     const progress = getProgress();
+    const weakAreas = getWeakAreas();
+    const strongAreas = getStrongAreas();
+    const performanceTrends = getPerformanceTrends();
+    
     const main = document.getElementById('main');
     
     main.innerHTML = `
@@ -189,6 +239,49 @@ function loadProgressScreen() {
                 <div class="progress-fill" style="width: ${progress.percentage}%"></div>
             </div>
             <p>Questions Attempted: ${progress.attempted} / ${questions.length}</p>
+        </div>
+        
+        <div class="card">
+            <h3>Performance Analysis</h3>
+            <div class="performance-grid">
+                <div class="perf-section">
+                    <h4 class="text-danger">Weak Areas (< 70%)</h4>
+                    ${weakAreas.length > 0 ? `
+                        <ul>
+                            ${weakAreas.map(area => `
+                                <li>
+                                    <strong>${area.name}</strong>: ${area.successRate}%
+                                    <small>(${area.correct}/${area.total})</small>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    ` : '<p>No weak areas identified yet</p>'}
+                </div>
+                
+                <div class="perf-section">
+                    <h4 class="text-success">Strong Areas (> 80%)</h4>
+                    ${strongAreas.length > 0 ? `
+                        <ul>
+                            ${strongAreas.map(area => `
+                                <li>
+                                    <strong>${area.name}</strong>: ${area.successRate}%
+                                    <small>(${area.correct}/${area.total})</small>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    ` : '<p>Keep practicing to identify strong areas</p>'}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>Performance by Difficulty</h3>
+            ${getDifficultyPerformance()}
+        </div>
+        
+        <div class="card">
+            <h3>Topic Performance</h3>
+            ${getTopicPerformance()}
         </div>
         
         <div class="card">
@@ -203,48 +296,348 @@ function loadProgressScreen() {
     `;
 }
 
-function loadSettingsScreen() {
-    const settings = getSettings();
-    const main = document.getElementById('main');
+// Enhanced Performance Tracking Functions
+function loadPerformanceData() {
+    const saved = localStorage.getItem('performanceData');
+    if (saved) {
+        performanceData = JSON.parse(saved);
+    }
+}
+
+function savePerformanceData() {
+    localStorage.setItem('performanceData', JSON.stringify(performanceData));
+}
+
+function updatePerformanceData(question, isCorrect) {
+    // Update by topic
+    if (!performanceData.byTopic[question.topic]) {
+        performanceData.byTopic[question.topic] = { correct: 0, total: 0 };
+    }
+    performanceData.byTopic[question.topic].total++;
+    if (isCorrect) performanceData.byTopic[question.topic].correct++;
     
-    main.innerHTML = `
-        <div class="card">
-            <h2>Settings</h2>
-            
-            <div class="form-group">
-                <label class="form-label">Theme</label>
-                <select class="form-select" id="themeSelect">
-                    <option value="light" ${settings.theme === 'light' ? 'selected' : ''}>Light</option>
-                    <option value="dark" ${settings.theme === 'dark' ? 'selected' : ''}>Dark</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Default Question Count</label>
-                <select class="form-select" id="defaultCount">
-                    <option value="10" ${settings.defaultCount === 10 ? 'selected' : ''}>10</option>
-                    <option value="20" ${settings.defaultCount === 20 ? 'selected' : ''}>20</option>
-                    <option value="30" ${settings.defaultCount === 30 ? 'selected' : ''}>30</option>
-                    <option value="50" ${settings.defaultCount === 50 ? 'selected' : ''}>50</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="soundEffects" ${settings.soundEffects ? 'checked' : ''}>
-                    Sound Effects
-                </label>
-            </div>
-            
-            <button class="btn" onclick="saveSettings()">Save Settings</button>
-            <button class="btn btn-danger" onclick="resetProgress()">Reset All Progress</button>
-        </div>
-    `;
+    // Update by category
+    if (!performanceData.byCategory[question.category]) {
+        performanceData.byCategory[question.category] = { correct: 0, total: 0 };
+    }
+    performanceData.byCategory[question.category].total++;
+    if (isCorrect) performanceData.byCategory[question.category].correct++;
     
-    // Add change listeners
-    document.getElementById('themeSelect').addEventListener('change', function() {
-        document.body.dataset.theme = this.value;
+    // Update by difficulty
+    if (!performanceData.byDifficulty[question.difficultyLevel]) {
+        performanceData.byDifficulty[question.difficultyLevel] = { correct: 0, total: 0 };
+    }
+    performanceData.byDifficulty[question.difficultyLevel].total++;
+    if (isCorrect) performanceData.byDifficulty[question.difficultyLevel].correct++;
+    
+    // Update by concepts
+    question.conceptsTested.forEach(concept => {
+        if (!performanceData.byConcept[concept]) {
+            performanceData.byConcept[concept] = { correct: 0, total: 0 };
+        }
+        performanceData.byConcept[concept].total++;
+        if (isCorrect) performanceData.byConcept[concept].correct++;
     });
+    
+    // Update question history
+    if (!performanceData.questionHistory[question.id]) {
+        performanceData.questionHistory[question.id] = { attempts: [], lastAttempt: null };
+    }
+    performanceData.questionHistory[question.id].attempts.push({
+        date: new Date(),
+        correct: isCorrect,
+        timeSpent: Date.now() - startTime
+    });
+    performanceData.questionHistory[question.id].lastAttempt = new Date();
+    
+    savePerformanceData();
+}
+
+function getWeakAreas() {
+    const weakAreas = [];
+    
+    // Check topics
+    Object.entries(performanceData.byTopic).forEach(([topic, data]) => {
+        if (data.total >= 3) { // Only consider topics with at least 3 attempts
+            const successRate = Math.round((data.correct / data.total) * 100);
+            if (successRate < 70) {
+                weakAreas.push({
+                    type: 'topic',
+                    name: topic,
+                    successRate: successRate,
+                    correct: data.correct,
+                    total: data.total
+                });
+            }
+        }
+    });
+    
+    // Check concepts
+    Object.entries(performanceData.byConcept).forEach(([concept, data]) => {
+        if (data.total >= 2) { // Only consider concepts with at least 2 attempts
+            const successRate = Math.round((data.correct / data.total) * 100);
+            if (successRate < 70) {
+                weakAreas.push({
+                    type: 'concept',
+                    name: concept,
+                    successRate: successRate,
+                    correct: data.correct,
+                    total: data.total
+                });
+            }
+        }
+    });
+    
+    // Sort by success rate (worst first)
+    return weakAreas.sort((a, b) => a.successRate - b.successRate);
+}
+
+function getStrongAreas() {
+    const strongAreas = [];
+    
+    // Check topics
+    Object.entries(performanceData.byTopic).forEach(([topic, data]) => {
+        if (data.total >= 3) {
+            const successRate = Math.round((data.correct / data.total) * 100);
+            if (successRate >= 80) {
+                strongAreas.push({
+                    type: 'topic',
+                    name: topic,
+                    successRate: successRate,
+                    correct: data.correct,
+                    total: data.total
+                });
+            }
+        }
+    });
+    
+    // Check concepts
+    Object.entries(performanceData.byConcept).forEach(([concept, data]) => {
+        if (data.total >= 2) {
+            const successRate = Math.round((data.correct / data.total) * 100);
+            if (successRate >= 80) {
+                strongAreas.push({
+                    type: 'concept',
+                    name: concept,
+                    successRate: successRate,
+                    correct: data.correct,
+                    total: data.total
+                });
+            }
+        }
+    });
+    
+    // Sort by success rate (best first)
+    return strongAreas.sort((a, b) => b.successRate - a.successRate);
+}
+
+function getPersonalizedRecommendations() {
+    const recommendations = [];
+    const weakAreas = getWeakAreas();
+    
+    if (weakAreas.length > 0) {
+        const worstArea = weakAreas[0];
+        recommendations.push(`Focus on ${worstArea.name} - currently at ${worstArea.successRate}% success rate`);
+    }
+    
+    // Check difficulty performance
+    const difficultyStats = performanceData.byDifficulty;
+    if (difficultyStats.Easy && difficultyStats.Easy.total > 5) {
+        const easySuccess = (difficultyStats.Easy.correct / difficultyStats.Easy.total) * 100;
+        if (easySuccess > 90 && (!difficultyStats.Medium || difficultyStats.Medium.total < 5)) {
+            recommendations.push("Try more Medium difficulty questions - you've mastered Easy level");
+        }
+    }
+    
+    // Check for concepts that haven't been attempted
+    const attemptedConcepts = Object.keys(performanceData.byConcept);
+    const allConcepts = [...new Set(questions.flatMap(q => q.conceptsTested))];
+    const unattemptedConcepts = allConcepts.filter(c => !attemptedConcepts.includes(c));
+    
+    if (unattemptedConcepts.length > 0) {
+        recommendations.push(`Explore new concepts: ${unattemptedConcepts.slice(0, 3).join(', ')}`);
+    }
+    
+    return recommendations;
+}
+
+function getAttemptedQuestionCount() {
+    return Object.keys(performanceData.questionHistory).length;
+}
+
+function getOverallSuccessRate() {
+    let totalCorrect = 0;
+    let totalAttempts = 0;
+    
+    Object.values(performanceData.byTopic).forEach(data => {
+        totalCorrect += data.correct;
+        totalAttempts += data.total;
+    });
+    
+    return totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
+}
+
+function getDifficultyPerformance() {
+    const difficulties = ['Easy', 'Medium', 'Hard'];
+    let html = '<div class="difficulty-stats">';
+    
+    difficulties.forEach(difficulty => {
+        const data = performanceData.byDifficulty[difficulty] || { correct: 0, total: 0 };
+        const successRate = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
+        
+        html += `
+            <div class="diff-item">
+                <h5>${difficulty}</h5>
+                <p>${successRate}% (${data.correct}/${data.total})</p>
+                <div class="mini-progress">
+                    <div class="mini-progress-fill ${successRate >= 70 ? 'success' : 'warning'}" 
+                         style="width: ${successRate}%"></div>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    return html;
+}
+
+function getTopicPerformance() {
+    const topics = Object.entries(performanceData.byTopic);
+    
+    if (topics.length === 0) {
+        return '<p>No topic data available yet</p>';
+    }
+    
+    let html = '<div class="topic-stats">';
+    
+    topics.forEach(([topic, data]) => {
+        const successRate = Math.round((data.correct / data.total) * 100);
+        let colorClass = '';
+        if (successRate >= 80) colorClass = 'success';
+        else if (successRate >= 70) colorClass = 'warning';
+        else colorClass = 'danger';
+        
+        html += `
+            <div class="topic-item">
+                <h5>${topic}</h5>
+                <p class="text-${colorClass}">${successRate}% (${data.correct}/${data.total})</p>
+                <div class="mini-progress">
+                    <div class="mini-progress-fill ${colorClass}" style="width: ${successRate}%"></div>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    return html;
+}
+
+// Adaptive Practice Functions
+function startWeakAreaPractice() {
+    const weakAreas = getWeakAreas();
+    if (weakAreas.length === 0) {
+        alert('No weak areas identified. Complete more questions to identify areas for improvement.');
+        return;
+    }
+    
+    currentMode = 'adaptive';
+    selectedQuestions = selectWeakAreaQuestions(weakAreas);
+    
+    if (selectedQuestions.length === 0) {
+        alert('No questions available for your weak areas.');
+        return;
+    }
+    
+    currentQuestion = 0;
+    userAnswers = {};
+    hintsUsed = {};
+    startTime = Date.now();
+    
+    showQuestion();
+}
+
+function startAdaptivePractice() {
+    currentMode = 'adaptive';
+    const weakAreas = getWeakAreas();
+    const strongAreas = getStrongAreas();
+    
+    // Select questions based on performance
+    selectedQuestions = selectAdaptiveQuestions(weakAreas, strongAreas);
+    
+    if (selectedQuestions.length === 0) {
+        alert('Complete more questions to enable adaptive practice.');
+        return;
+    }
+    
+    currentQuestion = 0;
+    userAnswers = {};
+    hintsUsed = {};
+    startTime = Date.now();
+    
+    showQuestion();
+}
+
+function selectWeakAreaQuestions(weakAreas) {
+    const questionSet = new Set();
+    
+    weakAreas.forEach(area => {
+        const relevantQuestions = questions.filter(q => {
+            if (area.type === 'topic') {
+                return q.topic === area.name;
+            } else if (area.type === 'concept') {
+                return q.conceptsTested.includes(area.name);
+            }
+            return false;
+        });
+        
+        relevantQuestions.forEach(q => questionSet.add(q));
+    });
+    
+    return Array.from(questionSet).sort(() => Math.random() - 0.5).slice(0, 20);
+}
+
+function selectAdaptiveQuestions(weakAreas, strongAreas) {
+    const questionPool = [];
+    
+    // Add more questions from weak areas
+    weakAreas.forEach(area => {
+        const relevantQuestions = questions.filter(q => {
+            if (area.type === 'topic') {
+                return q.topic === area.name;
+            } else if (area.type === 'concept') {
+                return q.conceptsTested.includes(area.name);
+            }
+            return false;
+        });
+        
+        // Add each weak area question multiple times based on how weak it is
+        const weight = Math.ceil((100 - area.successRate) / 20);
+        relevantQuestions.forEach(q => {
+            for (let i = 0; i < weight; i++) {
+                questionPool.push(q);
+            }
+        });
+    });
+    
+    // Add some questions from areas not yet attempted
+    const attemptedQuestionIds = Object.keys(performanceData.questionHistory);
+    const unattemptedQuestions = questions.filter(q => !attemptedQuestionIds.includes(q.id.toString()));
+    unattemptedQuestions.slice(0, 5).forEach(q => questionPool.push(q));
+    
+    // Shuffle and select up to 20 questions
+    const shuffled = questionPool.sort(() => Math.random() - 0.5);
+    const selected = [];
+    const selectedIds = new Set();
+    
+    for (const q of shuffled) {
+        if (!selectedIds.has(q.id)) {
+            selected.push(q);
+            selectedIds.add(q.id);
+            if (selected.length >= 20) break;
+        }
+    }
+    
+    return selected;
 }
 
 // Modal functions
@@ -379,6 +772,7 @@ function showQuestion() {
         <div class="card">
             <p><strong>Question ${currentQuestion + 1} of ${selectedQuestions.length}</strong></p>
             <p><small>Category: ${question.category}</small></p>
+            <p><small>Topic: ${question.topic} | Difficulty: ${question.difficultyLevel}</small></p>
         </div>
     `;
     
@@ -386,12 +780,29 @@ function showQuestion() {
         html += `<div class="timer" id="timer">Time Remaining: ${mockExamConfig.timeLimit}:00</div>`;
     }
     
+    // Show if this is a weak area question in adaptive mode
+    if (currentMode === 'adaptive') {
+        const weakAreas = getWeakAreas();
+        const isWeakArea = weakAreas.some(area => 
+            (area.type === 'topic' && area.name === question.topic) ||
+            (area.type === 'concept' && question.conceptsTested.includes(area.name))
+        );
+        
+        if (isWeakArea) {
+            html += `
+                <div class="card alert-info">
+                    <small>This question targets one of your weak areas</small>
+                </div>
+            `;
+        }
+    }
+    
     html += `
         <div class="question-container">
             <h3 class="question-text">${question.text}</h3>
     `;
     
-    if (currentMode === 'practice' && !hintsUsed[question.id]) {
+    if ((currentMode === 'practice' || currentMode === 'adaptive') && !hintsUsed[question.id]) {
         const hintLevel = question.difficultyLevel.toLowerCase();
         html += `
             <button class="btn btn-secondary" onclick="showHint(${question.id}, '${hintLevel}')">
@@ -425,11 +836,11 @@ function showQuestion() {
         
         <div class="card">
             <button class="btn" onclick="submitAnswer()">
-                ${currentMode === 'practice' ? 'Submit Answer' : 'Next Question'}
+                ${currentMode === 'practice' || currentMode === 'adaptive' ? 'Submit Answer' : 'Next Question'}
             </button>
-            ${currentQuestion > 0 && currentMode === 'practice' ? 
+            ${currentQuestion > 0 && (currentMode === 'practice' || currentMode === 'adaptive') ? 
                 '<button class="btn btn-secondary" onclick="previousQuestion()">Previous</button>' : ''}
-            ${currentMode === 'practice' ? 
+            ${currentMode === 'practice' || currentMode === 'adaptive' ? 
                 '<button class="btn btn-secondary" onclick="skipQuestion()">Skip Question</button>' : ''}
         </div>
     `;
@@ -500,7 +911,7 @@ function submitAnswer() {
     const answers = Array.from(selectedInputs).map(input => input.value);
     userAnswers[question.id] = question.isMultipleChoice ? answers : answers[0];
     
-    if (currentMode === 'practice') {
+    if (currentMode === 'practice' || currentMode === 'adaptive') {
         showFeedback();
     } else {
         nextQuestion();
@@ -511,6 +922,10 @@ function showFeedback() {
     const question = selectedQuestions[currentQuestion];
     const userAnswer = userAnswers[question.id];
     const correctAnswers = question.correctAnswers;
+    const isCorrect = checkAnswer(question, userAnswer);
+    
+    // Update performance data
+    updatePerformanceData(question, isCorrect);
     
     // Mark options
     question.options.forEach((option, index) => {
@@ -533,6 +948,15 @@ function showFeedback() {
             ${question.options.map(option => `
                 <p><strong>${option.letter}:</strong> ${option.analysis}</p>
             `).join('')}
+            
+            ${question.commonMistakes && question.commonMistakes.length > 0 ? `
+                <div class="common-mistakes">
+                    <h5>Common Mistakes to Avoid:</h5>
+                    <ul>
+                        ${question.commonMistakes.map(mistake => `<li>${mistake}</li>`).join('')}
+                    </ul>
+                </div>
+            ` : ''}
         </div>
         
         <div class="card">
@@ -610,6 +1034,11 @@ function calculateResults() {
             correct++;
         }
         
+        // Update performance data for mock exams
+        if (currentMode === 'mock') {
+            updatePerformanceData(question, isCorrect);
+        }
+        
         if (!categoryScores[question.category]) {
             categoryScores[question.category] = {
                 correct: 0,
@@ -661,6 +1090,10 @@ function checkAnswer(question, userAnswer) {
 function showResults(results) {
     const main = document.getElementById('main');
     
+    // Get performance insights
+    const weakAreas = getWeakAreas();
+    const recommendations = getPersonalizedRecommendations();
+    
     main.innerHTML = `
         <div class="results-container">
             <h2>Exam Results</h2>
@@ -686,10 +1119,35 @@ function showResults(results) {
             </div>
         </div>
         
+        ${weakAreas.length > 0 ? `
+        <div class="card alert-warning">
+            <h3>Areas for Improvement</h3>
+            <ul>
+                ${weakAreas.slice(0, 3).map(area => `
+                    <li><strong>${area.name}</strong>: ${area.successRate}% success rate</li>
+                `).join('')}
+            </ul>
+        </div>
+        ` : ''}
+        
+        ${recommendations.length > 0 ? `
+        <div class="card">
+            <h3>Next Steps</h3>
+            <ul>
+                ${recommendations.map(rec => `<li>${rec}</li>`).join('')}
+            </ul>
+        </div>
+        ` : ''}
+        
         <div class="card">
             <button class="btn" onclick="reviewAnswers()">
                 Review Answers
             </button>
+            ${weakAreas.length > 0 ? `
+                <button class="btn btn-warning" onclick="startWeakAreaPractice()">
+                    Practice Weak Areas
+                </button>
+            ` : ''}
             <button class="btn btn-secondary" onclick="loadHomeScreen()">
                 Back to Home
             </button>
@@ -705,9 +1163,18 @@ function reviewAnswers() {
         const userAnswer = userAnswers[question.id];
         const isCorrect = checkAnswer(question, userAnswer);
         
+        // Check if this is a weak area
+        const weakAreas = getWeakAreas();
+        const isWeakArea = weakAreas.some(area => 
+            (area.type === 'topic' && area.name === question.topic) ||
+            (area.type === 'concept' && question.conceptsTested.includes(area.name))
+        );
+        
         reviewHtml += `
             <div class="card">
                 <h4>Question ${index + 1}: ${isCorrect ? '✓ Correct' : '✗ Incorrect'}</h4>
+                ${isWeakArea ? '<span class="badge badge-warning">Weak Area</span>' : ''}
+                <p><small>Topic: ${question.topic} | Difficulty: ${question.difficultyLevel}</small></p>
                 <p class="question-text">${question.text}</p>
                 <div class="options-container">
         `;
@@ -738,6 +1205,9 @@ function reviewAnswers() {
                 <div class="explanation-box">
                     <h5>Explanation:</h5>
                     <p>${question.detailedExplanation}</p>
+                    
+                    <h5>Concepts Tested:</h5>
+                    <p>${question.conceptsTested.join(', ')}</p>
                 </div>
             </div>
         `;
@@ -785,7 +1255,7 @@ function getRecentSessions() {
                 <span class="session-score ${r.passed ? 'pass' : 'fail'}">
                     ${r.score}/1000
                 </span>
-                <strong>${r.mode === 'practice' ? 'Practice' : 'Mock Exam'}</strong>
+                <strong>${r.mode === 'practice' ? 'Practice' : r.mode === 'adaptive' ? 'Adaptive' : 'Mock Exam'}</strong>
                 <span class="session-date">${new Date(r.date).toLocaleDateString()}</span>
             </div>
         `).join('');
@@ -882,6 +1352,26 @@ function saveSettings() {
 function loadSettings() {
     const settings = getSettings();
     document.body.dataset.theme = settings.theme;
+    
+    // Apply performance-based defaults
+    const performanceSettings = getPerformanceBasedSettings();
+    Object.assign(settings, performanceSettings);
+}
+
+function getPerformanceBasedSettings() {
+    const settings = {};
+    const overallSuccess = getOverallSuccessRate();
+    
+    // Suggest difficulty based on performance
+    if (overallSuccess > 85) {
+        settings.suggestedDifficulty = 'Hard';
+    } else if (overallSuccess > 70) {
+        settings.suggestedDifficulty = 'Medium';
+    } else {
+        settings.suggestedDifficulty = 'Easy';
+    }
+    
+    return settings;
 }
 
 function saveResults(results) {
@@ -896,9 +1386,30 @@ function resetProgress() {
         localStorage.removeItem('examProgress');
         localStorage.removeItem('examResults');
         localStorage.removeItem('examSettings');
-        alert('All progress has been reset');
-        loadHomeScreen();
+        localStorage.removeItem('performanceData');
+        location.reload();
     }
+}
+
+// Get performance trends
+function getPerformanceTrends() {
+    const storage = localStorage.getItem('examResults');
+    if (!storage) return [];
+    
+    const results = JSON.parse(storage);
+    const recentResults = results.slice(-10); // Last 10 sessions
+    
+    const trends = [];
+    recentResults.forEach((result, index) => {
+        if (index > 0) {
+            const prevScore = recentResults[index - 1].score;
+            const currScore = result.score;
+            const trend = currScore > prevScore ? 'up' : currScore < prevScore ? 'down' : 'stable';
+            trends.push({ date: result.date, score: currScore, trend: trend });
+        }
+    });
+    
+    return trends;
 }
 
 // Global functions (to be accessible from HTML)
@@ -915,3 +1426,59 @@ window.saveSettings = saveSettings;
 window.resetProgress = resetProgress;
 window.skipQuestion = skipQuestion;
 window.viewSession = viewSession;
+window.startWeakAreaPractice = startWeakAreaPractice;
+window.startAdaptivePractice = startAdaptivePractice;
+
+// Load settings on initialization
+function loadSettingsScreen() {
+    const settings = getSettings();
+    const main = document.getElementById('main');
+    
+    main.innerHTML = `
+        <div class="card">
+            <h2>Settings</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Theme</label>
+                <select class="form-select" id="themeSelect">
+                    <option value="light" ${settings.theme === 'light' ? 'selected' : ''}>Light</option>
+                    <option value="dark" ${settings.theme === 'dark' ? 'selected' : ''}>Dark</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Default Question Count</label>
+                <select class="form-select" id="defaultCount">
+                    <option value="10" ${settings.defaultCount === 10 ? 'selected' : ''}>10</option>
+                    <option value="20" ${settings.defaultCount === 20 ? 'selected' : ''}>20</option>
+                    <option value="30" ${settings.defaultCount === 30 ? 'selected' : ''}>30</option>
+                    <option value="50" ${settings.defaultCount === 50 ? 'selected' : ''}>50</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="soundEffects" ${settings.soundEffects ? 'checked' : ''}>
+                    Sound Effects
+                </label>
+            </div>
+            
+            <button class="btn" onclick="saveSettings()">Save Settings</button>
+            <button class="btn btn-danger" onclick="resetProgress()">Reset All Progress</button>
+        </div>
+        
+        <div class="card">
+            <h3>Performance Summary</h3>
+            <p>Overall Success Rate: ${getOverallSuccessRate()}%</p>
+            <p>Questions Attempted: ${getAttemptedQuestionCount()}/${questions.length}</p>
+            ${getPerformanceBasedSettings().suggestedDifficulty ? `
+                <p>Suggested Difficulty: ${getPerformanceBasedSettings().suggestedDifficulty}</p>
+            ` : ''}
+        </div>
+    `;
+    
+    // Add change listeners
+    document.getElementById('themeSelect').addEventListener('change', function() {
+        document.body.dataset.theme = this.value;
+    });
+}
