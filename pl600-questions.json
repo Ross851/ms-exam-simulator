@@ -24,11 +24,36 @@
       "technologies": ["Power Apps", "Custom connector", "Power Automate", "Dataverse"]
     },
     "options": [
-      { "letter": "A", "text": "Dual-write", "isCorrect": false, "analysis": "Dual-write is specific to Dynamics 365 Finance and Operations integration, not suitable for generic third-party APIs." },
-      { "letter": "B", "text": "Custom connector", "isCorrect": true, "analysis": "A custom connector enables secure communication with a third-party API from Power Automate or Power Apps." },
-      { "letter": "C", "text": "Dataflow", "isCorrect": false, "analysis": "Dataflows are for periodic data import/export, not real-time lead syncing." },
-      { "letter": "D", "text": "Power Automate cloud flow", "isCorrect": true, "analysis": "Cloud flows can be triggered based on third-party system changes and automate lead creation/update processes." },
-      { "letter": "E", "text": "Dataverse connector", "isCorrect": true, "analysis": "Allows flows or apps to interact with Dataverse, enabling create/update of lead records." }
+      {
+        "letter": "A",
+        "text": "Dual-write",
+        "isCorrect": false,
+        "analysis": "Dual-write is specific to Dynamics 365 Finance and Operations integration, not suitable for generic third-party APIs."
+      },
+      {
+        "letter": "B",
+        "text": "Custom connector",
+        "isCorrect": true,
+        "analysis": "A custom connector enables secure communication with a third-party API from Power Automate or Power Apps."
+      },
+      {
+        "letter": "C",
+        "text": "Dataflow",
+        "isCorrect": false,
+        "analysis": "Dataflows are for periodic data import/export, not real-time lead syncing."
+      },
+      {
+        "letter": "D",
+        "text": "Power Automate cloud flow",
+        "isCorrect": true,
+        "analysis": "Cloud flows can be triggered based on third-party system changes and automate lead creation/update processes."
+      },
+      {
+        "letter": "E",
+        "text": "Dataverse connector",
+        "isCorrect": true,
+        "analysis": "Allows flows or apps to interact with Dataverse, enabling create/update of lead records."
+      }
     ],
     "correctAnswers": ["B", "D", "E"],
     "isMultipleChoice": true,
@@ -36,90 +61,6 @@
     "category": "Perform solution envisioning and requirement analysis",
     "weight": 7.9,
     "examReference": "Design strategies for app integration",
-    "source": "Custom generated"
-  },
-  {
-    "id": 2,
-    "topic": "General",
-    "type": "dragdrop",
-    "difficultyLevel": "Easy",
-    "text": "DRAG DROP - You are designing a business continuity strategy for a client who has a Microsoft Power Platform solution. The client works with critical data where any data loss creates a high risk. You need to document the retry process for the stakeholders. Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.",
-    "keyWords": ["business continuity", "retry", "sequence", "data loss", "service call", "exception", "automatically"],
-    "hints": {
-      "easy": ["Think about typical retry patterns", "Follow the error flow sequence", "What happens first in a service call?"],
-      "medium": ["Consider automatic retry mechanisms", "Think about success scenarios", "What triggers a retry?"],
-      "hard": ["Evaluate exponential backoff strategies", "Consider circuit breaker patterns", "Think about retry limits"]
-    },
-    "conceptsTested": ["error handling", "retry patterns", "business continuity", "resilience", "automatic recovery"],
-    "commonMistakes": [
-      "Including manual retry steps in automatic flows",
-      "Missing the success path continuation",
-      "Adding complex retry logic too early",
-      "Confusing automatic vs manual retry"
-    ],
-    "analysisHighlights": {
-      "requirements": ["business continuity", "handle failures", "automatic retry", "document process"],
-      "constraints": ["critical data", "high risk", "automatic process"],
-      "patterns": ["retry pattern", "exception handling", "resilience pattern"]
-    },
-    "options": [
-      { "source": "The application makes a service call to the datacenter.", "order": 1 },
-      { "source": "The application receives an exception after attempting the service call.", "order": 2 },
-      { "source": "The application automatically tries the call again.", "order": 3 },
-      { "source": "If the second call is successful, the application continues normally.", "order": 4 },
-      { "source": "The application logs an error and notifies an administrator.", "order": null },
-      { "source": "The application retries three times with exponential backoff.", "order": null },
-      { "source": "The user manually retries the operation.", "order": null }
-    ],
-    "correctAnswers": [
-      "The application makes a service call to the datacenter.",
-      "The application receives an exception after attempting the service call.",
-      "The application automatically tries the call again.",
-      "If the second call is successful, the application continues normally."
-    ],
-    "isMultipleChoice": false,
-    "detailedExplanation": "A typical retry pattern is: invoke the call, catch the error, retry automatically, and continue if successful. This basic pattern handles transient failures without manual intervention.",
-    "category": "Architect a solution",
-    "weight": 6.8,
-    "examReference": "Design strategies for business continuity",
-    "source": "Custom generated"
-  },
-  {
-    "id": 3,
-    "topic": "Power Apps",
-    "type": "multiplechoice",
-    "difficultyLevel": "Easy",
-    "text": "A large company experiences high staff turnover rates. As a result, the company must add or remove multiple system user accounts daily. You need to recommend a security concept which will facilitate complex security profiles to entities for large groups of users across the Power Apps and Dynamics 365 applications. What should you recommend?",
-    "keyWords": ["high staff turnover", "multiple", "daily", "security", "large groups", "complex security profiles"],
-    "hints": {
-      "easy": ["Think about group-based security", "Consider scalability for many users", "What reduces administrative overhead?"],
-      "medium": ["How can you manage many users efficiently?", "Think about inheritance of permissions", "Consider team-based approaches"],
-      "hard": ["Evaluate role-based vs team-based security", "Consider security inheritance patterns", "Think about maintenance overhead"]
-    },
-    "conceptsTested": ["security management", "scalability", "team-based security", "user management", "administrative efficiency"],
-    "commonMistakes": [
-      "Choosing individual user management for high-volume scenarios",
-      "Selecting field-level security for broad access control",
-      "Confusing hierarchy security with team security",
-      "Not considering maintenance overhead"
-    ],
-    "analysisHighlights": {
-      "requirements": ["handle high turnover", "manage multiple users daily", "complex security profiles", "cross-application"],
-      "constraints": ["large groups", "frequent changes", "administrative efficiency"],
-      "patterns": ["team-based security", "role inheritance", "group management"]
-    },
-    "options": [
-      { "letter": "A", "text": "Hierarchy security", "isCorrect": false, "analysis": "Hierarchy security works by managerial layers, not ideal for quickly assigning complex privileges." },
-      { "letter": "B", "text": "Field-level security", "isCorrect": false, "analysis": "Field-level security only restricts certain fields, not entire entity-level privileges for large groups." },
-      { "letter": "C", "text": "User access management", "isCorrect": false, "analysis": "Generic phrase that does not map directly to a recommended approach in Power Apps/Dynamics 365." },
-      { "letter": "D", "text": "Team privileges", "isCorrect": true, "analysis": "Team-based security allows assigning roles to a team, simplifying user access management for large user groups." }
-    ],
-    "correctAnswers": ["D"],
-    "isMultipleChoice": false,
-    "detailedExplanation": "Team privileges streamline security for large groups and reduce overhead when staff join or leave. Teams make it easier to manage roles for multiple users - membership changes but team privileges remain consistent.",
-    "category": "Architect a solution",
-    "weight": 6.8,
-    "examReference": "Design strategies for security",
     "source": "Custom generated"
   }
 ]
