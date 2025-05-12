@@ -372,11 +372,11 @@ function showQuestion() {
     
     let html = `
         <div class="progress-bar">
-            <div class="progress-fill" style="width: ${(currentQuestion / selectedQuestions.length) * 100}%"></div>
+            <div class="progress-fill" style="width: ${((currentQuestion + 1) / selectedQuestions.length) * 100}%"></div>
         </div>
         
         <div class="card">
-            <p>Question ${currentQuestion + 1} of ${selectedQuestions.length}</p>
+            <p><strong>Question ${currentQuestion + 1} of ${selectedQuestions.length}</strong></p>
             <p><small>Category: ${question.category}</small></p>
         </div>
     `;
@@ -399,8 +399,9 @@ function showQuestion() {
         `;
     }
     
-    // Show options
-    if (question.type === 'multiple-choice') {
+    // Show options with improved layout
+    if (question.type === 'multiplechoice') {
+        html += '<div class="options-container">';
         question.options.forEach((option, index) => {
             const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
             html += `
@@ -411,11 +412,12 @@ function showQuestion() {
                            id="option-${index}"
                            class="option-input">
                     <label for="option-${index}" class="option-text">
-                        ${option.letter}. ${option.text}
+                        <span class="option-letter">${option.letter}.</span> ${option.text}
                     </label>
                 </div>
             `;
         });
+        html += '</div>';
     }
     
     html += `
@@ -427,6 +429,8 @@ function showQuestion() {
             </button>
             ${currentQuestion > 0 && currentMode === 'practice' ? 
                 '<button class="btn btn-secondary" onclick="previousQuestion()">Previous</button>' : ''}
+            ${currentMode === 'practice' ? 
+                '<button class="btn btn-secondary" onclick="skipQuestion()">Skip Question</button>' : ''}
         </div>
     `;
     
@@ -440,8 +444,10 @@ function showQuestion() {
         answers.forEach(answer => {
             const option = question.options.find(o => o.letter === answer);
             const index = question.options.indexOf(option);
-            document.getElementById(`option-${index}`).checked = true;
-            document.getElementById(`option-${index}`).parentElement.classList.add('selected');
+            if (index !== -1) {
+                document.getElementById(`option-${index}`).checked = true;
+                document.getElementById(`option-${index}`).parentElement.classList.add('selected');
+            }
         });
     }
 }
@@ -638,6 +644,12 @@ function checkAnswer(question, userAnswer) {
     }
 }
 
+// Add skip question function
+function skipQuestion() {
+    nextQuestion();
+}
+
+// Update results display
 function showResults(results) {
     const main = document.getElementById('main');
     
@@ -667,7 +679,7 @@ function showResults(results) {
         </div>
         
         <div class="card">
-            <button class="btn" onclick="reviewAnswers(${JSON.stringify(results).replace(/"/g, '&quot;')})">
+            <button class="btn" onclick="reviewAnswers()">
                 Review Answers
             </button>
             <button class="btn btn-secondary" onclick="loadHomeScreen()">
@@ -677,9 +689,166 @@ function showResults(results) {
     `;
 }
 
-function reviewAnswers(results) {
-    // Implement answer review functionality
-    console.log('Review answers:', results);
+// Improve review answers function
+function reviewAnswers() {
+    const main = document.getElementById('main');
+    let reviewHtml = '<h2>Answer Review</h2>';
+    
+    selectedQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[question.id];
+        const isCorrect = checkAnswer(question, userAnswer);
+        
+        reviewHtml += `
+            <div class="card">
+                <h4>Question ${index + 1}: ${isCorrect ? '✓ Correct' : '✗ Incorrect'}</h4>
+                <p class="question-text">${question.text}</p>
+                <div class="options-container">
+        `;
+        
+        question.options.forEach(option => {
+            const isUserAnswer = userAnswer && (
+                (Array.isArray(userAnswer) && userAnswer.includes(option.letter)) ||
+                userAnswer === option.letter
+            );
+            const isCorrectOption = question.correctAnswers.includes(option.letter);
+            
+            let optionClass = 'option';
+            if (isCorrectOption) optionClass += ' correct';
+            else if (isUserAnswer) optionClass += ' incorrect';
+            
+            reviewHtml += `
+                <div class="${optionClass}">
+                    <span class="option-letter">${option.letter}.</span>
+                    <span>${option.text}</span>
+                    ${isCorrectOption ? ' ✓' : ''}
+                    ${isUserAnswer && !isCorrectOption ? ' (Your answer)' : ''}
+                </div>
+            `;
+        });
+        
+        reviewHtml += `
+                </div>
+                <div class="explanation-box">
+                    <h5>Explanation:</h5>
+                    <p>${question.detailedExplanation}</p>
+                </div>
+            </div>
+        `;
+    });
+    
+    reviewHtml += `
+        <div class="card">
+            <button class="btn" onclick="loadHomeScreen()">Back to Home</button>
+        </div>
+    `;
+    
+    main.innerHTML = reviewHtml;
+}
+
+// Improve recent sessions display
+function getRecentSessions() {
+    const storage = localStorage.getItem('examResults');
+    if (storage) {
+        const results = JSON.parse(storage);
+        return results.slice(-5).reverse().map((r, index) => `
+            <div class="session-item" onclick="viewSession(${results.length - 1 - index})">
+                <span class="session-score ${r.passed ? 'pass' : 'fail'}">
+                    ${r.score}/1000
+                </span>
+                <strong>${r.mode === 'practice' ? 'Practice' : 'Mock Exam'}</strong>
+                <span class="session-date">${new Date(r.date).toLocaleDateString()}</span>
+            </div>
+        `).join('');
+    }
+    return '<p>No recent sessions</p>';
+}
+
+// Add view session function
+function viewSession(index) {
+    const storage = localStorage.getItem('examResults');
+    if (storage) {
+        const results = JSON.parse(storage);
+        const session = results[index];
+        if (session) {
+            showResults(session);
+        }
+    }
+}
+
+// Update progress tracking
+function getProgress() {
+    const storage = localStorage.getItem('examResults');
+    if (storage) {
+        const results = JSON.parse(storage);
+        const totalQuestions = questions.length;
+        const attemptedQuestions = new Set();
+        
+        results.forEach(result => {
+            if (result.attemptedQuestions) {
+                result.attemptedQuestions.forEach(qId => attemptedQuestions.add(qId));
+            }
+        });
+        
+        return {
+            attempted: attemptedQuestions.size,
+            percentage: Math.round((attemptedQuestions.size / totalQuestions) * 100)
+        };
+    }
+    return {
+        attempted: 0,
+        percentage: 0
+    };
+}
+
+// Update calculate results to track attempted questions
+function calculateResults() {
+    let correct = 0;
+    let categoryScores = {};
+    const attemptedQuestions = [];
+    
+    selectedQuestions.forEach(question => {
+        attemptedQuestions.push(question.id);
+        const userAnswer = userAnswers[question.id];
+        const isCorrect = checkAnswer(question, userAnswer);
+        
+        if (isCorrect) {
+            correct++;
+        }
+        
+        if (!categoryScores[question.category]) {
+            categoryScores[question.category] = {
+                correct: 0,
+                total: 0,
+                questions: []
+            };
+        }
+        
+        categoryScores[question.category].total++;
+        if (isCorrect) {
+            categoryScores[question.category].correct++;
+        }
+        categoryScores[question.category].questions.push({
+            question: question,
+            userAnswer: userAnswer,
+            isCorrect: isCorrect
+        });
+    });
+    
+    const score = Math.round((correct / selectedQuestions.length) * 1000);
+    const passed = score >= 700;
+    const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+    
+    return {
+        score: score,
+        passed: passed,
+        correct: correct,
+        total: selectedQuestions.length,
+        categoryScores: categoryScores,
+        timeTaken: timeTaken,
+        mode: currentMode,
+        date: new Date(),
+        attemptedQuestions: attemptedQuestions
+    };
 }
 
 // Utility functions
@@ -701,31 +870,9 @@ function formatTime(seconds) {
     }
 }
 
-function getProgress() {
-    const storage = localStorage.getItem('examProgress');
-    if (storage) {
-        return JSON.parse(storage);
-    }
-    return {
-        attempted: 0,
-        percentage: 0
-    };
-}
-
-function getRecentSessions() {
-    const storage = localStorage.getItem('examResults');
-    if (storage) {
-        const results = JSON.parse(storage);
-        return results.slice(-5).reverse().map(r => `
-            <div class="card">
-                <p><strong>${r.mode === 'practice' ? 'Practice' : 'Mock Exam'}</strong></p>
-                <p>Score: ${r.score}/1000 (${r.passed ? 'PASSED' : 'FAILED'})</p>
-                <p>Date: ${new Date(r.date).toLocaleDateString()}</p>
-            </div>
-        `).join('');
-    }
-    return '<p>No recent sessions</p>';
-}
+// Add to global functions
+window.skipQuestion = skipQuestion;
+window.viewSession = viewSession;
 
 function getCategoryPerformance() {
     // Implement category performance tracking
