@@ -202,15 +202,26 @@ const mockExamConfig = {
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
-    console.log(`Loaded ${questions.length} questions`);
-    
-    // Load performance data
-    loadPerformanceData();
-    
-    // Initialize the app
-    initializeEventListeners();
-    loadSettings();
-    loadHomeScreen();
+    try {
+        console.log(`Loaded ${questions.length} questions`);
+        
+        // Check if questions array is empty
+        if (questions.length === 0) {
+            showError('No questions loaded. Please check your question data.');
+            return;
+        }
+        
+        // Load performance data
+        loadPerformanceData();
+        
+        // Initialize the app
+        initializeEventListeners();
+        loadSettings();
+        loadHomeScreen();
+    } catch (error) {
+        console.error('Error initializing app:', error);
+        showError('Failed to initialize the app. Please refresh the page.');
+    }
 });
 
 // Initialize event listeners
@@ -806,8 +817,20 @@ function startExam() {
         }
         
         selectedQuestions = selectPracticeQuestions(categories, count);
-    } else {
+    } else if (currentMode === 'mock') {
         selectedQuestions = generateMockExam(categories);
+    } else if (currentMode === 'adaptive') {
+        const weakAreas = getWeakAreas();
+        const strongAreas = getStrongAreas();
+        selectedQuestions = selectAdaptiveQuestions(weakAreas, strongAreas);
+    }
+    
+    console.log('Selected questions:', selectedQuestions.length);
+    console.log('Mode:', currentMode);
+    
+    if (selectedQuestions.length === 0) {
+        alert('No questions available for the selected categories.');
+        return;
     }
     
     currentQuestion = 0;
@@ -1187,7 +1210,9 @@ function showFeedback() {
             </div>
             
             <div class="card">
-                <button class="btn" onclick="nextQuestion()">Next Question</button>
+                <button class="btn" onclick="nextQuestion()">
+                    ${currentQuestion === selectedQuestions.length - 1 ? 'Finish Exam' : 'Next Question'}
+                </button>
                 <button class="btn btn-secondary" onclick="reviewQuestion()">Review Question</button>
             </div>
         `;
@@ -1626,6 +1651,21 @@ function resetProgress() {
     }
 }
 
+function showError(message) {
+    const main = document.getElementById('main');
+    if (main) {
+        main.innerHTML = `
+            <div class="card error-message">
+                <h3>Error</h3>
+                <p>${message}</p>
+                <button class="btn" onclick="location.reload()">Reload Page</button>
+            </div>
+        `;
+    } else {
+        alert(message);
+    }
+}
+
 // Get performance trends
 function getPerformanceTrends() {
     const storage = localStorage.getItem('examResults');
@@ -1789,6 +1829,7 @@ function submitDragDropAnswer() {
     
     // Check if already submitted
     if (userAnswers[question.id]) {
+        console.log('Answer already submitted');
         return;
     }
     
@@ -1835,7 +1876,9 @@ function submitDragDropAnswer() {
             </div>
             
             <div class="card">
-                <button class="btn" onclick="nextQuestion()">Next Question</button>
+                <button class="btn" onclick="nextQuestion()">
+                    ${currentQuestion === selectedQuestions.length - 1 ? 'Finish Exam' : 'Next Question'}
+                </button>
             </div>
         `;
         
@@ -1856,6 +1899,15 @@ function submitDragDropAnswer() {
         submitButton.disabled = true;
         submitButton.textContent = 'Answer Submitted';
     }
+    
+    // Update next button to show correct text
+    const nextButtons = document.querySelectorAll('button[onclick="nextQuestion()"]');
+    nextButtons.forEach(button => {
+        if (currentQuestion === selectedQuestions.length - 1) {
+            button.textContent = 'Finish Exam';
+            button.classList.add('btn-success');
+        }
+    });
 }
 
 // Global functions (to be accessible from HTML)
@@ -1875,6 +1927,8 @@ window.viewSession = viewSession;
 window.startWeakAreaPractice = startWeakAreaPractice;
 window.startAdaptivePractice = startAdaptivePractice;
 window.submitDragDropAnswer = submitDragDropAnswer;
+window.submitCategoryDragDropAnswer = submitCategoryDragDropAnswer;
+window.reviewQuestion = reviewQuestion;
 
 // Load settings on initialization
 function loadSettingsScreen() {
