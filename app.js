@@ -1,362 +1,174 @@
 // Global variables
 let questions = [
- // Additional questions to add to your questions array in app.js
-{
-    "id": 2,
-    "topic": "Power Platform",
-    "type": "multiplechoice", 
-    "difficultyLevel": "Easy",
-    "text": "Which of the following are components of the Microsoft Power Platform? Select all that apply.",
-    "keyWords": ["Power Platform", "components", "Microsoft"],
-    "hints": {
-        "easy": ["Think about the four main products in Power Platform", "Each product starts with 'Power'"],
-        "medium": ["Consider business apps, automation, analytics, and virtual agents"],
-        "hard": ["Power Apps, Power Automate, Power BI, and Power Virtual Agents"]
+    {
+        "id": 1,
+        "topic": "Power Apps",
+        "type": "multiplechoice",
+        "difficultyLevel": "Medium",
+        "text": "A company uses two separate unlinked apps to manage sales leads: a Power Apps app and a third-party application. The client has the following requirements: • Manage all leads using the Power Apps app. • Create a lead in the Power Apps app when a user creates a lead in the third-party application. • Update leads in the Power Apps app when a user updates a lead in the third-party application. • Connect to the third-party application using an API. You need to recommend strategies to integrate the Power Apps app and the third-party application. Which three options can you use to achieve the goal? NOTE: Each correct selection is worth one point.",
+        "keyWords": ["two separate", "unlinked apps", "third-party", "API", "create", "update", "integrate", "real-time"],
+        "hints": {
+            "easy": ["Look for integration patterns", "Consider API connectivity options", "Think about what connects Power Platform to external systems"],
+            "medium": ["Think about real-time synchronization", "Consider orchestration tools", "What enables custom API connections?"],
+            "hard": ["Evaluate authentication methods", "Consider error handling patterns", "Think about scalability for API calls"]
+        },
+        "conceptsTested": ["integration", "API connectivity", "data synchronization", "workflow automation", "custom connectors"],
+        "commonMistakes": [
+            "Choosing Dual-write for non-D365 F&O scenarios",
+            "Selecting batch processing (Dataflow) for real-time requirements",
+            "Forgetting about authentication and security",
+            "Not considering error handling and retries"
+        ],
+        "analysisHighlights": {
+            "requirements": ["manage all leads", "create leads automatically", "update leads automatically", "API connection"],
+            "constraints": ["third-party API", "separate unlinked apps", "real-time synchronization"],
+            "technologies": ["Power Apps", "Custom connector", "Power Automate", "Dataverse"]
+        },
+        "options": [
+            {
+                "letter": "A",
+                "text": "Dual-write",
+                "isCorrect": false,
+                "analysis": "Dual-write is specific to Dynamics 365 Finance and Operations integration, not suitable for generic third-party APIs."
+            },
+            {
+                "letter": "B",
+                "text": "Custom connector",
+                "isCorrect": true,
+                "analysis": "A custom connector enables secure communication with a third-party API from Power Automate or Power Apps."
+            },
+            {
+                "letter": "C",
+                "text": "Dataflow",
+                "isCorrect": false,
+                "analysis": "Dataflows are for periodic data import/export, not real-time lead syncing."
+            },
+            {
+                "letter": "D",
+                "text": "Power Automate cloud flow",
+                "isCorrect": true,
+                "analysis": "Cloud flows can be triggered based on third-party system changes and automate lead creation/update processes."
+            },
+            {
+                "letter": "E",
+                "text": "Dataverse connector",
+                "isCorrect": true,
+                "analysis": "Allows flows or apps to interact with Dataverse, enabling create/update of lead records."
+            }
+        ],
+        "correctAnswers": ["B", "D", "E"],
+        "isMultipleChoice": true,
+        "detailedExplanation": "Combining a custom connector (to reach the external API), Power Automate (for orchestration), and the Dataverse connector (to interact with Power Apps lead data) provides a complete solution for near real-time integration.",
+        "category": "Perform solution envisioning and requirement analysis",
+        "weight": 7.9,
+        "examReference": "Design strategies for app integration",
+        "source": "Custom generated"
     },
-    "conceptsTested": ["Power Platform", "platform components", "Microsoft ecosystem"],
-    "options": [
-        {
-            "letter": "A",
-            "text": "Power Apps",
-            "isCorrect": true,
-            "analysis": "Power Apps is the low-code application development platform in Power Platform."
+    {
+        "id": 2,
+        "topic": "Power Pages",
+        "type": "multiplechoice",
+        "difficultyLevel": "Medium",
+        "text": "You need to recommend methods for assigning security to each group of users. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years. You need to determine which requirements are functional or non-functional. Which requirements are functional or non-functional?",
+        "keyWords": ["security", "functional", "non-functional", "requirements", "online portal", "concurrent users", "data retention"],
+        "hints": {
+            "easy": ["Think about what the system does vs how it performs", "Functional = what it does, Non-functional = how well it does it"],
+            "medium": ["Functionality is about features, non-functional is about quality attributes", "Consider performance and retention requirements"],
+            "hard": ["User actions are functional, performance metrics and data retention are non-functional"]
         },
-        {
-            "letter": "B",
-            "text": "Power Query",
-            "isCorrect": false,
-            "analysis": "Power Query is a data transformation tool within Power BI and Excel, not a standalone Power Platform component."
-        },
-        {
-            "letter": "C",
-            "text": "Power Automate",
-            "isCorrect": true,
-            "analysis": "Power Automate provides workflow automation capabilities across the platform."
-        },
-        {
-            "letter": "D",
-            "text": "Power BI",
-            "isCorrect": true,
-            "analysis": "Power BI is the business intelligence and analytics component."
-        },
-        {
-            "letter": "E",
-            "text": "Power Virtual Agents",
-            "isCorrect": true,
-            "analysis": "Power Virtual Agents enables creation of chatbots without coding."
-        }
-    ],
-    "correctAnswers": ["A", "C", "D", "E"],
-    "isMultipleChoice": true,
-    "detailedExplanation": "The Microsoft Power Platform consists of four main components: Power Apps (for building apps), Power Automate (for automation), Power BI (for analytics), and Power Virtual Agents (for chatbots). Power Query is a feature within Power BI and Excel, not a standalone platform component.",
-    "category": "Architect a solution",
-    "weight": 5.0
-},
-{
-    "id": 3,
-    "topic": "Dataverse",
-    "type": "singlechoice",
-    "difficultyLevel": "Medium",
-    "text": "A company needs to implement row-level security in their Dataverse environment. Which feature should they use to restrict data access based on user attributes?",
-    "keyWords": ["row-level security", "Dataverse", "restrict", "data access", "user attributes"],
-    "hints": {
-        "easy": ["Think about security features in Dataverse", "Consider how to filter data by user"],
-        "medium": ["This feature allows dynamic data filtering", "It's related to business units and teams"],
-        "hard": ["Security roles define permissions, but this feature filters which records users can see"]
+        "conceptsTested": ["requirements analysis", "functional requirements", "non-functional requirements"],
+        "commonMistakes": [
+            "Confusing performance requirements with functional requirements",
+            "Not recognizing data retention as a non-functional requirement",
+            "Missing that user actions are functional requirements"
+        ],
+        "options": [
+            {
+                "letter": "A",
+                "text": "Customers need the ability to submit a case through an online portal - This is a Functional requirement",
+                "isCorrect": true,
+                "analysis": "This describes a specific feature/capability the system must provide, making it a functional requirement."
+            },
+            {
+                "letter": "B",
+                "text": "Customers need the ability to submit a case through an online portal - This is a Non-functional requirement",
+                "isCorrect": false,
+                "analysis": "This is a functional requirement as it describes what the system should do, not how well it should do it."
+            },
+            {
+                "letter": "C",
+                "text": "Portal must handle 75 concurrent users submitting cases - This is a Functional requirement",
+                "isCorrect": false,
+                "analysis": "This is a performance requirement (how well the system performs), making it non-functional."
+            },
+            {
+                "letter": "D",
+                "text": "Portal must handle 75 concurrent users submitting cases - This is a Non-functional requirement",
+                "isCorrect": true,
+                "analysis": "This is a non-functional requirement as it specifies performance capacity, not functionality."
+            },
+            {
+                "letter": "E",
+                "text": "Service data must be retained for at least six years - This is a Functional requirement",
+                "isCorrect": false,
+                "analysis": "Data retention is a compliance/quality requirement, making it non-functional."
+            },
+            {
+                "letter": "F",
+                "text": "Service data must be retained for at least six years - This is a Non-functional requirement",
+                "isCorrect": true,
+                "analysis": "This is a non-functional requirement as it specifies a quality attribute (data retention policy)."
+            }
+        ],
+        "correctAnswers": ["A", "D", "F"],
+        "isMultipleChoice": true,
+        "detailedExplanation": "Functional requirements describe WHAT the system should do (features and capabilities), while non-functional requirements describe HOW WELL the system should perform (quality attributes). 'Submit a case' is functional, while '75 concurrent users' and 'six years retention' are non-functional requirements.",
+        "category": "Perform solution envisioning and requirement analysis",
+        "weight": 7.0
     },
-    "conceptsTested": ["Dataverse security", "row-level security", "access control"],
-    "commonMistakes": [
-        "Confusing security roles with row-level security",
-        "Not understanding the hierarchy of business units",
-        "Overlooking the importance of owner-based security"
-    ],
-    "options": [
-        {
-            "letter": "A",
-            "text": "Security Roles",
-            "isCorrect": false,
-            "analysis": "Security roles define what actions users can perform, not which specific records they can access."
+    {
+        "id": 3,
+        "topic": "Power Pages",
+        "type": "dragdrop",
+        "difficultyLevel": "Medium",
+        "text": "Arrange these Power Pages components in the correct order of implementation:",
+        "keyWords": ["Power Pages", "components", "order", "implementation"],
+        "hints": {
+            "easy": ["Think about what needs to be set up first", "Authentication comes before content"],
+            "medium": ["Consider dependencies between components", "Security should be established early"],
+            "hard": ["Templates -> Permissions -> Content -> Styling"]
         },
-        {
-            "letter": "B",
-            "text": "Access Teams",
-            "isCorrect": true,
-            "analysis": "Access teams provide row-level security by dynamically controlling which records users can access based on team membership."
-        },
-        {
-            "letter": "C",
-            "text": "Column Security Profiles",
-            "isCorrect": false,
-            "analysis": "Column security profiles restrict access to specific fields, not entire rows."
-        },
-        {
-            "letter": "D",
-            "text": "Connection Roles",
-            "isCorrect": false,
-            "analysis": "Connection roles define relationships between records, not security access."
-        }
-    ],
-    "correctAnswers": ["B"],
-    "isMultipleChoice": false,
-    "detailedExplanation": "Access Teams in Dataverse provide row-level security by allowing dynamic assignment of users to teams that have specific access rights to records. This is different from security roles (which define permissions) and column security (which restricts field access).",
-    "category": "Architect a solution",
-    "weight": 6.5
-},
-{
-    "id": 4,
-    "topic": "Power Automate",
-    "type": "multiplechoice",
-    "difficultyLevel": "Medium",
-    "text": "Which triggers can initiate a Power Automate cloud flow? Select all that apply.",
-    "keyWords": ["triggers", "Power Automate", "cloud flow", "initiate"],
-    "hints": {
-        "easy": ["Think about different ways to start a flow", "Consider both manual and automatic triggers"],
-        "medium": ["Flows can start from user actions, schedules, or system events"],
-        "hard": ["Consider SharePoint, Forms, email, and time-based triggers"]
-    },
-    "conceptsTested": ["Power Automate triggers", "flow initiation", "automation"],
-    "options": [
-        {
-            "letter": "A",
-            "text": "When a new email arrives",
-            "isCorrect": true,
-            "analysis": "Email triggers are common in Power Automate for inbox automation."
-        },
-        {
-            "letter": "B",
-            "text": "On a recurring schedule",
-            "isCorrect": true,
-            "analysis": "Recurrence triggers allow flows to run at specified intervals."
-        },
-        {
-            "letter": "C",
-            "text": "When a SharePoint item is created",
-            "isCorrect": true,
-            "analysis": "SharePoint triggers are widely used for document and list automation."
-        },
-        {
-            "letter": "D",
-            "text": "When a local file is modified",
-            "isCorrect": false,
-            "analysis": "Cloud flows cannot directly monitor local file systems; this requires desktop flows."
-        },
-        {
-            "letter": "E",
-            "text": "When a Microsoft Form is submitted",
-            "isCorrect": true,
-            "analysis": "Forms triggers enable automation of survey and form responses."
-        }
-    ],
-    "correctAnswers": ["A", "B", "C", "E"],
-    "isMultipleChoice": true,
-    "detailedExplanation": "Power Automate cloud flows can be triggered by various events including emails, schedules, SharePoint changes, and form submissions. Local file monitoring requires desktop flows as cloud flows cannot access local file systems directly.",
-    "category": "Implement the solution",
-    "weight": 5.5
-},
-{
-    "id": 5,
-    "topic": "Power Apps",
-    "type": "singlechoice",
-    "difficultyLevel": "Hard",
-    "text": "A canvas app needs to display data from multiple SharePoint lists with complex relationships. What is the most efficient approach to minimize delegation warnings and improve performance?",
-    "keyWords": ["canvas app", "SharePoint lists", "delegation", "performance", "relationships"],
-    "hints": {
-        "easy": ["Consider data source limitations", "Think about where to process data"],
-        "medium": ["Delegation limits affect how much data can be processed", "Complex operations might need preprocessing"],
-        "hard": ["SharePoint has delegation limitations", "Consider intermediate data processing"]
-    },
-    "conceptsTested": ["delegation", "performance optimization", "data sources", "SharePoint integration"],
-    "commonMistakes": [
-        "Ignoring delegation limits",
-        "Using multiple nested ForAll loops",
-        "Not considering data volume impacts",
-        "Overusing complex formulas in galleries"
-    ],
-    "options": [
-        {
-            "letter": "A",
-            "text": "Use multiple Lookup columns in SharePoint",
-            "isCorrect": false,
-            "analysis": "While Lookup columns can help, they don't solve delegation issues and can impact performance."
-        },
-        {
-            "letter": "B",
-            "text": "Create a Power Automate flow to combine data into a single list",
-            "isCorrect": true,
-            "analysis": "Pre-processing data with Power Automate avoids delegation issues and improves app performance by creating a denormalized data structure."
-        },
-        {
-            "letter": "C",
-            "text": "Use nested ForAll loops in the canvas app",
-            "isCorrect": false,
-            "analysis": "Nested ForAll loops are inefficient and can severely impact performance with large datasets."
-        },
-        {
-            "letter": "D",
-            "text": "Connect directly to all lists and use complex Filter formulas",
-            "isCorrect": false,
-            "analysis": "Complex Filter formulas often hit delegation limits and result in incomplete data retrieval."
-        }
-    ],
-    "correctAnswers": ["B"],
-    "isMultipleChoice": false,
-    "detailedExplanation": "When dealing with complex SharePoint relationships and delegation limitations, the best approach is to use Power Automate to pre-process and combine data into a single, denormalized list. This eliminates delegation warnings and significantly improves app performance.",
-    "category": "Architect a solution",
-    "weight": 8.0
-},
-{
-    "id": 6,
-    "topic": "ALM",
-    "type": "multiplechoice",
-    "difficultyLevel": "Medium",
-    "text": "What are the recommended practices for Application Lifecycle Management (ALM) in Power Platform? Select all that apply.",
-    "keyWords": ["ALM", "Application Lifecycle Management", "Power Platform", "best practices"],
-    "hints": {
-        "easy": ["Think about source control and environments", "Consider how to move changes between development and production"],
-        "medium": ["Solutions are key to ALM", "Environment strategy is important"],
-        "hard": ["Consider managed vs unmanaged solutions", "Think about deployment pipelines"]
-    },
-    "conceptsTested": ["ALM", "solutions", "environments", "deployment"],
-    "options": [
-        {
-            "letter": "A",
-            "text": "Use separate environments for development, test, and production",
-            "isCorrect": true,
-            "analysis": "Environment separation is fundamental to proper ALM practices."
-        },
-        {
-            "letter": "B",
-            "text": "Always use unmanaged solutions in production",
-            "isCorrect": false,
-            "analysis": "Managed solutions should be used in production to prevent unwanted modifications."
-        },
-        {
-            "letter": "C",
-            "text": "Implement source control for solution files",
-            "isCorrect": true,
-            "analysis": "Source control enables version tracking and collaboration on Power Platform solutions."
-        },
-        {
-            "letter": "D",
-            "text": "Use solution segmentation for large projects",
-            "isCorrect": true,
-            "analysis": "Breaking large projects into multiple solutions improves manageability and deployment flexibility."
-        },
-        {
-            "letter": "E",
-            "text": "Deploy directly from development to production",
-            "isCorrect": false,
-            "analysis": "Skipping test environments increases risk and violates ALM best practices."
-        }
-    ],
-    "correctAnswers": ["A", "C", "D"],
-    "isMultipleChoice": true,
-    "detailedExplanation": "Proper ALM in Power Platform requires separate environments, source control, and solution segmentation. Managed solutions should be used in production, and deployments should follow a development -> test -> production path.",
-    "category": "Implement the solution",
-    "weight": 7.0
-},
-{
-    "id": 7,
-    "topic": "Security",
-    "type": "singlechoice",
-    "difficultyLevel": "Hard",
-    "text": "An organization needs to implement data loss prevention (DLP) policies across Power Platform. Which component should be configured to prevent sensitive data from being shared with external connectors?",
-    "keyWords": ["DLP", "data loss prevention", "security", "external connectors", "sensitive data"],
-    "hints": {
-        "easy": ["DLP policies are configured at a specific level", "Think about governance and administration"],
-        "medium": ["This is managed centrally, not at the app level", "Consider where policies would apply across all apps"],
-        "hard": ["Think about the administrative hierarchy in Microsoft 365"]
-    },
-    "conceptsTested": ["DLP policies", "security governance", "connector management"],
-    "commonMistakes": [
-        "Configuring DLP at the app level",
-        "Not understanding policy inheritance",
-        "Overlooking connector classification"
-    ],
-    "options": [
-        {
-            "letter": "A",
-            "text": "Individual app settings",
-            "isCorrect": false,
-            "analysis": "DLP policies cannot be effectively managed at the individual app level."
-        },
-        {
-            "letter": "B",
-            "text": "Power Platform admin center",
-            "isCorrect": true,
-            "analysis": "DLP policies are configured in the Power Platform admin center to apply across environments and apps."
-        },
-        {
-            "letter": "C",
-            "text": "Azure Active Directory",
-            "isCorrect": false,
-            "analysis": "While Azure AD handles authentication, DLP policies are managed in Power Platform admin center."
-        },
-        {
-            "letter": "D",
-            "text": "SharePoint admin center",
-            "isCorrect": false,
-            "analysis": "SharePoint DLP is separate from Power Platform DLP policies."
-        }
-    ],
-    "correctAnswers": ["B"],
-    "isMultipleChoice": false,
-    "detailedExplanation": "Data Loss Prevention (DLP) policies for Power Platform are configured in the Power Platform admin center. These policies control which connectors can be used together and help prevent sensitive data from being shared with external services.",
-    "category": "Perform solution envisioning and requirement analysis",
-    "weight": 7.5
-},
-{
-    "id": 8,
-    "topic": "Power BI",
-    "type": "multiplechoice",
-    "difficultyLevel": "Medium",
-    "text": "Which methods can be used to refresh Power BI datasets? Select all that apply.",
-    "keyWords": ["Power BI", "datasets", "refresh", "data update"],
-    "hints": {
-        "easy": ["Think about manual and automatic options", "Consider both cloud and on-premises data"],
-        "medium": ["Some methods require Premium capacity", "Gateways enable certain scenarios"],
-        "hard": ["API calls, scheduled refresh, and streaming are all options"]
-    },
-    "conceptsTested": ["Power BI refresh", "data connectivity", "dataset management"],
-    "options": [
-        {
-            "letter": "A",
-            "text": "Scheduled refresh",
-            "isCorrect": true,
-            "analysis": "Scheduled refresh can be configured to update datasets automatically at specified times."
-        },
-        {
-            "letter": "B",
-            "text": "Manual refresh in Power BI Service",
-            "isCorrect": true,
-            "analysis": "Users can manually trigger dataset refreshes through the Power BI Service interface."
-        },
-        {
-            "letter": "C",
-            "text": "Push data via streaming dataset",
-            "isCorrect": true,
-            "analysis": "Streaming datasets allow real-time data updates through the Power BI REST API."
-        },
-        {
-            "letter": "D",
-            "text": "Direct modification of .pbix file",
-            "isCorrect": false,
-            "analysis": "Direct modification of .pbix files doesn't refresh the dataset in the service."
-        },
-        {
-            "letter": "E",
-            "text": "Power BI REST API",
-            "isCorrect": true,
-            "analysis": "The REST API can programmatically trigger dataset refreshes."
-        }
-    ],
-    "correctAnswers": ["A", "B", "C", "E"],
-    "isMultipleChoice": true,
-    "detailedExplanation": "Power BI datasets can be refreshed through scheduled refresh, manual triggers, streaming data push, and REST API calls. Direct modification of .pbix files requires re-publishing and doesn't constitute a refresh method.",
-    "category": "Implement the solution",
-    "weight": 6.0
-}
-    // Add more questions here following the same structure
+        "conceptsTested": ["Power Pages setup", "implementation order", "component dependencies"],
+        "options": [
+            {
+                "id": "1",
+                "text": "Web Templates",
+                "correctPosition": 1
+            },
+            {
+                "id": "2",
+                "text": "Table Permissions",
+                "correctPosition": 2
+            },
+            {
+                "id": "3",
+                "text": "Content Pages",
+                "correctPosition": 3
+            },
+            {
+                "id": "4",
+                "text": "Custom CSS/JavaScript",
+                "correctPosition": 4
+            }
+        ],
+        "correctOrder": ["1", "2", "3", "4"],
+        "isMultipleChoice": false,
+        "isDragDrop": true,
+        "detailedExplanation": "The correct implementation order for Power Pages is: 1) Web Templates (structure), 2) Table Permissions (security), 3) Content Pages (actual content), 4) Custom CSS/JavaScript (styling and behavior).",
+        "category": "Implement the solution",
+        "weight": 6.0
+    }
+    // Add more questions here
 ];
 
 let currentMode = null;
@@ -1056,6 +868,12 @@ function showQuestion() {
     const question = selectedQuestions[currentQuestion];
     const main = document.getElementById('main');
     const isAnswered = userAnswers[question.id] !== undefined;
+    
+    // Check if this is a drag and drop question
+    if (question.isDragDrop) {
+        showDragDropQuestion();
+        return;
+    }
     
     let html = `
         <div class="progress-bar">
@@ -1810,6 +1628,198 @@ function getPerformanceTrends() {
     return trends;
 }
 
+// Drag and Drop Functions
+function renderDragDropQuestion(question) {
+    let html = `
+        <div class="drag-drop-container">
+            <div class="drag-items" id="dragItems">
+                ${question.options.map(option => `
+                    <div class="draggable-item" 
+                         draggable="true" 
+                         data-id="${option.id}"
+                         id="drag-${option.id}">
+                        ${option.text}
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="drop-zones" id="dropZones">
+                <h4>Arrange in correct order:</h4>
+                ${question.options.map((_, index) => `
+                    <div class="drop-zone" 
+                         data-position="${index + 1}">
+                        <span class="position-number">${index + 1}.</span>
+                        <span class="drop-placeholder">Drop item here</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    return html;
+}
+
+function initializeDragDrop() {
+    let draggedElement = null;
+    
+    // Add event listeners to draggable items
+    document.querySelectorAll('.draggable-item').forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            draggedElement = e.target;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+        });
+        
+        item.addEventListener('dragend', (e) => {
+            e.target.classList.remove('dragging');
+        });
+    });
+    
+    // Add event listeners to drop zones
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            zone.classList.add('drag-over');
+        });
+        
+        zone.addEventListener('dragleave', () => {
+            zone.classList.remove('drag-over');
+        });
+        
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            zone.classList.remove('drag-over');
+            
+            // Remove placeholder text
+            const placeholder = zone.querySelector('.drop-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+            
+            // If zone already has an item, move it back to the drag items area
+            const existingItem = zone.querySelector('.draggable-item');
+            if (existingItem) {
+                document.getElementById('dragItems').appendChild(existingItem);
+            }
+            
+            // Add the dragged item to the drop zone
+            if (draggedElement) {
+                zone.appendChild(draggedElement);
+                draggedElement = null;
+            }
+        });
+    });
+}
+
+function checkDragDropAnswer() {
+    const dropZones = document.querySelectorAll('.drop-zone');
+    const userOrder = [];
+    
+    dropZones.forEach(zone => {
+        const item = zone.querySelector('.draggable-item');
+        if (item) {
+            userOrder.push(item.dataset.id);
+        }
+    });
+    
+    const question = selectedQuestions[currentQuestion];
+    const isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
+    
+    return {
+        isCorrect: isCorrect,
+        userOrder: userOrder,
+        correctOrder: question.correctOrder
+    };
+}
+
+function showDragDropQuestion() {
+    const question = selectedQuestions[currentQuestion];
+    const main = document.getElementById('main');
+    
+    let html = `
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: ${((currentQuestion + 1) / selectedQuestions.length) * 100}%"></div>
+        </div>
+        
+        <div class="card">
+            <p><strong>Question ${currentQuestion + 1} of ${selectedQuestions.length}</strong></p>
+            <p><small>Category: ${question.category}</small></p>
+            <p><small>Topic: ${question.topic} | Difficulty: ${question.difficultyLevel}</small></p>
+        </div>
+        
+        <div class="question-container">
+            <h3 class="question-text">${question.text}</h3>
+            ${renderDragDropQuestion(question)}
+        </div>
+        
+        <div class="card">
+            <button class="btn" onclick="submitDragDropAnswer()">Submit Answer</button>
+            <button class="btn btn-secondary" onclick="skipQuestion()">Skip Question</button>
+        </div>
+    `;
+    
+    main.innerHTML = html;
+    
+    // Initialize drag and drop after rendering
+    setTimeout(initializeDragDrop, 100);
+}
+
+function submitDragDropAnswer() {
+    const result = checkDragDropAnswer();
+    const question = selectedQuestions[currentQuestion];
+    
+    userAnswers[question.id] = result.userOrder;
+    
+    // Show feedback
+    const dropZones = document.querySelectorAll('.drop-zone');
+    dropZones.forEach((zone, index) => {
+        const item = zone.querySelector('.draggable-item');
+        if (item) {
+            const itemId = item.dataset.id;
+            const correctId = question.correctOrder[index];
+            
+            if (itemId === correctId) {
+                zone.classList.add('correct');
+                item.innerHTML += ' ✓';
+            } else {
+                zone.classList.add('incorrect');
+                item.innerHTML += ' ✗';
+            }
+        }
+    });
+    
+    // Show explanation
+    const main = document.getElementById('main');
+    const explanationHtml = `
+        <div class="explanation-box visible">
+            <h4>Explanation</h4>
+            <p>${question.detailedExplanation}</p>
+            
+            <h5>Correct Order:</h5>
+            <ol>
+                ${question.options
+                    .sort((a, b) => a.correctPosition - b.correctPosition)
+                    .map(option => `<li>${option.text}</li>`)
+                    .join('')}
+            </ol>
+        </div>
+        
+        <div class="card">
+            <button class="btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+    `;
+    
+    main.innerHTML += explanationHtml;
+    
+    // Disable dragging
+    document.querySelectorAll('.draggable-item').forEach(item => {
+        item.draggable = false;
+    });
+    
+    // Update performance data
+    updatePerformanceData(question, result.isCorrect);
+}
+
 // Global functions (to be accessible from HTML)
 window.openPracticeSetup = openPracticeSetup;
 window.openMockExamSetup = openMockExamSetup;
@@ -1826,6 +1836,7 @@ window.skipQuestion = skipQuestion;
 window.viewSession = viewSession;
 window.startWeakAreaPractice = startWeakAreaPractice;
 window.startAdaptivePractice = startAdaptivePractice;
+window.submitDragDropAnswer = submitDragDropAnswer;
 
 // Load settings on initialization
 function loadSettingsScreen() {
