@@ -1,69 +1,70 @@
 // Global variables
 let questions = [
-  {
-    "id": 1,
-    "topic": "Power Apps",
-    "type": "multiplechoice",
-    "difficultyLevel": "Medium",
-    "text": "A company uses two separate unlinked apps to manage sales leads: a Power Apps app and a third-party application. The client has the following requirements: • Manage all leads using the Power Apps app. • Create a lead in the Power Apps app when a user creates a lead in the third-party application. • Update leads in the Power Apps app when a user updates a lead in the third-party application. • Connect to the third-party application using an API. You need to recommend strategies to integrate the Power Apps app and the third-party application. Which three options can you use to achieve the goal? NOTE: Each correct selection is worth one point.",
-    "keyWords": ["two separate", "unlinked apps", "third-party", "API", "create", "update", "integrate", "real-time"],
-    "hints": {
-      "easy": ["Look for integration patterns", "Consider API connectivity options", "Think about what connects Power Platform to external systems"],
-      "medium": ["Think about real-time synchronization", "Consider orchestration tools", "What enables custom API connections?"],
-      "hard": ["Evaluate authentication methods", "Consider error handling patterns", "Think about scalability for API calls"]
-    },
-    "conceptsTested": ["integration", "API connectivity", "data synchronization", "workflow automation", "custom connectors"],
-    "commonMistakes": [
-      "Choosing Dual-write for non-D365 F&O scenarios",
-      "Selecting batch processing (Dataflow) for real-time requirements",
-      "Forgetting about authentication and security",
-      "Not considering error handling and retries"
-    ],
-    "analysisHighlights": {
-      "requirements": ["manage all leads", "create leads automatically", "update leads automatically", "API connection"],
-      "constraints": ["third-party API", "separate unlinked apps", "real-time synchronization"],
-      "technologies": ["Power Apps", "Custom connector", "Power Automate", "Dataverse"]
-    },
-    "options": [
-      {
-        "letter": "A",
-        "text": "Dual-write",
-        "isCorrect": false,
-        "analysis": "Dual-write is specific to Dynamics 365 Finance and Operations integration, not suitable for generic third-party APIs."
-      },
-      {
-        "letter": "B",
-        "text": "Custom connector",
-        "isCorrect": true,
-        "analysis": "A custom connector enables secure communication with a third-party API from Power Automate or Power Apps."
-      },
-      {
-        "letter": "C",
-        "text": "Dataflow",
-        "isCorrect": false,
-        "analysis": "Dataflows are for periodic data import/export, not real-time lead syncing."
-      },
-      {
-        "letter": "D",
-        "text": "Power Automate cloud flow",
-        "isCorrect": true,
-        "analysis": "Cloud flows can be triggered based on third-party system changes and automate lead creation/update processes."
-      },
-      {
-        "letter": "E",
-        "text": "Dataverse connector",
-        "isCorrect": true,
-        "analysis": "Allows flows or apps to interact with Dataverse, enabling create/update of lead records."
-      }
-    ],
-    "correctAnswers": ["B", "D", "E"],
-    "isMultipleChoice": true,
-    "detailedExplanation": "Combining a custom connector (to reach the external API), Power Automate (for orchestration), and the Dataverse connector (to interact with Power Apps lead data) provides a complete solution for near real-time integration.",
-    "category": "Perform solution envisioning and requirement analysis",
-    "weight": 7.9,
-    "examReference": "Design strategies for app integration",
-    "source": "Custom generated"
-  }
+    {
+        "id": 1,
+        "topic": "Power Apps",
+        "type": "multiplechoice",
+        "difficultyLevel": "Medium",
+        "text": "A company uses two separate unlinked apps to manage sales leads: a Power Apps app and a third-party application. The client has the following requirements: • Manage all leads using the Power Apps app. • Create a lead in the Power Apps app when a user creates a lead in the third-party application. • Update leads in the Power Apps app when a user updates a lead in the third-party application. • Connect to the third-party application using an API. You need to recommend strategies to integrate the Power Apps app and the third-party application. Which three options can you use to achieve the goal? NOTE: Each correct selection is worth one point.",
+        "keyWords": ["two separate", "unlinked apps", "third-party", "API", "create", "update", "integrate", "real-time"],
+        "hints": {
+            "easy": ["Look for integration patterns", "Consider API connectivity options", "Think about what connects Power Platform to external systems"],
+            "medium": ["Think about real-time synchronization", "Consider orchestration tools", "What enables custom API connections?"],
+            "hard": ["Evaluate authentication methods", "Consider error handling patterns", "Think about scalability for API calls"]
+        },
+        "conceptsTested": ["integration", "API connectivity", "data synchronization", "workflow automation", "custom connectors"],
+        "commonMistakes": [
+            "Choosing Dual-write for non-D365 F&O scenarios",
+            "Selecting batch processing (Dataflow) for real-time requirements",
+            "Forgetting about authentication and security",
+            "Not considering error handling and retries"
+        ],
+        "analysisHighlights": {
+            "requirements": ["manage all leads", "create leads automatically", "update leads automatically", "API connection"],
+            "constraints": ["third-party API", "separate unlinked apps", "real-time synchronization"],
+            "technologies": ["Power Apps", "Custom connector", "Power Automate", "Dataverse"]
+        },
+        "options": [
+            {
+                "letter": "A",
+                "text": "Dual-write",
+                "isCorrect": false,
+                "analysis": "Dual-write is specific to Dynamics 365 Finance and Operations integration, not suitable for generic third-party APIs."
+            },
+            {
+                "letter": "B",
+                "text": "Custom connector",
+                "isCorrect": true,
+                "analysis": "A custom connector enables secure communication with a third-party API from Power Automate or Power Apps."
+            },
+            {
+                "letter": "C",
+                "text": "Dataflow",
+                "isCorrect": false,
+                "analysis": "Dataflows are for periodic data import/export, not real-time lead syncing."
+            },
+            {
+                "letter": "D",
+                "text": "Power Automate cloud flow",
+                "isCorrect": true,
+                "analysis": "Cloud flows can be triggered based on third-party system changes and automate lead creation/update processes."
+            },
+            {
+                "letter": "E",
+                "text": "Dataverse connector",
+                "isCorrect": true,
+                "analysis": "Allows flows or apps to interact with Dataverse, enabling create/update of lead records."
+            }
+        ],
+        "correctAnswers": ["B", "D", "E"],
+        "isMultipleChoice": true,
+        "detailedExplanation": "Combining a custom connector (to reach the external API), Power Automate (for orchestration), and the Dataverse connector (to interact with Power Apps lead data) provides a complete solution for near real-time integration.",
+        "category": "Perform solution envisioning and requirement analysis",
+        "weight": 7.9,
+        "examReference": "Design strategies for app integration",
+        "source": "Custom generated"
+    }
+    // Add more questions here following the same structure
 ];
 
 let currentMode = null;
@@ -86,7 +87,7 @@ const mockExamConfig = {
     timeLimit: 90 // minutes
 };
 
-// Initialize the app - COMPLETELY REMOVED JSON LOADING
+// Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
     console.log(`Loaded ${questions.length} questions`);
     
@@ -332,7 +333,7 @@ function selectPracticeQuestions(categories, count) {
 }
 
 function generateMockExam(categories) {
-    const totalQuestions = Math.floor(Math.random() * 21) + mockExamConfig.minQuestions;
+    const totalQuestions = Math.floor(Math.random() * (mockExamConfig.maxQuestions - mockExamConfig.minQuestions + 1)) + mockExamConfig.minQuestions;
     const examQuestions = [];
     
     // Calculate category distributions
@@ -359,7 +360,7 @@ function generateMockExam(categories) {
     Object.entries(distributions).forEach(([category, count]) => {
         const categoryQuestions = questions.filter(q => q.category === category);
         const shuffled = categoryQuestions.sort(() => Math.random() - 0.5);
-        examQuestions.push(...shuffled.slice(0, count));
+        examQuestions.push(...shuffled.slice(0, Math.min(count, categoryQuestions.length)));
     });
     
     // Shuffle final exam
@@ -391,15 +392,16 @@ function showQuestion() {
     `;
     
     if (currentMode === 'practice' && !hintsUsed[question.id]) {
+        const hintLevel = question.difficultyLevel.toLowerCase();
         html += `
-            <button class="btn btn-secondary" onclick="showHint(${question.id}, '${question.difficultyLevel}')">
+            <button class="btn btn-secondary" onclick="showHint(${question.id}, '${hintLevel}')">
                 Show Hint
             </button>
             <div class="hint-box" id="hint-${question.id}"></div>
         `;
     }
     
-    // Show options - FIXED THE BUG HERE
+    // Show options
     html += '<div class="options-container">';
     question.options.forEach((option, index) => {
         const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
@@ -470,9 +472,20 @@ function showHint(questionId, difficulty) {
     const question = selectedQuestions.find(q => q.id === questionId);
     const hintBox = document.getElementById(`hint-${questionId}`);
     
-    hintsUsed[questionId] = true;
-    hintBox.innerHTML = `<strong>Hint:</strong> ${question.hints[difficulty]}`;
-    hintBox.classList.add('visible');
+    if (question && question.hints && question.hints[difficulty]) {
+        hintsUsed[questionId] = true;
+        
+        // Check if hints[difficulty] is an array or string
+        let hintText = '';
+        if (Array.isArray(question.hints[difficulty])) {
+            hintText = question.hints[difficulty].join('<br>');
+        } else {
+            hintText = question.hints[difficulty];
+        }
+        
+        hintBox.innerHTML = `<strong>Hint:</strong> ${hintText}`;
+        hintBox.classList.add('visible');
+    }
 }
 
 function submitAnswer() {
@@ -586,8 +599,10 @@ function endExam() {
 function calculateResults() {
     let correct = 0;
     let categoryScores = {};
+    const attemptedQuestions = [];
     
     selectedQuestions.forEach(question => {
+        attemptedQuestions.push(question.id);
         const userAnswer = userAnswers[question.id];
         const isCorrect = checkAnswer(question, userAnswer);
         
@@ -626,7 +641,8 @@ function calculateResults() {
         categoryScores: categoryScores,
         timeTaken: timeTaken,
         mode: currentMode,
-        date: new Date()
+        date: new Date(),
+        attemptedQuestions: attemptedQuestions
     };
 }
 
@@ -642,12 +658,6 @@ function checkAnswer(question, userAnswer) {
     }
 }
 
-// Add skip question function
-function skipQuestion() {
-    nextQuestion();
-}
-
-// Update results display
 function showResults(results) {
     const main = document.getElementById('main');
     
@@ -687,7 +697,6 @@ function showResults(results) {
     `;
 }
 
-// Improve review answers function
 function reviewAnswers() {
     const main = document.getElementById('main');
     let reviewHtml = '<h2>Answer Review</h2>';
@@ -743,7 +752,30 @@ function reviewAnswers() {
     main.innerHTML = reviewHtml;
 }
 
-// Improve recent sessions display
+// Add skip question function
+function skipQuestion() {
+    nextQuestion();
+}
+
+// Utility functions
+function getCategoryCount(category) {
+    return questions.filter(q => q.category === category).length;
+}
+
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    
+    if (hours > 0) {
+        return `${hours}h ${minutes}m ${secs}s`;
+    } else if (minutes > 0) {
+        return `${minutes}m ${secs}s`;
+    } else {
+        return `${secs}s`;
+    }
+}
+
 function getRecentSessions() {
     const storage = localStorage.getItem('examResults');
     if (storage) {
@@ -761,7 +793,6 @@ function getRecentSessions() {
     return '<p>No recent sessions</p>';
 }
 
-// Add view session function
 function viewSession(index) {
     const storage = localStorage.getItem('examResults');
     if (storage) {
@@ -773,7 +804,6 @@ function viewSession(index) {
     }
 }
 
-// Update progress tracking
 function getProgress() {
     const storage = localStorage.getItem('examResults');
     if (storage) {
@@ -798,83 +828,32 @@ function getProgress() {
     };
 }
 
-// Update calculate results to track attempted questions
-function calculateResults() {
-    let correct = 0;
-    let categoryScores = {};
-    const attemptedQuestions = [];
-    
-    selectedQuestions.forEach(question => {
-        attemptedQuestions.push(question.id);
-        const userAnswer = userAnswers[question.id];
-        const isCorrect = checkAnswer(question, userAnswer);
-        
-        if (isCorrect) {
-            correct++;
-        }
-        
-        if (!categoryScores[question.category]) {
-            categoryScores[question.category] = {
-                correct: 0,
-                total: 0,
-                questions: []
-            };
-        }
-        
-        categoryScores[question.category].total++;
-        if (isCorrect) {
-            categoryScores[question.category].correct++;
-        }
-        categoryScores[question.category].questions.push({
-            question: question,
-            userAnswer: userAnswer,
-            isCorrect: isCorrect
-        });
-    });
-    
-    const score = Math.round((correct / selectedQuestions.length) * 1000);
-    const passed = score >= 700;
-    const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-    
-    return {
-        score: score,
-        passed: passed,
-        correct: correct,
-        total: selectedQuestions.length,
-        categoryScores: categoryScores,
-        timeTaken: timeTaken,
-        mode: currentMode,
-        date: new Date(),
-        attemptedQuestions: attemptedQuestions
-    };
-}
-
-// Utility functions
-function getCategoryCount(category) {
-    return questions.filter(q => q.category === category).length;
-}
-
-function formatTime(seconds) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    
-    if (hours > 0) {
-        return `${hours}h ${minutes}m ${secs}s`;
-    } else if (minutes > 0) {
-        return `${minutes}m ${secs}s`;
-    } else {
-        return `${secs}s`;
-    }
-}
-
-// Add to global functions
-window.skipQuestion = skipQuestion;
-window.viewSession = viewSession;
-
 function getCategoryPerformance() {
-    // Implement category performance tracking
-    return '<p>Performance tracking coming soon</p>';
+    const storage = localStorage.getItem('examResults');
+    if (storage) {
+        const results = JSON.parse(storage);
+        const categories = {};
+        
+        results.forEach(result => {
+            if (result.categoryScores) {
+                Object.entries(result.categoryScores).forEach(([category, scores]) => {
+                    if (!categories[category]) {
+                        categories[category] = { correct: 0, total: 0 };
+                    }
+                    categories[category].correct += scores.correct;
+                    categories[category].total += scores.total;
+                });
+            }
+        });
+        
+        return Object.entries(categories).map(([category, scores]) => `
+            <div class="category-result">
+                <h4>${category}</h4>
+                <p>Overall: ${scores.correct} / ${scores.total} (${Math.round(scores.correct / scores.total * 100)}%)</p>
+            </div>
+        `).join('');
+    }
+    return '<p>No performance data available</p>';
 }
 
 function getSettings() {
@@ -922,16 +901,6 @@ function resetProgress() {
     }
 }
 
-function showError(message) {
-    const main = document.getElementById('main');
-    main.innerHTML = `
-        <div class="error-message">
-            <h3>Error</h3>
-            <p>${message}</p>
-        </div>
-    `;
-}
-
 // Global functions (to be accessible from HTML)
 window.openPracticeSetup = openPracticeSetup;
 window.openMockExamSetup = openMockExamSetup;
@@ -944,3 +913,5 @@ window.reviewAnswers = reviewAnswers;
 window.loadHomeScreen = loadHomeScreen;
 window.saveSettings = saveSettings;
 window.resetProgress = resetProgress;
+window.skipQuestion = skipQuestion;
+window.viewSession = viewSession;
