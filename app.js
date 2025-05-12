@@ -399,26 +399,24 @@ function showQuestion() {
         `;
     }
     
-    // Show options with improved layout
-    if (question.type === 'multiplechoice') {
-        html += '<div class="options-container">';
-        question.options.forEach((option, index) => {
-            const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
-            html += `
-                <div class="option" onclick="selectOption(${index}, ${question.isMultipleChoice})">
-                    <input type="${inputType}" 
-                           name="question-${question.id}" 
-                           value="${option.letter}"
-                           id="option-${index}"
-                           class="option-input">
-                    <label for="option-${index}" class="option-text">
-                        <span class="option-letter">${option.letter}.</span> ${option.text}
-                    </label>
-                </div>
-            `;
-        });
-        html += '</div>';
-    }
+    // Show options - FIXED THE BUG HERE
+    html += '<div class="options-container">';
+    question.options.forEach((option, index) => {
+        const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
+        html += `
+            <div class="option" onclick="selectOption(${index}, ${question.isMultipleChoice})">
+                <input type="${inputType}" 
+                       name="question-${question.id}" 
+                       value="${option.letter}"
+                       id="option-${index}"
+                       class="option-input">
+                <label for="option-${index}" class="option-text">
+                    <span class="option-letter">${option.letter}.</span> ${option.text}
+                </label>
+            </div>
+        `;
+    });
+    html += '</div>';
     
     html += `
         </div>
