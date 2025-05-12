@@ -763,6 +763,7 @@ function generateMockExam(categories) {
 function showQuestion() {
     const question = selectedQuestions[currentQuestion];
     const main = document.getElementById('main');
+    const isAnswered = userAnswers[question.id] !== undefined;
     
     let html = `
         <div class="progress-bar">
@@ -802,7 +803,8 @@ function showQuestion() {
             <h3 class="question-text">${question.text}</h3>
     `;
     
-    if ((currentMode === 'practice' || currentMode === 'adaptive') && !hintsUsed[question.id]) {
+    // Only show hint button if not answered yet and not in mock mode
+    if (!isAnswered && currentMode !== 'mock' && !hintsUsed[question.id]) {
         const hintLevel = question.difficultyLevel.toLowerCase();
         html += `
             <button class="btn btn-secondary" onclick="showHint(${question.id}, '${hintLevel}')">
@@ -810,19 +812,40 @@ function showQuestion() {
             </button>
             <div class="hint-box" id="hint-${question.id}"></div>
         `;
+    } else if (hintsUsed[question.id] && !isAnswered) {
+        // Show the hint if it was already used but question not answered
+        const hintLevel = question.difficultyLevel.toLowerCase();
+        let hintText = '';
+        if (Array.isArray(question.hints[hintLevel])) {
+            hintText = question.hints[hintLevel].join('<br>');
+        } else {
+            hintText = question.hints[hintLevel];
+        }
+        html += `
+            <div class="hint-box visible" id="hint-${question.id}">
+                <strong>Hint:</strong> ${hintText}
+            </div>
+        `;
     }
     
     // Show options
     html += '<div class="options-container">';
     question.options.forEach((option, index) => {
         const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
+        const isDisabled = isAnswered ? 'disabled' : '';
+        const selectedClass = userAnswers[question.id] && (
+            (Array.isArray(userAnswers[question.id]) && userAnswers[question.id].includes(option.letter)) ||
+            userAnswers[question.id] === option.letter
+        ) ? 'selected' : '';
+        
         html += `
-            <div class="option" onclick="selectOption(${index}, ${question.isMultipleChoice})">
+            <div class="option ${selectedClass}" onclick="${!isAnswered ? `selectOption(${index}, ${question.isMultipleChoice})` : ''}">
                 <input type="${inputType}" 
                        name="question-${question.id}" 
                        value="${option.letter}"
                        id="option-${index}"
-                       class="option-input">
+                       class="option-input"
+                       ${isDisabled}>
                 <label for="option-${index}" class="option-text">
                     <span class="option-letter">${option.letter}.</span> ${option.text}
                 </label>
@@ -835,31 +858,43 @@ function showQuestion() {
         </div>
         
         <div class="card">
+    `;
+    
+    if (!isAnswered) {
+        html += `
             <button class="btn" onclick="submitAnswer()">
-                ${currentMode === 'practice' || currentMode === 'adaptive' ? 'Submit Answer' : 'Next Question'}
+                Submit Answer
             </button>
             ${currentQuestion > 0 && (currentMode === 'practice' || currentMode === 'adaptive') ? 
                 '<button class="btn btn-secondary" onclick="previousQuestion()">Previous</button>' : ''}
             ${currentMode === 'practice' || currentMode === 'adaptive' ? 
                 '<button class="btn btn-secondary" onclick="skipQuestion()">Skip Question</button>' : ''}
+        `;
+    } else {
+        html += `
+            <button class="btn" onclick="nextQuestion()">Next Question</button>
+            ${currentQuestion > 0 ? 
+                '<button class="btn btn-secondary" onclick="previousQuestion()">Previous</button>' : ''}
+        `;
+    }
+    
+    html += `
         </div>
     `;
     
     main.innerHTML = html;
     
-    // Restore previous answers if any
-    if (userAnswers[question.id]) {
-        const answers = Array.isArray(userAnswers[question.id]) ? 
-            userAnswers[question.id] : [userAnswers[question.id]];
-        
-        answers.forEach(answer => {
-            const option = question.options.find(o => o.letter === answer);
-            const index = question.options.indexOf(option);
-            if (index !== -1) {
-                document.getElementById(`option-${index}`).checked = true;
-                document.getElementById(`option-${index}`).parentElement.classList.add('selected');
-            }
-        });
+    // If already answered, show the feedback
+    if (isAnswered) {
+        showFeedback();
+    }
+    
+    // Restore hint visibility if it was shown
+    if (hintsUsed[question.id] && !isAnswered) {
+        const hintBox = document.getElementById(`hint-${question.id}`);
+        if (hintBox) {
+            hintBox.classList.add('visible');
+        }
     }
 }
 
@@ -899,9 +934,22 @@ function showHint(questionId, difficulty) {
     }
 }
 
+// Add review question function
+function reviewQuestion() {
+    // Scroll back to the question
+    document.querySelector('.question-container').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Update submitAnswer to prevent multiple submissions
 function submitAnswer() {
     const question = selectedQuestions[currentQuestion];
     const selectedInputs = document.querySelectorAll(`input[name="question-${question.id}"]:checked`);
+    
+    // Check if already answered
+    if (userAnswers[question.id] !== undefined) {
+        alert('You have already answered this question');
+        return;
+    }
     
     if (selectedInputs.length === 0) {
         alert('Please select an answer');
@@ -910,6 +958,20 @@ function submitAnswer() {
     
     const answers = Array.from(selectedInputs).map(input => input.value);
     userAnswers[question.id] = question.isMultipleChoice ? answers : answers[0];
+    
+    // Disable all options after submitting
+    document.querySelectorAll('.option').forEach(option => {
+        option.style.pointerEvents = 'none';
+    });
+    document.querySelectorAll('.option-input').forEach(input => {
+        input.disabled = true;
+    });
+    
+    // Hide hint button after submitting
+    const hintButton = document.querySelector('.btn-secondary');
+    if (hintButton && hintButton.textContent.includes('Hint')) {
+        hintButton.style.display = 'none';
+    }
     
     if (currentMode === 'practice' || currentMode === 'adaptive') {
         showFeedback();
@@ -927,42 +989,86 @@ function showFeedback() {
     // Update performance data
     updatePerformanceData(question, isCorrect);
     
-    // Mark options
+    // Mark options and add feedback
     question.options.forEach((option, index) => {
         const optionDiv = document.getElementById(`option-${index}`).parentElement;
+        const isCorrectOption = correctAnswers.includes(option.letter);
+        const isUserAnswer = (Array.isArray(userAnswer) && userAnswer.includes(option.letter)) ||
+                           userAnswer === option.letter;
         
-        if (correctAnswers.includes(option.letter)) {
+        if (isCorrectOption) {
             optionDiv.classList.add('correct');
-        } else if ((Array.isArray(userAnswer) && userAnswer.includes(option.letter)) ||
-                   userAnswer === option.letter) {
+            // Add checkmark for correct options
+            if (!optionDiv.querySelector('.feedback-icon')) {
+                optionDiv.innerHTML += '<span class="feedback-icon correct-icon">✓</span>';
+            }
+        } else if (isUserAnswer) {
             optionDiv.classList.add('incorrect');
+            // Add X for incorrect user selections
+            if (!optionDiv.querySelector('.feedback-icon')) {
+                optionDiv.innerHTML += '<span class="feedback-icon incorrect-icon">✗</span>';
+            }
         }
     });
     
-    // Show explanation
-    const main = document.getElementById('main');
-    main.innerHTML += `
-        <div class="explanation-box">
-            <h4>Explanation</h4>
-            <p>${question.detailedExplanation}</p>
-            ${question.options.map(option => `
-                <p><strong>${option.letter}:</strong> ${option.analysis}</p>
-            `).join('')}
+    // Only show explanation once, and don't duplicate if it already exists
+    if (!document.querySelector('.explanation-box')) {
+        const main = document.getElementById('main');
+        const explanationHtml = `
+            <div class="explanation-box visible">
+                <h4>Explanation</h4>
+                <p>${question.detailedExplanation}</p>
+                
+                <h5>Option Analysis:</h5>
+                ${question.options.map(option => {
+                    const isCorrect = correctAnswers.includes(option.letter);
+                    const isUserAnswer = (Array.isArray(userAnswer) && userAnswer.includes(option.letter)) ||
+                                       userAnswer === option.letter;
+                    let statusText = '';
+                    if (isCorrect) {
+                        statusText = '<span class="status-correct">(Correct Answer)</span>';
+                    } else if (isUserAnswer) {
+                        statusText = '<span class="status-incorrect">(Your Answer - Incorrect)</span>';
+                    }
+                    
+                    return `
+                        <div class="option-analysis">
+                            <p><strong class="${isCorrect ? 'text-success' : 'text-danger'}">${option.letter}. ${option.text} ${statusText}</strong></p>
+                            <p>${option.analysis}</p>
+                        </div>
+                    `;
+                }).join('')}
+                
+                ${question.commonMistakes && question.commonMistakes.length > 0 ? `
+                    <div class="common-mistakes">
+                        <h5>Common Mistakes to Avoid:</h5>
+                        <ul>
+                            ${question.commonMistakes.map(mistake => `<li>${mistake}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+                
+                ${hintsUsed[question.id] ? `
+                    <div class="hint-review">
+                        <h5>Hint Used:</h5>
+                        <p>${Array.isArray(question.hints[question.difficultyLevel.toLowerCase()]) ? 
+                            question.hints[question.difficultyLevel.toLowerCase()].join('<br>') : 
+                            question.hints[question.difficultyLevel.toLowerCase()]}</p>
+                    </div>
+                ` : ''}
+            </div>
             
-            ${question.commonMistakes && question.commonMistakes.length > 0 ? `
-                <div class="common-mistakes">
-                    <h5>Common Mistakes to Avoid:</h5>
-                    <ul>
-                        ${question.commonMistakes.map(mistake => `<li>${mistake}</li>`).join('')}
-                    </ul>
-                </div>
-            ` : ''}
-        </div>
+            <div class="card">
+                <button class="btn" onclick="nextQuestion()">Next Question</button>
+                <button class="btn btn-secondary" onclick="reviewQuestion()">Review Question</button>
+            </div>
+        `;
         
-        <div class="card">
-            <button class="btn" onclick="nextQuestion()">Next Question</button>
-        </div>
-    `;
+        main.innerHTML += explanationHtml;
+        
+        // Scroll to explanation
+        document.querySelector('.explanation-box').scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 function nextQuestion() {
