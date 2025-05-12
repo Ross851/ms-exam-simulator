@@ -79,11 +79,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const highlightButton = document.getElementById('highlightButton');
             
-            if (highlightButton) {
-                highlightButton.addEventListener('click', function() {
-                    toggleKeywordHighlight();
-                });
-            }
+            highlightButton.addEventListener('click', function() {
+                toggleKeywordHighlight();
+            });
         });
         
         function toggleKeywordHighlight() {
@@ -103,8 +101,6 @@
         }
         
         function highlightKeywords() {
-            if (typeof window.currentQuestion === 'undefined' || !window.selectedQuestions) return;
-            
             const currentQuestionIndex = window.currentQuestion;
             const question = window.selectedQuestions[currentQuestionIndex];
             
@@ -126,8 +122,6 @@
         
         function removeHighlights() {
             const questionText = document.querySelector('.question-text');
-            if (!questionText) return;
-            
             const highlights = questionText.querySelectorAll('.keyword-highlight');
             
             highlights.forEach(highlight => {
@@ -136,79 +130,32 @@
             });
         }
         
-        // Override functions to show/hide highlight button based on current screen
-        window.addEventListener('load', function() {
-            // Wait for the main script to load and initialize
-            setTimeout(function() {
-                if (window.showQuestion) {
-                    const originalShowQuestion = window.showQuestion;
-                    window.showQuestion = function() {
-                        originalShowQuestion.apply(this, arguments);
-                        const highlightButton = document.getElementById('highlightButton');
-                        if (highlightButton) {
-                            highlightButton.style.display = 'flex';
-                            keywordsHighlighted = false;
-                            highlightButton.classList.remove('active');
-                        }
-                    };
-                }
-                
-                if (window.loadHomeScreen) {
-                    const originalLoadHomeScreen = window.loadHomeScreen;
-                    window.loadHomeScreen = function() {
-                        originalLoadHomeScreen.apply(this, arguments);
-                        const highlightButton = document.getElementById('highlightButton');
-                        if (highlightButton) {
-                            highlightButton.style.display = 'none';
-                        }
-                    };
-                }
-                
-                if (window.loadProgressScreen) {
-                    const originalLoadProgressScreen = window.loadProgressScreen;
-                    window.loadProgressScreen = function() {
-                        originalLoadProgressScreen.apply(this, arguments);
-                        const highlightButton = document.getElementById('highlightButton');
-                        if (highlightButton) {
-                            highlightButton.style.display = 'none';
-                        }
-                    };
-                }
-                
-                if (window.loadSettingsScreen) {
-                    const originalLoadSettingsScreen = window.loadSettingsScreen;
-                    window.loadSettingsScreen = function() {
-                        originalLoadSettingsScreen.apply(this, arguments);
-                        const highlightButton = document.getElementById('highlightButton');
-                        if (highlightButton) {
-                            highlightButton.style.display = 'none';
-                        }
-                    };
-                }
-                
-                if (window.showResults) {
-                    const originalShowResults = window.showResults;
-                    window.showResults = function() {
-                        originalShowResults.apply(this, arguments);
-                        const highlightButton = document.getElementById('highlightButton');
-                        if (highlightButton) {
-                            highlightButton.style.display = 'none';
-                        }
-                    };
-                }
-                
-                if (window.reviewAnswers) {
-                    const originalReviewAnswers = window.reviewAnswers;
-                    window.reviewAnswers = function() {
-                        originalReviewAnswers.apply(this, arguments);
-                        const highlightButton = document.getElementById('highlightButton');
-                        if (highlightButton) {
-                            highlightButton.style.display = 'none';
-                        }
-                    };
-                }
-            }, 100);
-        });
+        // Show/hide highlight button based on current screen
+        const originalShowQuestion = window.showQuestion;
+        window.showQuestion = function() {
+            originalShowQuestion.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'flex';
+            keywordsHighlighted = false;
+            document.getElementById('highlightButton').classList.remove('active');
+        };
+        
+        const originalLoadHomeScreen = window.loadHomeScreen;
+        window.loadHomeScreen = function() {
+            originalLoadHomeScreen.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'none';
+        };
+        
+        const originalLoadProgressScreen = window.loadProgressScreen;
+        window.loadProgressScreen = function() {
+            originalLoadProgressScreen.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'none';
+        };
+        
+        const originalLoadSettingsScreen = window.loadSettingsScreen;
+        window.loadSettingsScreen = function() {
+            originalLoadSettingsScreen.apply(this, arguments);
+            document.getElementById('highlightButton').style.display = 'none';
+        };
     </script>
 </body>
 </html>
