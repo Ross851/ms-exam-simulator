@@ -743,6 +743,29 @@ body[data-theme="light"] .drop-zone.incorrect {
     }
 }
 
+/* Error message styles */
+.error-message {
+    background-color: #4a1616;
+    border: 2px solid #dc3545;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+}
+
+.error-message h3 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+body[data-theme="light"] .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+body[data-theme="light"] .error-message h3 {
+    color: #dc3545;
+}
+
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
