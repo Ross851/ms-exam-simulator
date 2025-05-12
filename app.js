@@ -994,8 +994,26 @@ function showQuestion() {
     
     main.innerHTML = html;
     
-    // If already answered, show the feedback
-    if (isAnswered) {
+    // If already answered, show the feedback (but don't duplicate it)
+    if (isAnswered && !document.querySelector('.explanation-box')) {
+        // Restore the correct/incorrect option classes
+        const correctAnswers = question.correctAnswers;
+        question.options.forEach((option, index) => {
+            const optionDiv = document.getElementById(`option-${index}`).parentElement;
+            const isCorrectOption = correctAnswers.includes(option.letter);
+            const isUserAnswer = userAnswers[question.id] && (
+                (Array.isArray(userAnswers[question.id]) && userAnswers[question.id].includes(option.letter)) ||
+                userAnswers[question.id] === option.letter
+            );
+            
+            if (isCorrectOption) {
+                optionDiv.classList.add('correct');
+            } else if (isUserAnswer) {
+                optionDiv.classList.add('incorrect');
+            }
+        });
+        
+        // Show the explanation
         showFeedback();
     }
     
@@ -1186,6 +1204,7 @@ function nextQuestion() {
         currentQuestion++;
         showQuestion();
     } else {
+        // This is the last question, end the exam
         endExam();
     }
 }
@@ -1768,6 +1787,11 @@ function submitDragDropAnswer() {
     const result = checkDragDropAnswer();
     const question = selectedQuestions[currentQuestion];
     
+    // Check if already submitted
+    if (userAnswers[question.id]) {
+        return;
+    }
+    
     userAnswers[question.id] = result.userOrder;
     
     // Show feedback
@@ -1780,36 +1804,43 @@ function submitDragDropAnswer() {
             
             if (itemId === correctId) {
                 zone.classList.add('correct');
-                item.innerHTML += ' ✓';
+                if (!item.innerHTML.includes('✓')) {
+                    item.innerHTML += ' ✓';
+                }
             } else {
                 zone.classList.add('incorrect');
-                item.innerHTML += ' ✗';
+                if (!item.innerHTML.includes('✗')) {
+                    item.innerHTML += ' ✗';
+                }
             }
         }
     });
     
-    // Show explanation
-    const main = document.getElementById('main');
-    const explanationHtml = `
-        <div class="explanation-box visible">
-            <h4>Explanation</h4>
-            <p>${question.detailedExplanation}</p>
+    // Check if explanation already exists
+    if (!document.querySelector('.explanation-box')) {
+        // Show explanation
+        const main = document.getElementById('main');
+        const explanationHtml = `
+            <div class="explanation-box visible">
+                <h4>Explanation</h4>
+                <p>${question.detailedExplanation}</p>
+                
+                <h5>Correct Order:</h5>
+                <ol>
+                    ${question.options
+                        .sort((a, b) => a.correctPosition - b.correctPosition)
+                        .map(option => `<li>${option.text}</li>`)
+                        .join('')}
+                </ol>
+            </div>
             
-            <h5>Correct Order:</h5>
-            <ol>
-                ${question.options
-                    .sort((a, b) => a.correctPosition - b.correctPosition)
-                    .map(option => `<li>${option.text}</li>`)
-                    .join('')}
-            </ol>
-        </div>
+            <div class="card">
+                <button class="btn" onclick="nextQuestion()">Next Question</button>
+            </div>
+        `;
         
-        <div class="card">
-            <button class="btn" onclick="nextQuestion()">Next Question</button>
-        </div>
-    `;
-    
-    main.innerHTML += explanationHtml;
+        main.innerHTML += explanationHtml;
+    }
     
     // Disable dragging
     document.querySelectorAll('.draggable-item').forEach(item => {
@@ -1818,6 +1849,13 @@ function submitDragDropAnswer() {
     
     // Update performance data
     updatePerformanceData(question, result.isCorrect);
+    
+    // Disable submit button
+    const submitButton = document.querySelector('button[onclick="submitDragDropAnswer()"]');
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Answer Submitted';
+    }
 }
 
 // Global functions (to be accessible from HTML)
