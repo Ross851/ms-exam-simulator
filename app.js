@@ -1,705 +1,361 @@
 // Global variables
 let questions = [
-   {
-      id: 1,
-      topic: "Power Apps",
-      type: "multiplechoice",
-      difficultyLevel: "Medium",
-      text: "A company uses two separate unlinked apps to manage sales leads: a Power Apps app and a third-party application. The client has the following requirements: • Manage all leads using the Power Apps app. • Create a lead in the Power Apps app when a user creates a lead in the third-party application. • Update leads in the Power Apps app when a user updates a lead in the third-party application. • Connect to the third-party application using an API. You need to recommend strategies to integrate the Power Apps app and the third-party application. Which three options can you use to achieve the goal? NOTE: Each correct selection is worth one point.",
-      keyWords: ["two separate", "unlinked apps", "third-party", "API", "create", "update", "integrate", "real-time"],
-      hints: {
-        easy: ["Look for integration patterns", "Consider API connectivity options", "Think about what connects Power Platform to external systems"],
-        medium: ["Think about real-time synchronization", "Consider orchestration tools", "What enables custom API connections?"],
-        hard: ["Evaluate authentication methods", "Consider error handling patterns", "Think about scalability for API calls"]
-      },
-      conceptsTested: ["integration", "API connectivity", "data synchronization", "workflow automation", "custom connectors"],
-      commonMistakes: [
-        "Choosing Dual-write for non-D365 F&O scenarios",
-        "Selecting batch processing (Dataflow) for real-time requirements",
-        "Forgetting about authentication and security",
-        "Not considering error handling and retries"
-      ],
-      analysisHighlights: {
-        requirements: ["manage all leads", "create leads automatically", "update leads automatically", "API connection"],
-        constraints: ["third-party API", "separate unlinked apps", "real-time synchronization"],
-        technologies: ["Power Apps", "Custom connector", "Power Automate", "Dataverse"]
-      },
-      options: [
-        { letter: "A", text: "Dual-write", isCorrect: false, analysis: "Dual-write is specific to Dynamics 365 Finance and Operations integration, not suitable for generic third-party APIs." },
-        { letter: "B", text: "Custom connector", isCorrect: true, analysis: "A custom connector enables secure communication with a third-party API from Power Automate or Power Apps." },
-        { letter: "C", text: "Dataflow", isCorrect: false, analysis: "Dataflows are for periodic data import/export, not real-time lead syncing." },
-        { letter: "D", text: "Power Automate cloud flow", isCorrect: true, analysis: "Cloud flows can be triggered based on third-party system changes and automate lead creation/update processes." },
-        { letter: "E", text: "Dataverse connector", isCorrect: true, analysis: "Allows flows or apps to interact with Dataverse, enabling create/update of lead records." }
-      ],
-      correctAnswers: ["B", "D", "E"],
-      isMultipleChoice: true,
-      detailedExplanation: "Combining a custom connector (to reach the external API), Power Automate (for orchestration), and the Dataverse connector (to interact with Power Apps lead data) provides a complete solution for near real-time integration.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Design strategies for app integration",
-      source: "Custom generated"
+ // Additional questions to add to your questions array in app.js
+{
+    "id": 2,
+    "topic": "Power Platform",
+    "type": "multiplechoice", 
+    "difficultyLevel": "Easy",
+    "text": "Which of the following are components of the Microsoft Power Platform? Select all that apply.",
+    "keyWords": ["Power Platform", "components", "Microsoft"],
+    "hints": {
+        "easy": ["Think about the four main products in Power Platform", "Each product starts with 'Power'"],
+        "medium": ["Consider business apps, automation, analytics, and virtual agents"],
+        "hard": ["Power Apps, Power Automate, Power BI, and Power Virtual Agents"]
     },
-    {
-      id: 2,
-      topic: "General",
-      type: "dragdrop",
-      difficultyLevel: "Easy",
-      text: "DRAG DROP - You are designing a business continuity strategy for a client who has a Microsoft Power Platform solution. The client works with critical data where any data loss creates a high risk. You need to document the retry process for the stakeholders. Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.",
-      keyWords: ["business continuity", "retry", "sequence", "data loss", "service call", "exception", "automatically"],
-      hints: {
-        easy: ["Think about typical retry patterns", "Follow the error flow sequence", "What happens first in a service call?"],
-        medium: ["Consider automatic retry mechanisms", "Think about success scenarios", "What triggers a retry?"],
-        hard: ["Evaluate exponential backoff strategies", "Consider circuit breaker patterns", "Think about retry limits"]
-      },
-      conceptsTested: ["error handling", "retry patterns", "business continuity", "resilience", "automatic recovery"],
-      commonMistakes: [
-        "Including manual retry steps in automatic flows",
-        "Missing the success path continuation",
-        "Adding complex retry logic too early",
-        "Confusing automatic vs manual retry"
-      ],
-      analysisHighlights: {
-        requirements: ["business continuity", "handle failures", "automatic retry", "document process"],
-        constraints: ["critical data", "high risk", "automatic process"],
-        patterns: ["retry pattern", "exception handling", "resilience pattern"]
-      },
-      options: [
-        { source: "The application makes a service call to the datacenter.", order: 1 },
-        { source: "The application receives an exception after attempting the service call.", order: 2 },
-        { source: "The application automatically tries the call again.", order: 3 },
-        { source: "If the second call is successful, the application continues normally.", order: 4 },
-        { source: "The application logs an error and notifies an administrator.", order: null },
-        { source: "The application retries three times with exponential backoff.", order: null },
-        { source: "The user manually retries the operation.", order: null }
-      ],
-      correctAnswers: [
-        "The application makes a service call to the datacenter.",
-        "The application receives an exception after attempting the service call.",
-        "The application automatically tries the call again.",
-        "If the second call is successful, the application continues normally."
-      ],
-      isMultipleChoice: false,
-      detailedExplanation: "A typical retry pattern is: invoke the call, catch the error, retry automatically, and continue if successful. This basic pattern handles transient failures without manual intervention.",
-      category: "Architect a solution",
-      weight: 6.8,
-      examReference: "Design strategies for business continuity",
-      source: "Custom generated"
-    },
-    {
-      id: 3,
-      topic: "Power Apps",
-      type: "multiplechoice",
-      difficultyLevel: "Easy",
-      text: "A large company experiences high staff turnover rates. As a result, the company must add or remove multiple system user accounts daily. You need to recommend a security concept which will facilitate complex security profiles to entities for large groups of users across the Power Apps and Dynamics 365 applications. What should you recommend?",
-      keyWords: ["high staff turnover", "multiple", "daily", "security", "large groups", "complex security profiles"],
-      hints: {
-        easy: ["Think about group-based security", "Consider scalability for many users", "What reduces administrative overhead?"],
-        medium: ["How can you manage many users efficiently?", "Think about inheritance of permissions", "Consider team-based approaches"],
-        hard: ["Evaluate role-based vs team-based security", "Consider security inheritance patterns", "Think about maintenance overhead"]
-      },
-      conceptsTested: ["security management", "scalability", "team-based security", "user management", "administrative efficiency"],
-      commonMistakes: [
-        "Choosing individual user management for high-volume scenarios",
-        "Selecting field-level security for broad access control",
-        "Confusing hierarchy security with team security",
-        "Not considering maintenance overhead"
-      ],
-      analysisHighlights: {
-        requirements: ["handle high turnover", "manage multiple users daily", "complex security profiles", "cross-application"],
-        constraints: ["large groups", "frequent changes", "administrative efficiency"],
-        patterns: ["team-based security", "role inheritance", "group management"]
-      },
-      options: [
-        { letter: "A", text: "Hierarchy security", isCorrect: false, analysis: "Hierarchy security works by managerial layers, not ideal for quickly assigning complex privileges." },
-        { letter: "B", text: "Field-level security", isCorrect: false, analysis: "Field-level security only restricts certain fields, not entire entity-level privileges for large groups." },
-        { letter: "C", text: "User access management", isCorrect: false, analysis: "Generic phrase that does not map directly to a recommended approach in Power Apps/Dynamics 365." },
-        { letter: "D", text: "Team privileges", isCorrect: true, analysis: "Team-based security allows assigning roles to a team, simplifying user access management for large user groups." }
-      ],
-      correctAnswers: ["D"],
-      isMultipleChoice: false,
-      detailedExplanation: "Team privileges streamline security for large groups and reduce overhead when staff join or leave. Teams make it easier to manage roles for multiple users - membership changes but team privileges remain consistent.",
-      category: "Architect a solution",
-      weight: 6.8,
-      examReference: "Design strategies for security",
-      source: "Custom generated"
-    },
-    {
-      id: 4,
-      topic: "General",
-      type: "hotspot",
-      difficultyLevel: "Easy",
-      text: "HOTSPOT - You are designing a Power Platform solution for a company that provides in-home appliance maintenance. When a customer schedules a service appointment, a dispatcher assigns one technician for a specific time and location. The solution must capture information about the technician assigned to each appointment and the list of tools that the technician must bring to the appointment. You need to recommend the data type for the captured information. Which data type should you use? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.",
-      keyWords: ["technician assigned", "tools", "data type", "one technician", "list of tools", "appointment"],
-      hints: {
-        easy: ["Think about relationships between data", "Consider single vs multiple selections", "What data type links to other records?"],
-        medium: ["How do you reference a user record?", "What allows multiple selections from a list?", "Consider predefined vs dynamic lists"],
-        hard: ["Evaluate lookup vs choice performance", "Consider data normalization", "Think about reporting requirements"]
-      },
-      conceptsTested: ["data modeling", "field types", "relationships", "Dataverse schema", "data types"],
-      commonMistakes: [
-        "Using text fields for relationships",
-        "Choosing single-select for multiple items",
-        "Not understanding lookup relationships",
-        "Confusing choices with lookups"
-      ],
-      analysisHighlights: {
-        requirements: ["single technician per appointment", "multiple tools per appointment", "capture assignments"],
-        constraints: ["one technician", "list of tools", "predefined options"],
-        patterns: ["1:N relationships", "multi-select options", "lookup fields"]
-      },
-      options: {
-        areas: [
-          {
-            name: "Technician assigned",
-            options: ["Text", "Lookup", "Choices (multi-select option set)", "Number"],
-            correctAnswer: "Lookup"
-          },
-          {
-            name: "Tools to bring",
-            options: ["Text", "Lookup", "Choices (multi-select option set)", "Boolean"],
-            correctAnswer: "Choices (multi-select option set)"
-          }
-        ]
-      },
-      correctAnswers: ["Technician assigned: Lookup", "Tools to bring: Choices (multi-select option set)"],
-      isMultipleChoice: false,
-      detailedExplanation: "Use a Lookup to reference a single technician record. A multi-select Choices field is suitable for listing multiple required tools. Lookup fields relate to another entity (e.g. Users), while multi-select Choices let you choose multiple items from a predefined list.",
-      category: "Architect a solution",
-      weight: 6.8,
-      examReference: "Design strategies for data models",
-      source: "Custom generated"
-    },
-    {
-      id: 5,
-      topic: "Power Automate",
-      type: "hotspot",
-      difficultyLevel: "Medium",
-      text: "HOTSPOT - An animal welfare organization wants to track the movement of wolf packs in a region. Cameras at specific locations capture images when motion is detected within the camera sensor range. Staff upload the images manually to a shared drive and then analyse the images. The organization wants to automate image capture and analysis. The organization has the following requirements: • Save captured images in an appropriate location. • Analyse saved images by using an image recognition process. • Display data in real-time dashboards. You need to recommend the correct technology for the requirements. What should you recommend? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.",
-      keyWords: ["automate", "images", "AI", "image recognition", "real-time", "dashboards", "save", "analyse"],
-      hints: {
-        easy: ["Think about automation tools", "Consider AI capabilities in Power Platform", "What handles file operations?"],
-        medium: ["What can process images automatically?", "Consider trigger-based automation", "Think about AI Builder capabilities"],
-        hard: ["Evaluate computer vision options", "Consider processing performance", "Think about real-time data flow"]
-      },
-      conceptsTested: ["AI Builder", "automation", "image processing", "real-time processing", "cloud flows"],
-      commonMistakes: [
-        "Using manual processes for automation requirements",
-        "Forgetting about AI Builder for image analysis",
-        "Choosing desktop flows for cloud scenarios",
-        "Not considering real-time requirements"
-      ],
-      analysisHighlights: {
-        requirements: ["automate image capture", "analyze images", "real-time dashboards", "image recognition"],
-        constraints: ["motion-triggered capture", "automated analysis", "real-time display"],
-        technologies: ["Power Automate", "AI Builder", "cloud storage"]
-      },
-      options: {
-        areas: [
-          {
-            name: "Save captured images in an appropriate location",
-            options: ["Automated cloud flow", "Manual upload to SharePoint", "Desktop flow with Power Automate", "Custom connector"],
-            correctAnswer: "Automated cloud flow"
-          },
-          {
-            name: "Analyse saved images by using an image recognition process",
-            options: ["AI Builder", "Custom vision API with Azure Functions", "Automated cloud flow + AI Builder", "Image recognition using desktop automation"],
-            correctAnswer: "Automated cloud flow + AI Builder"
-          }
-        ]
-      },
-      correctAnswers: [
-        "Save captured images in an appropriate location: Automated cloud flow",
-        "Analyse saved images by using an image recognition process: Automated cloud flow + AI Builder"
-      ],
-      isMultipleChoice: false,
-      detailedExplanation: "An automated cloud flow can detect newly uploaded images and store them. AI Builder can then process images for recognition or object detection. Together, Power Automate (for automation) and AI Builder (for image analysis) meet the requirement of automating image capture/analysis and feeding results into real-time dashboards.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Recommend AI Builder capabilities based on business requirements",
-      source: "Custom generated"
-    },
-    {
-      id: 6,
-      topic: "General",
-      type: "multiplechoice",
-      difficultyLevel: "Medium",
-      text: "You are designing a Power Platform solution. The company wants its development team to adopt the construction of repeatable components for its implementation team to reuse on different entities and forms. You need to recommend a technology that meets these requirements. Which technology would you recommend the developers adopt to assist the implementation team?",
-      keyWords: ["repeatable components", "reuse", "different entities", "forms", "development team", "implementation team"],
-      hints: {
-        easy: ["Think about custom UI components", "Consider code-based solutions", "What allows reusability across forms?"],
-        medium: ["What framework enables custom controls?", "Think about component reusability", "Consider model-driven app components"],
-        hard: ["Evaluate PCF vs web resources", "Consider maintenance and deployment", "Think about TypeScript/React components"]
-      },
-      conceptsTested: ["Power Apps Component Framework", "reusability", "custom controls", "development patterns", "component architecture"],
-      commonMistakes: [
-        "Choosing JavaScript for full component reusability",
-        "Selecting canvas apps for model-driven components",
-        "Using web resources instead of PCF",
-        "Not considering cross-entity reusability"
-      ],
-      analysisHighlights: {
-        requirements: ["repeatable components", "reuse across entities", "reuse across forms", "development team adoption"],
-        constraints: ["implementation team usage", "different entities", "maintainability"],
-        technologies: ["PCF", "model-driven apps", "custom controls"]
-      },
-      options: [
-        { letter: "A", text: "JavaScript", isCorrect: false, analysis: "While you can script form logic with JavaScript, it doesn't provide fully reusable UI components." },
-        { letter: "B", text: "Power Apps Component Framework control", isCorrect: true, analysis: "PCF controls enable developers to build custom, reusable controls for model-driven apps." },
-        { letter: "C", text: "Web resource", isCorrect: false, analysis: "A web resource is a more traditional approach, but lacks the integrated reusability of a PCF control." },
-        { letter: "D", text: "Canvas app", isCorrect: false, analysis: "A canvas app is a complete app, not a component framework for forms in model-driven apps." }
-      ],
-      correctAnswers: ["B"],
-      isMultipleChoice: false,
-      detailedExplanation: "PCF controls are specifically designed for repeatable, code-based custom UI components across forms. Power Apps Component Framework meets the requirement for consistent, reusable components.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Identify opportunities for components and templates",
-      source: "Custom generated"
-    },
-    {
-      id: 7,
-      topic: "Power Pages",
-      type: "multiplechoice",
-      difficultyLevel: "Medium",
-      text: "A company uses manual processes to track interactions with customers. The company wants to use Power Platform to improve productivity. The company has the following requirements: • Provide customers with an online portal where they can submit and review cases. • Ensure that customers can chat online with a customer service representative at any time. • Route chats to customer service representatives based on skill and availability. You need to recommend a solution to the company. Which three components should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
-      keyWords: ["online portal", "submit cases", "review cases", "chat online", "any time", "route chats", "skill", "availability"],
-      hints: {
-        easy: ["Think about customer portals", "Consider chat solutions", "What handles skill-based routing?"],
-        medium: ["What provides 24/7 chat coverage?", "Think about omnichannel capabilities", "Consider self-service options"],
-        hard: ["Evaluate chatbot vs live agent strategies", "Consider queue management", "Think about skills-based routing algorithms"]
-      },
-      conceptsTested: ["customer portals", "omnichannel", "chatbots", "skill-based routing", "case management"],
-      commonMistakes: [
-        "Forgetting about automated chat for 24/7 coverage",
-        "Not including omnichannel for routing",
-        "Choosing Field Service for case management",
-        "Missing the portal requirement"
-      ],
-      analysisHighlights: {
-        requirements: ["online portal", "case submission/review", "24/7 chat", "skill-based routing"],
-        constraints: ["customer self-service", "any time availability", "representative skills"],
-        technologies: ["Power Pages", "Virtual Agents", "Omnichannel"]
-      },
-      options: [
-        { letter: "A", text: "Dynamics 365 Virtual Agents chatbots", isCorrect: true, analysis: "Enables chat automation, but Omnichannel is needed for skill-based routing to live agents." },
-        { letter: "B", text: "Customer self-service portal", isCorrect: true, analysis: "Portal for customers to submit and review cases themselves." },
-        { letter: "C", text: "Dynamics 365 Field Service", isCorrect: false, analysis: "Focused on onsite scheduling/dispatch, not standard case mgmt or chat." },
-        { letter: "D", text: "Business process flows", isCorrect: false, analysis: "BPFs guide internal processes, but they don't directly address real-time chat or portals." },
-        { letter: "E", text: "Omnichannel for Customer Service", isCorrect: true, analysis: "Handles live chat, skill-based routing, queueing for human agents." }
-      ],
-      correctAnswers: ["A", "B", "E"],
-      isMultipleChoice: true,
-      detailedExplanation: "Virtual Agents (A) handle automated chat for 24/7 coverage. The portal (B) allows case submission and review. Omnichannel (E) provides live chat with skill-based routing.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Identify opportunities to implement Power Pages",
-      source: "Custom generated"
-    },
-    {
-      id: 8,
-      topic: "Power BI",
-      type: "multiplechoice",
-      difficultyLevel: "Medium",
-      text: "A client uses Dynamics 365 Sales, Power BI datasets, and Power BI dataflows. The Dynamics 365 Sales implementation has security roles that restrict data export. You need to ensure that data has the same restrictions in Power BI as it does in Dynamics 365 Sales. You need to design the security to avoid sensitive data from being seen. Which two actions should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
-      keyWords: ["security roles", "restrict", "same restrictions", "Power BI", "Dynamics 365 Sales", "sensitive data"],
-      hints: {
-        easy: ["Think about security inheritance", "Consider row-level security", "How does security flow from Dataverse?"],
-        medium: ["What enforces Dataverse security in Power BI?", "Think about sharing restrictions", "Consider RLS implementation"],
-        hard: ["Evaluate security models across platforms", "Consider performance impacts of RLS", "Think about security maintenance"]
-      },
-      conceptsTested: ["row-level security", "security inheritance", "Dataverse security", "Power BI security", "data governance"],
-      commonMistakes: [
-        "Focusing only on export restrictions",
-        "Not implementing RLS in Power BI",
-        "Ignoring Dataverse security model",
-        "Over-sharing dashboards"
-      ],
-      analysisHighlights: {
-        requirements: ["maintain security restrictions", "prevent sensitive data exposure", "align with D365 security"],
-        constraints: ["existing security roles", "data export restrictions", "cross-platform security"],
-        patterns: ["security inheritance", "row-level security", "least privilege"]
-      },
-      options: [
-        { letter: "A", text: "Use Microsoft Dataverse restrictions before setting up the Power BI reports.", isCorrect: true, analysis: "Applying row-level security in Dataverse ensures only authorized data is exposed to the reporting layer." },
-        { letter: "B", text: "Limit the role in Dynamics 365 Sales to only data allowed so it cannot be exported to Microsoft Excel.", isCorrect: false, analysis: "Preventing Excel export doesn't fully address applying the same security to Power BI." },
-        { letter: "C", text: "Limit the role and ensure that exporting to Microsoft Excel is not allowed in both Dynamics 365 Sales and Power BI.", isCorrect: false, analysis: "Focusing just on blocking Excel export doesn't replicate row-level restrictions in Power BI." },
-        { letter: "D", text: "Share Power BI dashboards only with users who are supported to see this data.", isCorrect: true, analysis: "You must share dashboards only with users who already have appropriate permissions in Dataverse." }
-      ],
-      correctAnswers: ["A", "D"],
-      isMultipleChoice: true,
-      detailedExplanation: "Implement row-level security via Dataverse roles, and share Power BI only with authorized users. This enforces consistent data protection. Dataverse row-level security extends to Power BI with the right setup.",
-      category: "Architect a solution",
-      weight: 6.8,
-      examReference: "Design strategies for security",
-      source: "Custom generated"
-    },
-    {
-      id: 9,
-      topic: "Power Pages",
-      type: "specialdragdrop",
-      difficultyLevel: "Medium",
-      text: "DRAG DROP - You need to recommend methods for assigning security to each group of users. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years. You need to determine which requirements are functional or non-functional. Which requirements are functional or non-functional? To answer, drag the appropriate types to the correct requirements. Each type may be used once, more than once, or not at all. NOTE: Each correct selection is worth one point.",
-      keyWords: ["functional", "non-functional", "submit case", "75 concurrent", "retained", "six years", "portal"],
-      hints: {
-        easy: ["Think about features vs constraints", "Consider what the system does vs how well it does it", "Performance is typically non-functional"],
-        medium: ["Functional = what the system does", "Non-functional = how the system performs", "Consider scalability and retention as qualities"],
-        hard: ["Evaluate architectural qualities", "Consider ISO 25010 categories", "Think about measurable constraints"]
-      },
-      conceptsTested: ["requirements analysis", "functional requirements", "non-functional requirements", "system qualities", "constraints"],
-      commonMistakes: [
-        "Confusing features with performance",
-        "Treating all numbers as non-functional",
-        "Not recognizing retention as non-functional",
-        "Missing the scalability aspect"
-      ],
-      analysisHighlights: {
-        requirements: ["case submission capability", "concurrent user handling", "data retention period"],
-        patterns: ["functional = capabilities", "non-functional = qualities", "performance metrics"],
-        categories: ["functionality", "performance", "compliance"]
-      },
-      options: [
+    "conceptsTested": ["Power Platform", "platform components", "Microsoft ecosystem"],
+    "options": [
         {
-          source: {
-            requirement: "Customers need the ability to submit a case through an online portal.",
-            choices: ["Functional", "Non-functional"]
-          }
+            "letter": "A",
+            "text": "Power Apps",
+            "isCorrect": true,
+            "analysis": "Power Apps is the low-code application development platform in Power Platform."
         },
         {
-          source: {
-            requirement: "Portal must handle 75 concurrent users submitting cases.",
-            choices: ["Functional", "Non-functional"]
-          }
+            "letter": "B",
+            "text": "Power Query",
+            "isCorrect": false,
+            "analysis": "Power Query is a data transformation tool within Power BI and Excel, not a standalone Power Platform component."
         },
         {
-          source: {
-            requirement: "Service data must be retained for at least six years.",
-            choices: ["Functional", "Non-functional"]
-          }
+            "letter": "C",
+            "text": "Power Automate",
+            "isCorrect": true,
+            "analysis": "Power Automate provides workflow automation capabilities across the platform."
+        },
+        {
+            "letter": "D",
+            "text": "Power BI",
+            "isCorrect": true,
+            "analysis": "Power BI is the business intelligence and analytics component."
+        },
+        {
+            "letter": "E",
+            "text": "Power Virtual Agents",
+            "isCorrect": true,
+            "analysis": "Power Virtual Agents enables creation of chatbots without coding."
         }
-      ],
-      correctAnswers: [
-        "Customers need the ability to submit a case through an online portal: Functional",
-        "Portal must handle 75 concurrent users submitting cases: Non-functional",
-        "Service data must be retained for at least six years: Non-functional"
-      ],
-      isMultipleChoice: true,
-      detailedExplanation: "Functional requirements describe features or behaviors (submitting cases), while non-functional cover performance (concurrent users), scalability, and retention mandates (six years).",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Identify functional and non-functional requirements",
-      source: "Custom generated"
+    ],
+    "correctAnswers": ["A", "C", "D", "E"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "The Microsoft Power Platform consists of four main components: Power Apps (for building apps), Power Automate (for automation), Power BI (for analytics), and Power Virtual Agents (for chatbots). Power Query is a feature within Power BI and Excel, not a standalone platform component.",
+    "category": "Architect a solution",
+    "weight": 5.0
+},
+{
+    "id": 3,
+    "topic": "Dataverse",
+    "type": "singlechoice",
+    "difficultyLevel": "Medium",
+    "text": "A company needs to implement row-level security in their Dataverse environment. Which feature should they use to restrict data access based on user attributes?",
+    "keyWords": ["row-level security", "Dataverse", "restrict", "data access", "user attributes"],
+    "hints": {
+        "easy": ["Think about security features in Dataverse", "Consider how to filter data by user"],
+        "medium": ["This feature allows dynamic data filtering", "It's related to business units and teams"],
+        "hard": ["Security roles define permissions, but this feature filters which records users can see"]
     },
-    {
-      id: 10,
-      topic: "General",
-      type: "multiplechoice",
-      difficultyLevel: "Medium",
-      text: "You are a Power Platform consultant for an internet support company. The company lacks a budget to buy third-party ISVs or add-ons. The company requires a new system that achieves the following: • All support issues must come in by email, need to be logged, and assigned to the support group. • Accounts must synchronise with the parent company Oracle database. • Reports must be sent to the executives on a weekly basis. • No custom code will be used in the system. You need to recommend the components that should be configured. Which two components should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
-      keyWords: ["no budget", "third-party", "email", "Oracle", "synchronise", "no custom code", "reports", "weekly"],
-      hints: {
-        easy: ["Think about out-of-box capabilities", "Consider email integration options", "What handles data synchronization?"],
-        medium: ["What processes emails automatically?", "Think about database connectivity", "Consider no-code solutions"],
-        hard: ["Evaluate server-side sync capabilities", "Consider Oracle connector options", "Think about report automation"]
-      },
-      conceptsTested: ["email integration", "data synchronization", "no-code solutions", "server-side sync", "reporting"],
-      commonMistakes: [
-        "Choosing solutions requiring custom code",
-        "Selecting third-party add-ons",
-        "Missing server-side synchronization",
-        "Not considering Dataverse for data storage"
-      ],
-      analysisHighlights: {
-        requirements: ["email to case", "Oracle sync", "weekly reports", "no custom code"],
-        constraints: ["no budget for ISVs", "no custom development", "existing Oracle database"],
-        technologies: ["Dataverse", "server-side sync", "Power Automate"]
-      },
-      options: [
-        { letter: "A", text: "Power Virtual Agents", isCorrect: false, analysis: "Chatbots are not required here, as issues come via email." },
-        { letter: "B", text: "Microsoft Dataverse", isCorrect: true, analysis: "Dataverse can store and manage the support issues, accounts, etc. without custom code." },
-        { letter: "C", text: "server-side synchronisation", isCorrect: true, analysis: "Server-side sync can process incoming emails into cases and integrate with external systems." },
-        { letter: "D", text: "Microsoft Customer Voice", isCorrect: false, analysis: "Customer Voice is for surveys, not for core support ticket logging and Oracle sync." }
-      ],
-      correctAnswers: ["B", "C"],
-      isMultipleChoice: true,
-      detailedExplanation: "Dataverse for data management, and server-side synchronisation to handle incoming emails. Flows or connectors can sync with Oracle. No custom code is needed. These two components allow email-to-case and integrated data management without requiring custom code or third-party solutions.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Recommend components based on business requirements",
-      source: "Custom generated"
+    "conceptsTested": ["Dataverse security", "row-level security", "access control"],
+    "commonMistakes": [
+        "Confusing security roles with row-level security",
+        "Not understanding the hierarchy of business units",
+        "Overlooking the importance of owner-based security"
+    ],
+    "options": [
+        {
+            "letter": "A",
+            "text": "Security Roles",
+            "isCorrect": false,
+            "analysis": "Security roles define what actions users can perform, not which specific records they can access."
+        },
+        {
+            "letter": "B",
+            "text": "Access Teams",
+            "isCorrect": true,
+            "analysis": "Access teams provide row-level security by dynamically controlling which records users can access based on team membership."
+        },
+        {
+            "letter": "C",
+            "text": "Column Security Profiles",
+            "isCorrect": false,
+            "analysis": "Column security profiles restrict access to specific fields, not entire rows."
+        },
+        {
+            "letter": "D",
+            "text": "Connection Roles",
+            "isCorrect": false,
+            "analysis": "Connection roles define relationships between records, not security access."
+        }
+    ],
+    "correctAnswers": ["B"],
+    "isMultipleChoice": false,
+    "detailedExplanation": "Access Teams in Dataverse provide row-level security by allowing dynamic assignment of users to teams that have specific access rights to records. This is different from security roles (which define permissions) and column security (which restricts field access).",
+    "category": "Architect a solution",
+    "weight": 6.5
+},
+{
+    "id": 4,
+    "topic": "Power Automate",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "Which triggers can initiate a Power Automate cloud flow? Select all that apply.",
+    "keyWords": ["triggers", "Power Automate", "cloud flow", "initiate"],
+    "hints": {
+        "easy": ["Think about different ways to start a flow", "Consider both manual and automatic triggers"],
+        "medium": ["Flows can start from user actions, schedules, or system events"],
+        "hard": ["Consider SharePoint, Forms, email, and time-based triggers"]
     },
-    {
-      id: 11,
-      topic: "Administration",
-      type: "requirementtype",
-      difficultyLevel: "Medium",
-      text: "DRAG DROP - You are performing a requirements analysis for a customer. The customer provides the following requirements: • Power Platform storage capacity must remain under 100 percent. • Customer service representatives must be sent an email when they are assigned a case. • Help desk technicians must be shown an error message when they try to delete a task row. • The plug-in pass rate must remain over 99 percent for the production environment. You need determine if the requirements are functional or non-functional. Which requirement type should you use? To answer, drag the appropriate requirement types to the correct requirements. Each requirement type may be used once, more than once, or not at all. NOTE: Each correct selection is worth one point.",
-      keyWords: ["storage capacity", "100 percent", "email", "assigned", "error message", "delete", "pass rate", "99 percent"],
-      hints: {
-        easy: ["Capacity and performance are qualities", "Actions and behaviors are functions", "Think about measurable constraints"],
-        medium: ["What describes system behavior vs system quality?", "Consider performance metrics", "Email notifications are features"],
-        hard: ["Evaluate SLA requirements", "Consider monitoring implications", "Think about architectural qualities"]
-      },
-      conceptsTested: ["requirements classification", "functional vs non-functional", "system qualities", "behaviors vs constraints"],
-      commonMistakes: [
-        "Treating all percentages as functional",
-        "Confusing notifications with performance",
-        "Not recognizing capacity as non-functional",
-        "Missing the behavioral aspects"
-      ],
-      analysisHighlights: {
-        functional: ["send email", "show error message"],
-        nonFunctional: ["storage capacity", "pass rate"],
-        patterns: ["actions = functional", "constraints = non-functional", "metrics = non-functional"]
-      },
-      options: {
-        positions: [
-          { id: 1, requirement: "Power Platform storage capacity must remain under 100 percent." },
-          { id: 2, requirement: "Customer service representatives must be sent an email when they are assigned a case." },
-          { id: 3, requirement: "Help desk technicians must be shown an error message when they try to delete a task row." },
-          { id: 4, requirement: "The plug-in pass rate must remain over 99 percent for the production environment." }
-        ],
-        choices: ["Functional", "Non-functional"]
-      },
-      correctAnswers: ["Non-functional", "Functional", "Functional", "Non-functional"],
-      isMultipleChoice: true,
-      detailedExplanation: "Functional covers behaviors and actions (email notifications, error messages), non-functional includes performance, capacity, or success rate constraints (storage limits, pass rates).",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Identify functional and non-functional requirements",
-      source: "Custom generated"
+    "conceptsTested": ["Power Automate triggers", "flow initiation", "automation"],
+    "options": [
+        {
+            "letter": "A",
+            "text": "When a new email arrives",
+            "isCorrect": true,
+            "analysis": "Email triggers are common in Power Automate for inbox automation."
+        },
+        {
+            "letter": "B",
+            "text": "On a recurring schedule",
+            "isCorrect": true,
+            "analysis": "Recurrence triggers allow flows to run at specified intervals."
+        },
+        {
+            "letter": "C",
+            "text": "When a SharePoint item is created",
+            "isCorrect": true,
+            "analysis": "SharePoint triggers are widely used for document and list automation."
+        },
+        {
+            "letter": "D",
+            "text": "When a local file is modified",
+            "isCorrect": false,
+            "analysis": "Cloud flows cannot directly monitor local file systems; this requires desktop flows."
+        },
+        {
+            "letter": "E",
+            "text": "When a Microsoft Form is submitted",
+            "isCorrect": true,
+            "analysis": "Forms triggers enable automation of survey and form responses."
+        }
+    ],
+    "correctAnswers": ["A", "B", "C", "E"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Power Automate cloud flows can be triggered by various events including emails, schedules, SharePoint changes, and form submissions. Local file monitoring requires desktop flows as cloud flows cannot access local file systems directly.",
+    "category": "Implement the solution",
+    "weight": 5.5
+},
+{
+    "id": 5,
+    "topic": "Power Apps",
+    "type": "singlechoice",
+    "difficultyLevel": "Hard",
+    "text": "A canvas app needs to display data from multiple SharePoint lists with complex relationships. What is the most efficient approach to minimize delegation warnings and improve performance?",
+    "keyWords": ["canvas app", "SharePoint lists", "delegation", "performance", "relationships"],
+    "hints": {
+        "easy": ["Consider data source limitations", "Think about where to process data"],
+        "medium": ["Delegation limits affect how much data can be processed", "Complex operations might need preprocessing"],
+        "hard": ["SharePoint has delegation limitations", "Consider intermediate data processing"]
     },
-    {
-      id: 12,
-      topic: "Power Automate",
-      type: "multiplechoice",
-      difficultyLevel: "Easy",
-      text: "A company has a website that contains a form named Contact Us. Data from completed forms is saved to a shared document. An office administrator periodically reviews the document. The office administrator sends new submissions to another employee who creates contacts or updates existing contacts. You need to recommend a solution to automate the process. What should you recommend?",
-      keyWords: ["Contact Us", "form", "shared document", "automate", "creates contacts", "updates", "existing contacts"],
-      hints: {
-        easy: ["Think about automating form processing", "Consider contact management systems", "What handles forms and contacts?"],
-        medium: ["What system manages contacts well?", "Think about form-to-contact automation", "Consider Customer Service capabilities"],
-        hard: ["Evaluate form processing options", "Consider duplicate detection", "Think about contact lifecycle"]
-      },
-      conceptsTested: ["form automation", "contact management", "process automation", "Customer Service", "workflow automation"],
-      commonMistakes: [
-        "Choosing marketing for basic contact creation",
-        "Selecting analytics tools for operational tasks",
-        "Missing the Customer Service option",
-        "Overcomplicating with custom solutions"
-      ],
-      analysisHighlights: {
-        requirements: ["automate form processing", "create/update contacts", "eliminate manual review"],
-        constraints: ["existing shared document", "manual process currently"],
-        technologies: ["Customer Service", "Power Automate", "contact management"]
-      },
-      options: [
-        { letter: "A", text: "Excel Online Connector", isCorrect: false, analysis: "This might help read data from Excel, but doesn't automatically create or update Dataverse contacts in a structured manner." },
-        { letter: "B", text: "Dynamics 365 Customer Insights", isCorrect: false, analysis: "Primarily for analytics and segmenting customer data, not basic contact creation from a simple form." },
-        { letter: "C", text: "Dynamics 365 Customer Service", isCorrect: true, analysis: "Can store and manage contacts, plus combine with Power Automate to handle new submissions automatically." },
-        { letter: "D", text: "Dynamics 365 Marketing", isCorrect: false, analysis: "Marketing is mostly for campaign automation and lead nurturing, not direct 'Contact Us' form case creation." }
-      ],
-      correctAnswers: ["C"],
-      isMultipleChoice: false,
-      detailedExplanation: "Use Customer Service with a simple Power Automate flow to watch the shared doc for new rows, then create/update contacts automatically. Customer Service provides the right data model (contacts, cases), and automations can be built quickly without needing heavy marketing or analytics features.",
-      category: "Architect a solution",
-      weight: 6.8,
-      examReference: "Identify automation opportunities",
-      source: "Custom generated"
+    "conceptsTested": ["delegation", "performance optimization", "data sources", "SharePoint integration"],
+    "commonMistakes": [
+        "Ignoring delegation limits",
+        "Using multiple nested ForAll loops",
+        "Not considering data volume impacts",
+        "Overusing complex formulas in galleries"
+    ],
+    "options": [
+        {
+            "letter": "A",
+            "text": "Use multiple Lookup columns in SharePoint",
+            "isCorrect": false,
+            "analysis": "While Lookup columns can help, they don't solve delegation issues and can impact performance."
+        },
+        {
+            "letter": "B",
+            "text": "Create a Power Automate flow to combine data into a single list",
+            "isCorrect": true,
+            "analysis": "Pre-processing data with Power Automate avoids delegation issues and improves app performance by creating a denormalized data structure."
+        },
+        {
+            "letter": "C",
+            "text": "Use nested ForAll loops in the canvas app",
+            "isCorrect": false,
+            "analysis": "Nested ForAll loops are inefficient and can severely impact performance with large datasets."
+        },
+        {
+            "letter": "D",
+            "text": "Connect directly to all lists and use complex Filter formulas",
+            "isCorrect": false,
+            "analysis": "Complex Filter formulas often hit delegation limits and result in incomplete data retrieval."
+        }
+    ],
+    "correctAnswers": ["B"],
+    "isMultipleChoice": false,
+    "detailedExplanation": "When dealing with complex SharePoint relationships and delegation limitations, the best approach is to use Power Automate to pre-process and combine data into a single, denormalized list. This eliminates delegation warnings and significantly improves app performance.",
+    "category": "Architect a solution",
+    "weight": 8.0
+},
+{
+    "id": 6,
+    "topic": "ALM",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "What are the recommended practices for Application Lifecycle Management (ALM) in Power Platform? Select all that apply.",
+    "keyWords": ["ALM", "Application Lifecycle Management", "Power Platform", "best practices"],
+    "hints": {
+        "easy": ["Think about source control and environments", "Consider how to move changes between development and production"],
+        "medium": ["Solutions are key to ALM", "Environment strategy is important"],
+        "hard": ["Consider managed vs unmanaged solutions", "Think about deployment pipelines"]
     },
-    {
-      id: 13,
-      topic: "Power Automate",
-      type: "hotspot",
-      difficultyLevel: "Medium",
-      text: "HOTSPOT - You need to design a Power Platform solution that meets the following requirements: • Capture data from a row during deletion to be used in an automated process. • Use AI to process forms and automate data entry from paper-based forms. Which requirements can be met by using out-of-the-box Power Platform components? Instructions: For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
-      keyWords: ["capture data", "deletion", "AI", "process forms", "paper-based", "out-of-the-box", "automated"],
-      hints: {
-        easy: ["Think about Dataverse triggers", "Consider AI Builder capabilities", "What's available out-of-the-box?"],
-        medium: ["What triggers exist for deletion?", "How does AI Builder handle forms?", "Consider form processing models"],
-        hard: ["Evaluate pre-delete triggers", "Consider OCR capabilities", "Think about form recognition models"]
-      },
-      conceptsTested: ["Dataverse triggers", "AI Builder", "form processing", "deletion events", "out-of-box capabilities"],
-      commonMistakes: [
-        "Thinking deletion can't be captured",
-        "Not knowing about AI Builder forms",
-        "Assuming custom code is needed",
-        "Missing standard trigger options"
-      ],
-      analysisHighlights: {
-        requirements: ["capture deletion data", "AI form processing", "paper form automation"],
-        constraints: ["out-of-the-box only", "no custom code"],
-        technologies: ["Power Automate triggers", "AI Builder", "form recognition"]
-      },
-      options: {
-        areas: [
-          {
-            name: "Capture data upon row deletion",
-            options: ["Yes", "No"],
-            correctAnswer: "Yes"
-          },
-          {
-            name: "Use AI to process forms",
-            options: ["Yes", "No"],
-            correctAnswer: "Yes"
-          }
-        ]
-      },
-      correctAnswers: ["Capture data upon row deletion: Yes", "Use AI to process forms: Yes"],
-      isMultipleChoice: false,
-      detailedExplanation: "Power Automate can trigger on row deletion in Dataverse ('When a row is deleted'). AI Builder can process forms out of the box. Both scenarios are supported by standard capabilities.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Identify automation opportunities with Power Automate",
-      source: "Custom generated"
+    "conceptsTested": ["ALM", "solutions", "environments", "deployment"],
+    "options": [
+        {
+            "letter": "A",
+            "text": "Use separate environments for development, test, and production",
+            "isCorrect": true,
+            "analysis": "Environment separation is fundamental to proper ALM practices."
+        },
+        {
+            "letter": "B",
+            "text": "Always use unmanaged solutions in production",
+            "isCorrect": false,
+            "analysis": "Managed solutions should be used in production to prevent unwanted modifications."
+        },
+        {
+            "letter": "C",
+            "text": "Implement source control for solution files",
+            "isCorrect": true,
+            "analysis": "Source control enables version tracking and collaboration on Power Platform solutions."
+        },
+        {
+            "letter": "D",
+            "text": "Use solution segmentation for large projects",
+            "isCorrect": true,
+            "analysis": "Breaking large projects into multiple solutions improves manageability and deployment flexibility."
+        },
+        {
+            "letter": "E",
+            "text": "Deploy directly from development to production",
+            "isCorrect": false,
+            "analysis": "Skipping test environments increases risk and violates ALM best practices."
+        }
+    ],
+    "correctAnswers": ["A", "C", "D"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Proper ALM in Power Platform requires separate environments, source control, and solution segmentation. Managed solutions should be used in production, and deployments should follow a development -> test -> production path.",
+    "category": "Implement the solution",
+    "weight": 7.0
+},
+{
+    "id": 7,
+    "topic": "Security",
+    "type": "singlechoice",
+    "difficultyLevel": "Hard",
+    "text": "An organization needs to implement data loss prevention (DLP) policies across Power Platform. Which component should be configured to prevent sensitive data from being shared with external connectors?",
+    "keyWords": ["DLP", "data loss prevention", "security", "external connectors", "sensitive data"],
+    "hints": {
+        "easy": ["DLP policies are configured at a specific level", "Think about governance and administration"],
+        "medium": ["This is managed centrally, not at the app level", "Consider where policies would apply across all apps"],
+        "hard": ["Think about the administrative hierarchy in Microsoft 365"]
     },
-    {
-      id: 14,
-      topic: "Integration",
-      type: "multiplechoice",
-      difficultyLevel: "Easy",
-      text: "A company has a custom web-based API that is hosted on Azure. You design a Microsoft Power Platform solution to provide the company additional capabilities. You need to integrate the Microsoft Power Platform solution with the API. What should you recommend?",
-      keyWords: ["custom", "web-based API", "Azure", "integrate", "Power Platform"],
-      hints: {
-        easy: ["Think about API connectivity", "What enables custom integrations?", "Consider REST API connections"],
-        medium: ["How do you connect to external APIs?", "Think about authentication", "Consider reusability"],
-        hard: ["Evaluate connector architecture", "Consider security patterns", "Think about rate limiting"]
-      },
-      conceptsTested: ["API integration", "custom connectors", "external connectivity", "Azure integration"],
-      commonMistakes: [
-        "Using data gateway for cloud APIs",
-        "Choosing desktop flows for API calls",
-        "Not considering authentication",
-        "Missing the custom connector option"
-      ],
-      analysisHighlights: {
-        requirements: ["integrate with custom API", "Azure-hosted service", "Power Platform connectivity"],
-        constraints: ["external API", "web-based service"],
-        technologies: ["custom connector", "REST API", "Azure"]
-      },
-      options: [
-        { letter: "A", text: "Connection reference", isCorrect: false, analysis: "Connection references map an existing connector to an environment, not define a new custom integration." },
-        { letter: "B", text: "Custom connector", isCorrect: true, analysis: "A custom connector is used to call external web APIs in the Power Platform." },
-        { letter: "C", text: "Desktop flow", isCorrect: false, analysis: "Desktop flows are for RPA with legacy systems, not direct Azure web API integration." },
-        { letter: "D", text: "Data gateway", isCorrect: false, analysis: "Gateway is for on-premises data, not for an Azure-hosted custom API." }
-      ],
-      correctAnswers: ["B"],
-      isMultipleChoice: false,
-      detailedExplanation: "A custom connector is the correct approach to integrate an external Azure-based API with Power Apps or Power Automate. Custom connectors let you wrap any REST-based API and use it natively within Power Platform solutions.",
-      category: "Architect a solution",
-      weight: 6.8,
-      examReference: "Design strategies for integration",
-      source: "Custom generated"
+    "conceptsTested": ["DLP policies", "security governance", "connector management"],
+    "commonMistakes": [
+        "Configuring DLP at the app level",
+        "Not understanding policy inheritance",
+        "Overlooking connector classification"
+    ],
+    "options": [
+        {
+            "letter": "A",
+            "text": "Individual app settings",
+            "isCorrect": false,
+            "analysis": "DLP policies cannot be effectively managed at the individual app level."
+        },
+        {
+            "letter": "B",
+            "text": "Power Platform admin center",
+            "isCorrect": true,
+            "analysis": "DLP policies are configured in the Power Platform admin center to apply across environments and apps."
+        },
+        {
+            "letter": "C",
+            "text": "Azure Active Directory",
+            "isCorrect": false,
+            "analysis": "While Azure AD handles authentication, DLP policies are managed in Power Platform admin center."
+        },
+        {
+            "letter": "D",
+            "text": "SharePoint admin center",
+            "isCorrect": false,
+            "analysis": "SharePoint DLP is separate from Power Platform DLP policies."
+        }
+    ],
+    "correctAnswers": ["B"],
+    "isMultipleChoice": false,
+    "detailedExplanation": "Data Loss Prevention (DLP) policies for Power Platform are configured in the Power Platform admin center. These policies control which connectors can be used together and help prevent sensitive data from being shared with external services.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.5
+},
+{
+    "id": 8,
+    "topic": "Power BI",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "Which methods can be used to refresh Power BI datasets? Select all that apply.",
+    "keyWords": ["Power BI", "datasets", "refresh", "data update"],
+    "hints": {
+        "easy": ["Think about manual and automatic options", "Consider both cloud and on-premises data"],
+        "medium": ["Some methods require Premium capacity", "Gateways enable certain scenarios"],
+        "hard": ["API calls, scheduled refresh, and streaming are all options"]
     },
-    {
-      id: 15,
-      topic: "Power Pages",
-      type: "multiplechoice",
-      difficultyLevel: "Medium",
-      text: "You are designing a self-service portal for a company. The portal must meet the following requirements: • Customers must be able to submit and review cases. • Customers must be able to chat with service representatives in near real time. • Allow service representatives to select cases from queues and use knowledge articles to resolve customer concerns. You need to recommend solutions for the company that do not require custom development. Which three apps or services should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
-      keyWords: ["self-service portal", "submit cases", "review cases", "chat", "real time", "queues", "knowledge articles", "no custom development"],
-      hints: {
-        easy: ["Think about portal solutions", "Consider chat capabilities", "What manages cases and knowledge?"],
-        medium: ["What enables external portals?", "Think about omnichannel chat", "Consider case management systems"],
-        hard: ["Evaluate portal security models", "Consider chat routing algorithms", "Think about knowledge management"]
-      },
-      conceptsTested: ["self-service portals", "case management", "real-time chat", "knowledge management", "customer service"],
-      commonMistakes: [
-        "Including Field Service for cases",
-        "Missing the portal component",
-        "Not including Omnichannel",
-        "Forgetting knowledge articles"
-      ],
-      analysisHighlights: {
-        requirements: ["customer portal", "case submission/review", "real-time chat", "queue management", "knowledge articles"],
-        constraints: ["no custom development", "self-service", "representative workflows"],
-        technologies: ["Power Pages", "Customer Service", "Omnichannel"]
-      },
-      options: [
-        { letter: "A", text: "Dynamics 365 Field Service", isCorrect: false, analysis: "Field Service is for scheduling onsite work, not general case or chat management." },
-        { letter: "B", text: "Dynamics 365 Customer Service", isCorrect: true, analysis: "Provides case management, queues, and knowledge articles for service reps." },
-        { letter: "C", text: "Omnichannel for Customer Service", isCorrect: true, analysis: "Enables real-time chat, skill-based routing for reps, integrating with Customer Service." },
-        { letter: "D", text: "Customer Insights", isCorrect: false, analysis: "Focuses on customer data analytics, not direct portal or chat features." },
-        { letter: "E", text: "Customer self-service portal", isCorrect: true, analysis: "Enables external customers to submit/review cases online with minimal custom dev." }
-      ],
-      correctAnswers: ["B", "C", "E"],
-      isMultipleChoice: true,
-      detailedExplanation: "Customer self-service portal (E) for case submission, Customer Service (B) for core case mgmt and knowledge, Omnichannel (C) for chat/queue routing. These three combined allow self-service case submission, real-time chat, queue selection, and knowledge article usage without custom code.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Identify opportunities to implement Power Pages",
-      source: "Custom generated"
-    },
-    // Continuing with questions 16-30...
-    {
-      id: 16,
-      topic: "Administration",
-      type: "hotspot",
-      difficultyLevel: "Hard",
-      text: "HOTSPOT - A multinational organisation uses a single Power Platform environment. The instance hosts multiple customisations for different users in different regions. Users in some regions complain about slow load time of the customisations. You need to architect a solution based on the main requirement. What should you recommend?",
-      keyWords: ["multinational", "single environment", "multiple regions", "slow load time", "performance", "customisations"],
-      hints: {
-        easy: ["Think about geographical distribution", "Consider performance optimization", "What affects load times?"],
-        medium: ["How do you handle global deployments?", "Think about data residency", "Consider multi-geo options"],
-        hard: ["Evaluate CDN strategies", "Consider data sovereignty", "Think about latency patterns"]
-      },
-      conceptsTested: ["global deployment", "performance optimization", "multi-geo", "architecture patterns", "scalability"],
-      commonMistakes: [
-        "Using single instance for all scenarios",
-        "Not considering data residency",
-        "Ignoring network latency",
-        "Over-architecting simple scenarios"
-      ],
-      analysisHighlights: {
-        requirements: ["improve load times", "support multiple regions", "maintain functionality"],
-        constraints: ["geographical distribution", "existing customizations", "user complaints"],
-        patterns: ["multi-geo deployment", "regional instances", "performance optimization"]
-      },
-      options: {
-        areas: [
-          {
-            name: "Divisions actively collaborate on customers",
-            options: [
-              "Single instance; use Microsoft Azure Traffic Manager where needed",
-              "Multi-tenant with one Power Platform environment in each region",
-              "Multiple instances in different regions; Power BI for reporting",
-              "Single multi-geo instance"
-            ],
-            correctAnswer: "Multi-tenant with one Power Platform environment in each region"
-          },
-          {
-            name: "Regions have separate customers but use the same functionality and need global reporting",
-            options: [
-              "Multiple instances in different regions with data replication",
-              "Multi-tenant with one Power Platform environment in each region",
-              "Multiple instances in different regions; Power BI for reporting",
-              "Single multi-geo instance"
-            ],
-            correctAnswer: "Multiple instances in different regions; Power BI for reporting"
-          },
-          {
-            name: "Regions have separate functionality and customers but need global reporting on data",
-            options: [
-              "Single instance; use Microsoft Azure Traffic Manager",
-              "Multi-tenant with one Power Platform environment in each region",
-              "Multiple instances in different regions; Power BI for reporting",
-              "Single multi-geo instance"
-            ],
-            correctAnswer: "Multiple instances in different regions; Power BI for reporting"
-          }
-        ]
-      },
-      correctAnswers: [
-        "Divisions actively collaborate on customers → Multi-tenant with one Power Platform environment in each region",
-        "Regions have separate customers but use the same functionality and need global reporting → Multiple instances in different regions; Power BI for reporting",
-        "Regions have separate functionality and customers but need global reporting on data → Multiple instances in different regions; Power BI for reporting"
-      ],
-      isMultipleChoice: false,
-      detailedExplanation: "Regional environments reduce latency. For collaboration, use regional environments. For separate customers/functionality, use multiple instances with Power BI for global reporting. This balances performance with data integration needs.",
-      category: "Perform solution envisioning and requirement analysis",
-      weight: 7.9,
-      examReference: "Plan solution deployment",
-      source: "Custom generated"
-    }
+    "conceptsTested": ["Power BI refresh", "data connectivity", "dataset management"],
+    "options": [
+        {
+            "letter": "A",
+            "text": "Scheduled refresh",
+            "isCorrect": true,
+            "analysis": "Scheduled refresh can be configured to update datasets automatically at specified times."
+        },
+        {
+            "letter": "B",
+            "text": "Manual refresh in Power BI Service",
+            "isCorrect": true,
+            "analysis": "Users can manually trigger dataset refreshes through the Power BI Service interface."
+        },
+        {
+            "letter": "C",
+            "text": "Push data via streaming dataset",
+            "isCorrect": true,
+            "analysis": "Streaming datasets allow real-time data updates through the Power BI REST API."
+        },
+        {
+            "letter": "D",
+            "text": "Direct modification of .pbix file",
+            "isCorrect": false,
+            "analysis": "Direct modification of .pbix files doesn't refresh the dataset in the service."
+        },
+        {
+            "letter": "E",
+            "text": "Power BI REST API",
+            "isCorrect": true,
+            "analysis": "The REST API can programmatically trigger dataset refreshes."
+        }
+    ],
+    "correctAnswers": ["A", "B", "C", "E"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Power BI datasets can be refreshed through scheduled refresh, manual triggers, streaming data push, and REST API calls. Direct modification of .pbix files requires re-publishing and doesn't constitute a refresh method.",
+    "category": "Implement the solution",
+    "weight": 6.0
+}
     // Add more questions here following the same structure
 ];
 
