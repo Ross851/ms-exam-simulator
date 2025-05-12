@@ -63,112 +63,8 @@ let questions = [
         "weight": 7.9,
         "examReference": "Design strategies for app integration",
         "source": "Custom generated"
-    },
-    {
-        "id": 2,
-        "topic": "Power Pages",
-        "type": "multiplechoice",
-        "difficultyLevel": "Medium",
-        "text": "You need to recommend methods for assigning security to each group of users. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years. You need to determine which requirements are functional or non-functional. Which requirements are functional or non-functional?",
-        "keyWords": ["security", "functional", "non-functional", "requirements", "online portal", "concurrent users", "data retention"],
-        "hints": {
-            "easy": ["Think about what the system does vs how it performs", "Functional = what it does, Non-functional = how well it does it"],
-            "medium": ["Functionality is about features, non-functional is about quality attributes", "Consider performance and retention requirements"],
-            "hard": ["User actions are functional, performance metrics and data retention are non-functional"]
-        },
-        "conceptsTested": ["requirements analysis", "functional requirements", "non-functional requirements"],
-        "commonMistakes": [
-            "Confusing performance requirements with functional requirements",
-            "Not recognizing data retention as a non-functional requirement",
-            "Missing that user actions are functional requirements"
-        ],
-        "options": [
-            {
-                "letter": "A",
-                "text": "Customers need the ability to submit a case through an online portal - This is a Functional requirement",
-                "isCorrect": true,
-                "analysis": "This describes a specific feature/capability the system must provide, making it a functional requirement."
-            },
-            {
-                "letter": "B",
-                "text": "Customers need the ability to submit a case through an online portal - This is a Non-functional requirement",
-                "isCorrect": false,
-                "analysis": "This is a functional requirement as it describes what the system should do, not how well it should do it."
-            },
-            {
-                "letter": "C",
-                "text": "Portal must handle 75 concurrent users submitting cases - This is a Functional requirement",
-                "isCorrect": false,
-                "analysis": "This is a performance requirement (how well the system performs), making it non-functional."
-            },
-            {
-                "letter": "D",
-                "text": "Portal must handle 75 concurrent users submitting cases - This is a Non-functional requirement",
-                "isCorrect": true,
-                "analysis": "This is a non-functional requirement as it specifies performance capacity, not functionality."
-            },
-            {
-                "letter": "E",
-                "text": "Service data must be retained for at least six years - This is a Functional requirement",
-                "isCorrect": false,
-                "analysis": "Data retention is a compliance/quality requirement, making it non-functional."
-            },
-            {
-                "letter": "F",
-                "text": "Service data must be retained for at least six years - This is a Non-functional requirement",
-                "isCorrect": true,
-                "analysis": "This is a non-functional requirement as it specifies a quality attribute (data retention policy)."
-            }
-        ],
-        "correctAnswers": ["A", "D", "F"],
-        "isMultipleChoice": true,
-        "detailedExplanation": "Functional requirements describe WHAT the system should do (features and capabilities), while non-functional requirements describe HOW WELL the system should perform (quality attributes). 'Submit a case' is functional, while '75 concurrent users' and 'six years retention' are non-functional requirements.",
-        "category": "Perform solution envisioning and requirement analysis",
-        "weight": 7.0
-    },
-    {
-        "id": 3,
-        "topic": "Power Pages",
-        "type": "dragdrop",
-        "difficultyLevel": "Medium",
-        "text": "Arrange these Power Pages components in the correct order of implementation:",
-        "keyWords": ["Power Pages", "components", "order", "implementation"],
-        "hints": {
-            "easy": ["Think about what needs to be set up first", "Authentication comes before content"],
-            "medium": ["Consider dependencies between components", "Security should be established early"],
-            "hard": ["Templates -> Permissions -> Content -> Styling"]
-        },
-        "conceptsTested": ["Power Pages setup", "implementation order", "component dependencies"],
-        "options": [
-            {
-                "id": "1",
-                "text": "Web Templates",
-                "correctPosition": 1
-            },
-            {
-                "id": "2",
-                "text": "Table Permissions",
-                "correctPosition": 2
-            },
-            {
-                "id": "3",
-                "text": "Content Pages",
-                "correctPosition": 3
-            },
-            {
-                "id": "4",
-                "text": "Custom CSS/JavaScript",
-                "correctPosition": 4
-            }
-        ],
-        "correctOrder": ["1", "2", "3", "4"],
-        "isMultipleChoice": false,
-        "isDragDrop": true,
-        "detailedExplanation": "The correct implementation order for Power Pages is: 1) Web Templates (structure), 2) Table Permissions (security), 3) Content Pages (actual content), 4) Custom CSS/JavaScript (styling and behavior).",
-        "category": "Implement the solution",
-        "weight": 6.0
     }
-    // Add more questions here
+    // Add more questions here following the same structure
 ];
 
 let currentMode = null;
@@ -202,26 +98,15 @@ const mockExamConfig = {
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
-    try {
-        console.log(`Loaded ${questions.length} questions`);
-        
-        // Check if questions array is empty
-        if (questions.length === 0) {
-            showError('No questions loaded. Please check your question data.');
-            return;
-        }
-        
-        // Load performance data
-        loadPerformanceData();
-        
-        // Initialize the app
-        initializeEventListeners();
-        loadSettings();
-        loadHomeScreen();
-    } catch (error) {
-        console.error('Error initializing app:', error);
-        showError('Failed to initialize the app. Please refresh the page.');
-    }
+    console.log(`Loaded ${questions.length} questions`);
+    
+    // Load performance data
+    loadPerformanceData();
+    
+    // Initialize the app
+    initializeEventListeners();
+    loadSettings();
+    loadHomeScreen();
 });
 
 // Initialize event listeners
@@ -817,20 +702,8 @@ function startExam() {
         }
         
         selectedQuestions = selectPracticeQuestions(categories, count);
-    } else if (currentMode === 'mock') {
+    } else {
         selectedQuestions = generateMockExam(categories);
-    } else if (currentMode === 'adaptive') {
-        const weakAreas = getWeakAreas();
-        const strongAreas = getStrongAreas();
-        selectedQuestions = selectAdaptiveQuestions(weakAreas, strongAreas);
-    }
-    
-    console.log('Selected questions:', selectedQuestions.length);
-    console.log('Mode:', currentMode);
-    
-    if (selectedQuestions.length === 0) {
-        alert('No questions available for the selected categories.');
-        return;
     }
     
     currentQuestion = 0;
@@ -891,12 +764,6 @@ function showQuestion() {
     const question = selectedQuestions[currentQuestion];
     const main = document.getElementById('main');
     const isAnswered = userAnswers[question.id] !== undefined;
-    
-    // Check if this is a drag and drop question
-    if (question.isDragDrop) {
-        showDragDropQuestion();
-        return;
-    }
     
     let html = `
         <div class="progress-bar">
@@ -1017,35 +884,9 @@ function showQuestion() {
     
     main.innerHTML = html;
     
-    // If already answered, show the feedback (but don't duplicate it)
-    if (isAnswered && !document.querySelector('.explanation-box')) {
-        // Restore the correct/incorrect option classes
-        const correctAnswers = question.correctAnswers;
-        question.options.forEach((option, index) => {
-            const optionDiv = document.getElementById(`option-${index}`).parentElement;
-            const isCorrectOption = correctAnswers.includes(option.letter);
-            const isUserAnswer = userAnswers[question.id] && (
-                (Array.isArray(userAnswers[question.id]) && userAnswers[question.id].includes(option.letter)) ||
-                userAnswers[question.id] === option.letter
-            );
-            
-            if (isCorrectOption) {
-                optionDiv.classList.add('correct');
-            } else if (isUserAnswer) {
-                optionDiv.classList.add('incorrect');
-            }
-        });
-        
-        // Show the explanation
+    // If already answered, show the feedback
+    if (isAnswered) {
         showFeedback();
-    }
-    
-    // Restore hint visibility if it was shown
-    if (hintsUsed[question.id] && !isAnswered) {
-        const hintBox = document.getElementById(`hint-${question.id}`);
-        if (hintBox) {
-            hintBox.classList.add('visible');
-        }
     }
 }
 
@@ -1165,6 +1006,8 @@ function showFeedback() {
     // Only show explanation once, and don't duplicate if it already exists
     if (!document.querySelector('.explanation-box')) {
         const main = document.getElementById('main');
+        const isLastQuestion = currentQuestion === selectedQuestions.length - 1;
+        
         const explanationHtml = `
             <div class="explanation-box visible">
                 <h4>Explanation</h4>
@@ -1210,9 +1053,10 @@ function showFeedback() {
             </div>
             
             <div class="card">
-                <button class="btn" onclick="nextQuestion()">
-                    ${currentQuestion === selectedQuestions.length - 1 ? 'Finish Exam' : 'Next Question'}
-                </button>
+                ${isLastQuestion ? 
+                    '<button class="btn btn-success" onclick="endExam()">Finish Exam</button>' :
+                    '<button class="btn" onclick="nextQuestion()">Next Question</button>'
+                }
                 <button class="btn btn-secondary" onclick="reviewQuestion()">Review Question</button>
             </div>
         `;
@@ -1651,21 +1495,6 @@ function resetProgress() {
     }
 }
 
-function showError(message) {
-    const main = document.getElementById('main');
-    if (main) {
-        main.innerHTML = `
-            <div class="card error-message">
-                <h3>Error</h3>
-                <p>${message}</p>
-                <button class="btn" onclick="location.reload()">Reload Page</button>
-            </div>
-        `;
-    } else {
-        alert(message);
-    }
-}
-
 // Get performance trends
 function getPerformanceTrends() {
     const storage = localStorage.getItem('examResults');
@@ -1687,229 +1516,6 @@ function getPerformanceTrends() {
     return trends;
 }
 
-// Drag and Drop Functions
-function renderDragDropQuestion(question) {
-    let html = `
-        <div class="drag-drop-container">
-            <div class="drag-items" id="dragItems">
-                ${question.options.map(option => `
-                    <div class="draggable-item" 
-                         draggable="true" 
-                         data-id="${option.id}"
-                         id="drag-${option.id}">
-                        ${option.text}
-                    </div>
-                `).join('')}
-            </div>
-            
-            <div class="drop-zones" id="dropZones">
-                <h4>Arrange in correct order:</h4>
-                ${question.options.map((_, index) => `
-                    <div class="drop-zone" 
-                         data-position="${index + 1}">
-                        <span class="position-number">${index + 1}.</span>
-                        <span class="drop-placeholder">Drop item here</span>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `;
-    return html;
-}
-
-function initializeDragDrop() {
-    let draggedElement = null;
-    
-    // Add event listeners to draggable items
-    document.querySelectorAll('.draggable-item').forEach(item => {
-        item.addEventListener('dragstart', (e) => {
-            draggedElement = e.target;
-            e.target.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', e.target.innerHTML);
-        });
-        
-        item.addEventListener('dragend', (e) => {
-            e.target.classList.remove('dragging');
-        });
-    });
-    
-    // Add event listeners to drop zones
-    document.querySelectorAll('.drop-zone').forEach(zone => {
-        zone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            zone.classList.add('drag-over');
-        });
-        
-        zone.addEventListener('dragleave', () => {
-            zone.classList.remove('drag-over');
-        });
-        
-        zone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            zone.classList.remove('drag-over');
-            
-            // Remove placeholder text
-            const placeholder = zone.querySelector('.drop-placeholder');
-            if (placeholder) {
-                placeholder.remove();
-            }
-            
-            // If zone already has an item, move it back to the drag items area
-            const existingItem = zone.querySelector('.draggable-item');
-            if (existingItem) {
-                document.getElementById('dragItems').appendChild(existingItem);
-            }
-            
-            // Add the dragged item to the drop zone
-            if (draggedElement) {
-                zone.appendChild(draggedElement);
-                draggedElement = null;
-            }
-        });
-    });
-}
-
-function checkDragDropAnswer() {
-    const dropZones = document.querySelectorAll('.drop-zone');
-    const userOrder = [];
-    
-    dropZones.forEach(zone => {
-        const item = zone.querySelector('.draggable-item');
-        if (item) {
-            userOrder.push(item.dataset.id);
-        }
-    });
-    
-    const question = selectedQuestions[currentQuestion];
-    const isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correctOrder);
-    
-    return {
-        isCorrect: isCorrect,
-        userOrder: userOrder,
-        correctOrder: question.correctOrder
-    };
-}
-
-function showDragDropQuestion() {
-    const question = selectedQuestions[currentQuestion];
-    const main = document.getElementById('main');
-    
-    let html = `
-        <div class="progress-bar">
-            <div class="progress-fill" style="width: ${((currentQuestion + 1) / selectedQuestions.length) * 100}%"></div>
-        </div>
-        
-        <div class="card">
-            <p><strong>Question ${currentQuestion + 1} of ${selectedQuestions.length}</strong></p>
-            <p><small>Category: ${question.category}</small></p>
-            <p><small>Topic: ${question.topic} | Difficulty: ${question.difficultyLevel}</small></p>
-        </div>
-        
-        <div class="question-container">
-            <h3 class="question-text">${question.text}</h3>
-            ${renderDragDropQuestion(question)}
-        </div>
-        
-        <div class="card">
-            <button class="btn" onclick="submitDragDropAnswer()">Submit Answer</button>
-            <button class="btn btn-secondary" onclick="skipQuestion()">Skip Question</button>
-        </div>
-    `;
-    
-    main.innerHTML = html;
-    
-    // Initialize drag and drop after rendering
-    setTimeout(initializeDragDrop, 100);
-}
-
-function submitDragDropAnswer() {
-    const result = checkDragDropAnswer();
-    const question = selectedQuestions[currentQuestion];
-    
-    // Check if already submitted
-    if (userAnswers[question.id]) {
-        console.log('Answer already submitted');
-        return;
-    }
-    
-    userAnswers[question.id] = result.userOrder;
-    
-    // Show feedback
-    const dropZones = document.querySelectorAll('.drop-zone');
-    dropZones.forEach((zone, index) => {
-        const item = zone.querySelector('.draggable-item');
-        if (item) {
-            const itemId = item.dataset.id;
-            const correctId = question.correctOrder[index];
-            
-            if (itemId === correctId) {
-                zone.classList.add('correct');
-                if (!item.innerHTML.includes('✓')) {
-                    item.innerHTML += ' ✓';
-                }
-            } else {
-                zone.classList.add('incorrect');
-                if (!item.innerHTML.includes('✗')) {
-                    item.innerHTML += ' ✗';
-                }
-            }
-        }
-    });
-    
-    // Check if explanation already exists
-    if (!document.querySelector('.explanation-box')) {
-        // Show explanation
-        const main = document.getElementById('main');
-        const explanationHtml = `
-            <div class="explanation-box visible">
-                <h4>Explanation</h4>
-                <p>${question.detailedExplanation}</p>
-                
-                <h5>Correct Order:</h5>
-                <ol>
-                    ${question.options
-                        .sort((a, b) => a.correctPosition - b.correctPosition)
-                        .map(option => `<li>${option.text}</li>`)
-                        .join('')}
-                </ol>
-            </div>
-            
-            <div class="card">
-                <button class="btn" onclick="nextQuestion()">
-                    ${currentQuestion === selectedQuestions.length - 1 ? 'Finish Exam' : 'Next Question'}
-                </button>
-            </div>
-        `;
-        
-        main.innerHTML += explanationHtml;
-    }
-    
-    // Disable dragging
-    document.querySelectorAll('.draggable-item').forEach(item => {
-        item.draggable = false;
-    });
-    
-    // Update performance data
-    updatePerformanceData(question, result.isCorrect);
-    
-    // Disable submit button
-    const submitButton = document.querySelector('button[onclick="submitDragDropAnswer()"]');
-    if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Answer Submitted';
-    }
-    
-    // Update next button to show correct text
-    const nextButtons = document.querySelectorAll('button[onclick="nextQuestion()"]');
-    nextButtons.forEach(button => {
-        if (currentQuestion === selectedQuestions.length - 1) {
-            button.textContent = 'Finish Exam';
-            button.classList.add('btn-success');
-        }
-    });
-}
-
 // Global functions (to be accessible from HTML)
 window.openPracticeSetup = openPracticeSetup;
 window.openMockExamSetup = openMockExamSetup;
@@ -1926,9 +1532,8 @@ window.skipQuestion = skipQuestion;
 window.viewSession = viewSession;
 window.startWeakAreaPractice = startWeakAreaPractice;
 window.startAdaptivePractice = startAdaptivePractice;
-window.submitDragDropAnswer = submitDragDropAnswer;
-window.submitCategoryDragDropAnswer = submitCategoryDragDropAnswer;
 window.reviewQuestion = reviewQuestion;
+window.endExam = endExam; // Make sure endExam is exposed globally
 
 // Load settings on initialization
 function loadSettingsScreen() {
