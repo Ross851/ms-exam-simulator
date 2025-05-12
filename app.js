@@ -63,7 +63,112 @@ let questions = [
         "weight": 7.9,
         "examReference": "Design strategies for app integration",
         "source": "Custom generated"
+    },
+     {
+        "id": 2,
+        "topic": "Power Pages",
+        "type": "multiplechoice",
+        "difficultyLevel": "Medium",
+        "text": "You need to recommend methods for assigning security to each group of users. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years. You need to determine which requirements are functional or non-functional. Which requirements are functional or non-functional?",
+        "keyWords": ["security", "functional", "non-functional", "requirements", "online portal", "concurrent users", "data retention"],
+        "hints": {
+            "easy": ["Think about what the system does vs how it performs", "Functional = what it does, Non-functional = how well it does it"],
+            "medium": ["Functionality is about features, non-functional is about quality attributes", "Consider performance and retention requirements"],
+            "hard": ["User actions are functional, performance metrics and data retention are non-functional"]
+        },
+        "conceptsTested": ["requirements analysis", "functional requirements", "non-functional requirements"],
+        "commonMistakes": [
+            "Confusing performance requirements with functional requirements",
+            "Not recognizing data retention as a non-functional requirement",
+            "Missing that user actions are functional requirements"
+        ],
+        "options": [
+            {
+                "letter": "A",
+                "text": "Customers need the ability to submit a case through an online portal - This is a Functional requirement",
+                "isCorrect": true,
+                "analysis": "This describes a specific feature/capability the system must provide, making it a functional requirement."
+            },
+            {
+                "letter": "B",
+                "text": "Customers need the ability to submit a case through an online portal - This is a Non-functional requirement",
+                "isCorrect": false,
+                "analysis": "This is a functional requirement as it describes what the system should do, not how well it should do it."
+            },
+            {
+                "letter": "C",
+                "text": "Portal must handle 75 concurrent users submitting cases - This is a Functional requirement",
+                "isCorrect": false,
+                "analysis": "This is a performance requirement (how well the system performs), making it non-functional."
+            },
+            {
+                "letter": "D",
+                "text": "Portal must handle 75 concurrent users submitting cases - This is a Non-functional requirement",
+                "isCorrect": true,
+                "analysis": "This is a non-functional requirement as it specifies performance capacity, not functionality."
+            },
+            {
+                "letter": "E",
+                "text": "Service data must be retained for at least six years - This is a Functional requirement",
+                "isCorrect": false,
+                "analysis": "Data retention is a compliance/quality requirement, making it non-functional."
+            },
+            {
+                "letter": "F",
+                "text": "Service data must be retained for at least six years - This is a Non-functional requirement",
+                "isCorrect": true,
+                "analysis": "This is a non-functional requirement as it specifies a quality attribute (data retention policy)."
+            }
+        ],
+        "correctAnswers": ["A", "D", "F"],
+        "isMultipleChoice": true,
+        "detailedExplanation": "Functional requirements describe WHAT the system should do (features and capabilities), while non-functional requirements describe HOW WELL the system should perform (quality attributes). 'Submit a case' is functional, while '75 concurrent users' and 'six years retention' are non-functional requirements.",
+        "category": "Perform solution envisioning and requirement analysis",
+        "weight": 7.0
+    },
+    {
+        "id": 3,
+        "topic": "Power Pages",
+        "type": "dragdrop",
+        "difficultyLevel": "Medium",
+        "text": "Arrange these Power Pages components in the correct order of implementation:",
+        "keyWords": ["Power Pages", "components", "order", "implementation"],
+        "hints": {
+            "easy": ["Think about what needs to be set up first", "Authentication comes before content"],
+            "medium": ["Consider dependencies between components", "Security should be established early"],
+            "hard": ["Templates -> Permissions -> Content -> Styling"]
+        },
+        "conceptsTested": ["Power Pages setup", "implementation order", "component dependencies"],
+        "options": [
+            {
+                "id": "1",
+                "text": "Web Templates",
+                "correctPosition": 1
+            },
+            {
+                "id": "2",
+                "text": "Table Permissions",
+                "correctPosition": 2
+            },
+            {
+                "id": "3",
+                "text": "Content Pages",
+                "correctPosition": 3
+            },
+            {
+                "id": "4",
+                "text": "Custom CSS/JavaScript",
+                "correctPosition": 4
+            }
+        ],
+        "correctOrder": ["1", "2", "3", "4"],
+        "isMultipleChoice": false,
+        "isDragDrop": true,
+        "detailedExplanation": "The correct implementation order for Power Pages is: 1) Web Templates (structure), 2) Table Permissions (security), 3) Content Pages (actual content), 4) Custom CSS/JavaScript (styling and behavior).",
+        "category": "Implement the solution",
+        "weight": 6.0
     }
+    // Add more questions here
 ];
 
 let currentMode = null;
