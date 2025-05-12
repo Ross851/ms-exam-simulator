@@ -3,92 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>MS Certification Exam Simulator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="app">
-        <header class="header">
-            <h1>MS Certification Exam Simulator</h1>
-        </header>
-        
-        <nav class="nav-bar">
-            <button class="nav-button active" data-screen="home">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                </svg>
-                Home
-            </button>
-            <button class="nav-button" data-screen="progress">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-                </svg>
-                Progress
-            </button>
-            <button class="nav-button" data-screen="settings">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-                </svg>
-                Settings
-            </button>
-        </nav>
-        
-        <main class="main" id="main">
-            <div class="loading">
-                <h2>Loading Questions...</h2>
-                <div class="spinner"></div>
-            </div>
-        </main>
+    <div class="header">
+        <h1>MS Certification Exam Simulator</h1>
     </div>
-    
+
+    <div class="main-container">
+        <div class="nav-container">
+            <button class="nav-button active" data-screen="home">Home</button>
+            <button class="nav-button" data-screen="progress">Progress</button>
+            <button class="nav-button" data-screen="settings">Settings</button>
+        </div>
+
+        <div id="main">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+
     <!-- Setup Modal -->
-    <div class="modal" id="setupModal">
+    <div id="setupModal" class="modal">
         <div class="modal-content">
-            <h2 class="modal-header" id="modalTitle">Practice Setup</h2>
+            <h2 id="modalTitle">Exam Setup</h2>
             <form id="setupForm">
-                <div class="form-group" id="questionCountGroup">
-                    <label class="form-label" for="questionCount">Number of Questions</label>
-                    <select class="form-select" id="questionCount">
-                        <option value="5">5 Questions</option>
+                <div id="questionCountGroup" class="form-group">
+                    <label class="form-label">Number of Questions</label>
+                    <select id="questionCount" class="form-select">
                         <option value="10">10 Questions</option>
-                        <option value="15">15 Questions</option>
                         <option value="20">20 Questions</option>
                         <option value="30">30 Questions</option>
                         <option value="50">50 Questions</option>
                         <option value="custom">Custom</option>
                     </select>
-                </div>
-                
-                <div class="form-group" id="customCountGroup" style="display: none;">
-                    <label class="form-label" for="customCount">Custom Number</label>
-                    <input type="number" class="form-input" id="customCount" min="1" max="237" value="25">
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Categories</label>
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="Perform solution envisioning and requirement analysis" checked>
-                            Solution Envisioning (45-50%)
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="Architect a solution" checked>
-                            Architect Solution (35-40%)
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="Implement the solution" checked>
-                            Implement Solution (15-20%)
-                        </label>
+                    <div id="customCountGroup" style="display: none; margin-top: 10px;">
+                        <input type="number" id="customCount" class="form-select" min="1" max="100" placeholder="Enter number">
                     </div>
                 </div>
-                
-                <button type="submit" class="btn">Start</button>
-                <button type="button" class="btn btn-secondary" id="cancelSetup">Cancel</button>
+
+                <div class="form-group">
+                    <label class="form-label">Categories</label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Perform solution envisioning and requirement analysis" checked>
+                        Solution Envisioning
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Architect a solution" checked>
+                        Architect Solution
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="Implement the solution" checked>
+                        Implement Solution
+                    </label>
+                </div>
+
+                <button type="submit" class="btn">Start Exam</button>
+                <button type="button" id="cancelSetup" class="btn btn-secondary">Cancel</button>
             </form>
         </div>
     </div>
-    
+
     <script src="app.js"></script>
 </body>
 </html>
