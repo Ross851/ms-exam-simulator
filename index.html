@@ -1,161 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Certification Exam Simulator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>MS Exam Simulator</title>
+  
+  <!-- [Line 10] Responsive meta tag (good practice for cross-device) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- [Line 13] Optional: Link to your external CSS -->
+  <link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
-    <div class="header">
-        <h1>MS Certification Exam Simulator</h1>
-    </div>
-
-    <div class="main-container">
-        <div class="nav-container">
-            <button class="nav-button active" data-screen="home">🏠 Home</button>
-            <button class="nav-button" data-screen="progress">📊 Progress</button>
-            <button class="nav-button" data-screen="settings">⚙️ Settings</button>
-        </div>
-
-        <div id="main">
-            <!-- Content will be loaded here -->
-        </div>
-    </div>
-
-    <!-- Setup Modal -->
-    <div id="setupModal" class="modal">
-        <div class="modal-content">
-            <h2 id="modalTitle">Exam Setup</h2>
-            <form id="setupForm">
-                <div id="questionCountGroup" class="form-group">
-                    <label class="form-label">Number of Questions</label>
-                    <select id="questionCount" class="form-select">
-                        <option value="10">10 Questions</option>
-                        <option value="20">20 Questions</option>
-                        <option value="30">30 Questions</option>
-                        <option value="50">50 Questions</option>
-                        <option value="custom">Custom</option>
-                    </select>
-                    <div id="customCountGroup" style="display: none; margin-top: 10px;">
-                        <input type="number" id="customCount" class="form-select" min="1" max="100" placeholder="Enter number">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Categories</label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="Perform solution envisioning and requirement analysis" checked>
-                        Solution Envisioning
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="Architect a solution" checked>
-                        Architect Solution
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="Implement the solution" checked>
-                        Implement Solution
-                    </label>
-                </div>
-
-                <button type="submit" class="btn">Start Exam</button>
-                <button type="button" id="cancelSetup" class="btn btn-secondary">Cancel</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Keyword Highlight Button (will appear during questions) -->
-    <button id="highlightButton" class="highlight-button" style="display: none;" title="Toggle keyword highlighting">
-        🔍
-    </button>
-
-    <script src="app.js"></script>
+  <!-- [Line 18] Main Container for the Exam Simulator -->
+  <div class="exam-container">
     
-    <!-- Additional script for keyword highlighting -->
-    <script>
-        // Keyword highlighting functionality
-        let keywordsHighlighted = false;
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const highlightButton = document.getElementById('highlightButton');
-            
-            highlightButton.addEventListener('click', function() {
-                toggleKeywordHighlight();
-            });
-        });
-        
-        function toggleKeywordHighlight() {
-            const highlightButton = document.getElementById('highlightButton');
-            const questionText = document.querySelector('.question-text');
-            
-            if (!questionText) return;
-            
-            keywordsHighlighted = !keywordsHighlighted;
-            highlightButton.classList.toggle('active', keywordsHighlighted);
-            
-            if (keywordsHighlighted) {
-                highlightKeywords();
-            } else {
-                removeHighlights();
-            }
-        }
-        
-        function highlightKeywords() {
-            const currentQuestionIndex = window.currentQuestion;
-            const question = window.selectedQuestions[currentQuestionIndex];
-            
-            if (!question || !question.keyWords) return;
-            
-            const questionText = document.querySelector('.question-text');
-            let html = questionText.innerHTML;
-            
-            // Sort keywords by length (longest first) to avoid nested replacements
-            const sortedKeywords = [...question.keyWords].sort((a, b) => b.length - a.length);
-            
-            sortedKeywords.forEach(keyword => {
-                const regex = new RegExp(`(${keyword})`, 'gi');
-                html = html.replace(regex, '<span class="keyword-highlight">$1</span>');
-            });
-            
-            questionText.innerHTML = html;
-        }
-        
-        function removeHighlights() {
-            const questionText = document.querySelector('.question-text');
-            const highlights = questionText.querySelectorAll('.keyword-highlight');
-            
-            highlights.forEach(highlight => {
-                const text = document.createTextNode(highlight.textContent);
-                highlight.parentNode.replaceChild(text, highlight);
-            });
-        }
-        
-        // Show/hide highlight button based on current screen
-        const originalShowQuestion = window.showQuestion;
-        window.showQuestion = function() {
-            originalShowQuestion.apply(this, arguments);
-            document.getElementById('highlightButton').style.display = 'flex';
-            keywordsHighlighted = false;
-            document.getElementById('highlightButton').classList.remove('active');
-        };
-        
-        const originalLoadHomeScreen = window.loadHomeScreen;
-        window.loadHomeScreen = function() {
-            originalLoadHomeScreen.apply(this, arguments);
-            document.getElementById('highlightButton').style.display = 'none';
-        };
-        
-        const originalLoadProgressScreen = window.loadProgressScreen;
-        window.loadProgressScreen = function() {
-            originalLoadProgressScreen.apply(this, arguments);
-            document.getElementById('highlightButton').style.display = 'none';
-        };
-        
-        const originalLoadSettingsScreen = window.loadSettingsScreen;
-        window.loadSettingsScreen = function() {
-            originalLoadSettingsScreen.apply(this, arguments);
-            document.getElementById('highlightButton').style.display = 'none';
-        };
-    </script>
+    <!-- [Line 21] Heading or Title -->
+    <header>
+      <h1>Microsoft Exam Simulator</h1>
+    </header>
+    
+    <!-- [Line 26] Section to render questions dynamically -->
+    <section id="question-container">
+      <!-- The improved app.js will inject questions here -->
+    </section>
+    
+    <!-- [Line 31] (Optional) Container for summary or final results
+         If you plan to display a summary at the end, you can do so here. 
+         Otherwise, you can remove or leave commented out. -->
+    <!--
+    <section id="summary-container" style="display: none;">
+      <h2>Exam Summary</h2>
+      <p>Your score will appear here...</p>
+    </section>
+    -->
+
+  </div><!-- /.exam-container -->
+
+  <!-- [Line 42] Include your improved app.js at the bottom for best performance -->
+  <script src="app.js"></script>
 </body>
 </html>
