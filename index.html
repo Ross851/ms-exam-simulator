@@ -4,40 +4,40 @@
   <meta charset="UTF-8">
   <title>MS Exam Simulator</title>
   
-  <!-- [Line 10] Responsive meta tag (good practice for cross-device) -->
+  <!-- Responsive meta tag (good practice for cross-device) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- [Line 13] Optional: Link to your external CSS -->
+  <!-- Link to your external CSS -->
   <link rel="stylesheet" href="styles.css">
   
 </head>
 <body>
-  <!-- [Line 18] Main Container for the Exam Simulator -->
+  <!-- Main Container for the Exam Simulator -->
   <div class="exam-container">
     
-    <!-- [Line 21] Heading or Title -->
+    <!-- Heading or Title -->
     <header>
       <h1>Microsoft Exam Simulator</h1>
     </header>
     
-    <!-- [Line 26] Section to render questions dynamically -->
+    <!-- Progress bar (new addition for enhanced version) -->
+    <div id="progress-container">
+      <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    
+    <!-- Section to render questions dynamically -->
     <section id="question-container">
       <!-- The improved app.js will inject questions here -->
     </section>
     
-    <!-- [Line 31] (Optional) Container for summary or final results
-         If you plan to display a summary at the end, you can do so here. 
-         Otherwise, you can remove or leave commented out. -->
-    <!--
+    <!-- Container for summary/final results (will be used by enhanced version) -->
     <section id="summary-container" style="display: none;">
-      <h2>Exam Summary</h2>
-      <p>Your score will appear here...</p>
+      <!-- The completion screen will be rendered here -->
     </section>
-    -->
 
   </div><!-- /.exam-container -->
 
-  <!-- [Line 42] Include your improved app.js at the bottom for best performance -->
+  <!-- Include your improved app.js at the bottom for best performance -->
   <script src="app.js"></script>
 </body>
 </html>
