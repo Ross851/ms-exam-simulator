@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Certification Question Builder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0078d4;
+      --secondary-color: #6c757d;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --info-color: #17a2b8;
+      --light-gray: #f8f9fa;
+      --border-color: #dee2e6;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #004c8c 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transform: rotate(45deg);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header p {
+      margin: 10px 0 0 0;
+      opacity: 0.9;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #444;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background-color: #fafafa;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background-color: white;
+      box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.1);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+
+    .btn-success {
+      background-color: var(--success-color);
+      color: white;
+      width: 100%;
+      justify-content: center;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+    }
+
+    .btn-danger {
+      background-color: var(--danger-color);
+      color: white;
+      padding: 8px 16px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* Question Type Builders */
+    .builder-section {
+      margin-top: 30px;
+      padding: 30px;
+      background-color: var(--light-gray);
+      border-radius: 12px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .builder-section.active {
+      display: block;
+    }
+
+    .builder-section h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .builder-section > p {
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    /* Ordering Styles */
+    .ordering-item {
+      background-color: white;
+      border: 3px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ordering-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 5px;
+      background-color: var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .ordering-item:hover {
+      box-shadow: var(--shadow);
+      transform: translateX(5px);
+    }
+
+    .ordering-item.correct {
+      border-color: var(--success-color);
+    }
+
+    .ordering-item.correct::before {
+      background-color: var(--success-color);
+      width: 8px;
+    }
+
+    .ordering-item.distractor {
+      border-color: var(--warning-color);
+    }
+
+    .ordering-item.distractor::before {
+      background-color: var(--warning-color);
+      width: 8px;
+    }
+
+    .position-input {
+      width: 70px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 10px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+    }
+
+    .position-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.1);
+    }
+
+    .item-text {
+      flex: 1;
+    }
+
+    .item-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Drag and Drop Styles */
+    .drag-drop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .drag-section {
+      background-color: white;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .drag-section h4 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-gray);
+    }
+
+    .drag-item,
+    .target-item {
+      background-color: var(--light-gray);
+      border: 2px solid transparent;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .drag-item:hover,
+    .target-item:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .mapping-section {
+      margin-top: 30px;
+      background-color: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .mapping-section h4 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .mapping-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 15px;
+      padding: 15px;
+      background-color: var(--light-gray);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .mapping-row:hover {
+      background-color: #e9ecef;
+    }
+
+    .mapping-row label {
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 0;
+      min-width: 120px;
+    }
+
+    .mapping-row select {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+    }
+
+    /* Multiple Choice Styles */
+    .choice-option {
+      background-color: white;
+      border: 3px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .choice-option:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .choice-option.correct {
+      border-color: var(--success-color);
+      background-color: #f8fff9;
+    }
+
+    .choice-option.correct::after {
+      content: '✓';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--success-color);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .choice-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .option-letter {
+      font-weight: bold;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      background-color: var(--light-gray);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .choice-header input[type="radio"],
+    .choice-header input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .choice-header label {
+      margin-bottom: 0;
+      cursor: pointer;
+      color: var(--success-color);
+      font-weight: 600;
+    }
+
+    /* Output Styles */
+    .output-section {
+      margin-top: 40px;
+      padding: 30px;
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      border-radius: 12px;
+      display: none;
+      box-shadow: var(--shadow);
+    }
+
+    .output-section h3 {
+      margin-top: 0;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .output-section pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* Form Controls Styling */
+    .form-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 2px solid var(--light-gray);
+    }
+
+    /* Loading States */
+    .btn.loading {
+      position: relative;
+      color: transparent;
+    }
+
+    .btn.loading::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      margin: -10px 0 0 -10px;
+      border: 2px solid white;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success Messages */
+    .success-message {
+      background-color: var(--success-color);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .drag-drop-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .container {
+        margin: 0;
+        border-radius: 0;
+      }
+      
+      .header {
+        border-radius: 0;
+        padding: 30px 20px;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0056a3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-question-circle"></i> Power Platform Certification Question Bank</h1>
+      <p>Free community-driven practice questions to help you succeed in Microsoft certification exams</p>
+      
+      <div class="header-badges">
+        <span class="header-badge">100% Free</span>
+        <span class="header-badge">Community-Reviewed</span>
+        <span class="header-badge">Certification Prep</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="intro-box">
+        <h2>Help Others Succeed in Certification Exams</h2>
+        <p>Welcome to our free, community-driven question bank for Microsoft Power Platform certification exams. By contributing your questions, you're helping others prepare for their certification journey. Every question is peer-reviewed by at least 3 experts before being added to our bank.</p>
+        
+        <div class="review-process">
+          <div class="review-step">
+            <i class="fas fa-edit"></i>
+            <h3>Submit</h3>
+            <p>Create your question</p>
+          </div>
+          <div class="review-step">
+            <i class="fas fa-user-check"></i>
+            <h3>Review</h3>
+            <p>Experts verify accuracy</p>
+          </div>
+          <div class="review-step">
+            <i class="fas fa-check-circle"></i>
+            <h3>Approve</h3>
+            <p>3+ positive reviews</p>
+          </div>
+          <div class="review-step">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Learn</h3>
+            <p>Help the community</p>
+          </div>
+        </div>
+      </div>
+      <form id="questionForm">
+        <div class="form-group">
+          <label for="certLevel">Certification Level</label>
+          <select id="certLevel" required>
+            <option value="">Select certification...</option>
+            <option value="PL-100">PL-100 - App Maker</option>
+            <option value="PL-200">PL-200 - Functional Consultant</option>
+            <option value="PL-300">PL-300 - Power BI Analyst</option>
+            <option value="PL-400">PL-400 - Developer</option>
+            <option value="PL-600">PL-600 - Solution Architect</option>
+            <option value="PL-900">PL-900 - Fundamentals</option>
+          </select>
+        </div>
+        
+        <!-- Contributor Information -->
+        <div class="section-divider">
+          <h3>Contributor Information</h3>
+          <p>Tell us about yourself and your qualifications</p>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="contributorName">Your Name</label>
+            <input type="text" id="contributorName" placeholder="John Doe">
+          </div>
+          
+          <div class="form-group">
+            <label for="contributorEmail">Email <span class="required">*</span></label>
+            <input type="email" id="contributorEmail" required placeholder="johndoe@example.com">
+          </div>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="linkedIn">LinkedIn Profile</label>
+            <input type="url" id="linkedIn" placeholder="https://linkedin.com/in/username">
+          </div>
+          
+          <div class="form-group">
+            <label for="website">Website/Blog</label>
+            <input type="url" id="website" placeholder="https://yourwebsite.com">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Certification Badges</label>
+          <div class="badge-container">
+            <div class="certification-badge">
+              <input type="checkbox" id="badge-pl100">
+              <label for="badge-pl100">PL-100</label>
+            </div>
+            <div class="certification-badge">
+              <input type="checkbox" id="badge-pl200">
+              <label for="badge-pl200">PL-200</label>
+            </div>
+            <div class="certification-badge">
+              <input type="checkbox" id="badge-pl300">
+              <label for="badge-pl300">PL-300</label>
+            </div>
+            <div class="certification-badge">
+              <input type="checkbox" id="badge-pl400">
+              <label for="badge-pl400">PL-400</label>
+            </div>
+            <div class="certification-badge">
+              <input type="checkbox" id="badge-pl600">
+              <label for="badge-pl600">PL-600</label>
+            </div>
+            <div class="certification-badge">
+              <input type="checkbox" id="badge-pl900">
+              <label for="badge-pl900">PL-900</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mvp-badge">
+          <input type="checkbox" id="mvpStatus">
+          <label for="mvpStatus">I am a Microsoft MVP</label>
+        </div>
+        
+        <!-- Question Information -->
+        <div class="section-divider">
+          <h3>Question Information</h3>
+          <p>Create a high-quality certification question</p>
+        </div>
+
+        <div class="form-group">
+          <label for="questionText">Question Text <span class="required">*</span></label>
+          <textarea id="questionText" required placeholder="Enter your question text here. The certification level will be automatically added as a tag."></textarea>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="questionType">Question Type</label>
+            <select id="questionType">
+              <option value="">Select type...</option>
+              <option value="singlechoice">Single Choice</option>
+              <option value="multiplechoice">Multiple Choice</option>
+              <option value="ordering">Ordering</option>
+              <option value="dragdrop">Drag and Drop</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="questionCategory">Question Category</label>
+            <select id="questionCategory">
+              <option value="">Select category...</option>
+              <option value="solution">Solution Architecture</option>
+              <option value="business">Business Strategy</option>
+              <option value="technical">Technical Implementation</option>
+              <option value="governance">Governance & ALM</option>
+              <option value="security">Security & Compliance</option>
+              <option value="integration">Integration & APIs</option>
+              <option value="data">Data Management</option>
+              <option value="performance">Performance & Optimization</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="questionJustification">Question Justification</label>
+          <textarea id="questionJustification" placeholder="Explain why this question is relevant and important for certification candidates."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="keywordTags">Keyword Tags</label>
+          <input type="text" id="keywordTags" placeholder="Enter comma-separated tags (e.g., dataverse, security roles, canvas app)">
+          <div class="field-hint">Important terms or concepts that this question covers</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="msLearnLink">Microsoft Learn Reference URL</label>
+          <input type="url" id="msLearnLink" placeholder="https://learn.microsoft.com/...">
+          <div class="field-hint">Link to official Microsoft documentation that supports this question</div>
+        </div>
+
+        <!-- Ordering Builder -->
+        <div id="orderingBuilder" class="builder-section">
+          <h3>Ordering Configuration</h3>
+          <p>Add items and specify their correct position (1, 2, 3, etc.). Leave position blank for distractors.</p>
+          
+          <div id="orderingItems"></div>
+          
+          <button type="button" class="btn btn-secondary" onclick="addOrderingItem()">
+            <i class="fas fa-plus"></i> Add Item
+          </button>
+        </div>
+
+        <!-- Drag and Drop Builder -->
+        <div id="dragDropBuilder" class="builder-section">
+          <h3>Drag and Drop Configuration</h3>
+          
+          <div class="drag-drop-grid">
+            <div class="drag-section">
+              <h4>Drag Items</h4>
+              <div id="dragItems"></div>
+              <button type="button" class="btn btn-secondary" onclick="addDragItem()">
+                <i class="fas fa-plus"></i> Add Drag Item
+              </button>
+            </div>
+            
+            <div class="drag-section">
+              <h4>Target Areas</h4>
+              <div id="targetAreas"></div>
+              <button type="button" class="btn btn-secondary" onclick="addTargetArea()">
+                <i class="fas fa-plus"></i> Add Target Area
+              </button>
+            </div>
+          </div>
+          
+          <div class="mapping-section">
+            <h4>Correct Mappings</h4>
+            <div id="mappings"></div>
+          </div>
+        </div>
+
+        <!-- Multiple Choice Builder -->
+        <div id="choiceBuilder" class="builder-section">
+          <h3 id="choiceTitle">Choice Options</h3>
+          <div id="choiceOptions"></div>
+          <button type="button" class="btn btn-secondary" onclick="addChoiceOption()">
+            <i class="fas fa-plus"></i> Add Option
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="reviewStatus">Review Status</label>
+          <select id="reviewStatus">
+            <option value="pending">Pending (Awaiting Reviews)</option>
+            <option value="in_review">In Review Process</option>
+            <option value="revision">Needs Revision</option>
+            <option value="accepted">Accepted (3+ Reviewers)</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <div class="field-hint">New submissions start as "Pending" and require 3 positive reviews for acceptance</div>
+        </div>
+
+        <div class="form-group">
+          <label for="reviewNotes">Review Notes</label>
+          <textarea id="reviewNotes" placeholder="Any additional notes for reviewers or learners using this question..."></textarea>
+        </div>
+        
+        <div class="reviewer-section">
+          <h4>Reviewer Information</h4>
+          <p>Questions must be verified by at least 3 reviewers before being accepted into the question bank.</p>
+          
+          <div class="reviewer-slots">
+            <div class="reviewer-slot">
+              <span class="reviewer-number">Reviewer #1</span>
+              <input type="text" placeholder="Name" class="reviewer-name">
+              <input type="date" class="reviewer-date">
+              <select class="reviewer-status">
+                <option value="">Select status...</option>
+                <option value="approved">Approved</option>
+                <option value="revision">Needs Revision</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            
+            <div class="reviewer-slot">
+              <span class="reviewer-number">Reviewer #2</span>
+              <input type="text" placeholder="Name" class="reviewer-name">
+              <input type="date" class="reviewer-date">
+              <select class="reviewer-status">
+                <option value="">Select status...</option>
+                <option value="approved">Approved</option>
+                <option value="revision">Needs Revision</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            
+            <div class="reviewer-slot">
+              <span class="reviewer-number">Reviewer #3</span>
+              <input type="text" placeholder="Name" class="reviewer-name">
+              <input type="date" class="reviewer-date">
+              <select class="reviewer-status">
+                <option value="">Select status...</option>
+                <option value="approved">Approved</option>
+                <option value="revision">Needs Revision</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" onclick="validateForm()">
+            <i class="fas fa-check"></i> Validate
+          </button>
+          <button type="button" class="btn btn-success" onclick="generateJSON()">
+            <i class="fas fa-code"></i> Generate JSON
+          </button>
+        </div>
+      </form>
+
+      <div id="jsonOutput" class="output-section">
+        <h3>Generated JSON</h3>
+        <pre id="outputCode"></pre>
+        <button type="button" class="btn btn-primary" onclick="copyJSON()">
+          <i class="fas fa-copy"></i> Copy JSON
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let orderingCount = 0;
+    let dragCount = 0;
+    let targetCount = 0;
+    let choiceCount = 0;
+
+    // Add event listener when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('questionType').addEventListener('change', showQuestionBuilder);
+    });
+
+    function showQuestionBuilder() {
+      const type = document.getElementById('questionType').value;
+      
+      // Hide all builders
+      document.querySelectorAll('.builder-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Reset counts
+      orderingCount = 0;
+      dragCount = 0;
+      targetCount = 0;
+      choiceCount = 0;
+      
+      // Show appropriate builder
+      switch(type) {
+        case 'ordering':
+          document.getElementById('orderingBuilder').classList.add('active');
+          document.getElementById('orderingItems').innerHTML = '';
+          // Add some default items
+          for (let i = 0; i < 3; i++) addOrderingItem();
+          break;
+          
+        case 'dragdrop':
+          document.getElementById('dragDropBuilder').classList.add('active');
+          document.getElementById('dragItems').innerHTML = '';
+          document.getElementById('targetAreas').innerHTML = '';
+          document.getElementById('mappings').innerHTML = '';
+          // Add some defaults
+          for (let i = 0; i < 2; i++) {
+            addDragItem();
+            addTargetArea();
+          }
+          updateMappings();
+          break;
+          
+        case 'singlechoice':
+        case 'multiplechoice':
+          document.getElementById('choiceBuilder').classList.add('active');
+          document.getElementById('choiceTitle').textContent = 
+            type === 'singlechoice' ? 'Single Choice Options' : 'Multiple Choice Options';
+          document.getElementById('choiceOptions').innerHTML = '';
+          // Add default options
+          for (let i = 0; i < 4; i++) addChoiceOption();
+          break;
+      }
+    }
+
+    // Ordering Functions
+    function addOrderingItem() {
+      const container = document.getElementById('orderingItems');
+      const id = orderingCount++;
+      
+      const item = document.createElement('div');
+      item.className = 'ordering-item';
+      item.id = `order-${id}`;
+      
+      item.innerHTML = `
+        <input type="text" class="position-input" placeholder="#" 
+               onchange="updateOrderingStyle(${id})">
+        <input type="text" class="item-text" placeholder="Item text">
+        <div class="item-controls">
+          <button type="button" class="btn btn-danger" onclick="removeItem('order-${id}')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `;
+      
+      container.appendChild(item);
+    }
+
+    function updateOrderingStyle(id) {
+      const item = document.getElementById(`order-${id}`);
+      const position = item.querySelector('.position-input').value;
+      
+      item.classList.remove('correct', 'distractor');
+      if (position) {
+        item.classList.add('correct');
+      } else {
+        item.classList.add('distractor');
+      }
+    }
+
+    // Drag and Drop Functions
+    function addDragItem() {
+      const container = document.getElementById('dragItems');
+      const id = dragCount++;
+      
+      const item = document.createElement('div');
+      item.className = 'drag-item';
+      item.id = `drag-${id}`;
+      
+      item.innerHTML = `
+        <input type="text" placeholder="Drag item ${id + 1}" style="width: 100%;">
+        <button type="button" class="btn btn-danger" onclick="removeItem('drag-${id}')" style="margin-top: 5px;">
+          <i class="fas fa-trash"></i>
+        </button>
+      `;
+      
+      container.appendChild(item);
+      updateMappings();
+    }
+
+    function addTargetArea() {
+      const container = document.getElementById('targetAreas');
+      const id = targetCount++;
+      
+      const item = document.createElement('div');
+      item.className = 'target-item';
+      item.id = `target-${id}`;
+      
+      item.innerHTML = `
+        <input type="text" placeholder="Target area ${id + 1}" style="width: 100%;">
+        <button type="button" class="btn btn-danger" onclick="removeItem('target-${id}')" style="margin-top: 5px;">
+          <i class="fas fa-trash"></i>
+        </button>
+      `;
+      
+      container.appendChild(item);
+      updateMappings();
+    }
+
+    function updateMappings() {
+      const container = document.getElementById('mappings');
+      container.innerHTML = '';
+      
+      const dragItems = document.querySelectorAll('#dragItems .drag-item');
+      const targetAreas = document.querySelectorAll('#targetAreas .target-item');
+      
+      dragItems.forEach((dragItem, index) => {
+        const row = document.createElement('div');
+        row.className = 'mapping-row';
+        
+        let targetOptions = '<option value="">Select target...</option>';
+        targetAreas.forEach((target, targetIndex) => {
+          targetOptions += `<option value="${targetIndex}">Target ${targetIndex + 1}</option>`;
+        });
+        
+        row.innerHTML = `
+          <label>Drag Item ${index + 1}:</label>
+          <select data-drag="${index}">
+            ${targetOptions}
+          </select>
+        `;
+        
+        container.appendChild(row);
+      });
+    }
+
+    // Multiple Choice Functions
+    function addChoiceOption() {
+      const container = document.getElementById('choiceOptions');
+      const type = document.getElementById('questionType').value;
+      const letter = String.fromCharCode(65 + choiceCount);
+      const id = choiceCount++;
+      
+      const option = document.createElement('div');
+      option.className = 'choice-option';
+      option.id = `choice-${id}`;
+      
+      option.innerHTML = `
+        <div class="choice-header">
+          <span class="option-letter">${letter}.</span>
+          <input type="${type === 'singlechoice' ? 'radio' : 'checkbox'}" 
+                 name="correct" 
+                 onchange="updateChoiceStyle(${id})">
+          <label>Correct Answer</label>
+        </div>
+        <input type="text" placeholder="Option text" style="width: 100%; margin-bottom: 10px;">
+        <input type="text" placeholder="Explanation (optional)" style="width: 100%; margin-bottom: 10px;">
+        <button type="button" class="btn btn-danger" onclick="removeItem('choice-${id}')">
+          <i class="fas fa-trash"></i> Remove
+        </button>
+      `;
+      
+      container.appendChild(option);
+    }
+
+    function updateChoiceStyle(id) {
+      const option = document.getElementById(`choice-${id}`);
+      const isCorrect = option.querySelector('input[type="checkbox"], input[type="radio"]').checked;
+      
+      if (isCorrect) {
+        option.classList.add('correct');
+      } else {
+        option.classList.remove('correct');
+      }
+    }
+
+    function removeItem(id) {
+      document.getElementById(id).remove();
+      if (id.startsWith('drag') || id.startsWith('target')) {
+        updateMappings();
+      }
+    }
+
+    function validateForm() {
+      const errors = [];
+      
+      if (!document.getElementById('certLevel').value) {
+        errors.push('Select a certification level');
+      }
+      
+      if (!document.getElementById('questionText').value) {
+        errors.push('Enter question text');
+      }
+      
+      if (!document.getElementById('questionType').value) {
+        errors.push('Select a question type');
+      }
+      
+      if (errors.length > 0) {
+        alert('Please fix:\n' + errors.join('\n'));
+        return false;
+      }
+      
+      alert('Validation passed!');
+      return true;
+    }
+
+    function generateJSON() {
+      if (!validateForm()) return;
+      
+      // Get contributor information
+      const contributor = {
+        name: document.getElementById('contributorName').value,
+        email: document.getElementById('contributorEmail').value,
+        linkedIn: document.getElementById('linkedIn').value,
+        website: document.getElementById('website').value,
+        certifications: getCertificationBadges(),
+        isMVP: document.getElementById('mvpStatus').checked
+      };
+      
+      // Get question information
+      const certLevel = document.getElementById('certLevel').value;
+      const questionText = document.getElementById('questionText').value;
+      const questionType = document.getElementById('questionType').value;
+      const category = document.getElementById('questionCategory').value;
+      const justification = document.getElementById('questionJustification').value;
+      const keywordTags = document.getElementById('keywordTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+      const msLearnLink = document.getElementById('msLearnLink').value;
+      
+      let questionData = {
+        level: certLevel,
+        type: questionType,
+        text: `[${certLevel}] ${questionText}`,
+        category: category,
+        justification: justification,
+        tags: keywordTags,
+        reference: msLearnLink
+      };
+      
+      // Type-specific data
+      switch(questionType) {
+        case 'ordering':
+          const orderingItems = [];
+          const distractors = [];
+          
+          document.querySelectorAll('.ordering-item').forEach(item => {
+            const position = item.querySelector('.position-input').value;
+            const text = item.querySelector('.item-text').value;
+            
+            if (position) {
+              orderingItems.push({
+                position: parseInt(position),
+                text: text
+              });
+            } else {
+              distractors.push({ text: text });
+            }
+          });
+          
+          questionData.config = {
+            correctOrder: orderingItems.sort((a, b) => a.position - b.position),
+            distractors: distractors
+          };
+          break;
+          
+        case 'dragdrop':
+          const dragItems = [];
+          const targetAreas = [];
+          const mappings = [];
+          
+          document.querySelectorAll('#dragItems input').forEach((input, index) => {
+            dragItems.push({
+              id: `drag-${index}`,
+              text: input.value
+            });
+          });
+          
+          document.querySelectorAll('#targetAreas input').forEach((input, index) => {
+            targetAreas.push({
+              id: `target-${index}`,
+              text: input.value
+            });
+          });
+          
+          document.querySelectorAll('#mappings select').forEach(select => {
+            const dragIndex = parseInt(select.getAttribute('data-drag'));
+            const targetIndex = select.value;
+            
+            if (targetIndex !== '') {
+              mappings.push({
+                dragId: `drag-${dragIndex}`,
+                targetId: `target-${targetIndex}`
+              });
+            }
+          });
+          
+          questionData.config = {
+            dragItems: dragItems,
+            targetAreas: targetAreas,
+            correctMappings: mappings
+          };
+          break;
+          
+        case 'singlechoice':
+        case 'multiplechoice':
+          const options = [];
+          const correctAnswers = [];
+          
+          document.querySelectorAll('.choice-option').forEach((option, index) => {
+            const letter = String.fromCharCode(65 + index);
+            const text = option.querySelector('input[type="text"]').value;
+            const explanation = option.querySelectorAll('input[type="text"]')[1].value;
+            const isCorrect = option.querySelector('input[type="checkbox"], input[type="radio"]').checked;
+            
+            options.push({
+              letter: letter,
+              text: text,
+              explanation: explanation,
+              isCorrect: isCorrect
+            });
+            
+            if (isCorrect) {
+              correctAnswers.push(letter);
+            }
+          });
+          
+          questionData.options = options;
+          questionData.correctAnswers = correctAnswers;
+          break;
+      }
+      
+      const output = {
+        contributor: contributor,
+        question: questionData,
+        metadata: {
+          reviewStatus: document.getElementById('reviewStatus').value,
+          reviewNotes: document.getElementById('reviewNotes').value,
+          submittedAt: new Date().toISOString(),
+          reviewers: getReviewers()
+        }
+      };
+      
+      document.getElementById('outputCode').textContent = JSON.stringify(output, null, 2);
+      document.getElementById('jsonOutput').style.display = 'block';
+      document.getElementById('jsonOutput').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function getReviewers() {
+      const reviewers = [];
+      
+      document.querySelectorAll('.reviewer-slot').forEach((slot, index) => {
+        const name = slot.querySelector('.reviewer-name').value;
+        const date = slot.querySelector('.reviewer-date').value;
+        const status = slot.querySelector('.reviewer-status').value;
+        
+        if (name || date || status) {
+          reviewers.push({
+            number: index + 1,
+            name: name,
+            reviewDate: date,
+            status: status
+          });
+        }
+      });
+      
+      return reviewers;
+    }
+    
+    function getCertificationBadges() {
+      const badges = [];
+      if (document.getElementById('badge-pl100').checked) badges.push('PL-100');
+      if (document.getElementById('badge-pl200').checked) badges.push('PL-200');
+      if (document.getElementById('badge-pl300').checked) badges.push('PL-300');
+      if (document.getElementById('badge-pl400').checked) badges.push('PL-400');
+      if (document.getElementById('badge-pl600').checked) badges.push('PL-600');
+      if (document.getElementById('badge-pl900').checked) badges.push('PL-900');
+      return badges;
+    }
+
+    function copyJSON() {
+      const text = document.getElementById('outputCode').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('JSON copied to clipboard!');
+      });
+    }
+  </script>
+</body>
+</html>
