@@ -1,11 +1,7 @@
 /******************************************************************************
- * app.js - Enhanced Version with Additional Features
+ * app.js - Standalone Version
  * 
- * Improved drag-and-drop functionality with fixes for:
- * - Drag and drop reliability
- * - Correct ordering of items
- * - State management for drag and drop
- * - Cross-browser compatibility
+ * This version includes embedded questions and doesn't require fetching from a JSON file
  ******************************************************************************/
 
 /***********************************
@@ -21,62 +17,41 @@ let timerInterval = null;    // For updating the timer display
 /*************************************************
  * Initialize Application
  *************************************************/
-async function initializeApp() {
+function initializeApp() {
   try {
-    await loadQuestions();
+    console.log('Initializing application...');
+    
+    // Set up embedded questions (no need to fetch external file)
+    questions = getEmbeddedQuestions();
+    
+    if (!Array.isArray(questions) || questions.length === 0) {
+      throw new Error('Failed to load questions');
+    }
+    
+    console.log(`Loaded ${questions.length} questions successfully`);
+    
+    // Set up event listeners
     setupEventListeners();
+    
+    // Start the timer
     startTime = Date.now();
     startTimer();
+    
+    // Render the first question
+    renderQuestion(questions[currentQuestionIndex]);
+    updateProgress();
+    
+    console.log('Application initialized successfully');
   } catch (error) {
+    console.error('Failed to initialize the application:', error);
     showError('Failed to initialize the application. Please refresh and try again.');
-    console.error('Initialization error:', error);
   }
 }
 
 /*************************************************
- * Load Questions from JSON
+ * Embedded Questions (no need for external JSON)
  *************************************************/
-async function loadQuestions() {
-  try {
-    // For testing purposes, if no questions.json exists, we'll create some sample questions
-    let response;
-    try {
-      response = await fetch('questions.json');
-    } catch (error) {
-      // If fetch fails, use sample questions
-      questions = getSampleQuestions();
-      renderQuestion(questions[currentQuestionIndex]);
-      updateProgress();
-      return;
-    }
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    questions = await response.json();
-    
-    // Validate questions structure
-    if (!Array.isArray(questions) || questions.length === 0) {
-      throw new Error('Invalid questions format');
-    }
-    
-    // Start with the first question
-    renderQuestion(questions[currentQuestionIndex]);
-    updateProgress();
-  } catch (error) {
-    console.error('Failed to load questions:', error);
-    // Fallback to sample questions
-    questions = getSampleQuestions();
-    renderQuestion(questions[currentQuestionIndex]);
-    updateProgress();
-  }
-}
-
-/*************************************************
- * Sample Questions for Testing
- *************************************************/
-function getSampleQuestions() {
+function getEmbeddedQuestions() {
   return [
     {
       id: "q1",
@@ -153,6 +128,8 @@ function renderQuestion(question) {
     return;
   }
   
+  console.log(`Rendering question ${currentQuestionIndex + 1}: ${question.type}`);
+  
   // Track time for analytics
   questionStartTime = Date.now();
   
@@ -201,6 +178,8 @@ function renderQuestion(question) {
   
   // Update progress bar
   updateProgress();
+  
+  console.log(`Question ${currentQuestionIndex + 1} rendered successfully`);
 }
 
 /*******************************************************
@@ -286,9 +265,10 @@ function renderMultipleChoiceQuestion(question) {
 }
 
 /************************************************************
- * Enhanced Drag-and-Drop Implementation - FIXED VERSION
+ * Enhanced Drag-and-Drop Implementation
  ************************************************************/
 function renderDragDropQuestion(question) {
+  console.log('Rendering drag and drop question...');
   const container = document.getElementById('question-container');
   
   // Validate drag-drop data
@@ -343,6 +323,8 @@ function renderDragDropQuestion(question) {
   
   // Restore previous state if exists
   restoreDragDropState(question.id);
+  
+  console.log('Drag and drop question rendered successfully');
 }
 
 /* Creates a draggable item element */
@@ -400,8 +382,11 @@ function createDropZone(zone, index, container) {
 
 /* Initialize all drag and drop event listeners */
 function initDragAndDrop() {
+  console.log('Initializing drag and drop functionality...');
+  
   // Get all draggable items
   const draggableItems = document.querySelectorAll('.draggable-item');
+  console.log(`Found ${draggableItems.length} draggable items`);
   
   // Add event listeners to all draggable items
   draggableItems.forEach(item => {
@@ -414,6 +399,7 @@ function initDragAndDrop() {
   
   // Get all drop zones
   const dropZones = document.querySelectorAll('.drop-zone');
+  console.log(`Found ${dropZones.length} drop zones`);
   
   // Add event listeners to all drop zones
   dropZones.forEach(zone => {
@@ -422,6 +408,8 @@ function initDragAndDrop() {
     zone.addEventListener('dragleave', handleDragLeave);
     zone.addEventListener('dragenter', handleDragEnter);
   });
+  
+  console.log('Drag and drop functionality initialized');
 }
 
 /***********************************
@@ -431,6 +419,8 @@ let draggedElement = null;
 let currentDropZone = null;
 
 function handleDragStart(e) {
+  console.log('Drag started');
+  
   // Set the dragged element
   draggedElement = e.target;
   
@@ -442,9 +432,6 @@ function handleDragStart(e) {
   // The text/plain format works in all browsers
   e.dataTransfer.setData('text/plain', e.target.dataset.itemId);
   
-  // The text/html format works in most modern browsers and provides more data
-  e.dataTransfer.setData('text/html', e.target.outerHTML);
-  
   // Set allowed effect
   e.dataTransfer.effectAllowed = 'move';
   
@@ -452,27 +439,11 @@ function handleDragStart(e) {
   if (!e.dataTransfer.getData('text/plain')) {
     e.dataTransfer.setData('text/plain', e.target.dataset.itemId);
   }
-  
-  // Create a custom drag image for better user experience
-  try {
-    // Some browsers might not support this
-    const clone = e.target.cloneNode(true);
-    clone.style.opacity = '0.8';
-    clone.style.position = 'absolute';
-    clone.style.top = '-1000px';
-    document.body.appendChild(clone);
-    e.dataTransfer.setDragImage(clone, 0, 0);
-    
-    // Remove the clone after a short delay
-    setTimeout(() => {
-      document.body.removeChild(clone);
-    }, 0);
-  } catch (error) {
-    console.warn('Custom drag image not supported in this browser');
-  }
 }
 
 function handleDragEnd(e) {
+  console.log('Drag ended');
+  
   // Remove dragging class
   e.target.classList.remove('dragging');
   e.target.setAttribute('aria-grabbed', 'false');
@@ -532,6 +503,8 @@ function handleDragLeave(e) {
 }
 
 function handleDrop(e) {
+  console.log('Drop event triggered');
+  
   // Prevent the browser default behavior
   e.preventDefault();
   e.stopPropagation();
@@ -541,6 +514,7 @@ function handleDrop(e) {
   
   // Make sure we have a valid drop zone
   if (!e.currentTarget.classList.contains('drop-zone')) {
+    console.warn('Drop target is not a valid drop zone');
     return false;
   }
   
@@ -548,20 +522,24 @@ function handleDrop(e) {
   let itemId;
   try {
     itemId = e.dataTransfer.getData('text/plain');
+    console.log(`Item ID from dataTransfer: ${itemId}`);
   } catch (error) {
     console.error('Error getting data from dataTransfer', error);
-    return false;
+    
+    // Try to use the draggedElement as fallback
+    if (draggedElement) {
+      itemId = draggedElement.dataset.itemId;
+      console.log(`Using fallback item ID from draggedElement: ${itemId}`);
+    } else {
+      console.error('No item ID available - cannot complete drop');
+      return false;
+    }
   }
   
-  // If we don't have an itemId or draggedElement, exit
-  if (!itemId && !draggedElement) {
-    console.warn('No item ID found in dataTransfer and no draggedElement');
+  // If we still don't have an itemId, exit
+  if (!itemId) {
+    console.warn('No item ID found - cannot complete drop');
     return false;
-  }
-  
-  // Use the draggedElement as backup if dataTransfer fails
-  if (!itemId && draggedElement) {
-    itemId = draggedElement.dataset.itemId;
   }
   
   // Find the original item (might be hidden)
@@ -575,6 +553,8 @@ function handleDrop(e) {
   const dropZone = e.currentTarget;
   const zoneContent = dropZone.querySelector('.zone-content');
   const zoneId = dropZone.dataset.zoneId;
+  
+  console.log(`Dropping item ${itemId} into zone ${zoneId}`);
   
   // Create a new element for the dropped item
   const droppedItem = document.createElement('div');
@@ -590,6 +570,7 @@ function handleDrop(e) {
   removeBtn.setAttribute('aria-label', 'Remove item');
   removeBtn.addEventListener('click', (evt) => {
     evt.stopPropagation();
+    console.log(`Removing item ${itemId} from zone ${zoneId}`);
     
     // Find and show the original item
     const originalItem = document.querySelector(`.draggable-item[data-item-id="${itemId}"]`);
@@ -616,6 +597,8 @@ function handleDrop(e) {
   // Save the new state
   saveDragDropState();
   
+  console.log('Drop completed successfully');
+  
   return false;
 }
 
@@ -626,6 +609,7 @@ function handleKeyboardDrag(e) {
   // Respond to Enter or Space key
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault();
+    console.log('Keyboard drag initiated');
     
     const item = e.target;
     const itemId = item.dataset.itemId;
@@ -687,6 +671,8 @@ function handleKeyboardDrag(e) {
       
       // When clicked, simulate drag and drop
       button.addEventListener('click', () => {
+        console.log(`Keyboard drop: moving ${itemId} to ${zone.dataset.zoneId}`);
+        
         // Remove the modal
         document.body.removeChild(modal);
         
@@ -708,6 +694,7 @@ function handleKeyboardDrag(e) {
         removeBtn.setAttribute('aria-label', 'Remove item');
         removeBtn.addEventListener('click', (evt) => {
           evt.stopPropagation();
+          console.log(`Removing item ${itemId} from zone ${zoneId}`);
           
           // Show the original item
           item.style.display = '';
@@ -772,15 +759,20 @@ function handleKeyboardDrag(e) {
 }
 
 /***********************************
- * Improved Save/Restore Drag-Drop State
+ * Save/Restore Drag-Drop State
  ***********************************/
 function saveDragDropState() {
   const currentQuestion = questions[currentQuestionIndex];
   if (currentQuestion.type !== 'dragdrop') return;
   
+  console.log('Saving drag-drop state...');
+  
   // Get the drag-drop wrapper
   const wrapper = document.getElementById('drag-drop-wrapper');
-  if (!wrapper) return;
+  if (!wrapper) {
+    console.warn('No drag-drop wrapper found');
+    return;
+  }
   
   // Initialize state object
   const dragDropState = {};
@@ -804,13 +796,15 @@ function saveDragDropState() {
   // Save to user answers
   userAnswers[currentQuestion.id] = dragDropState;
   
-  // Debug
-  console.log('Saved drag-drop state:', dragDropState);
+  console.log('Drag-drop state saved:', dragDropState);
 }
 
 function restoreDragDropState(questionId) {
   const savedState = userAnswers[questionId];
-  if (!savedState) return;
+  if (!savedState) {
+    console.log('No saved state to restore for this question');
+    return;
+  }
   
   console.log('Restoring drag-drop state:', savedState);
   
@@ -834,6 +828,8 @@ function restoreDragDropState(questionId) {
         return;
       }
       
+      console.log(`Restoring item ${item.id} to zone ${zoneId}`);
+      
       // Create a dropped item clone
       const droppedItem = document.createElement('div');
       droppedItem.className = 'dropped-item';
@@ -848,6 +844,7 @@ function restoreDragDropState(questionId) {
       removeBtn.setAttribute('aria-label', 'Remove item');
       removeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        console.log(`Removing item ${item.id} from zone ${zoneId}`);
         
         // Show the original item
         originalItem.style.display = '';
@@ -869,6 +866,8 @@ function restoreDragDropState(questionId) {
       originalItem.style.display = 'none';
     });
   });
+  
+  console.log('State restoration complete');
 }
 
 /********************************************
@@ -919,6 +918,8 @@ function renderCodeQuestion(question) {
  * Answer Checking and Validation
  ********************************************************/
 function checkAnswers(question) {
+  console.log(`Checking answers for question ${question.id} (${question.type})`);
+  
   let isCorrect = false;
   let feedback = '';
   
@@ -965,11 +966,16 @@ function checkAnswers(question) {
     userAnswers[question.id].isCorrect = isCorrect;
     userAnswers[question.id].checkedAt = Date.now();
   }
+  
+  console.log(`Answer check complete: ${isCorrect ? 'Correct' : 'Incorrect'}`);
 }
 
 function checkMultipleChoiceAnswer(question) {
   const inputs = document.querySelectorAll(`input[name="question_${question.id}"]:checked`);
   const selectedValues = Array.from(inputs).map(input => input.value);
+  
+  console.log(`Selected values: ${selectedValues.join(', ')}`);
+  console.log(`Correct answers: ${question.correctAnswers.join(', ')}`);
   
   // Save user selection
   userAnswers[question.id] = selectedValues;
@@ -998,6 +1004,8 @@ function checkMultipleChoiceAnswer(question) {
 }
 
 function checkDragDropAnswer(question) {
+  console.log('Checking drag-drop answer...');
+  
   // Get the current state
   const currentState = {};
   
@@ -1025,6 +1033,9 @@ function checkDragDropAnswer(question) {
     
     // Get the items the user placed in this zone
     const userItems = new Set(currentState[zoneId] || []);
+    
+    console.log(`Zone ${zoneId} - Correct items: ${[...correctItems].join(', ')}`);
+    console.log(`Zone ${zoneId} - User items: ${[...userItems].join(', ')}`);
     
     // Get zone name for feedback
     const zoneName = zone.label || zoneId;
@@ -1065,6 +1076,8 @@ function checkDragDropAnswer(question) {
     feedback = 'Incorrect placement. ' + incorrectPlacements.join('. ');
   }
   
+  console.log(`Drag-drop check result: ${isCorrect ? 'Correct' : 'Incorrect'}`);
+  
   return { isCorrect, feedback };
 }
 
@@ -1072,6 +1085,10 @@ function checkCodeAnswer(question) {
   // Get the user's code
   const textarea = document.getElementById(`code-editor-${question.id}`);
   const userCode = textarea.value;
+  
+  console.log('Checking code answer...');
+  console.log('User code:', userCode);
+  console.log('Solution:', question.solution);
   
   // Save the code
   saveCodeAnswer(question.id, userCode);
@@ -1107,6 +1124,8 @@ function checkCodeAnswer(question) {
     feedback = 'Your solution is not correct. Try again.';
   }
   
+  console.log(`Code check result: ${isCorrect ? 'Correct' : 'Incorrect'}`);
+  
   return { isCorrect, feedback };
 }
 
@@ -1115,6 +1134,8 @@ function saveCodeAnswer(questionId, code) {
     userAnswers[questionId] = {};
   }
   userAnswers[questionId].code = code;
+  
+  console.log(`Code answer saved for question ${questionId}`);
 }
 
 /*******************************************************
@@ -1155,6 +1176,8 @@ function renderNavigationControls() {
 }
 
 function goToNextQuestion() {
+  console.log('Moving to next question...');
+  
   // Save answer if not already saved
   const currentQuestion = questions[currentQuestionIndex];
   saveUserAnswer(currentQuestion.id);
@@ -1168,6 +1191,8 @@ function goToNextQuestion() {
 }
 
 function goToPreviousQuestion() {
+  console.log('Moving to previous question...');
+  
   if (currentQuestionIndex > 0) {
     // Save current answer before navigating
     const currentQuestion = questions[currentQuestionIndex];
@@ -1184,6 +1209,8 @@ function updateProgress() {
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
     progressBar.style.width = `${progress}%`;
     progressBar.setAttribute('aria-valuenow', progress);
+    
+    console.log(`Progress updated: ${progress.toFixed(0)}%`);
   }
 }
 
@@ -1192,11 +1219,18 @@ function updateProgress() {
  *******************************************************/
 function saveUserAnswer(questionId) {
   const question = questions.find(q => q.id === questionId);
-  if (!question) return;
+  if (!question) {
+    console.warn(`Question with ID ${questionId} not found`);
+    return;
+  }
+  
+  console.log(`Saving user answer for question ${questionId} (${question.type})`);
   
   if (question.type === 'multiplechoice') {
     const inputs = document.querySelectorAll(`input[name="question_${questionId}"]:checked`);
     const selectedValues = Array.from(inputs).map(input => input.value);
+    
+    console.log(`Selected values: ${selectedValues.join(', ')}`);
     
     // Only update selected answers, not the entire object if it exists
     if (typeof userAnswers[questionId] === 'object' && !Array.isArray(userAnswers[questionId])) {
@@ -1215,6 +1249,8 @@ function saveUserAnswer(questionId) {
 }
 
 function showFeedback(isCorrect, message) {
+  console.log(`Showing feedback: ${isCorrect ? 'Correct' : 'Incorrect'} - ${message}`);
+  
   // Remove any existing feedback
   const existingFeedback = document.querySelector('.feedback');
   if (existingFeedback) {
@@ -1234,6 +1270,8 @@ function showFeedback(isCorrect, message) {
 }
 
 function showError(message) {
+  console.error(`Error: ${message}`);
+  
   const errorDiv = document.createElement('div');
   errorDiv.className = 'error-message';
   errorDiv.setAttribute('role', 'alert');
@@ -1262,9 +1300,13 @@ function startTimer() {
   // Update immediately and then every second
   updateTimer();
   timerInterval = setInterval(updateTimer, 1000);
+  
+  console.log('Timer started');
 }
 
 function showCompletionScreen() {
+  console.log('Showing completion screen');
+  
   // Hide question container and show summary
   document.getElementById('question-container').style.display = 'none';
   const summaryContainer = document.getElementById('summary-container');
@@ -1316,6 +1358,8 @@ function showCompletionScreen() {
   // Calculate score
   const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
   
+  console.log(`Final score: ${score}% (${correctAnswers}/${totalQuestions})`);
+  
   const resultsDiv = document.createElement('div');
   resultsDiv.className = 'results-summary';
   resultsDiv.innerHTML = `
@@ -1360,6 +1404,8 @@ function showCompletionScreen() {
   });
   
   if (incorrectQuestions.length > 0) {
+    console.log(`${incorrectQuestions.length} questions to review`);
+    
     const mistakesDiv = document.createElement('div');
     mistakesDiv.className = 'mistakes-container';
     mistakesDiv.innerHTML = '<h4>Questions to Review:</h4>';
@@ -1385,6 +1431,8 @@ function showCompletionScreen() {
     currentQuestionIndex = 0;
     userAnswers = {};
     startTime = Date.now();
+    
+    console.log('Restarting exam...');
     
     // Hide summary and show questions
     document.getElementById('summary-container').style.display = 'none';
@@ -1458,11 +1506,14 @@ function setupEventListeners() {
       goToPreviousQuestion();
     }
   });
+  
+  console.log('Event listeners set up');
 }
 
 /*****************************************
  * Initial Load
  *****************************************/
 window.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM content loaded - initializing application');
   initializeApp();
 });
