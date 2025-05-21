@@ -184,22 +184,23 @@ function getEmbeddedQuestions() {
     }
   },
   {
-    "id": "q9",
-    "type": "dragdrop",
-    "text": "You need to determine which requirements are functional or non-functional. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years.",
-    "draggableItems": [
-      { "id": "item1", "label": "Functional" },
-      { "id": "item2", "label": "Non-functional" }
-    ],
-    "dropZones": [
-      { "id": "zone1", "label": "Customers need the ability to submit a case through an online portal.", "correctItems": ["item1"] },
-      { "id": "zone2", "label": "Portal must handle 75 concurrent users submitting cases.", "correctItems": ["item2"] },
-      { "id": "zone3", "label": "Service data must be retained for at least six years.", "correctItems": ["item2"] }
-    ],
-    "hints": {
-      "easy": ["Think about features vs constraints", "Consider what the system does vs how well it does it", "Performance is typically non-functional"]
-    }
-  },
+  "id": "q9",
+  "type": "dragdrop",
+  "text": "You need to determine which requirements are functional or non-functional. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years.",
+  "draggableItems": [
+    { "id": "item1", "label": "Functional" },
+    { "id": "item2a", "label": "Non-functional" },
+    { "id": "item2b", "label": "Non-functional" }
+  ],
+  "dropZones": [
+    { "id": "zone1", "label": "Customers need the ability to submit a case through an online portal.", "correctItems": ["item1"] },
+    { "id": "zone2", "label": "Portal must handle 75 concurrent users submitting cases.", "correctItems": ["item2a", "item2b"] },
+    { "id": "zone3", "label": "Service data must be retained for at least six years.", "correctItems": ["item2a", "item2b"] }
+  ],
+  "hints": {
+    "easy": ["Think about features vs constraints", "Consider what the system does vs how well it does it", "Performance is typically non-functional"]
+  }
+},
   {
     "id": "q10",
     "type": "multiplechoice",
@@ -214,25 +215,26 @@ function getEmbeddedQuestions() {
     "hints": {
       "easy": ["Think about out-of-box capabilities", "Consider email integration options", "What handles data synchronization?"]
     }
-  },
-  {
-    "id": "q11",
-    "type": "dragdrop",
-    "text": "You are performing a requirements analysis for a customer. You need to determine if the requirements are functional or non-functional.",
-    "draggableItems": [
-      { "id": "item1", "label": "Functional" },
-      { "id": "item2", "label": "Non-functional" }
-    ],
-    "dropZones": [
-      { "id": "zone1", "label": "Power Platform storage capacity must remain under 100 percent.", "correctItems": ["item2"] },
-      { "id": "zone2", "label": "Customer service representatives must be sent an email when they are assigned a case.", "correctItems": ["item1"] },
-      { "id": "zone3", "label": "Help desk technicians must be shown an error message when they try to delete a task row.", "correctItems": ["item1"] },
-      { "id": "zone4", "label": "The plug-in pass rate must remain over 99 percent for the production environment.", "correctItems": ["item2"] }
-    ],
-    "hints": {
-      "easy": ["Capacity and performance are qualities", "Actions and behaviors are functions", "Think about measurable constraints"]
-    }
-  },
+  },{
+  "id": "q11",
+  "type": "dragdrop",
+  "text": "You are performing a requirements analysis for a customer. You need to determine if the requirements are functional or non-functional.",
+  "draggableItems": [
+    { "id": "item1a", "label": "Functional" },
+    { "id": "item1b", "label": "Functional" },
+    { "id": "item2a", "label": "Non-functional" },
+    { "id": "item2b", "label": "Non-functional" }
+  ],
+  "dropZones": [
+    { "id": "zone1", "label": "Power Platform storage capacity must remain under 100 percent.", "correctItems": ["item2a", "item2b"] },
+    { "id": "zone2", "label": "Customer service representatives must be sent an email when they are assigned a case.", "correctItems": ["item1a", "item1b"] },
+    { "id": "zone3", "label": "Help desk technicians must be shown an error message when they try to delete a task row.", "correctItems": ["item1a", "item1b"] },
+    { "id": "zone4", "label": "The plug-in pass rate must remain over 99 percent for the production environment.", "correctItems": ["item2a", "item2b"] }
+  ],
+  "hints": {
+    "easy": ["Capacity and performance are qualities", "Actions and behaviors are functions", "Think about measurable constraints"]
+  }
+},
   {
     "id": "q12",
     "type": "multiplechoice",
