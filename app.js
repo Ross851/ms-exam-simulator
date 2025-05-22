@@ -188,15 +188,26 @@ function getEmbeddedQuestions() {
   "type": "dragdrop",
   "text": "You need to determine which requirements are functional or non-functional. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years.",
   "draggableItems": [
-    { "id": "item1", "label": "Functional" },
-    { "id": "item2", "label": "Non-functional" },
-    { "id": "item3", "label": "Functional" },
-    { "id": "item4", "label": "Non-functional" }
+    { "id": "functional1", "label": "Functional" },
+    { "id": "nonfunctional1", "label": "Non-functional" },
+    { "id": "nonfunctional2", "label": "Non-functional" }
   ],
   "dropZones": [
-    { "id": "zone1", "label": "Customers need the ability to submit a case through an online portal.", "correctItems": ["item1", "item3"] },
-    { "id": "zone2", "label": "Portal must handle 75 concurrent users submitting cases.", "correctItems": ["item2", "item4"] },
-    { "id": "zone3", "label": "Service data must be retained for at least six years.", "correctItems": ["item2", "item4"] }
+    { 
+      "id": "zone1", 
+      "label": "Customers need the ability to submit a case through an online portal.", 
+      "correctItems": ["functional1"] 
+    },
+    { 
+      "id": "zone2", 
+      "label": "Portal must handle 75 concurrent users submitting cases.", 
+      "correctItems": ["nonfunctional1", "nonfunctional2"] 
+    },
+    { 
+      "id": "zone3", 
+      "label": "Service data must be retained for at least six years.", 
+      "correctItems": ["nonfunctional1", "nonfunctional2"] 
+    }
   ],
   "hints": {
     "easy": ["Think about features vs constraints", "Consider what the system does vs how well it does it", "Performance is typically non-functional"]
