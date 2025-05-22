@@ -1,4 +1,4 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -362,21 +362,132 @@ l<!DOCTYPE html>
             margin: 20px 0;
         }
 
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
         .setup-option {
-            margin: 15px 0;
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .setup-option label {
             display: block;
-            font-weight: 500;
-            margin-bottom: 5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
         }
 
         .setup-option select, .setup-option input {
-            padding: 8px 12px;
+            width: 100%;
+            padding: 10px 12px;
             border: 2px solid #dee2e6;
             border-radius: 4px;
             font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .setup-option select:focus, .setup-option input:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 0 3px rgba(0,120,212,0.1);
+        }
+
+        .question-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0078d4;
+            margin-top: 20px;
+        }
+
+        .question-preview h4 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        #preview-stats {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        .preview-stat {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .preview-stat.topic {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .preview-stat.difficulty {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .preview-stat.type {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .weak-areas-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .weak-area-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ffeaa7;
+        }
+
+        .weak-area-item:last-child {
+            border-bottom: none;
+        }
+
+        .weakness-score {
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .weakness-score.critical { background: #dc3545; }
+        .weakness-score.moderate { background: #ffc107; color: #212529; }
+        .weakness-score.minor { background: #28a745; }
+
+        .improvement-suggestions {
+            background: #e7f3ff;
+            border: 1px solid #b3d7ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .suggestion-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #0078d4;
         }
 
         @media (max-width: 768px) {
@@ -451,38 +562,68 @@ l<!DOCTYPE html>
 
         <!-- Exam Setup -->
         <section id="exam-setup" class="exam-setup" style="display: none;">
-            <h2>Exam Configuration</h2>
+            <h2>🎯 Exam Configuration</h2>
             <div class="setup-options">
-                <div class="setup-option">
-                    <label for="question-count">Number of Questions:</label>
-                    <select id="question-count">
-                        <option value="5">5 Questions (Quick Practice)</option>
-                        <option value="10">10 Questions (Standard)</option>
-                        <option value="15">15 Questions (Extended)</option>
-                        <option value="all">All Available Questions</option>
-                    </select>
+                <div class="setup-grid">
+                    <div class="setup-option">
+                        <label for="question-count">📊 Number of Questions:</label>
+                        <select id="question-count">
+                            <option value="5">5 Questions (Quick Practice)</option>
+                            <option value="10">10 Questions (Standard)</option>
+                            <option value="15">15 Questions (Extended)</option>
+                            <option value="20">20 Questions (Full Practice)</option>
+                            <option value="all">All Available Questions</option>
+                        </select>
+                    </div>
+                    <div class="setup-option">
+                        <label for="difficulty-filter">⚡ Difficulty Level:</label>
+                        <select id="difficulty-filter">
+                            <option value="all">All Difficulties</option>
+                            <option value="easy">🟢 Easy Only</option>
+                            <option value="medium">🟡 Medium Only</option>
+                            <option value="hard">🔴 Hard Only</option>
+                        </select>
+                    </div>
+                    <div class="setup-option">
+                        <label for="topic-filter">🏷️ Power Platform Area:</label>
+                        <select id="topic-filter">
+                            <option value="all">All Topics</option>
+                        </select>
+                    </div>
+                    <div class="setup-option">
+                        <label for="question-type-filter">📝 Question Types:</label>
+                        <select id="question-type-filter">
+                            <option value="all">All Question Types</option>
+                            <option value="multiplechoice">Multiple Choice</option>
+                            <option value="specialdragdrop">Drag & Drop (Classification)</option>
+                            <option value="requirementtype">Requirement Analysis</option>
+                            <option value="hotspot">Hotspot</option>
+                            <option value="dragdrop">Sequence Ordering</option>
+                        </select>
+                    </div>
+                    <div class="setup-option">
+                        <label for="exam-focus">🎯 Focus Area:</label>
+                        <select id="exam-focus">
+                            <option value="all">Comprehensive Review</option>
+                            <option value="weak-areas">Focus on Weak Areas</option>
+                            <option value="architecture">Solution Architecture</option>
+                            <option value="requirements">Requirements Analysis</option>
+                            <option value="integration">Integration & APIs</option>
+                            <option value="security">Security & Governance</option>
+                        </select>
+                    </div>
+                    <div class="setup-option">
+                        <label for="time-limit">⏱️ Time Limit (minutes):</label>
+                        <input type="number" id="time-limit" value="90" min="10" max="240">
+                    </div>
                 </div>
-                <div class="setup-option">
-                    <label for="difficulty-filter">Difficulty Level:</label>
-                    <select id="difficulty-filter">
-                        <option value="all">All Difficulties</option>
-                        <option value="easy">Easy Only</option>
-                        <option value="medium">Medium Only</option>
-                        <option value="hard">Hard Only</option>
-                    </select>
-                </div>
-                <div class="setup-option">
-                    <label for="category-filter">Category:</label>
-                    <select id="category-filter">
-                        <option value="all">All Categories</option>
-                    </select>
-                </div>
-                <div class="setup-option">
-                    <label for="time-limit">Time Limit (minutes):</label>
-                    <input type="number" id="time-limit" value="90" min="10" max="180">
+                
+                <div class="question-preview" id="question-preview">
+                    <h4>📋 Question Preview</h4>
+                    <div id="preview-stats">Select your filters to see available questions...</div>
                 </div>
             </div>
-            <button class="btn btn-primary" onclick="examSimulator.startExam()">Start Exam</button>
+            <button class="btn btn-primary" onclick="examSimulator.startExam()">🚀 Start Exam</button>
         </section>
 
         <!-- Question Display -->
@@ -508,21 +649,108 @@ l<!DOCTYPE html>
                 this.timeRemaining = 5400; // Default 90 minutes
                 this.timerInterval = null;
                 this.examStarted = false;
+                this.performanceData = {}; // Track detailed performance
+                this.weakAreas = []; // Store identified weak areas
 
                 this.init();
             }
 
             async init() {
                 await this.loadQuestions();
+                this.loadStoredPerformance();
+            }
+
+            loadStoredPerformance() {
+                // Load previous performance data for weak area analysis
+                try {
+                    const stored = localStorage.getItem('powerPlatformExamPerformance');
+                    if (stored) {
+                        this.performanceData = JSON.parse(stored);
+                        this.analyzeWeakAreas();
+                    }
+                } catch (error) {
+                    console.log('Could not load stored performance data');
+                    this.performanceData = {};
+                }
+            }
+
+            savePerformanceData() {
+                try {
+                    localStorage.setItem('powerPlatformExamPerformance', JSON.stringify(this.performanceData));
+                } catch (error) {
+                    console.log('Could not save performance data');
+                }
+            }
+
+            analyzeWeakAreas() {
+                const weaknessThreshold = 0.7; // 70% threshold
+                this.weakAreas = [];
+
+                Object.keys(this.performanceData).forEach(topic => {
+                    const data = this.performanceData[topic];
+                    if (data.attempts > 0 && (data.correct / data.total) < weaknessThreshold) {
+                        this.weakAreas.push({
+                            topic: topic,
+                            score: (data.correct / data.total),
+                            attempts: data.attempts,
+                            severity: this.getWeaknessSeverity(data.correct / data.total)
+                        });
+                    }
+                });
+
+                // Sort by severity (worst first)
+                this.weakAreas.sort((a, b) => a.score - b.score);
+            }
+
+            getWeaknessSeverity(score) {
+                if (score < 0.4) return 'critical';
+                if (score < 0.6) return 'moderate';
+                return 'minor';
             }
 
             async loadQuestions() {
                 try {
                     this.showLoading();
                     
-                    // Load questions from JavaScript module
-                    const module = await import('./questions.js');
-                    this.allQuestions = module.default || module.enhancedQuestionSet;
+                    // Try multiple loading methods
+                    try {
+                        // Method 1: Try to load from questions.js if it exists
+                        const response = await fetch('./questions.js');
+                        if (response.ok) {
+                            const jsText = await response.text();
+                            // Execute the JavaScript to get the questions
+                            const script = document.createElement('script');
+                            script.textContent = jsText;
+                            document.head.appendChild(script);
+                            
+                            // Check if enhancedQuestionSet is available
+                            if (window.enhancedQuestionSet) {
+                                this.allQuestions = window.enhancedQuestionSet;
+                            } else {
+                                throw new Error('Questions not found in JS file');
+                            }
+                        } else {
+                            throw new Error('questions.js not found');
+                        }
+                    } catch (jsError) {
+                        console.log('Could not load questions.js, trying questions.json...');
+                        
+                        // Method 2: Try to load from questions.json
+                        try {
+                            const response = await fetch('./questions.json');
+                            if (response.ok) {
+                                const data = await response.json();
+                                this.allQuestions = data.questions || data;
+                            } else {
+                                throw new Error('questions.json not found');
+                            }
+                        } catch (jsonError) {
+                            console.log('Could not load questions.json, using fallback questions...');
+                            
+                            // Method 3: Use fallback questions
+                            this.allQuestions = this.getFallbackQuestions();
+                        }
+                    }
                     
                     // Set default exam config if not provided
                     this.examConfig = {
@@ -535,8 +763,9 @@ l<!DOCTYPE html>
                     // Update exam title
                     document.getElementById('exam-title').textContent = this.examConfig.title;
                     
-                    // Populate category dropdown
-                    this.populateCategoryFilter();
+                    // Populate filter dropdowns
+                    this.populateFilters();
+                    this.updateQuestionPreview();
                     
                     this.showSetup();
                     
@@ -570,47 +799,151 @@ l<!DOCTYPE html>
                 document.getElementById('summary-container').style.display = 'none';
             }
 
-            populateCategoryFilter() {
-                const categories = [...new Set(this.allQuestions.map(q => q.topic || q.category))];
-                const categorySelect = document.getElementById('category-filter');
+            populateFilters() {
+                // Populate topics
+                const topics = [...new Set(this.allQuestions.map(q => q.topic || q.category))];
+                const topicSelect = document.getElementById('topic-filter');
                 
-                categories.forEach(category => {
+                topics.forEach(topic => {
                     const option = document.createElement('option');
-                    option.value = category.toLowerCase().replace(/\s+/g, '-');
-                    option.textContent = category;
-                    categorySelect.appendChild(option);
+                    option.value = topic.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = topic;
+                    topicSelect.appendChild(option);
                 });
+
+                // Add event listeners for filter changes
+                const filterElements = ['question-count', 'difficulty-filter', 'topic-filter', 'question-type-filter', 'exam-focus'];
+                filterElements.forEach(id => {
+                    document.getElementById(id).addEventListener('change', () => {
+                        this.updateQuestionPreview();
+                    });
+                });
+            }
+
+            updateQuestionPreview() {
+                const filters = this.getCurrentFilters();
+                const filteredQuestions = this.applyFilters(this.allQuestions, filters);
+                
+                const previewStats = document.getElementById('preview-stats');
+                if (filteredQuestions.length === 0) {
+                    previewStats.innerHTML = '❌ No questions match your selected criteria. Please adjust your filters.';
+                    return;
+                }
+
+                // Generate preview statistics
+                const stats = this.generatePreviewStats(filteredQuestions);
+                
+                let html = `
+                    <div style="margin-bottom: 15px;">
+                        <strong>📊 ${filteredQuestions.length} questions available</strong>
+                        ${filters.questionCount !== 'all' && parseInt(filters.questionCount) < filteredQuestions.length ? 
+                            ` (${filters.questionCount} will be randomly selected)` : ''}
+                    </div>
+                `;
+
+                // Topic breakdown
+                if (Object.keys(stats.topics).length > 1) {
+                    html += '<div style="margin-bottom: 10px;"><strong>📚 Topics:</strong><br>';
+                    Object.entries(stats.topics).forEach(([topic, count]) => {
+                        html += `<span class="preview-stat topic">${topic}: ${count}</span>`;
+                    });
+                    html += '</div>';
+                }
+
+                // Difficulty breakdown
+                if (Object.keys(stats.difficulties).length > 1) {
+                    html += '<div style="margin-bottom: 10px;"><strong>⚡ Difficulty:</strong><br>';
+                    Object.entries(stats.difficulties).forEach(([diff, count]) => {
+                        const emoji = diff === 'easy' ? '🟢' : diff === 'medium' ? '🟡' : '🔴';
+                        html += `<span class="preview-stat difficulty">${emoji} ${diff}: ${count}</span>`;
+                    });
+                    html += '</div>';
+                }
+
+                // Question types
+                if (Object.keys(stats.types).length > 1) {
+                    html += '<div style="margin-bottom: 10px;"><strong>📝 Question Types:</strong><br>';
+                    Object.entries(stats.types).forEach(([type, count]) => {
+                        html += `<span class="preview-stat type">${this.formatQuestionType(type)}: ${count}</span>`;
+                    });
+                    html += '</div>';
+                }
+
+                // Show weak areas if applicable
+                if (filters.examFocus === 'weak-areas' && this.weakAreas.length > 0) {
+                    html += '<div class="weak-areas-section">';
+                    html += '<strong>🎯 Focusing on Weak Areas:</strong><br>';
+                    this.weakAreas.slice(0, 3).forEach(area => {
+                        html += `<div class="weak-area-item">
+                            <span>${area.topic}</span>
+                            <span class="weakness-score ${area.severity}">${Math.round(area.score * 100)}%</span>
+                        </div>`;
+                    });
+                    html += '</div>';
+                }
+
+                previewStats.innerHTML = html;
+            }
+
+            getCurrentFilters() {
+                return {
+                    questionCount: document.getElementById('question-count').value,
+                    difficulty: document.getElementById('difficulty-filter').value,
+                    topic: document.getElementById('topic-filter').value,
+                    questionType: document.getElementById('question-type-filter').value,
+                    examFocus: document.getElementById('exam-focus').value
+                };
+            }
+
+            generatePreviewStats(questions) {
+                const stats = {
+                    topics: {},
+                    difficulties: {},
+                    types: {}
+                };
+
+                questions.forEach(q => {
+                    // Count topics
+                    const topic = q.topic || q.category || 'General';
+                    stats.topics[topic] = (stats.topics[topic] || 0) + 1;
+
+                    // Count difficulties
+                    const diff = (q.difficulty || q.difficultyLevel || 'medium').toLowerCase();
+                    stats.difficulties[diff] = (stats.difficulties[diff] || 0) + 1;
+
+                    // Count question types
+                    const type = q.type || 'classification';
+                    stats.types[type] = (stats.types[type] || 0) + 1;
+                });
+
+                return stats;
+            }
+
+            formatQuestionType(type) {
+                const typeMap = {
+                    'multiplechoice': 'Multiple Choice',
+                    'specialdragdrop': 'Drag & Drop',
+                    'requirementtype': 'Requirements',
+                    'hotspot': 'Hotspot',
+                    'dragdrop': 'Sequence',
+                    'classification': 'Classification'
+                };
+                return typeMap[type] || type;
             }
 
             startExam() {
                 // Get exam configuration
-                const questionCount = document.getElementById('question-count').value;
-                const difficulty = document.getElementById('difficulty-filter').value;
-                const category = document.getElementById('category-filter').value;
+                const filters = this.getCurrentFilters();
                 const timeLimit = parseInt(document.getElementById('time-limit').value) * 60;
 
-                // Filter questions based on configuration
-                let filteredQuestions = [...this.allQuestions];
-                
-                if (difficulty !== 'all') {
-                    filteredQuestions = filteredQuestions.filter(q => 
-                        (q.difficulty && q.difficulty.toLowerCase() === difficulty) ||
-                        (q.difficultyLevel && q.difficultyLevel.toLowerCase() === difficulty)
-                    );
-                }
-                
-                if (category !== 'all') {
-                    filteredQuestions = filteredQuestions.filter(q => 
-                        (q.category && q.category.toLowerCase().replace(/\s+/g, '-') === category) ||
-                        (q.topic && q.topic.toLowerCase().replace(/\s+/g, '-') === category)
-                    );
-                }
+                // Apply all filters
+                let filteredQuestions = this.applyFilters(this.allQuestions, filters);
 
-                // Select questions
-                if (questionCount === 'all') {
+                // Select questions based on count
+                if (filters.questionCount === 'all') {
                     this.examQuestions = filteredQuestions;
                 } else {
-                    const count = parseInt(questionCount);
+                    const count = parseInt(filters.questionCount);
                     this.examQuestions = this.shuffleArray(filteredQuestions).slice(0, count);
                 }
 
@@ -632,6 +965,89 @@ l<!DOCTYPE html>
                 
                 this.renderQuestion();
                 this.startTimer();
+            }
+
+            applyFilters(questions, filters) {
+                let filtered = [...questions];
+                
+                // Apply difficulty filter
+                if (filters.difficulty !== 'all') {
+                    filtered = filtered.filter(q => 
+                        (q.difficulty && q.difficulty.toLowerCase() === filters.difficulty) ||
+                        (q.difficultyLevel && q.difficultyLevel.toLowerCase() === filters.difficulty)
+                    );
+                }
+                
+                // Apply topic filter
+                if (filters.topic !== 'all') {
+                    filtered = filtered.filter(q => 
+                        (q.category && q.category.toLowerCase().replace(/\s+/g, '-') === filters.topic) ||
+                        (q.topic && q.topic.toLowerCase().replace(/\s+/g, '-') === filters.topic)
+                    );
+                }
+
+                // Apply question type filter
+                if (filters.questionType !== 'all') {
+                    filtered = filtered.filter(q => q.type === filters.questionType);
+                }
+
+                // Apply exam focus filter
+                if (filters.examFocus !== 'all') {
+                    filtered = this.applyExamFocus(filtered, filters.examFocus);
+                }
+
+                return filtered;
+            }
+
+            applyExamFocus(questions, focus) {
+                switch (focus) {
+                    case 'weak-areas':
+                        if (this.weakAreas.length > 0) {
+                            const weakTopics = this.weakAreas.map(w => w.topic.toLowerCase());
+                            return questions.filter(q => 
+                                weakTopics.includes((q.topic || q.category || '').toLowerCase())
+                            );
+                        }
+                        return questions;
+                    
+                    case 'architecture':
+                        return questions.filter(q => 
+                            q.category === 'Architect a solution' ||
+                            (q.conceptsTested && q.conceptsTested.some(c => 
+                                c.includes('architecture') || c.includes('design')
+                            ))
+                        );
+                    
+                    case 'requirements':
+                        return questions.filter(q => 
+                            q.category === 'Perform solution envisioning and requirement analysis' ||
+                            q.type === 'requirementtype' ||
+                            q.type === 'specialdragdrop'
+                        );
+                    
+                    case 'integration':
+                        return questions.filter(q => 
+                            (q.conceptsTested && q.conceptsTested.some(c => 
+                                c.includes('integration') || c.includes('API') || c.includes('connector')
+                            )) ||
+                            (q.keyWords && q.keyWords.some(k => 
+                                k.includes('API') || k.includes('integrate') || k.includes('connector')
+                            ))
+                        );
+                    
+                    case 'security':
+                        return questions.filter(q => 
+                            (q.conceptsTested && q.conceptsTested.some(c => 
+                                c.includes('security') || c.includes('governance')
+                            )) ||
+                            (q.keyWords && q.keyWords.some(k => 
+                                k.includes('security') || k.includes('privilege')
+                            ))
+                        );
+                    
+                    default:
+                        return questions;
+                }
             }
 
             shuffleArray(array) {
