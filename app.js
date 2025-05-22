@@ -183,30 +183,30 @@ function getEmbeddedQuestions() {
       "easy": ["Think about security inheritance", "Consider row-level security", "How does security flow from Dataverse?"]
     }
   },
-  {
+ {
   "id": "q9",
   "type": "dragdrop",
   "text": "You need to determine which requirements are functional or non-functional. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years.",
   "draggableItems": [
-    { "id": "functional1", "label": "Functional" },
-    { "id": "nonfunctional1", "label": "Non-functional" },
-    { "id": "nonfunctional2", "label": "Non-functional" }
+    { "id": "item1", "label": "Functional" },
+    { "id": "item2", "label": "Non-functional (Performance)" },
+    { "id": "item3", "label": "Non-functional (Compliance)" }
   ],
   "dropZones": [
     { 
       "id": "zone1", 
       "label": "Customers need the ability to submit a case through an online portal.", 
-      "correctItems": ["functional1"] 
+      "correctItems": ["item1"] 
     },
     { 
       "id": "zone2", 
       "label": "Portal must handle 75 concurrent users submitting cases.", 
-      "correctItems": ["nonfunctional1", "nonfunctional2"] 
+      "correctItems": ["item2"] 
     },
     { 
       "id": "zone3", 
       "label": "Service data must be retained for at least six years.", 
-      "correctItems": ["nonfunctional1", "nonfunctional2"] 
+      "correctItems": ["item3"] 
     }
   ],
   "hints": {
