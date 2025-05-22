@@ -1,43 +1,1264 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MS Exam Simulator</title>
-  
-  <!-- Responsive meta tag (good practice for cross-device) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Link to your external CSS -->
-  <link rel="stylesheet" href="styles.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Exam Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .exam-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        #progress-container {
+            background: #e1e1e1;
+            height: 8px;
+            margin: 0 30px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #0078d4, #40e0d0);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .loading-container {
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0078d4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-container {
+            padding: 60px 30px;
+            text-align: center;
+            color: #dc3545;
+        }
+
+        .question-section {
+            padding: 30px;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .question-number {
+            background: #0078d4;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .question-meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .question-type, .question-difficulty, .question-category {
+            background: #f8f9fa;
+            color: #6c757d;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .question-difficulty.easy { background: #d4edda; color: #155724; }
+        .question-difficulty.medium { background: #fff3cd; color: #856404; }
+        .question-difficulty.hard { background: #f8d7da; color: #721c24; }
+
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .requirements-container {
+            margin-bottom: 30px;
+        }
+
+        .requirement-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .requirement-item:hover {
+            border-color: #0078d4;
+            box-shadow: 0 4px 12px rgba(0,120,212,0.1);
+        }
+
+        .requirement-text {
+            font-size: 1rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .classification-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .classification-btn {
+            background: #fff;
+            border: 2px solid #dee2e6;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .classification-btn:hover {
+            border-color: #0078d4;
+            background: #f8f9fa;
+        }
+
+        .classification-btn.selected {
+            background: #0078d4;
+            color: white;
+            border-color: #0078d4;
+        }
+
+        .classification-btn.correct {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .classification-btn.incorrect {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-primary {
+            background: #0078d4;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #106ebe;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #138496;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .feedback-section {
+            background: #f8f9fa;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0078d4;
+            display: none;
+        }
+
+        .feedback-section.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .feedback-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .feedback-icon.correct {
+            background: #28a745;
+        }
+
+        .feedback-icon.incorrect {
+            background: #dc3545;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .feedback-details {
+            line-height: 1.6;
+            color: #495057;
+        }
+
+        .feedback-item {
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+
+        .summary-container {
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .summary-container.show {
+            display: block;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .score-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .exam-setup {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .setup-options {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .setup-option {
+            margin: 15px 0;
+        }
+
+        .setup-option label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .setup-option select, .setup-option input {
+            padding: 8px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .question-section {
+                padding: 20px;
+            }
+
+            .classification-buttons {
+                flex-direction: column;
+            }
+
+            .classification-btn {
+                min-width: 100%;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .exam-info {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .question-meta {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Main Container for the Exam Simulator -->
-  <div class="exam-container">
-    
-    <!-- Heading or Title -->
-    <header>
-      <h1>Microsoft Exam Simulator</h1>
-    </header>
-    
-    <!-- Progress bar (new addition for enhanced version) -->
-    <div id="progress-container">
-      <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="exam-container">
+        <header>
+            <h1 id="exam-title">Microsoft Exam Simulator</h1>
+            <div class="exam-info">
+                <span id="timer">Loading...</span>
+                <span id="question-progress">Preparing exam...</span>
+            </div>
+        </header>
+
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <!-- Loading State -->
+        <section id="loading-container" class="loading-container">
+            <div class="loading-spinner"></div>
+            <h3>Loading Exam Questions...</h3>
+            <p>Please wait while we prepare your exam.</p>
+        </section>
+
+        <!-- Error State -->
+        <section id="error-container" class="error-container" style="display: none;">
+            <h3>❌ Failed to Load Questions</h3>
+            <p>Could not load questions from the question bank.</p>
+            <button class="btn btn-primary" onclick="examSimulator.loadQuestions()">Try Again</button>
+        </section>
+
+        <!-- Exam Setup -->
+        <section id="exam-setup" class="exam-setup" style="display: none;">
+            <h2>Exam Configuration</h2>
+            <div class="setup-options">
+                <div class="setup-option">
+                    <label for="question-count">Number of Questions:</label>
+                    <select id="question-count">
+                        <option value="5">5 Questions (Quick Practice)</option>
+                        <option value="10">10 Questions (Standard)</option>
+                        <option value="15">15 Questions (Extended)</option>
+                        <option value="all">All Available Questions</option>
+                    </select>
+                </div>
+                <div class="setup-option">
+                    <label for="difficulty-filter">Difficulty Level:</label>
+                    <select id="difficulty-filter">
+                        <option value="all">All Difficulties</option>
+                        <option value="easy">Easy Only</option>
+                        <option value="medium">Medium Only</option>
+                        <option value="hard">Hard Only</option>
+                    </select>
+                </div>
+                <div class="setup-option">
+                    <label for="category-filter">Category:</label>
+                    <select id="category-filter">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+                <div class="setup-option">
+                    <label for="time-limit">Time Limit (minutes):</label>
+                    <input type="number" id="time-limit" value="90" min="10" max="180">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="examSimulator.startExam()">Start Exam</button>
+        </section>
+
+        <!-- Question Display -->
+        <section id="question-container" class="question-section" style="display: none;">
+            <!-- Questions will be dynamically inserted here -->
+        </section>
+
+        <!-- Summary Display -->
+        <section id="summary-container" class="summary-container">
+            <!-- Summary will be shown here -->
+        </section>
     </div>
-    
-    <!-- Section to render questions dynamically -->
-    <section id="question-container">
-      <!-- The improved app.js will inject questions here -->
-    </section>
-    
-    <!-- Container for summary/final results (will be used by enhanced version) -->
-    <section id="summary-container" style="display: none;">
-      <!-- The completion screen will be rendered here -->
-    </section>
 
-  </div><!-- /.exam-container -->
+    <script>
+        class ExamSimulator {
+            constructor() {
+                this.currentQuestion = 0;
+                this.allQuestions = [];
+                this.examQuestions = [];
+                this.examConfig = {};
+                this.userAnswers = [];
+                this.showingFeedback = false;
+                this.timeRemaining = 5400; // Default 90 minutes
+                this.timerInterval = null;
+                this.examStarted = false;
 
-  <!-- Include your improved app.js at the bottom for best performance -->
-  <script src="app.js"></script>
-</body>
-</html>
+                this.init();
+            }
+
+            async init() {
+                await this.loadQuestions();
+            }
+
+            async loadQuestions() {
+                try {
+                    this.showLoading();
+                    
+                    // Load questions from JavaScript module
+                    const module = await import('./questions.js');
+                    this.allQuestions = module.default || module.enhancedQuestionSet;
+                    
+                    // Set default exam config if not provided
+                    this.examConfig = {
+                        title: "Microsoft Power Platform Certification Exam",
+                        timeLimit: 5400,
+                        passingScore: 70,
+                        description: "Practice exam for Microsoft Power Platform certification"
+                    };
+                    
+                    // Update exam title
+                    document.getElementById('exam-title').textContent = this.examConfig.title;
+                    
+                    // Populate category dropdown
+                    this.populateCategoryFilter();
+                    
+                    this.showSetup();
+                    
+                } catch (error) {
+                    console.error('Error loading questions:', error);
+                    this.showError();
+                }
+            }
+
+            showLoading() {
+                document.getElementById('loading-container').style.display = 'block';
+                document.getElementById('error-container').style.display = 'none';
+                document.getElementById('exam-setup').style.display = 'none';
+                document.getElementById('question-container').style.display = 'none';
+                document.getElementById('summary-container').style.display = 'none';
+            }
+
+            showError() {
+                document.getElementById('loading-container').style.display = 'none';
+                document.getElementById('error-container').style.display = 'block';
+                document.getElementById('exam-setup').style.display = 'none';
+                document.getElementById('question-container').style.display = 'none';
+                document.getElementById('summary-container').style.display = 'none';
+            }
+
+            showSetup() {
+                document.getElementById('loading-container').style.display = 'none';
+                document.getElementById('error-container').style.display = 'none';
+                document.getElementById('exam-setup').style.display = 'block';
+                document.getElementById('question-container').style.display = 'none';
+                document.getElementById('summary-container').style.display = 'none';
+            }
+
+            populateCategoryFilter() {
+                const categories = [...new Set(this.allQuestions.map(q => q.topic || q.category))];
+                const categorySelect = document.getElementById('category-filter');
+                
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = category;
+                    categorySelect.appendChild(option);
+                });
+            }
+
+            startExam() {
+                // Get exam configuration
+                const questionCount = document.getElementById('question-count').value;
+                const difficulty = document.getElementById('difficulty-filter').value;
+                const category = document.getElementById('category-filter').value;
+                const timeLimit = parseInt(document.getElementById('time-limit').value) * 60;
+
+                // Filter questions based on configuration
+                let filteredQuestions = [...this.allQuestions];
+                
+                if (difficulty !== 'all') {
+                    filteredQuestions = filteredQuestions.filter(q => 
+                        (q.difficulty && q.difficulty.toLowerCase() === difficulty) ||
+                        (q.difficultyLevel && q.difficultyLevel.toLowerCase() === difficulty)
+                    );
+                }
+                
+                if (category !== 'all') {
+                    filteredQuestions = filteredQuestions.filter(q => 
+                        (q.category && q.category.toLowerCase().replace(/\s+/g, '-') === category) ||
+                        (q.topic && q.topic.toLowerCase().replace(/\s+/g, '-') === category)
+                    );
+                }
+
+                // Select questions
+                if (questionCount === 'all') {
+                    this.examQuestions = filteredQuestions;
+                } else {
+                    const count = parseInt(questionCount);
+                    this.examQuestions = this.shuffleArray(filteredQuestions).slice(0, count);
+                }
+
+                // Validate we have questions
+                if (this.examQuestions.length === 0) {
+                    alert('No questions match your selected criteria. Please adjust your filters.');
+                    return;
+                }
+
+                // Set up exam
+                this.timeRemaining = timeLimit;
+                this.currentQuestion = 0;
+                this.userAnswers = [];
+                this.examStarted = true;
+
+                // Show exam interface
+                document.getElementById('exam-setup').style.display = 'none';
+                document.getElementById('question-container').style.display = 'block';
+                
+                this.renderQuestion();
+                this.startTimer();
+            }
+
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            startTimer() {
+                this.timerInterval = setInterval(() => {
+                    this.timeRemaining--;
+                    this.updateTimerDisplay();
+                    
+                    if (this.timeRemaining <= 0) {
+                        this.finishExam();
+                    }
+                }, 1000);
+            }
+
+            updateTimerDisplay() {
+                const hours = Math.floor(this.timeRemaining / 3600);
+                const minutes = Math.floor((this.timeRemaining % 3600) / 60);
+                const seconds = this.timeRemaining % 60;
+                
+                let timeString = '';
+                if (hours > 0) {
+                    timeString = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                } else {
+                    timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+                
+                document.getElementById('timer').textContent = `Time Remaining: ${timeString}`;
+            }
+
+            renderQuestion() {
+                const question = this.examQuestions[this.currentQuestion];
+                const container = document.getElementById('question-container');
+                
+                // Update progress
+                const progressBar = document.getElementById('progress-bar');
+                const progressPercent = ((this.currentQuestion + 1) / this.examQuestions.length) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                
+                document.getElementById('question-progress').textContent = 
+                    `Question ${this.currentQuestion + 1} of ${this.examQuestions.length}`;
+
+                // Handle different question types
+                if (question.type === 'specialdragdrop' || question.type === 'requirementtype') {
+                    this.renderSpecialDragDropQuestion(question, container);
+                } else if (question.type === 'multiplechoice') {
+                    this.renderMultipleChoiceQuestion(question, container);
+                } else if (question.type === 'hotspot') {
+                    this.renderHotspotQuestion(question, container);
+                } else if (question.type === 'dragdrop') {
+                    this.renderDragDropQuestion(question, container);
+                } else {
+                    // Default to classification format for backward compatibility
+                    this.renderClassificationQuestion(question, container);
+                }
+            }
+
+            renderClassificationQuestion(question, container) {
+                let html = `
+                    <div class="question-header">
+                        <span class="question-number">Question ${this.currentQuestion + 1}</span>
+                        <div class="question-meta">
+                            <span class="question-type">${question.type || 'Classification'}</span>
+                            ${question.difficulty || question.difficultyLevel ? `<span class="question-difficulty ${(question.difficulty || question.difficultyLevel).toLowerCase()}">${question.difficulty || question.difficultyLevel}</span>` : ''}
+                            ${question.category || question.topic ? `<span class="question-category">${question.category || question.topic}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="question-title">${question.title || question.text}</div>
+                    
+                    <div class="requirements-container">
+                `;
+
+                (question.requirements || []).forEach((req, index) => {
+                    const userAnswer = this.userAnswers[this.currentQuestion]?.[index];
+                    
+                    html += `
+                        <div class="requirement-item" data-requirement="${index}">
+                            <div class="requirement-text">${req.text}</div>
+                            <div class="classification-buttons">
+                                <button class="classification-btn ${userAnswer === 'Functional' ? 'selected' : ''}" 
+                                        data-answer="Functional" data-requirement="${index}">
+                                    Functional
+                                </button>
+                                <button class="classification-btn ${userAnswer === 'Non-functional' ? 'selected' : ''}" 
+                                        data-answer="Non-functional" data-requirement="${index}">
+                                    Non-functional
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-info" onclick="examSimulator.showHints()">Show Hints</button>
+                        <button class="btn btn-secondary" onclick="examSimulator.previousQuestion()" 
+                                ${this.currentQuestion === 0 ? 'disabled' : ''}>Previous</button>
+                        <button class="btn btn-secondary" onclick="examSimulator.checkAnswer()">Check Answer</button>
+                        <button class="btn btn-primary" onclick="examSimulator.nextQuestion()">
+                            ${this.currentQuestion === this.examQuestions.length - 1 ? 'Finish Exam' : 'Next'}
+                        </button>
+                    </div>
+                    
+                    <div id="feedback-section" class="feedback-section">
+                        <!-- Feedback will be inserted here -->
+                    </div>
+                `;
+
+                container.innerHTML = html;
+
+                // Add event listeners for classification buttons
+                container.querySelectorAll('.classification-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const reqIndex = parseInt(e.target.dataset.requirement);
+                        const answer = e.target.dataset.answer;
+                        this.selectAnswer(reqIndex, answer);
+                    });
+                });
+            }
+
+            renderSpecialDragDropQuestion(question, container) {
+                let html = `
+                    <div class="question-header">
+                        <span class="question-number">Question ${this.currentQuestion + 1}</span>
+                        <div class="question-meta">
+                            <span class="question-type">${question.type}</span>
+                            ${question.difficultyLevel ? `<span class="question-difficulty ${question.difficultyLevel.toLowerCase()}">${question.difficultyLevel}</span>` : ''}
+                            ${question.topic ? `<span class="question-category">${question.topic}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="question-title">${question.text}</div>
+                    
+                    <div class="requirements-container">
+                `;
+
+                // Handle special drag drop format from your questions.js
+                if (question.options && Array.isArray(question.options)) {
+                    question.options.forEach((opt, index) => {
+                        if (opt.source && opt.source.requirement) {
+                            const userAnswer = this.userAnswers[this.currentQuestion]?.[index];
+                            
+                            html += `
+                                <div class="requirement-item" data-requirement="${index}">
+                                    <div class="requirement-text">${opt.source.requirement}</div>
+                                    <div class="classification-buttons">
+                                        ${opt.source.choices.map(choice => `
+                                            <button class="classification-btn ${userAnswer === choice ? 'selected' : ''}" 
+                                                    data-answer="${choice}" data-requirement="${index}">
+                                                ${choice}
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+
+                html += this.getActionButtonsHTML();
+                container.innerHTML = html;
+                this.addClassificationListeners();
+            }
+
+            renderMultipleChoiceQuestion(question, container) {
+                let html = `
+                    <div class="question-header">
+                        <span class="question-number">Question ${this.currentQuestion + 1}</span>
+                        <div class="question-meta">
+                            <span class="question-type">${question.type}</span>
+                            ${question.difficultyLevel ? `<span class="question-difficulty ${question.difficultyLevel.toLowerCase()}">${question.difficultyLevel}</span>` : ''}
+                            ${question.topic ? `<span class="question-category">${question.topic}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="question-title">${question.text}</div>
+                    
+                    <div class="requirements-container">
+                `;
+
+                if (question.options && Array.isArray(question.options)) {
+                    question.options.forEach((option, index) => {
+                        const userAnswers = this.userAnswers[this.currentQuestion] || [];
+                        const isSelected = userAnswers.includes(option.letter);
+                        
+                        html += `
+                            <div class="requirement-item" data-option="${option.letter}">
+                                <div class="requirement-text">${option.letter}. ${option.text}</div>
+                                <div class="classification-buttons">
+                                    <button class="classification-btn ${isSelected ? 'selected' : ''}" 
+                                            data-answer="${option.letter}" data-type="multiple-choice">
+                                        ${isSelected ? 'Selected' : 'Select'}
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                html += this.getActionButtonsHTML();
+                container.innerHTML = html;
+                this.addMultipleChoiceListeners();
+            }
+
+            getActionButtonsHTML() {
+                return `
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-info" onclick="examSimulator.showHints()">Show Hints</button>
+                        <button class="btn btn-secondary" onclick="examSimulator.previousQuestion()" 
+                                ${this.currentQuestion === 0 ? 'disabled' : ''}>Previous</button>
+                        <button class="btn btn-secondary" onclick="examSimulator.checkAnswer()">Check Answer</button>
+                        <button class="btn btn-primary" onclick="examSimulator.nextQuestion()">
+                            ${this.currentQuestion === this.examQuestions.length - 1 ? 'Finish Exam' : 'Next'}
+                        </button>
+                    </div>
+                    
+                    <div id="feedback-section" class="feedback-section">
+                        <!-- Feedback will be inserted here -->
+                    </div>
+                `;
+            }
+
+            addClassificationListeners() {
+                document.querySelectorAll('.classification-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const reqIndex = parseInt(e.target.dataset.requirement);
+                        const answer = e.target.dataset.answer;
+                        this.selectAnswer(reqIndex, answer);
+                    });
+                });
+            }
+
+            addMultipleChoiceListeners() {
+                document.querySelectorAll('.classification-btn[data-type="multiple-choice"]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const answer = e.target.dataset.answer;
+                        this.selectMultipleChoiceAnswer(answer);
+                    });
+                });
+            }
+
+            selectMultipleChoiceAnswer(answer) {
+                if (!this.userAnswers[this.currentQuestion]) {
+                    this.userAnswers[this.currentQuestion] = [];
+                }
+                
+                const currentAnswers = this.userAnswers[this.currentQuestion];
+                const index = currentAnswers.indexOf(answer);
+                
+                if (index > -1) {
+                    // Remove if already selected
+                    currentAnswers.splice(index, 1);
+                } else {
+                    // Add if not selected
+                    currentAnswers.push(answer);
+                }
+
+                // Update UI
+                const btn = document.querySelector(`[data-answer="${answer}"][data-type="multiple-choice"]`);
+                if (btn) {
+                    const isSelected = currentAnswers.includes(answer);
+                    btn.classList.toggle('selected', isSelected);
+                    btn.textContent = isSelected ? 'Selected' : 'Select';
+                }
+
+                this.hideFeedback();
+            }
+
+            renderHotspotQuestion(question, container) {
+                // Simplified hotspot rendering - can be expanded
+                this.renderMultipleChoiceQuestion(question, container);
+            }
+
+            renderDragDropQuestion(question, container) {
+                // Simplified drag drop rendering - can be expanded  
+                this.renderClassificationQuestion(question, container);
+            }
+
+            selectAnswer(requirementIndex, answer) {
+                if (!this.userAnswers[this.currentQuestion]) {
+                    this.userAnswers[this.currentQuestion] = {};
+                }
+                this.userAnswers[this.currentQuestion][requirementIndex] = answer;
+
+                // Update UI
+                const reqItem = document.querySelector(`[data-requirement="${requirementIndex}"]`);
+                const buttons = reqItem.querySelectorAll('.classification-btn');
+                
+                buttons.forEach(btn => {
+                    btn.classList.remove('selected');
+                    if (btn.dataset.answer === answer) {
+                        btn.classList.add('selected');
+                    }
+                });
+
+                // Hide feedback when answer changes
+                this.hideFeedback();
+            }
+
+            checkAnswer() {
+                const question = this.examQuestions[this.currentQuestion];
+                
+                if (question.type === 'multiplechoice') {
+                    this.checkMultipleChoiceAnswer(question);
+                } else if (question.type === 'specialdragdrop' || question.type === 'requirementtype') {
+                    this.checkSpecialDragDropAnswer(question);
+                } else {
+                    this.checkClassificationAnswer(question);
+                }
+            }
+
+            checkClassificationAnswer(question) {
+                const userAnswers = this.userAnswers[this.currentQuestion] || {};
+                
+                let allCorrect = true;
+                let feedbackHtml = '';
+                
+                // Check if all questions are answered
+                const requirements = question.requirements || [];
+                const unansweredCount = requirements.length - Object.keys(userAnswers).length;
+                if (unansweredCount > 0) {
+                    alert(`Please answer all ${requirements.length} requirements before checking.`);
+                    return;
+                }
+
+                requirements.forEach((req, index) => {
+                    const userAnswer = userAnswers[index];
+                    const isCorrect = userAnswer === req.correctAnswer;
+                    
+                    if (!isCorrect) {
+                        allCorrect = false;
+                    }
+
+                    // Update button styling
+                    const reqItem = document.querySelector(`[data-requirement="${index}"]`);
+                    const buttons = reqItem.querySelectorAll('.classification-btn');
+                    
+                    buttons.forEach(btn => {
+                        btn.classList.remove('correct', 'incorrect');
+                        if (btn.dataset.answer === userAnswer) {
+                            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                        }
+                    });
+
+                    feedbackHtml += `
+                        <div class="feedback-item">
+                            <strong>${req.text.substring(0, 50)}...</strong><br>
+                            <span style="color: ${isCorrect ? '#28a745' : '#dc3545'}">
+                                Your answer: ${userAnswer} ${isCorrect ? '✓' : '✗'}
+                            </span><br>
+                            <span style="color: #28a745">Correct answer: ${req.correctAnswer}</span><br>
+                            <em>${req.explanation}</em>
+                        </div>
+                    `;
+                });
+
+                this.showFeedback(allCorrect, feedbackHtml);
+            }
+
+            checkMultipleChoiceAnswer(question) {
+                const userAnswers = this.userAnswers[this.currentQuestion] || [];
+                const correctAnswers = question.correctAnswers || [];
+                
+                // Check if answered
+                if (userAnswers.length === 0) {
+                    alert('Please select at least one answer before checking.');
+                    return;
+                }
+
+                let feedbackHtml = '';
+                let score = 0;
+                const maxScore = correctAnswers.length;
+
+                // Calculate score
+                userAnswers.forEach(answer => {
+                    if (correctAnswers.includes(answer)) {
+                        score++;
+                    }
+                });
+
+                // Penalize for wrong selections
+                const wrongSelections = userAnswers.filter(answer => !correctAnswers.includes(answer));
+                score -= wrongSelections.length;
+                score = Math.max(0, score);
+
+                const allCorrect = score === maxScore && userAnswers.length === correctAnswers.length;
+
+                // Update button styling and create feedback
+                question.options.forEach(option => {
+                    const btn = document.querySelector(`[data-answer="${option.letter}"][data-type="multiple-choice"]`);
+                    const isUserSelected = userAnswers.includes(option.letter);
+                    const isCorrect = correctAnswers.includes(option.letter);
+                    
+                    if (btn) {
+                        btn.classList.remove('correct', 'incorrect');
+                        if (isUserSelected) {
+                            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                        }
+                    }
+
+                    const status = isUserSelected ? (isCorrect ? '✓' : '✗') : (isCorrect ? '(should select)' : '');
+                    feedbackHtml += `
+                        <div class="feedback-item">
+                            <strong>${option.letter}. ${option.text.substring(0, 60)}...</strong><br>
+                            <span style="color: ${isUserSelected && isCorrect ? '#28a745' : (isUserSelected ? '#dc3545' : '#6c757d')}">
+                                ${isUserSelected ? 'Selected' : 'Not selected'} ${status}
+                            </span><br>
+                            ${option.analysis ? `<em>${option.analysis}</em>` : ''}
+                        </div>
+                    `;
+                });
+
+                feedbackHtml += `<br><strong>Score: ${score}/${maxScore}</strong>`;
+                this.showFeedback(allCorrect, feedbackHtml);
+            }
+
+            checkSpecialDragDropAnswer(question) {
+                const userAnswers = this.userAnswers[this.currentQuestion] || {};
+                
+                let allCorrect = true;
+                let feedbackHtml = '';
+                
+                // Get correct answers from the question format
+                const correctAnswers = question.correctAnswers || [];
+                const requirements = question.options || [];
+                
+                requirements.forEach((opt, index) => {
+                    if (opt.source && opt.source.requirement) {
+                        const userAnswer = userAnswers[index];
+                        const correctAnswer = this.extractCorrectAnswerFromArray(correctAnswers, opt.source.requirement);
+                        const isCorrect = userAnswer === correctAnswer;
+                        
+                        if (!isCorrect) {
+                            allCorrect = false;
+                        }
+
+                        feedbackHtml += `
+                            <div class="feedback-item">
+                                <strong>${opt.source.requirement.substring(0, 50)}...</strong><br>
+                                <span style="color: ${isCorrect ? '#28a745' : '#dc3545'}">
+                                    Your answer: ${userAnswer || 'Not answered'} ${isCorrect ? '✓' : '✗'}
+                                </span><br>
+                                <span style="color: #28a745">Correct answer: ${correctAnswer}</span>
+                            </div>
+                        `;
+                    }
+                });
+
+                this.showFeedback(allCorrect, feedbackHtml);
+            }
+
+            extractCorrectAnswerFromArray(correctAnswers, requirement) {
+                // Find the correct answer for this specific requirement
+                const match = correctAnswers.find(answer => 
+                    answer.includes(requirement.substring(0, 20))
+                );
+                if (match) {
+                    const parts = match.split(':');
+                    return parts[1] ? parts[1].trim() : match;
+                }
+                return 'Unknown';
+            }
+
+            showFeedback(allCorrect, feedbackHtml) {
+                const feedbackSection = document.getElementById('feedback-section');
+                feedbackSection.innerHTML = `
+                    <div class="feedback-header">
+                        <div class="feedback-icon ${allCorrect ? 'correct' : 'incorrect'}">
+                            ${allCorrect ? '✓' : '✗'}
+                        </div>
+                        <div class="feedback-title">
+                            ${allCorrect ? 'Correct!' : 'Review your answers'}
+                        </div>
+                    </div>
+                    <div class="feedback-details">
+                        ${feedbackHtml}
+                    </div>
+                `;
+                feedbackSection.classList.add('show');
+                this.showingFeedback = true;
+            }
+
+            hideFeedback() {
+                const feedbackSection = document.getElementById('feedback-section');
+                feedbackSection.classList.remove('show');
+                this.showingFeedback = false;
+            }
+
+            showHints() {
+                const question = this.examQuestions[this.currentQuestion];
+                let hintsHtml = '<div class="feedback-header"><div class="feedback-icon" style="background: #17a2b8;">💡</div><div class="feedback-title">Hints</div></div><div class="feedback-details">';
+                
+                // Use enhanced hints if available
+                if (question.hints) {
+                    hintsHtml += '<strong>💡 Easy Hints:</strong><ul>';
+                    (question.hints.easy || []).forEach(hint => {
+                        hintsHtml += `<li>${hint}</li>`;
+                    });
+                    hintsHtml += '</ul>';
+                    
+                    hintsHtml += '<strong>🎯 Medium Hints:</strong><ul>';
+                    (question.hints.medium || []).forEach(hint => {
+                        hintsHtml += `<li>${hint}</li>`;
+                    });
+                    hintsHtml += '</ul>';
+                    
+                    hintsHtml += '<strong>🔥 Advanced Hints:</strong><ul>';
+                    (question.hints.hard || []).forEach(hint => {
+                        hintsHtml += `<li>${hint}</li>`;
+                    });
+                    hintsHtml += '</ul>';
+                }
+
+                // Show concepts being tested
+                if (question.conceptsTested) {
+                    hintsHtml += '<br><strong>📚 Concepts Tested:</strong><ul>';
+                    question.conceptsTested.forEach(concept => {
+                        hintsHtml += `<li>${concept}</li>`;
+                    });
+                    hintsHtml += '</ul>';
+                }
+
+                // Show common mistakes
+                if (question.commonMistakes) {
+                    hintsHtml += '<br><strong>⚠️ Common Mistakes to Avoid:</strong><ul>';
+                    question.commonMistakes.forEach(mistake => {
+                        hintsHtml += `<li>${mistake}</li>`;
+                    });
+                    hintsHtml += '</ul>';
+                }
+
+                // Show analysis highlights
+                if (question.analysisHighlights) {
+                    const ah = question.analysisHighlights;
+                    hintsHtml += '<br><strong>🔍 Analysis Framework:</strong>';
+                    
+                    if (ah.requirements) {
+                        hintsHtml += '<br><em>Key Requirements:</em> ' + ah.requirements.join(', ');
+                    }
+                    if (ah.constraints) {
+                        hintsHtml += '<br><em>Constraints:</em> ' + ah.constraints.join(', ');
+                    }
+                    if (ah.technologies) {
+                        hintsHtml += '<br><em>Technologies:</em> ' + ah.technologies.join(', ');
+                    }
+                    if (ah.patterns) {
+                        hintsHtml += '<br><em>Patterns:</em> ' + ah.patterns.join(', ');
+                    }
+                }
+
+                // Fallback to basic hints for classification questions
+                if (!question.hints && (question.requirements || question.type === 'classification')) {
+                    hintsHtml += '<strong>Functional Requirements:</strong> Describe what the system should do (features, functions, behaviors)<br><br>';
+                    hintsHtml += '<strong>Non-functional Requirements:</strong> Describe how well the system should perform (performance, security, reliability, constraints)<br><br>';
+                    
+                    if (question.requirements) {
+                        hintsHtml += '<strong>For this question:</strong><ul>';
+                        question.requirements.forEach((req, index) => {
+                            hintsHtml += `<li>${req.explanation}</li>`;
+                        });
+                        hintsHtml += '</ul>';
+                    }
+                }
+                
+                hintsHtml += '</div>';
+
+                const feedbackSection = document.getElementById('feedback-section');
+                feedbackSection.innerHTML = hintsHtml;
+                feedbackSection.classList.add('show');
+            }
+
+            previousQuestion() {
+                if (this.currentQuestion > 0) {
+                    this.currentQuestion--;
+                    this.renderQuestion();
+                }
+            }
+
+            nextQuestion() {
+                if (this.currentQuestion < this.examQuestions.length - 1) {
+                    this.currentQuestion++;
+                    this.renderQuestion();
+                } else {
+                    this.finishExam();
+                }
+            }
+
+            finishExam() {
+                clearInterval(this.timerInterval);
+                
+                // Calculate score
+                let totalQuestions = 0;
+                let correctAnswers = 0;
+                
+                this.examQuestions.forEach((question, qIndex) => {
+                    question.requirements.forEach((req, rIndex) => {
+                        totalQuestions++;
+                        const userAnswer = this.userAnswers[qIndex]?.[rIndex];
+                        if (userAnswer === req.correctAnswer) {
+                            correctAnswers++;
+                        }
+                    });
+                });
+                
+                const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+                const passed = scorePercentage >= (this.examConfig.passingScore || 70);
+                
+                // Show summary
+                document.getElementById('question-container').style.display = 'none';
+                const summaryContainer = document.getElementById('summary-container');
+                
+                summaryContainer.innerHTML = `
+                    <div class="score-display" style="background: linear-gradient(135deg, ${passed ? '#28a745, #20c997' : '#dc3545, #fd7e14'})">
+                        <div class="score-number">${scorePercentage}%</div>
+                        <div class="score-text">Final Score</div>
+                        <div style="margin-top: 15px; font-size: 1rem;">
+                            ${correctAnswers} out of ${totalQuestions} correct
+                        </div>
