@@ -3566,60 +3566,27 @@
     ]
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "Must run on a tablet device",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Must store data offline",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Performance metrics for offline sync",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Use an existing brand color scheme",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    }
+  "requirements": [
+    "Must run on a tablet device",
+    "Must store data offline",
+    "Performance metrics for offline sync",
+    "Use an existing brand color scheme"
   ],
 
-  "correctAnswers": [
-    "Must run on a tablet device: Environmental constraint",
-    "Must store data offline: Functional requirement",
-    "Performance metrics for offline sync: Non-functional requirement",
-    "Use an existing brand color scheme: Non-functional requirement"
+  "choices": [
+    "Functional requirement",
+    "Non-functional requirement",
+    "Environmental constraint",
+    "Compliance requirement"
   ],
-  
+
+  "correctAnswers": {
+    "Must run on a tablet device": "Environmental constraint",
+    "Must store data offline": "Functional requirement",
+    "Performance metrics for offline sync": "Non-functional requirement",
+    "Use an existing brand color scheme": "Non-functional requirement"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "Running on a tablet is an environmental constraint, describing hardware or platform. Storing data offline is a core system feature—thus a functional requirement. Performance metrics and branding belong to the non-functional category. Non-functional relates to how well the system operates, not what it does.",
@@ -3629,8 +3596,7 @@
   "examReference": "Classify requirements properly",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-}
-,
+},
 {
   "id": 37,
   "topic": "General",
