@@ -4025,8 +4025,1655 @@
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
 },
-      
+      {
+  "id": 41,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Easy",
+  
+  "text": "DRAG DROP - You are a Microsoft Power Platform architect.\n\nYou have identified several project risks.\n\nYou need to categorize potential risks that are specific to your customer.\n\nHow should you categorize the risks? To answer, drag the appropriate categories to the correct risks. Each category may be used once, more than once, or not at all.\nYou may need to drag the split bar between panes or scroll to view content.\n\nNOTE: Each correct selection is worth one point.",
 
+  "keyWords": [
+    "project risks",
+    "people risk",
+    "financial risk",
+    "compliance risk",
+    "delivery risk"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about common risk categories: people, financial, compliance, delivery (schedule).",
+      "Match each identified risk to the correct risk category."
+    ],
+    "medium": [
+      "Low user adoption is often a people-related risk (engagement).",
+      "Budget constraints are financial risk. Delays are delivery risk, and regulatory concerns are compliance risk."
+    ],
+    "hard": [
+      "Ensure you differentiate compliance vs. security vs. people issues in your categorization.",
+      "Double-check if there’s an additional category (technical risk), but not listed here."
+    ]
+  },
+
+  "conceptsTested": [
+    "risk categorization",
+    "project management",
+    "risk management"
+  ],
+
+  "commonMistakes": [
+    "Labeling everything as a delivery risk when it might be financial or compliance",
+    "Forgetting that user adoption is not just a training or functional item, but a people risk"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Identify categories of risk (people, compliance, etc.)"
+    ],
+    "constraints": [],
+    "technologies": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "User adoption is low",
+        "choices": [
+          "People risk",
+          "Compliance risk",
+          "Financial risk",
+          "Delivery risk"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Budget constraints",
+        "choices": [
+          "People risk",
+          "Compliance risk",
+          "Financial risk",
+          "Delivery risk"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Project timeline exceeds schedule",
+        "choices": [
+          "People risk",
+          "Compliance risk",
+          "Financial risk",
+          "Delivery risk"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Regulatory compliance",
+        "choices": [
+          "People risk",
+          "Compliance risk",
+          "Financial risk",
+          "Delivery risk"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "User adoption is low: People risk",
+    "Budget constraints: Financial risk",
+    "Project timeline exceeds schedule: Delivery risk",
+    "Regulatory compliance: Compliance risk"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Low user adoption directly involves people and organizational engagement, so it is categorized as a people risk. Budget constraints obviously affect financial aspects, making it a financial risk. A project timeline that exceeds schedule is a delivery (time) risk, while meeting regulatory compliance obligations is a compliance risk.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Identify and categorize project risks",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 42,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "You are designing a Microsoft Power Platform solution that will include multiple applications.\n\nYou have the following requirements:\n• Support agents managing cases.\n• Project managers reviewing and updating their projects.\n• Stock managers managing warehouses.\n• New site visitors self-registering.\n• Employees tracking time entries.\n\nWhich three requirements can you meet by implementing role-based applications? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "role-based apps",
+    "model-driven",
+    "multiple roles",
+    "requirements"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Role-based model-driven apps are typically used for distinct internal roles like support agents, PMs, etc.",
+      "External self-registration typically involves portals, which is not purely a role-based internal app."
+    ],
+    "medium": [
+      "The scenario with new site visitors is usually a portal scenario, not a standard role-based model-driven app for internal roles.",
+      "Employees tracking time can also be role-based if it’s a distinct role with a specialized UI."
+    ],
+    "hard": [
+      "Check if time tracking might be simpler, but yes, it's feasible as a role-based app. New site visitors is definitely portal-based, not an internal role-based scenario."
+    ]
+  },
+
+  "conceptsTested": [
+    "model-driven apps for internal roles",
+    "portal vs. role-based app",
+    "Power Platform application strategies"
+  ],
+
+  "commonMistakes": [
+    "Assuming portals and role-based internal apps are the same",
+    "Forgetting external user scenarios typically require a portal"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Agents manage cases",
+      "Project managers on projects",
+      "Stock managers for warehouses",
+      "New visitors self-register",
+      "Employees track time"
+    ],
+    "constraints": [
+      "Role-based approach for internal staff"
+    ],
+    "technologies": [
+      "Model-driven apps",
+      "Power Pages (portal)"
+    ]
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "New site visitors self-registering.",
+      "analysis": "Likely a portal scenario, not role-based internal app usage."
+    },
+    {
+      "letter": "B",
+      "text": "Support agents managing cases.",
+      "analysis": "A role-based app focusing on the case entity for support staff is feasible."
+    },
+    {
+      "letter": "C",
+      "text": "Stock managers managing warehouses.",
+      "analysis": "A role-based app for warehouse management is feasible."
+    },
+    {
+      "letter": "D",
+      "text": "Staff tracking time entries.",
+      "analysis": "Yes, a role-based app can handle employee time tracking."
+    },
+    {
+      "letter": "E",
+      "text": "Project managers reviewing and updating their projects.",
+      "analysis": "A role-based app for project mgmt is feasible."
+    }
+  ],
+  
+  "correctAnswers": ["B", "C", "E"],
+
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "Role-based model-driven apps typically serve distinct internal roles such as support agents (cases), stock managers (warehouses), and project managers (project tasks). External self-registration is best handled by Power Pages (portals), and while employees tracking time can sometimes be a role-based approach, the question's best alignment for role-based apps is for the agent, manager, and stock manager scenarios. (In the original text, time entry might also be an option, but the question specifically states picking three, and the new site visitors scenario is definitely outside role-based apps.)",
+  
+  "category": "Architect a solution",
+  "weight": 6.2,
+  "examReference": "Design role-based internal apps",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+}
+,
+{
+  "id": 43,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Easy",
+  
+  "text": "DRAG DROP - You are a Microsoft Power Platform architect reviewing requirements for an online shopping app.\n\nYou need to identify requirement types for the app.\n\nHow should you categorize the requirements? To answer, drag the appropriate types to the correct requirements. Each type may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "shopping app",
+    "add items to cart",
+    "handle concurrency",
+    "PCI compliance",
+    "functional vs non-functional"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Functional requirements define what the system does (adding items, filtering).",
+      "Non-functional requirements define performance, compliance, or concurrency constraints."
+    ],
+    "medium": [
+      "Allowing multiple items in cart or product filtering is functional behavior.",
+      "PCI compliance is typically non-functional. Handling concurrency loads is also non-functional performance."
+    ],
+    "hard": [
+      "Check if concurrency or compliance is ever considered functional. Usually not—they're non-functional constraints or quality attributes."
+    ]
+  },
+
+  "conceptsTested": [
+    "functional vs non-functional requirements",
+    "PCI compliance",
+    "performance load constraints"
+  ],
+
+  "commonMistakes": [
+    "Labeling compliance or concurrency as functional requirements",
+    "Forgetting that user tasks (like add to cart) are functional"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Add multiple items to cart",
+      "Handle concurrency of 10,000 users",
+      "Comply with PCI standards",
+      "Allow product filtering"
+    ],
+    "constraints": [
+      "Security and compliance is non-functional"
+    ],
+    "technologies": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Users must be able to add multiple items to a shopping cart",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "The system must handle up to 10,000 concurrent users",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "The checkout process must comply with PCI standards",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Users can filter products by color or size",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "Users must be able to add multiple items to a shopping cart: Functional requirement",
+    "The system must handle up to 10,000 concurrent users: Non-functional requirement",
+    "The checkout process must comply with PCI standards: Non-functional requirement",
+    "Users can filter products by color or size: Functional requirement"
+  ],
+  
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Features describing how users interact (e.g., adding items to a cart, filtering) are functional requirements. Concurrency limits and PCI compliance are constraints on how the system must operate—making them non-functional.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Identify functional vs non-functional in e-commerce scenario",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	      
+{
+  "id": 44,
+  "topic": "Dataverse",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - A legal services organization uses Microsoft SharePoint for case management and documentation. The organization plans to migrate its case data and manual processes to the Microsoft Power Platform and Microsoft Dataverse. Case data is confidential and is disclosed only to the employees assigned to a case. The organization has the following requirements:\n• Lawyers must manage their assigned legal cases and case documentation in one app.\n• Paralegals must be able see a lawyer's case details only when invited by the case lawyer.\n• Paralegals retain access to the case documentation by using the existing SharePoint permissions.\n\nYou need to identify which components will satisfy the requirements without any custom development. Which components should you use?",
+
+  "keyWords": [
+    "confidential data",
+    "Dataverse",
+    "SharePoint docs",
+    "lawyers",
+    "paralegals"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Lawyers need a centralized app to manage cases and docs, likely a model-driven app or advanced approach for security.",
+      "Paralegals have limited read access, so a separate canvas or lightweight approach might be used. But consider that existing SharePoint permissions still handle docs."
+    ],
+    "medium": [
+      "Because the docs remain in SharePoint, referencing them via a model-driven or canvas app is an option. The question states 'without any custom dev.' Typically a model-driven app for lawyers is standard, and paralegals might use a simpler approach or maybe the same app with restricted privileges."
+      ],
+    "hard": [
+      "Alternatively, a second approach is a 'canvas app for paralegals' if they only see limited data. The question itself is set up as a 'hotspot' with two areas, possibly 'Lawyer app' and 'Paralegal app.' They want to keep using SharePoint security. So lawyers: model-driven. Paralegals: canvas? Or Portal? Possibly a portal is an option. But there's no mention of external usage, so likely a canvas app or a separate model-driven with 'invite-based' security. Usually a 'canvas app' is simpler for limited, invitation-based scenario. Meanwhile, the question as stated in the 'analysis' suggests that the best approach is 'model-driven for lawyers, canvas for paralegals referencing existing SharePoint perms.'"
+    ]
+  },
+
+  "conceptsTested": [
+    "Dataverse security for confidential data",
+    "SharePoint doc management",
+    "model-driven vs. canvas approach"
+  ],
+  
+  "commonMistakes": [
+    "Using a single model-driven app for lawyers and paralegals without advanced security roles might expose data that should remain hidden",
+    "Forgetting that paralegals can keep using SharePoint permissions out-of-box"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Lawyers: single app for cases/docs",
+      "Paralegals: read-only invite-based access"
+    ],
+    "constraints": [
+      "No custom development",
+      "Retain existing SharePoint perms"
+    ],
+    "technologies": [
+      "Model-driven app for lawyers",
+      "Canvas for paralegals"
+    ]
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Lawyer app",
+        "options": [
+          "Model-driven app",
+          "Canvas app",
+          "Power Pages",
+          "SharePoint site"
+        ]
+      },
+      {
+        "name": "Paralegal interface",
+        "options": [
+          "Model-driven app",
+          "Canvas app",
+          "Power Pages",
+          "SharePoint library"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Lawyer app: Model-driven app",
+    "Paralegal interface: Canvas app"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A model-driven app is ideal for lawyers to manage confidential Dataverse-based case data plus doc references. Paralegals can use a simpler canvas app that surfaces just the data fields they need, while continuing to rely on existing SharePoint permissions for documents—no custom dev required for either scenario. Lawyers 'invite' them or manage Dataverse security roles accordingly. This approach meets the confidentiality and usability requirements without building custom plugins or code.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.5,
+  "examReference": "Leverage standard apps for distinct roles with existing SharePoint perms",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 45,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - A company plans to integrate Microsoft Power Platform with existing systems, including Microsoft Dynamics 365 Omnichannel for Customer Service.\n\nYou need to recommend a solution for each requirement.\n\nWhich components should you recommend for the requirements?\n\nTo answer, drag the appropriate solutions to the correct requirements. Each solution may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "Omnichannel",
+    "chat",
+    "Power Automate flows",
+    "gateway"
+  ],
+
+  "hints": {
+    "easy": [
+      "Omnichannel for real-time chat with skill-based routing. For external system integration, consider flows or logic apps. For on-prem data, use a data gateway."
+    ],
+    "medium": [
+      "Check each requirement carefully. If it’s about chat or skill-based routing, that’s Omnichannel. If it’s about automating data integration, that might be a cloud flow. If it’s about on-prem data, that’s the data gateway."
+    ],
+    "hard": [
+      "Ensure you differentiate advanced scenarios with AI or knowledge mgmt from the simpler chat scenario covered by Omnichannel."
+    ]
+  },
+
+  "conceptsTested": [
+    "Omnichannel chat capabilities",
+    "Power Automate integration",
+    "on-premises data gateway usage"
+  ],
+
+  "commonMistakes": [
+    "Using a custom-coded approach for chat or ignoring Omnichannel’s out-of-box capabilities",
+    "Relying on direct SQL connections instead of the gateway for on-prem data"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Real-time chat routing",
+      "Automate external integration",
+      "Access on-prem data"
+    ],
+    "constraints": [],
+    "technologies": [
+      "Omnichannel for Customer Service",
+      "Power Automate cloud flows",
+      "On-premises data gateway"
+    ]
+  },
+
+  "requirements": [
+    "Real-time chat with skill-based routing",
+    "Automate integration with external system",
+    "Surface data from on-prem system"
+  ],
+  "choices": [
+    "Omnichannel for Customer Service",
+    "Power Virtual Agents chatbot",
+    "Power Automate cloud flow",
+    "Microsoft Teams",
+    "On-premises data gateway",
+    "Custom connector"
+  ],
+  "correctAnswers": {
+    "Real-time chat with skill-based routing": "Omnichannel for Customer Service",
+    "Automate integration with external system": "Power Automate cloud flow",
+    "Surface data from on-prem system": "On-premises data gateway"
+  },
+  
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Omnichannel for Customer Service meets real-time chat with skill-based routing. Power Automate flows facilitate external system integration. The on-premises data gateway is used to securely surface on-premises data in the cloud solution. This combination covers each distinct requirement effectively.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.8,
+  "examReference": "Match requirements to standard solution components",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	      {
+  "id": 46,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - You are performing a fit gap requirements analysis. You need to select Microsoft Power Platform components to satisfy the requirements. Which components should you use?",
+
+  "keyWords": [
+    "fit gap",
+    "Power Platform components",
+    "model-driven app",
+    "Dynamics 365 Finance",
+    "Power Automate"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Model-driven apps are typically for structured data handling and process tracking. Dynamics 365 Finance is for accounting and compliance. Power Automate is for scheduled or triggered notifications and flows."
+    ],
+    "medium": [
+      "If a requirement is 'manage service delivery over time,' that suggests a model-driven approach. If it’s compliance with IFRS or GAAP, that’s typically D365 Finance. If it’s daily notifications, that’s a scheduled or triggered flow in Power Automate."
+    ],
+    "hard": [
+      "Check if you might use a canvas app instead. But typically, for long-term process tracking, model-driven. For daily alerts, flow is simpler. For advanced finance scenarios, D365 Finance is best in the Microsoft ecosystem."
+    ]
+  },
+
+  "conceptsTested": [
+    "selecting appropriate solution components",
+    "model-driven vs finance vs flow"
+  ],
+  
+  "commonMistakes": [
+    "Using a canvas app for complex structured processes that need relationship management",
+    "Not adopting D365 Finance for official financial compliance needs"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Long-term service management",
+      "Official financial compliance",
+      "Daily overdue notifications"
+    ],
+    "constraints": [],
+    "technologies": [
+      "Model-driven app",
+      "Dynamics 365 Finance",
+      "Power Automate"
+    ]
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Coordinate long-term end-to-end delivery of financial counseling services to farmers",
+        "options": [
+          "Model-driven app",
+          "Canvas app",
+          "Power Pages",
+          "Dynamics 365 Customer Service"
+        ]
+      },
+      {
+        "name": "Manage project accounting and recognize revenue compliant with international financial reporting standards",
+        "options": [
+          "Dynamics 365 Finance",
+          "Power BI",
+          "Excel integration",
+          "Custom Dataverse solution"
+        ]
+      },
+      {
+        "name": "Notify users of their overdue tasks on a daily basis",
+        "options": [
+          "Power Automate",
+          "Power BI alerts",
+          "Outlook reminders",
+          "Teams notifications"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Coordinate long-term end-to-end delivery of financial counseling services to farmers: Model-driven app",
+    "Manage project accounting and recognize revenue compliant with international financial reporting standards: Dynamics 365 Finance",
+    "Notify users of their overdue tasks on a daily basis: Power Automate"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A model-driven app is ideal for multi-step service processes with relationship management. Dynamics 365 Finance is purpose-built for financial accounting, ensuring compliance with IFRS or similar standards. Power Automate easily manages daily or recurring notifications about overdue tasks, triggered from Dataverse or other data sources.",
+  
+  "category": "Architect a solution",
+  "weight": 6.7,
+  "examReference": "Choose correct components during a fit-gap analysis",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 47,
+  "topic": "Power Automate",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A company has an expense approval process that allows expenses to be submitted in multiple currencies.\n\nAn accountant converts the expense amount to USD as part of the approval process.\n\nYou need to automate the conversion by using the RESTful API.\n\nWhat should you do?",
+  
+  "keyWords": [
+    "multi-currency",
+    "REST API",
+    "expense approval",
+    "custom connector"
+  ],
+  
+  "hints": {
+    "easy": [
+      "A custom connector in a cloud flow is the typical approach to call a REST-based currency service.",
+      "Desktop flows are for RPA tasks, not as suitable for API calls if you want a fully cloud-based solution."
+    ],
+    "medium": [
+      "Microsoft Graph doesn't provide currency conversions. Using a data gateway might be needed if it’s on-prem, but typically a custom connector is simpler if it’s a public API."
+    ],
+    "hard": [
+      "Ensure you pick the approach that best integrates with the existing approval flow. Typically, a cloud flow is triggered, calls the custom connector to get conversion rates, then updates the expense."
+    ]
+  },
+
+  "conceptsTested": [
+    "Power Automate design",
+    "REST integration",
+    "custom connectors vs. built-in"
+  ],
+
+  "commonMistakes": [
+    "Using a desktop flow for web scraping or RPA instead of a direct API approach",
+    "Believing Microsoft Graph has currency endpoints"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Convert multi-currency expenses automatically",
+      "Use external RESTful API"
+    ],
+    "constraints": [],
+    "technologies": [
+      "Custom connector",
+      "Power Automate cloud flows"
+    ]
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Create a desktop flow. Use an Invoke web service action to get the currency conversion rate.",
+      "analysis": "Desktop flow is possible but not ideal for a straightforward cloud scenario."
+    },
+    {
+      "letter": "B",
+      "text": "Create a desktop flow. Use an Azure action to get the currency conversion rate.",
+      "analysis": "Still a desktop approach, not recommended."
+    },
+    {
+      "letter": "C",
+      "text": "Create a cloud flow. Use the Microsoft Graph API to get the currency conversion rate.",
+      "analysis": "Graph doesn’t provide currency conversions."
+    },
+    {
+      "letter": "D",
+      "text": "Create a cloud flow and a custom connector. Install a data gateway. Use the custom connector to get the currency conversion rate by using the data gateway.",
+      "analysis": "This is typically correct if the REST API or system is behind a firewall or requires on-prem access. If it’s a public API, you don’t necessarily need a data gateway, but among these choices, it’s the best approach to do a custom connector in a cloud flow."
+    }
+  ],
+  
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "A custom connector used in a Power Automate cloud flow is the best practice for calling an external REST API to retrieve currency conversion rates. The mention of installing a data gateway is relevant if the service is on-prem or restricted. Among the given options, that combination is the only fully correct approach for a stable cloud-based currency conversion scenario.",
+  
+  "category": "Architect a solution",
+  "weight": 7.0,
+  "examReference": "Integrate external currency API in a flow",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 48,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "A company gathers business requirements about data. You need to identify the functional requirements. Which two requirements about data should you gather? Each correct answer presents part of the solution.\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "functional data requirements",
+    "approval process",
+    "Dataverse storage"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Functional = 'what system does'. Non-functional = 'how well it does it (retention, compliance)'.",
+      "An approval process is a function. Storing data in Dataverse is also a functional design choice."
+    ],
+    "medium": [
+      "Retention policies or compliance are typically non-functional. Deleting data after X years is also non-functional or compliance requirement."
+    ],
+    "hard": [
+      "Check if storing data in a particular platform might be considered an environmental or functional choice. Usually it’s functional or design-based."
+    ]
+  },
+
+  "conceptsTested": [
+    "functional vs non-functional data requirements",
+    "business rules vs compliance"
+  ],
+
+  "commonMistakes": [
+    "Considering data retention or compliance as functional",
+    "Forgetting that an approval process is definitely functional"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Storing data in Dataverse",
+      "Go through an approval process"
+    ],
+    "constraints": [
+      "Retention or compliance as non-functional"
+    ],
+    "technologies": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Delete in bulk after seven years.",
+      "analysis": "Data retention is typically non-functional, focusing on compliance or operational policy."
+    },
+    {
+      "letter": "B",
+      "text": "Go through a specified approval process.",
+      "analysis": "Approvals are a functional workflow or process requirement."
+    },
+    {
+      "letter": "C",
+      "text": "Remain compliant.",
+      "analysis": "General compliance is typically a non-functional or governance requirement."
+    },
+    {
+      "letter": "D",
+      "text": "Retain for 10 years.",
+      "analysis": "Data retention is a non-functional or compliance requirement."
+    },
+    {
+      "letter": "E",
+      "text": "Store in Microsoft Dataverse.",
+      "analysis": "Choosing a data platform is a design choice, often classified as functional requirement if it’s central to how the system operates."
+    }
+  ],
+  
+  "correctAnswers": ["B", "E"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Approval processes define a core function or workflow in the system (functional), and specifying that data must reside in Dataverse is also a system design choice for how the solution functions. Retention or compliance focuses on how long data is kept or legal policies, which is non-functional.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Differentiate functional vs. non-functional data requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 49,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "Note: This question is part of a series of questions that present the same scenario.\n\nA company uses a Microsoft Excel sheet to manage its loan application process.\n\nThe company wants to optimize the process.\n\nYou need to discover inefficiencies in the process.\n\nSolution: Upload the activity data stored in the Excel sheet to the process advisor feature. Use process mining to discover inefficiencies in the process.\n\nDoes the solution meet the goal?",
+  
+  "keyWords": [
+    "Process Advisor",
+    "process mining",
+    "Excel activity logs",
+    "inefficiencies"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Process mining in Process Advisor is used when you have event logs or structured data representing the process flow.",
+      "If the data is in an Excel sheet that enumerates the steps or events, uploading to process advisor is correct for discovering inefficiencies."
+    ],
+    "medium": [
+      "This is the scenario where the solution is 'Yes' if we truly have logs or historical events in that Excel. That’s exactly what process mining can handle."
+    ],
+    "hard": [
+      "Check if the question might trick the user about 'task mining' vs. 'process mining.' But the question specifically says 'upload the activity data' and 'use process mining,' which is correct for discovering inefficiencies in a historical log scenario."
+    ]
+  },
+
+  "conceptsTested": [
+    "process advisor",
+    "process mining vs task mining",
+    "Excel event logs"
+  ],
+  
+  "commonMistakes": [
+    "Mixing up task mining (recording user steps) with process mining (analyzing logs)."
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Identify inefficiencies with existing data logs"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Yes",
+      "analysis": "Uploading historical logs (Excel) to process advisor for process mining is correct."
+    },
+    {
+      "letter": "B",
+      "text": "No",
+      "analysis": ""
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Process Advisor’s process mining feature can analyze historical process data (stored in Excel logs) to discover inefficiencies, so uploading that data indeed meets the goal.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Use process mining for existing logs",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 50,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "Note: This question is part of a series of questions...\n\nA company uses a Microsoft Excel sheet to manage its loan application process.\n\nThe company wants to optimize the process.\n\nYou need to discover inefficiencies in the process.\n\nSolution: Record the actions required to complete the loan application process in the process advisor feature. Use process mining to discover inefficiencies in the process.\n\nDoes the solution meet the goal?",
+  
+  "keyWords": [
+    "process advisor",
+    "task mining vs process mining",
+    "record actions"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Recording actions is typically 'task mining,' not 'process mining.' If the question specifically says 'use process mining' after recording actions, that might be incorrect."
+    ],
+    "medium": [
+      "Process mining requires historical event logs. Task mining requires recording user actions. They are separate features in Process Advisor."
+    ],
+    "hard": [
+      "Hence, if the question says they recorded steps for process mining, that is a mismatch. The correct approach to discover inefficiencies with user actions is 'task mining.'"
+    ]
+  },
+
+  "conceptsTested": [
+    "process mining vs task mining",
+    "Process Advisor usage"
+  ],
+  
+  "commonMistakes": [
+    "Confusing the two separate approaches in Process Advisor"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Optimize the process",
+      "Wanted to do process mining but steps were recorded"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Yes",
+      "analysis": ""
+    },
+    {
+      "letter": "B",
+      "text": "No",
+      "analysis": "Recording user steps is task mining, not process mining."
+    }
+  ],
+  
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Recording user actions is a 'task mining' feature in Process Advisor, not 'process mining' which requires event logs. This mismatch means the solution does not meet the goal of discovering inefficiencies via process mining. The user is incorrectly mixing the two methods.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Distinguish process vs task mining in Process Advisor",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 51,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "Note: This question is part of a series of questions...\n\nA company uses a Microsoft Excel sheet to manage its loan application process.\n\nThe company wants to optimize the process.\n\nYou need to discover inefficiencies in the process.\n\nSolution: Record the actions required to complete the loan application process in the process advisor feature. Use task mining to discover inefficiencies in the process.\n\nDoes the solution meet the goal?",
+  
+  "keyWords": [
+    "process advisor",
+    "task mining",
+    "record user actions"
+  ],
+  
+  "hints": {
+    "easy": [
+      "If you record user steps, that is indeed the method for 'task mining.' This can reveal inefficiencies in manual tasks."
+    ],
+    "medium": [
+      "Yes, task mining is used to see repeated steps, bottlenecks, or unnecessary interactions in a manual process."
+    ],
+    "hard": []
+  },
+
+  "conceptsTested": [
+    "Process Advisor task mining",
+    "identifying inefficiencies"
+  ],
+  
+  "commonMistakes": [
+    "Confusing it with 'process mining' of logs"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Optimize manual loan process steps"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Yes"
+    },
+    {
+      "letter": "B",
+      "text": "No"
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Recording each step as the user completes the process is exactly what 'task mining' in Process Advisor does, allowing you to find inefficiencies in user interactions. Therefore, this solution meets the goal.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Use task mining for manual process improvements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},      
+{
+  "id": 52,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "Note: This question is part of a series of questions...\n\nA company uses a Microsoft Excel sheet to manage its loan application process.\n\nThe company wants to optimize the process.\n\nYou need to discover inefficiencies in the process.\n\nSolution: Upload the activity data stored in the Excel sheet to the process advisor feature. Use task mining to discover inefficiencies in the process.\n\nDoes the solution meet the goal?",
+  
+  "keyWords": [
+    "process advisor",
+    "task mining",
+    "Excel data"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Task mining requires recording user keystrokes or screen interactions, not uploading logs from Excel."
+    ],
+    "medium": [
+      "If the question says they used 'task mining' with an Excel file, that is incorrect. That file-based approach is for 'process mining.'"
+    ]
+  },
+
+  "conceptsTested": [
+    "process advisor usage",
+    "task mining vs process mining"
+  ],
+  
+  "commonMistakes": [
+    "Confusing logs with manual step recording"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Wanted to do 'task mining' but used an Excel file"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Yes"
+    },
+    {
+      "letter": "B",
+      "text": "No"
+    }
+  ],
+  
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Task mining is about capturing user interactions in real time, not analyzing historical log or event data from Excel. Uploading Excel data suggests process mining. So the proposed solution does not meet the goal of using task mining properly.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Differentiate task vs process mining usage",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	      {
+  "id": 53,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - A company uses Dynamics 365 Field Service to manage onsite services provided by frontline workers. The company has the following requirements:\n• Onsite inspectors must be able to collaborate with remote inspectors to carry out inspections.\n• Customer support teams must be able to easily manage and maintain knowledge articles based on customer questions and feedback.\n\nYou need to recommend a product that can be implemented for each requirement. Which products should you recommend?",
+  
+  "keyWords": [
+    "onsite inspectors",
+    "remote collaboration",
+    "knowledge articles",
+    "Remote Assist",
+    "Customer Service"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Remote Assist is used for live, remote collaboration in Field Service contexts.",
+      "Customer Service includes knowledge management features out-of-the-box."
+    ],
+    "medium": [
+      "Teams alone doesn’t provide advanced overlay or annotation for remote inspections. Remote Assist is specialized for that scenario.",
+      "Knowledge articles are typically in the Customer Service app, which includes a knowledge base module."
+    ]
+  },
+
+  "conceptsTested": [
+    "Dynamics 365 Remote Assist usage",
+    "Dynamics 365 Customer Service knowledge mgmt"
+  ],
+  
+  "commonMistakes": [
+    "Trying to use standard Teams for advanced remote overlay in Field Service",
+    "Trying to store knowledge articles in Word docs or SharePoint manually instead of the Customer Service knowledge base"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Collaborate onsite with remote inspectors",
+      "Manage knowledge articles from customer feedback"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Enable collaboration between onsite inspectors and remote inspectors.",
+        "options": [
+          "Power Virtual Agents",
+          "Dynamics 365 Remote Assist",
+          "Dynamics 365 Customer Voice",
+          "Dynamics 365 Customer Insights"
+        ]
+      },
+      {
+        "name": "Enable management and maintenance of knowledge articles.",
+        "options": [
+          "AI Builder",
+          "Dynamics 365 Customer Voice",
+          "Dynamics 365 Customer Service",
+          "Dynamics 365 Customer Insights"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Enable collaboration between onsite inspectors and remote inspectors → Dynamics 365 Remote Assist",
+    "Enable management and maintenance of knowledge articles → Dynamics 365 Customer Service"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Using Dynamics 365 Remote Assist, onsite inspectors can communicate with remote experts who see their environment via mixed reality—ideal for collaborative inspections. Dynamics 365 Customer Service includes robust knowledge management features, enabling customer support teams to maintain articles based on feedback and inquiries.",
+  
+  "category": "Architect a solution",
+  "weight": 6.3,
+  "examReference": "Recommend specialized Dynamics 365 apps",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 54,
+  "topic": "Security",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "You design a Microsoft Power Platform solution for a company.\n\nThe company has an existing Azure SQL database with customer information that it wants to continue using. The company wants to share access to data that is held in Azure SQL with the following people:\n• internal company employees, using built-in process functionality\n• external customers to view their data\n\nYou need to recommend the appropriate components to use for the application.\n\nWhich two components should you recommend?\n\nEach correct answer presents a complete solution.\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "Azure SQL data sharing",
+    "internal employees",
+    "external customers",
+    "model-driven app",
+    "Power Pages"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Internal employees can use a model-driven app for built-in process flows. External customers typically require a portal (Power Pages)."
+    ],
+    "medium": [
+      "A canvas app can also be used by employees, but for complex process flows and data integration, model-driven is often more straightforward. For external access, Power Pages is the recommended approach."
+    ]
+  },
+
+  "conceptsTested": [
+    "Azure SQL integration",
+    "model-driven vs. portal (Power Pages)",
+    "internal vs external user approach"
+  ],
+  
+  "commonMistakes": [
+    "Forgetting that external user scenario typically demands a portal (Power Pages)",
+    "Using a single app for both internal and external without any specialized portal approach"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Continue using Azure SQL",
+      "Internal employees need built-in process flows",
+      "External customers can only view their data"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Power Pages",
+      "analysis": "Supports external-facing scenarios for customers to securely view their data."
+    },
+    {
+      "letter": "B",
+      "text": "Custom pages",
+      "analysis": "Primarily an internal extension of model-driven apps, not for external users."
+    },
+    {
+      "letter": "C",
+      "text": "Canvas app",
+      "analysis": "Could be used for internal employees but doesn't natively handle external user licensing well."
+    },
+    {
+      "letter": "D",
+      "text": "Model-driven app",
+      "analysis": "Ideal for internal employees to leverage built-in process flows and advanced data relationships."
+    }
+  ],
+  
+  "correctAnswers": ["A", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "A model-driven app suits internal employees who need a robust, process-driven interface. Power Pages (portal) lets external customers securely view or interact with data from Azure SQL via a configured environment, meeting the requirement of external data sharing without custom code.",
+  
+  "category": "Architect a solution",
+  "weight": 6.5,
+  "examReference": "Handle internal vs external user requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 55,
+  "topic": "Power Pages",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - A food distribution terminal uses Microsoft Dynamics 365 Field Service and Microsoft Dynamics 365 Supply Chain Management to manage inventory and fulfill customer orders. Customers place custom orders through a Power Pages customer portal. Customers can enter different receiving times and dates on fresh produce order lines. The terminal needs to expose fresh produce order details from Dynamics 365 to its customers in the portal. Customers can control how much detail they see in the portal. You need to design a solution that meets the requirements. Which mechanism should you use for each requirement?",
+
+  "keyWords": [
+    "Power Pages",
+    "fresh produce",
+    "Dynamics 365 Supply Chain",
+    "custom connector",
+    "Portal Management"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Retrieving data from Supply Chain can be done with a custom connector if no standard connector suffices.",
+      "Controlling the detail in the portal is done via the Portal Management app (entity forms, lists, permissions)."
+    ],
+    "medium": [
+      "Consider if you might use a direct OData feed. Typically, you'd do a custom connector for specialized logic. The Portal Management app allows you to configure which columns appear and security roles for controlling detail."
+    ]
+  },
+
+  "conceptsTested": [
+    "Power Pages advanced scenarios",
+    "Data retrieval from D365 Supply Chain",
+    "Portal Management configuration"
+  ],
+  
+  "commonMistakes": [
+    "Trying to use a standard connector that doesn't exist for advanced Supply Chain data queries",
+    "Forgetting that controlling detail is done via Portal Management, not a random approach"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Expose fresh produce order details from D365 SC",
+      "Customers can control detail in portal"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Retrieve data representing fresh produce details.",
+        "options": [
+          "Basic form",
+          "Data gateway",
+          "Advanced form",
+          "Custom connector"
+        ],
+        "correctAnswer": "Custom connector"
+      },
+      {
+        "name": "Expose the fresh produce details.",
+        "options": [
+          "Portal Management app",
+          "Customer Service Insights",
+          "Microsoft Power Platform admin center",
+          "Microsoft 365 Apps admin center"
+        ],
+        "correctAnswer": "Portal Management app"
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Retrieve data representing fresh produce details → Custom connector",
+    "Expose the fresh produce details → Portal Management app"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A custom connector is best for retrieving data from Dynamics 365 Supply Chain if no built-in connector covers the custom scenario. The Portal Management app is used to configure which fields, forms, and lists are displayed to different user roles, letting customers control how much detail they see.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.2,
+  "examReference": "Design Power Pages solutions with custom data sources",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	      {
+  "id": 56,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+  
+  "text": "DRAG DROP - A company has a call center that manages customer-related issues.\n\nThe company has the following customer experience improvement requirements:\n• Simulate a human conversation with a customer by providing a chat interface.\n• Ensure the initial conversation is passed to a live agent upon escalation.\n\nYou need to recommend a solution for each requirement.\n\nWhich solutions should you recommend?\n\nTo answer, drag the appropriate solutions to the correct requirements. Each solution may be used once, more than once, or not at all.\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "chat interface",
+    "human conversation",
+    "live agent escalation",
+    "Power Virtual Agents",
+    "Omnichannel"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Power Virtual Agents chatbots simulate a human conversation. Omnichannel for Customer Service handles escalation to a live agent."
+    ],
+    "medium": [
+      "Combining PVA with Omnichannel is a standard pattern for chat with escalation."
+    ]
+  },
+
+  "conceptsTested": [
+    "customer experience solutions",
+    "Power Virtual Agents chat",
+    "live agent escalation"
+  ],
+  
+  "commonMistakes": [
+    "Using a custom-coded solution for chat instead of PVA",
+    "Forgetting that direct escalation to a live agent is an Omnichannel feature"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Simulate a human conversation",
+      "Pass conversation to live agent"
+    ],
+    "constraints": []
+  },
+
+  "requirements": [
+    "Simulate a human conversation with a customer by providing a chat interface.",
+    "Ensure the initial conversation is passed to a live agent upon escalation."
+  ],
+  "choices": [
+    "Power Virtual Agents chatbot",
+    "Power Automate flow",
+    "Omnichannel for Customer Service",
+    "Microsoft Teams chat",
+    "Azure Bot Framework"
+  ],
+  "correctAnswers": {
+    "Simulate a human conversation with a customer by providing a chat interface.": "Power Virtual Agents chatbot",
+    "Ensure the initial conversation is passed to a live agent upon escalation.": "Omnichannel for Customer Service"
+  },
+  
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Power Virtual Agents can simulate a human-like chat interface for common questions. When the customer’s query goes beyond the bot’s scope, Omnichannel for Customer Service seamlessly escalates the conversation to a live agent in the same interface, improving the customer experience.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 7.0,
+  "examReference": "Combine PVA with Omnichannel for chat escalation",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 57,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A pharma company uses a proprietary system to manage its chemical experiments. The company uses Microsoft Dynamics 365 Project Operations to manage lab staff and resources.\n\nEmployees manually update Project Operations data with data from their proprietary system as needed. Employees are not able to provide a definite schema for their data.\n\nYou need to provide a solution that will allow employees to configure their own automatic updates.\n\nWhich component should you use?",
+
+  "keyWords": [
+    "proprietary system",
+    "no definite schema",
+    "Project Operations",
+    "data ingestion"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Power Automate flows typically require known data fields. Dataflows can import data from somewhat flexible sources with transformations in Power Query."
+    ],
+    "medium": [
+      "Because the employees can define or map columns in a user-friendly UI, dataflows are typically the best approach. Custom connectors or advanced approaches might be overkill or require code."
+    ],
+    "hard": [
+      "Yes, dataflows are the recommended approach for scheduled or user-defined ingestion from a variety of sources, especially if the schema can shift slightly."
+    ]
+  },
+
+  "conceptsTested": [
+    "dataflows usage",
+    "flexible schema ingestion",
+    "Project Operations integration"
+  ],
+  
+  "commonMistakes": [
+    "Thinking a standard flow can handle unknown columns. Usually you need a stable schema for that approach.",
+    "Using a plugin or custom code, which the question wants to avoid if employees must configure it themselves."
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Automate data updates from a system with uncertain schema",
+      "Employees must be able to configure it"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Dataflows",
+      "analysis": "Flexible approach for importing or refreshing data from various external sources, can handle partial schema changes in Power Query."
+    },
+    {
+      "letter": "B",
+      "text": "Custom connectors",
+      "analysis": "Requires stable API specs and some dev to build the connector."
+    },
+    {
+      "letter": "C",
+      "text": "Data gateways",
+      "analysis": "Used for on-prem connectivity, but doesn't solve unknown schema challenges by itself."
+    },
+    {
+      "letter": "D",
+      "text": "Microsoft Power Automate flows",
+      "analysis": "Usually demands a known schema for triggers and actions. Not as user-friendly for flexible data mapping."
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Dataflows let employees configure imports from external systems, even if the schema changes slightly. Power Query in dataflows provides a user-friendly UI to map columns or transformations, suiting the scenario with no definite schema. Custom code or standard flows would be too rigid or dev-heavy.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.5,
+  "examReference": "Use dataflows for flexible ingestion",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},      
+      {
+  "id": 58,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Easy",
+  
+  "text": "DRAG DROP - You need to recommend solutions to meet the organization's communication needs. What should you recommend?",
+  
+  "keyWords": [
+    "communication",
+    "Teams",
+    "Power Pages",
+    "internal employees",
+    "workers"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Internal employees typically use Microsoft Teams for secure chat and collaboration. External or field workers might use a portal approach if they need data input or comms from outside the domain."
+    ],
+    "medium": [
+      "If the question states 'First Up employees' vs 'Workers' or something similar, the typical approach is Teams for internal and Power Pages for external. The question references 'no custom dev needed' or 'secure sign-in' might also be relevant."
+    ]
+  },
+
+  "conceptsTested": [
+    "Teams for internal communications",
+    "Power Pages for external or specific workers"
+  ],
+  
+  "commonMistakes": [
+    "Using a single Teams approach for external users who don't have corporate credentials",
+    "Confusing a custom-coded site with Power Pages"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Employee communication",
+      "Worker communication or data input"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "First Up employees",
+        "choices": [
+          "Microsoft Teams",
+          "Power Pages",
+          "Microsoft 365 Business Voice"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Workers",
+        "choices": [
+          "Microsoft Teams",
+          "Power Pages",
+          "Microsoft 365 Business Voice"
+        ]
+      }
+    }
+  ],
+  
+  "correctAnswers": [
+    "First Up employees: Microsoft Teams",
+    "Workers: Power Pages"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Microsoft Teams is the standard platform for internal employees to chat, call, and collaborate. Power Pages (formerly Power Apps portals) is well-suited for external workers to access relevant data and communications without requiring full corporate credentials, ensuring a secure and straightforward approach to gather or share info.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Appropriate communication platform recommendations",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	      {
+  "id": 59,
+  "topic": "Power Automate",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A company has an expense approval process that allows expenses to be submitted in multiple currencies.\n\nAn accountant converts the expense amount to USD as part of the approval process.\n\nYou need to automate the conversion by using the RESTful API.\n\nWhat should you do?",
+  
+  "keyWords": [
+    "multi-currency",
+    "RESTful API",
+    "desktop flow",
+    "Graph API"
+  ],
+  
+  "hints": {
+    "easy": [
+      "The question's options revolve around desktop flows and a mention of Graph API. Graph doesn’t do currency conversions. The best possible approach might be the 'Invoke web service' action in a desktop flow if you can’t do a custom connector in a cloud flow. It's not ideal but might be the only correct answer in these limited choices."
+    ],
+    "medium": [
+      "Creating a cloud flow plus custom connector would be typical, but if not available in the options, we pick the best among the desktop flow options."
+    ]
+  },
+
+  "conceptsTested": [
+    "RPA vs. cloud flows for REST API calls",
+    "Graph API limitations"
+  ],
+  
+  "commonMistakes": [
+    "Believing Graph can do currency conversions",
+    "Using a browser automation approach for something that's a direct API call"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Expense conversions using a REST API"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Create a desktop flow. Use an Invoke web service action to get the currency conversion rate.",
+      "analysis": "This is plausible if we can’t do a custom connector in a cloud flow. The best of the provided answers."
+    },
+    {
+      "letter": "B",
+      "text": "Create a desktop flow. Use an Azure action to get the currency conversion rate.",
+      "analysis": "Vague, doesn’t clarify how to connect to the currency API."
+    },
+    {
+      "letter": "C",
+      "text": "Create a cloud flow. Use the Microsoft Graph API to get the currency conversion rate.",
+      "analysis": "Graph doesn’t provide currency conversion endpoints."
+    },
+    {
+      "letter": "D",
+      "text": "Create a desktop flow. Use a browser automation action to get the currency conversion rate.",
+      "analysis": "Less stable, scraping a website."
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Among the provided choices, calling the RESTful API using 'Invoke web service' in a desktop flow is the only valid approach. Graph doesn’t have currency conversion, and browser automation is not recommended if an actual API is available. Although a cloud flow with custom connector is generally better, it’s not given as an option, so (A) is correct.",
+  
+  "category": "Architect a solution",
+  "weight": 6.2,
+  "examReference": "Integrate RESTful currency API with existing flow options",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	      {
+  "id": 60,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "You are assessing the capabilities of a project for a customer in the education sector.\n\nThe solution must meet the following requirements:\n• Include curriculum and student management capabilities.\n• Conform to on-going Microsoft platform upgrades.\n• Minimize custom coding and configuration.\n\nYou need to recommend a solution.\n\nWhat should you recommend?",
+
+  "keyWords": [
+    "education sector",
+    "curriculum management",
+    "AppSource",
+    "minimize custom code"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Likewise as in previous question #39, an AppSource solution is typically the best route for minimal dev effort in education scenarios."
+    ],
+    "medium": [],
+    "hard": []
+  },
+
+  "conceptsTested": [
+    "AppSource usage",
+    "vertical solutions"
+  ],
+  
+  "commonMistakes": [
+    "Building from scratch when a partner solution might exist"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Education scenario: curriculum mgmt",
+      "Minimal custom dev"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Microsoft Power Platform admin center",
+      "analysis": "Administrative portal, not a place for specialized solutions."
+    },
+    {
+      "letter": "B",
+      "text": "Microsoft 365 admin center",
+      "analysis": "Also for admin tasks, not solutions."
+    },
+    {
+      "letter": "C",
+      "text": "Power Pages",
+      "analysis": "External or web presence, not a ready-made education solution."
+    },
+    {
+      "letter": "D",
+      "text": "AppSource",
+      "analysis": "Likely to find prebuilt educational solutions here."
+    }
+  ],
+  
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Again, using AppSource to find or deploy a prebuilt education solution reduces the need for custom code and typically is maintained in line with ongoing Microsoft platform upgrades.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Identify industry solutions in AppSource",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
 	{
   "id": 101,
   "topic": "Power Automate",
