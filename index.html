@@ -3004,7 +3004,1029 @@
   "examReference": "Configure custom UI elements and form logic",
   "source": "Custom generated",
   "examArea": "Solution Architecture (35-40%)"
-},     
+},   
+	      {
+  "id": 31,
+  "topic": "Power Automate",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - You are designing a model-driven app that provides marketing, sales, and service operations to a company. The app must integrate with the following systems and data sources:\n• A third-party marketing system for lead generation and website submissions.\n• A Microsoft Excel Online file that contains manufacturing data on relevant products.\n• A separate Microsoft Dataverse environment.\n\nYou need to recommend Power Automate connectors for the app. Which connectors should you recommend?",
+  
+  "keyWords": [
+    "third-party marketing",
+    "Excel Online",
+    "Dataverse",
+    "custom connector",
+    "integration"
+  ],
+
+  "hints": {
+    "easy": [
+      "If a system is external and no standard connector exists, you likely need a custom connector.",
+      "For Excel on OneDrive or SharePoint, check Excel Online connectors.",
+      "Dataverse environment data is fetched with the Microsoft Dataverse connector."
+    ],
+    "medium": [
+      "Third-party marketing systems often have a REST API. A custom connector can wrap that API for use in Power Automate.",
+      "Use 'Excel Online (Business)' if data is in OneDrive for Business or SharePoint library, not a personal OneDrive."
+    ],
+    "hard": [
+      "Ensure you’re not mixing 'Common Data Service (legacy)' when you need the newer Microsoft Dataverse connector.",
+      "Evaluate security or authentication steps needed for a custom connector to the marketing system."
+    ]
+  },
+
+  "conceptsTested": [
+    "Power Automate connectors",
+    "custom connector usage",
+    "Dataverse integration",
+    "Excel Online integration"
+  ],
+
+  "commonMistakes": [
+    "Choosing the legacy Common Data Service connector instead of Microsoft Dataverse",
+    "Using a direct HTTP action instead of a custom connector for the third-party system"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Connect to a 3rd-party marketing system with no built-in connector",
+      "Get data from Excel Online",
+      "Use a separate Dataverse environment"
+    ],
+    "constraints": [
+      "Model-driven app scenario",
+      "Must rely on appropriate connectors"
+    ],
+    "technologies": [
+      "Custom connector",
+      "Excel Online (Business)",
+      "Microsoft Dataverse connector"
+    ]
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Third-party marketing system",
+        "options": [
+          "Custom connector",
+          "HTTP with Azure AD",
+          "Web hooks",
+          "OpenAPI"
+        ],
+        "correctAnswer": "Custom connector"
+      },
+      {
+        "name": "Microsoft Excel Online file",
+        "options": [
+          "Excel Online (Business)",
+          "Excel Online (OneDrive)",
+          "File System",
+          "SharePoint"
+        ],
+        "correctAnswer": "Excel Online (Business)"
+      },
+      {
+        "name": "Microsoft Dataverse environment",
+        "options": [
+          "Microsoft Dataverse",
+          "SQL Server",
+          "Common Data Service (legacy)",
+          "Virtual Entity"
+        ],
+        "correctAnswer": "Microsoft Dataverse"
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Third-party marketing system: Custom connector",
+    "Microsoft Excel Online file: Excel Online (Business)",
+    "Microsoft Dataverse environment: Microsoft Dataverse"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A custom connector is required for the external marketing system because no prebuilt connector likely exists. 'Excel Online (Business)' is the correct connector for files stored in OneDrive for Business or SharePoint. The modern 'Microsoft Dataverse' connector is the best practice to connect with a separate Dataverse environment.",
+  
+  "category": "Architect a solution",
+  "weight": 6.8,
+  "examReference": "Integrate with external services using connectors",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 32,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "You are designing a solution for a national vehicle repair company.\n\nYou have the following requirements:\n• Customers must search for vehicle issues by using natural language expressions.\n• Customers must contact a customer service agent as required.\n\nYou need to recommend a solution.\nWhich two features should you include? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "natural language",
+    "customers search issues",
+    "contact service agent",
+    "Power Virtual Agents",
+    "Power Apps portal"
+  ],
+
+  "hints": {
+    "easy": [
+      "Think about a chatbot that can interpret user queries using natural language and escalate to a human.",
+      "If customers are external, consider how they can access the system (e.g. portal)."
+    ],
+    "medium": [
+      "Power Virtual Agents can interpret user questions in plain language and pass them to agents if needed.",
+      "A Power Apps portal can present a public interface for users to type in queries."
+    ],
+    "hard": [
+      "Consider licensing and audience size for external users if you use a portal. VAs can be embedded in the portal.",
+      "Evaluate if escalation goes to Omnichannel for live chat or a simpler approach."
+    ]
+  },
+
+  "conceptsTested": [
+    "Power Virtual Agents usage",
+    "portal for external users",
+    "natural language processing"
+  ],
+
+  "commonMistakes": [
+    "Using Customer Insights for analyzing data instead of providing a chatbot or user interface",
+    "Assuming a business process flow is used externally for natural language queries"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Natural language queries about vehicle issues",
+      "Potential escalation to live agents"
+    ],
+    "constraints": [
+      "External customer scenario",
+      "National reach"
+    ],
+    "technologies": [
+      "Power Apps portal",
+      "Power Virtual Agents"
+    ]
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Power Apps portal",
+      "analysis": "Provides a public-facing site that customers can use for searching or reference content."
+    },
+    {
+      "letter": "B",
+      "text": "Power Virtual Agents",
+      "analysis": "Can interpret natural language queries and escalate to a live agent if needed."
+    },
+    {
+      "letter": "C",
+      "text": "Customer Insights",
+      "analysis": "Focuses on aggregating and analyzing customer data, not natural language search or agent contact flows."
+    },
+    {
+      "letter": "D",
+      "text": "Business process flow",
+      "analysis": "BPF is used internally for user guidance, not for public natural language queries."
+    }
+  ],
+
+  "correctAnswers": ["A", "B"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "A Power Apps portal can expose a public interface for customers, while Power Virtual Agents can interpret their natural language queries and escalate them to a live agent when needed. This meets both the search requirement and the contact-with-agent scenario.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.5,
+  "examReference": "Design external user experiences",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+}
+,
+	      {
+  "id": 33,
+  "topic": "Dataverse",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "You are implementing a solution that includes applications which perform high-volume Microsoft Dataverse operations.\nThe applications must not experience a loss of functionality or performance due to service protection API limits.\nYou need to evaluate metrics for the service protection API limits.\nWhich three metrics should you evaluate? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "high-volume operations",
+    "service protection limits",
+    "Dataverse",
+    "API concurrency",
+    "plug-in calls"
+  ],
+
+  "hints": {
+    "easy": [
+      "Dataverse imposes concurrency, throughput, and time-based limits to protect services.",
+      "Plug-in calls count toward overall requests if they use the API."
+    ],
+    "medium": [
+      "Track how many requests are made per connection, plus concurrency per user or service principal.",
+      "Execution time can also be monitored—heavy plug-in usage can cause throttling."
+    ],
+    "hard": [
+      "Consider advanced load testing or throttling strategies if nearing these limits frequently.",
+      "Ensure you handle 429 errors and implement backoff policies in your code."
+    ]
+  },
+
+  "conceptsTested": [
+    "service protection API limits",
+    "Dataverse concurrency",
+    "monitoring requests"
+  ],
+
+  "commonMistakes": [
+    "Focusing only on plug-in concurrency but ignoring total requests per connection",
+    "Tracking irrelevant metrics like CPU on the web server instead of direct API usage"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "High-volume API usage",
+      "Avoid throttling from service protection"
+    ],
+    "constraints": [
+      "Applications can't degrade performance",
+      "Must track relevant limit metrics"
+    ],
+    "technologies": [
+      "Dataverse concurrency",
+      "per-connection request limits"
+    ]
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Amount of API calls made within plug-in code",
+      "analysis": "Plug-ins count toward overall API calls and can easily exceed limits if not designed properly."
+    },
+    {
+      "letter": "B",
+      "text": "Number of API requests per web server",
+      "analysis": "Limits are typically per user/connection, not measured per the hosting web server."
+    },
+    {
+      "letter": "C",
+      "text": "Amount of execution time that can be used for each connection",
+      "analysis": "Service protection includes concurrency/time constraints, but it’s more about requests per time. This might be somewhat relevant, though concurrency is more explicit."
+    },
+    {
+      "letter": "D",
+      "text": "Number of concurrent connections per user account",
+      "analysis": "One of the constraints is how many concurrent calls a user/connection can make."
+    },
+    {
+      "letter": "E",
+      "text": "Number of API requests per connection",
+      "analysis": "Service protection limits define a threshold on how many requests can be made per connection within a certain time window."
+    }
+  ],
+
+  "correctAnswers": ["A", "D", "E"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "Service protection API limits measure concurrency (number of simultaneous calls), total requests per connection, and also how plug-ins can quickly contribute to the API usage. By monitoring these metrics, you can avoid hitting throttling thresholds that degrade your solution's performance.",
+  
+  "category": "Architect a solution",
+  "weight": 7.0,
+  "examReference": "Manage performance and service protection limits in Dataverse",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 34,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+  
+  "text": "DRAG DROP - A client plans to implement Microsoft Power Platform solutions.\n\nThe client identifies the following requirements for handling opportunities:\n• Users must follow the same set of steps each time they process opportunities.\n• For opportunities with values greater than $20,000, a follow-up date and second contact field must appear on the form.\n• An error message must display if a follow-up date is not within seven days of the opportunity creation date.\n\nYou need to recommend tools to meet the client requirements.\nWhat should you recommend? To answer, drag the appropriate tools to the correct requirement. Each tool may be used once, more than once, or not at all.\nNOTE: Each correct selection is worth one point.\nSelect and Place:",
+  
+  "keyWords": [
+    "opportunity process",
+    "BPF for steps",
+    "business rule for conditional fields",
+    "validation"
+  ],
+
+  "hints": {
+    "easy": [
+      "A business process flow ensures consistent stage-based steps.",
+      "A business rule can conditionally show fields or prompt errors based on data entered."
+    ],
+    "medium": [
+      "When opportunity value surpasses a threshold, a business rule can show extra fields.",
+      "Another business rule can validate the follow-up date in real time."
+    ],
+    "hard": [
+      "You might consider a real-time workflow for certain validations, but business rules are simpler for on-form scenarios.",
+      "BPF doesn’t handle detailed field show/hide or error messages on forms."
+    ]
+  },
+
+  "conceptsTested": [
+    "business process flows",
+    "business rules",
+    "conditional form logic",
+    "validation"
+  ],
+
+  "commonMistakes": [
+    "Using a single BPF to do conditional field logic or error messaging—BPF is not intended for that",
+    "Implementing a custom plug-in for basic field show/hide or date validations"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Uniform opportunity steps",
+      "Conditional fields for high-value deals",
+      "Date validation with an error message"
+    ],
+    "constraints": [
+      "Low-code approach",
+      "Immediate feedback on forms"
+    ],
+    "technologies": [
+      "Business process flow",
+      "Business rules"
+    ]
+  },
+
+  "requirements": [
+    "Users must follow the same set of steps each time they process opportunities",
+    "For opportunities with values greater than $20,000, a follow-up date and second contact field must appear on the form",
+    "An error message must display if a follow-up date is not within seven days of the opportunity creation date"
+  ],
+  "choices": [
+    "Business process flow",
+    "Business rule",
+    "Real-time workflow",
+    "JavaScript code",
+    "Custom plug-in"
+  ],
+  "correctAnswers": {
+    "Users must follow the same set of steps each time they process opportunities": "Business process flow",
+    "For opportunities with values greater than $20,000, a follow-up date and second contact field must appear on the form": "Business rule",
+    "An error message must display if a follow-up date is not within seven days of the opportunity creation date": "Business rule"
+  },
+  
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "A business process flow enforces a standard step-by-step process for all opportunities. A business rule can conditionally show fields based on the opportunity value and enforce date validations, displaying errors if the follow-up date isn’t within seven days of creation.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 7.5,
+  "examReference": "Use business rules and BPF for data and process enforcement",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 35,
+  "topic": "Power Apps",
+  "type": "hotspot",
+  "difficultyLevel": "Hard",
+  
+  "text": "HOTSPOT - You are a Microsoft Power Platform architect designing integrations for a project. You have the following integration requirements:\n• Post requests to a system that is not always available and limited in its ability to process high volumes of messages.\n• Allow peer-to-peer communication between on-premises services and cloud-based model-driven Microsoft Power Platform apps.\n• Stream large volumes of data from the company's website to a live Power BI dashboard.\n• Support enterprise-level integrations with Dynamics 365 that can be billed on a consumption basis.\n\nYou need to use an Azure service for the integration requirements. Which Azure services should you use?",
+  
+  "keyWords": [
+    "Azure Service Bus",
+    "Azure Relay",
+    "Azure Event Hubs",
+    "Azure Logic Apps",
+    "integration"
+  ],
+
+  "hints": {
+    "easy": [
+      "Azure Service Bus is for reliable messaging when systems are offline or limited.",
+      "Azure Relay is used for bridging on-premises services with cloud in a secured tunnel."
+    ],
+    "medium": [
+      "Azure Event Hubs is the go-to for high-volume streaming data (like telemetry) to dashboards.",
+      "Azure Logic Apps provide an iPaaS solution with pay-per-execution consumption model."
+    ],
+    "hard": [
+      "Ensure you don’t confuse Event Hubs with IoT Hub or Event Grid, which have different focuses.",
+      "Consider advanced B2B scenarios with Logic Apps or custom BizTalk solutions."
+    ]
+  },
+
+  "conceptsTested": [
+    "Azure integration services",
+    "messaging and streaming",
+    "Service Bus vs. Relay vs. Event Hubs vs. Logic Apps"
+  ],
+
+  "commonMistakes": [
+    "Using a direct HTTP call for an intermittently available system instead of a queue-based approach (Service Bus).",
+    "Picking API Management for on-prem bridging instead of Relay."
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Queue-based approach for offline system",
+      "Peer-to-peer on-prem to cloud",
+      "Large-volume streaming to Power BI",
+      "Consumption-based enterprise integrations"
+    ],
+    "constraints": [
+      "Must fit each scenario's architecture pattern"
+    ],
+    "technologies": [
+      "Azure Service Bus",
+      "Azure Relay",
+      "Azure Event Hubs",
+      "Azure Logic Apps"
+    ]
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Post requests to a system not always available",
+        "options": [
+          "Azure Service Bus",
+          "Azure API Management",
+          "Azure Functions",
+          "Azure Event Grid"
+        ],
+        "correctAnswer": "Azure Service Bus"
+      },
+      {
+        "name": "Peer-to-peer on-prem to cloud",
+        "options": [
+          "Azure Relay",
+          "Azure ExpressRoute",
+          "Azure VPN Gateway",
+          "Azure API Management"
+        ],
+        "correctAnswer": "Azure Relay"
+      },
+      {
+        "name": "Stream large volumes to Power BI",
+        "options": [
+          "Azure Event Hubs",
+          "Azure IoT Hub",
+          "Azure Data Factory",
+          "Azure Stream Analytics"
+        ],
+        "correctAnswer": "Azure Event Hubs"
+      },
+      {
+        "name": "Enterprise-level integration with consumption billing",
+        "options": [
+          "Azure Logic Apps",
+          "Azure API Management",
+          "Azure Functions",
+          "Azure Service Bus"
+        ],
+        "correctAnswer": "Azure Logic Apps"
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Post requests to a system not always available: Azure Service Bus",
+    "Peer-to-peer on-prem to cloud: Azure Relay",
+    "Stream large volumes to Power BI: Azure Event Hubs",
+    "Enterprise-level integration with consumption billing: Azure Logic Apps"
+  ],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Use Azure Service Bus to queue requests for an intermittently available system. Azure Relay securely connects on-premises services with cloud apps in a peer-to-peer fashion. Azure Event Hubs streams large data volumes in near real-time for scenarios like feeding a live Power BI dashboard. Azure Logic Apps provides iPaaS with a consumption-based billing model for enterprise-grade integrations.",
+  
+  "category": "Architect a solution",
+  "weight": 8.0,
+  "examReference": "Design advanced integration using Azure services",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 36,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Easy",
+  
+  "text": "DRAG DROP - You are a Microsoft Power Platform architect reviewing requirements for an offline shopping app.\n\nYou need to identify requirement types for the app.\nHow should you categorize the requirements? To answer, drag the appropriate types to the correct requirements. Each type may be used once, more than once, or not at all.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "offline shopping app",
+    "tablet device",
+    "functional vs non-functional",
+    "environmental constraint"
+  ],
+
+  "hints": {
+    "easy": [
+      "Device type is often an environmental constraint. Storing data offline is a functionality.",
+      "Performance or branding constraints are typically non-functional."
+    ],
+    "medium": [
+      "Focus on 'what the system does' vs. 'how well it does it' or 'where it does it'.",
+      "Environmental constraints detail platform or hardware requirements."
+    ],
+    "hard": [
+      "Check for licensing or compliance constraints if relevant (not in this scenario).",
+      "Branding or look-and-feel is typically non-functional."
+    ]
+  },
+
+  "conceptsTested": [
+    "requirement classification",
+    "functional vs non-functional vs environmental",
+    "offline capability"
+  ],
+
+  "commonMistakes": [
+    "Calling offline data storage 'non-functional' even though it's a core feature",
+    "Missing that a required device type is an environmental constraint"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Run on a tablet device",
+      "Store data offline",
+      "Performance or brand constraints"
+    ],
+    "constraints": [
+      "Device-based usage"
+    ],
+    "technologies": [
+      "Canvas or model-driven offline usage"
+    ]
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Must run on a tablet device",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Must store data offline",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Performance metrics for offline sync",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Use an existing brand color scheme",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    }
+  ],
+  "correctAnswers": [
+    "Must run on a tablet device: Environmental constraint",
+    "Must store data offline: Functional requirement",
+    "Performance metrics for offline sync: Non-functional requirement",
+    "Use an existing brand color scheme: Non-functional requirement"
+  ],
+  
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Running on a tablet is an environmental constraint, describing hardware or platform. Storing data offline is a core system feature—thus a functional requirement. Performance metrics and branding belong to the non-functional category. Non-functional relates to how well the system operates, not what it does.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Classify requirements properly",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 37,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "You are designing a Microsoft Power Platform solution.\n\nThe solution requires Microsoft Power Platform components and custom coding.\nYou need to describe the benefits of using Microsoft AppSource.\n\nWhich are three benefits of AppSource? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "AppSource",
+    "benefits",
+    "SSO",
+    "license policy",
+    "free trial"
+  ],
+
+  "hints": {
+    "easy": [
+      "AppSource solutions often integrate with Azure AD SSO and have a standardized license approach.",
+      "Many solutions on AppSource provide free trials for testing."
+    ],
+    "medium": [
+      "AppSource solutions do not guarantee specific SLAs for uptime or coding effort reduction, those vary by publisher.",
+      "Look for common disclaimers around privacy and usage agreements that are Microsoft standard."
+    ],
+    "hard": [
+      "Consider if the solution is also validated by Microsoft for certain quality standards, though not all are deeply tested beyond policy compliance.",
+      "Check trial availability to ensure you can test solutions before purchase."
+    ]
+  },
+
+  "conceptsTested": [
+    "Microsoft AppSource usage",
+    "licensing & privacy standards",
+    "SSO support"
+  ],
+
+  "commonMistakes": [
+    "Assuming guaranteed uptime from AppSource listings",
+    "Thinking the code will require no effort just because it’s published in AppSource"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Leverage existing solutions from a marketplace",
+      "Potential single sign-on benefits"
+    ],
+    "constraints": [
+      "Need standard license/policy compliance",
+      "Desire for free trials"
+    ],
+    "technologies": [
+      "AppSource listings"
+    ]
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "App uptime of at least 99.9 percent",
+      "analysis": "Not guaranteed by AppSource. SLA depends on each publisher."
+    },
+    {
+      "letter": "B",
+      "text": "Azure Active Directory federated single sign-on (AAD federated SSO)",
+      "analysis": "Solutions on AppSource can integrate with Azure AD for SSO, simplifying identity management."
+    },
+    {
+      "letter": "C",
+      "text": "Microsoft standardized license agreement and privacy policy",
+      "analysis": "AppSource uses standardized licensing/EULA for solutions listed there."
+    },
+    {
+      "letter": "D",
+      "text": "Reduced coding efforts because anyone can publish in AppSource",
+      "analysis": "Anyone can publish, but it doesn't guarantee reduced coding for the consumer's solution."
+    },
+    {
+      "letter": "E",
+      "text": "Free trial before committing to any additional costs",
+      "analysis": "Typically, solutions on AppSource can offer free trials so users can evaluate them."
+    }
+  ],
+  
+  "correctAnswers": ["B", "C", "E"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "Many AppSource solutions can be configured to use Azure AD SSO, follow a standardized Microsoft license and privacy policy, and allow free trials. However, AppSource does not guarantee a specific uptime or a certain reduction in coding effort. Those factors depend on the specific solution publisher.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Identify existing solutions in AppSource",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 38,
+  "topic": "Security",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+  
+  "text": "DRAG DROP - You are a Microsoft Power Platform solution architect capturing requirements for a national retail chain project.\n\nThe project has the following requirements:\n• Retail employees must use the application on a company-provided tablet device.\n• The app must store data offline.\n• Environment capacity must be monitored to ensure usage stays within 80 percent of available capacity.\n• Apps are shared with security group teams for users to access.\n\nYou need to identify the project's functional and non-functional requirements.\nHow should you categorize the requirements? To answer, drag the appropriate categories to the correct requirements. Each category may be used once, more than once, or not at all.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "tablet device",
+    "offline data",
+    "capacity monitoring",
+    "security group sharing",
+    "functional vs non-functional vs environmental"
+  ],
+
+  "hints": {
+    "easy": [
+      "Device usage is typically environmental constraint. Offline storage is functional. Monitoring capacity is a non-functional/performance requirement. Sharing apps with security groups is functional (a user access scenario)."
+    ],
+    "medium": [
+      "Think about how you differentiate environment capacity checks (non-functional, operational constraints).",
+      "Security group-based sharing is part of the 'what the system does' from a user access perspective."
+    ],
+    "hard": [
+      "If a requirement is about how well or how resources are used, it tends to be non-functional. If it’s about the app usage or data handling, it's functional."
+    ]
+  },
+
+  "conceptsTested": [
+    "requirement classification",
+    "functional vs non-functional",
+    "environmental constraints",
+    "security roles/sharing"
+  ],
+
+  "commonMistakes": [
+    "Calling capacity usage a functional requirement when it's actually a performance/operational constraint",
+    "Not recognizing that a device requirement is an environmental constraint"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Tablet-based usage",
+      "Offline data handling",
+      "Capacity monitoring",
+      "Security group sharing"
+    ],
+    "constraints": [
+      "Non-functional performance thresholds"
+    ],
+    "technologies": [
+      "Dataverse offline",
+      "security group sharing"
+    ]
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Retail employees must use the application on a company-provided tablet device",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "The app must store data offline",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Environment capacity must be monitored to ensure usage stays within 80 percent",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Apps are shared with security group teams for users to access",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Environmental constraint",
+          "Compliance requirement"
+        ]
+      }
+    }
+  ],
+  "correctAnswers": [
+    "Retail employees must use the application on a company-provided tablet device: Environmental constraint",
+    "The app must store data offline: Functional requirement",
+    "Environment capacity must be monitored to ensure usage stays within 80 percent: Non-functional requirement",
+    "Apps are shared with security group teams for users to access: Functional requirement"
+  ],
+  
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Using a company-provided tablet is an environmental constraint, describing hardware usage. Storing data offline is a direct functional capability. Monitoring capacity is a non-functional performance/operational requirement. Sharing apps with security groups is a functional user-access scenario describing what the system must do.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Identify requirement categories",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 39,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "You are assessing the capabilities of a project for a customer in the education sector.\n\nThe solution must meet the following requirements:\n• Include curriculum and student management capabilities.\n• Conform to on-going Microsoft platform upgrades.\n• Minimize custom coding and configuration.\n\nYou need to recommend a solution.\nWhat should you recommend?",
+  
+  "keyWords": [
+    "education sector",
+    "curriculum management",
+    "AppSource",
+    "minimize custom code"
+  ],
+
+  "hints": {
+    "easy": [
+      "AppSource often has vertical solutions for education, etc., that reduce custom dev.",
+      "Minimizing code suggests reusing existing solutions that are updated in lockstep with Microsoft releases."
+    ],
+    "medium": [
+      "A simpler approach than building from scratch is to find an ISV or partner solution in AppSource for education needs.",
+      "Platform upgrades are tested by solution publishers to remain compatible."
+    ],
+    "hard": [
+      "Double-check if standard D365 modules cover education scenarios (they usually do not), so an industry solution is beneficial.",
+      "Consider if licensing cost or functionality meets their needs as opposed to building custom from the ground up."
+    ]
+  },
+
+  "conceptsTested": [
+    "AppSource usage for specialized solutions",
+    "vertical solutions in Power Platform",
+    "upgrade continuity"
+  ],
+
+  "commonMistakes": [
+    "Building a custom solution from scratch, ignoring available industry solutions",
+    "Forgetting that D365 Education is not a standard module from Microsoft"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Education sector: curriculum & student mgmt",
+      "Minimize code",
+      "Stay current with updates"
+    ],
+    "constraints": [
+      "Looking for an existing solution rather than building new"
+    ],
+    "technologies": [
+      "AppSource"
+    ]
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Microsoft Power Platform admin center",
+      "analysis": "This is an administrative portal, not a marketplace for prebuilt solutions."
+    },
+    {
+      "letter": "B",
+      "text": "Microsoft 365 admin center",
+      "analysis": "Similar to above, for administration of M365 services, not for specialized solutions."
+    },
+    {
+      "letter": "C",
+      "text": "Power Apps portal",
+      "analysis": "Creates a website for external facing use, not specifically providing prebuilt curriculum mgmt."
+    },
+    {
+      "letter": "D",
+      "text": "AppSource",
+      "analysis": "AppSource can host prebuilt sector-specific solutions that are kept current and reduce custom dev."
+    }
+  ],
+  
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Microsoft AppSource is the best place to find pre-built, industry-focused solutions that can reduce custom coding. Publishers typically keep their solutions updated to be compatible with ongoing Microsoft platform upgrades. This fits an education scenario requiring minimal custom dev and standard curriculum management features.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Use industry solutions from AppSource",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 40,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Easy",
+  
+  "text": "HOTSPOT - You are a Microsoft Power Platform architect gathering solution requirements for a customer. Management uses three different systems to locate asset inventory and contract details. Management must view inventory with the ability to select assets and view additional details. Sales representatives have issues locating assets based on specific features in a timely manner when working with customers. You need to prioritize the requirements. Which priority should you use?",
+  
+  "keyWords": [
+    "prioritization",
+    "quick win",
+    "functional requirement",
+    "asset location"
+  ],
+
+  "hints": {
+    "easy": [
+      "If it fixes a pressing day-to-day issue, it's often labeled a 'Quick Win'.",
+      "A core function (like viewing inventory data with details) is a standard functional requirement."
+    ],
+    "medium": [
+      "Typically, if it directly impacts end-user efficiency or customer interaction speed, it’s a Quick Win.",
+      "If it’s a general or standard system feature needed to fulfill the solution's main purpose, it’s a functional requirement."
+    ],
+    "hard": [
+      "Consider if we might label the management requirement as non-functional or must-have. Typically, it's standard functionality for the app.",
+      "Evaluate other categories like compliance or future enhancements if they existed."
+    ]
+  },
+
+  "conceptsTested": [
+    "requirement prioritization",
+    "functional vs quick win"
+  ],
+
+  "commonMistakes": [
+    "Marking everything as a Quick Win, ignoring that some items are simply 'functional.'",
+    "Forgetting that user pain points that can be solved rapidly are typically Quick Wins."
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Management must see inventory details",
+      "Sales reps quickly locate assets"
+    ],
+    "constraints": [
+      "Multiple systems for assets"
+    ],
+    "technologies": [
+      "Dataverse or integrated model-driven app"
+    ]
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Enable sales representatives to locate assets in less time",
+        "options": [
+          "Quick Win",
+          "Functional",
+          "Non-functional",
+          "Technical"
+        ],
+        "correctAnswer": "Quick Win"
+      },
+      {
+        "name": "Enable management to view inventory and asset details",
+        "options": [
+          "Quick Win",
+          "Functional",
+          "Non-functional",
+          "Technical"
+        ],
+        "correctAnswer": "Functional"
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Enable sales representatives to locate assets in less time: Quick Win",
+    "Enable management to view inventory and asset details: Functional"
+  ],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Improving asset search speed for sales reps is a Quick Win because it immediately reduces a significant pain point affecting customer interactions. Allowing management to view inventory details is a fundamental functional requirement describing what the system must do at a baseline level.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Prioritize functional vs quick win items",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+      
+
 	{
   "id": 101,
   "topic": "Power Automate",
