@@ -6831,7 +6831,1134 @@
   "examReference": "Identify official Microsoft compliance resources",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},	      
+},
+{
+  "id": 76,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are documenting a company’s current enterprise architecture.\n\nYou need to evaluate the architecture of the data to identify its influences.\n\nWhich three data influences should you ask the company about? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "enterprise architecture",
+    "data influences",
+    "quality",
+    "location",
+    "history"
+  ],
+
+  "hints": {
+    "easy": [
+      "Data quality, data location (residency), and data history (retention) are typical data influences to investigate.",
+      "Access or security might be relevant but typically considered under security or compliance influences."
+    ],
+    "medium": [
+      "Consider how data quality, location constraints, and retention/archival requirements shape the data architecture."
+    ]
+  },
+
+  "conceptsTested": [
+    "data architecture influences",
+    "enterprise architecture documentation"
+  ],
+
+  "commonMistakes": [
+    "Overlooking data location or compliance constraints",
+    "Mixing up user access or security requirements as direct data influences"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Identify data architecture influences: quality, location, and history"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "user access",
+      "analysis": "Typically considered part of security or role-based access, not a direct structural data influence."
+    },
+    {
+      "letter": "B",
+      "text": "quality",
+      "analysis": "Data quality definitely influences data architecture."
+    },
+    {
+      "letter": "C",
+      "text": "pain points",
+      "analysis": "While relevant to overall solution design, 'pain points' is not strictly a data architecture influence."
+    },
+    {
+      "letter": "D",
+      "text": "location",
+      "analysis": "Data location or residency strongly influences architecture (latency, compliance)."
+    },
+    {
+      "letter": "E",
+      "text": "history",
+      "analysis": "Data history and retention needs are key data architecture drivers."
+    }
+  ],
+
+  "correctAnswers": ["B", "D", "E"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Data quality (B), location or residency (D), and history/retention (E) are the primary influences on how data is structured, stored, and integrated within an enterprise architecture. These determine data cleanup strategies, compliance constraints, and how far back data extends for analytics.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Identify data architecture influences",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 77,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - A company plans to use Microsoft Dynamics 365 and Microsoft Power Platform. The company has the following requirements:\n• Schedule onsite visits for customers per availability.\n• Generate invoices based on services delivered to customers.\n\nYou need to recommend a solution to meet the requirements. Which solutions should you recommend?",
+
+  "keyWords": [
+    "Dynamics 365",
+    "Power Platform",
+    "schedule onsite visits",
+    "generate invoices"
+  ],
+
+  "hints": {
+    "easy": [
+      "Onsite scheduling is the main focus of Dynamics 365 Field Service, which also can generate invoices from work orders."
+    ],
+    "medium": [
+      "While Customer Service can handle cases, it does not natively handle scheduling or invoicing. Field Service is designed for resource scheduling, work order management, and invoicing."
+    ]
+  },
+
+  "conceptsTested": [
+    "Dynamics 365 app selection",
+    "Field Service scheduling and billing"
+  ],
+
+  "commonMistakes": [
+    "Selecting Customer Service or Marketing for scheduling tasks or invoice generation"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Schedule onsite visits",
+      "Generate invoices for delivered services"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Schedule onsite visits.",
+        "options": [
+          "Dynamics 365 Field Service",
+          "Dynamics 365 Customer Service",
+          "Dynamics 365 Customer Insights",
+          "Omnichannel for Customer Service"
+        ]
+      },
+      {
+        "name": "Generate invoices.",
+        "options": [
+          "Dynamics 365 Marketing",
+          "Dynamics 365 Field Service",
+          "Dynamics 365 Remote Assist",
+          "Dynamics 365 Customer Service"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Schedule onsite visits.: Dynamics 365 Field Service",
+    "Generate invoices.: Dynamics 365 Field Service"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Dynamics 365 Field Service provides a robust scheduling engine for onsite visits and can also generate invoices once work orders are completed. This solution meets both requirements of scheduling and invoicing in one application.",
+  
+  "category": "Architect a solution",
+  "weight": 6.0,
+  "examReference": "Select appropriate Dynamics 365 apps for scheduling & invoicing",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 78,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - A customer requires information about how to ensure key success criteria will be met at the end of a project. You need to describe how the key success criteria will be managed. Which actions should you describe?",
+
+  "keyWords": [
+    "success criteria",
+    "project phases",
+    "change management",
+    "presales and initiation"
+  ],
+
+  "hints": {
+    "easy": [
+      "Key success criteria are typically defined early, in presales or initiation phase. If scope changes are needed, formal change management ensures they're accounted for."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "project lifecycle",
+    "success criteria management",
+    "change management"
+  ],
+
+  "commonMistakes": [
+    "Defining success criteria too late in the project",
+    "Implementing scope changes ad hoc without a formal process"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Ensure key success criteria are set early",
+      "Adjust scope with formal process"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Define how the key success criteria will be met.",
+        "options": [
+          "Manage activity in the presales and initiation phase.",
+          "Manage activity in the implementation phase.",
+          "Manage activity in the operation phase."
+        ]
+      },
+      {
+        "name": "Manage adjustments to scope to meet key success criteria.",
+        "options": [
+          "Update the project charter.",
+          "Perform change management.",
+          "Communicate variance to stakeholders."
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Define how the key success criteria will be met.: Manage activity in the presales and initiation phase.",
+    "Manage adjustments to scope to meet key success criteria.: Perform change management."
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Key success criteria must be defined early (during presales/initiation) so the project aligns with them from the start. If scope modifications are required to achieve these success measures, a formal change management process is used to review, approve, and implement those modifications.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Address success criteria in project lifecycle steps",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 79,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A manufacturer wants to modernize a sales order system using Power Platform and AI-generated product suggestions. Data architecture is a top concern.\n\nThey need to identify risk factors for data usage with AI suggestions.\n\nWhich two questions should you ask? (Choose two.)\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "manufacturer",
+    "AI suggestions",
+    "risk factors",
+    "data usage",
+    "Power Platform"
+  ],
+
+  "hints": {
+    "easy": [
+      "Asking which data sets they plan to use for AI, plus understanding privacy/residency concerns are crucial risk factors."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "AI data usage risk",
+    "compliance concerns",
+    "data set identification"
+  ],
+
+  "commonMistakes": [
+    "Focusing only on user roles or budget, ignoring data compliance & the data sets used for training"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Identify data sets for AI model",
+      "Check privacy/residency constraints"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Which type of access will users require for the application?"
+    },
+    {
+      "letter": "B",
+      "text": "What is the budget for implementing and maintaining the solution?"
+    },
+    {
+      "letter": "C",
+      "text": "Which data do you plan to use to train and use with AI?"
+    },
+    {
+      "letter": "D",
+      "text": "Which privacy or residency concerns does the company have?"
+    },
+    {
+      "letter": "E",
+      "text": "How will the company capture feedback to improve accuracy of the AI model?"
+    }
+  ],
+
+  "correctAnswers": ["C", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "To assess data risk for AI usage, you must understand which data sets will be used (C) and check privacy/residency constraints (D). Budget or user access is not as directly linked to data usage risk factors, while capturing feedback is useful but not the primary risk factor question.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.3,
+  "examReference": "Evaluate data usage & compliance for AI solutions",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 80,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "A company processes a large volume of customer service requests daily. They want to improve operations:\n• reduce response times\n• improve customer satisfaction\n• use AI to prioritize cases based on keywords\n\nYou need to design a solution that includes AI Builder.\n\nWhich feature should you use in addition to AI Builder?",
+
+  "keyWords": [
+    "AI Builder",
+    "prioritize cases",
+    "Power Automate"
+  ],
+
+  "hints": {
+    "easy": [
+      "Once AI Builder classifies/prioritizes the case, you need an automated flow to update or route it."
+    ]
+  },
+
+  "conceptsTested": [
+    "AI classification + automation",
+    "Power Automate usage"
+  ],
+
+  "commonMistakes": [
+    "Trying to rely on dataflows or logic apps if a simpler cloud flow approach is available"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "AI classification",
+      "Route or update priority automatically"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Power Automate",
+      "analysis": "Best for connecting AI results to case updates or routing logic in real time."
+    },
+    {
+      "letter": "B",
+      "text": "Exchange server-side sync",
+      "analysis": "Handles email appointment sync, not AI integration."
+    },
+    {
+      "letter": "C",
+      "text": "Logic app",
+      "analysis": "Possible but outside the typical low-code approach. Typically, you’d pick Power Automate for a native Power Platform solution."
+    },
+    {
+      "letter": "D",
+      "text": "Dataflows",
+      "analysis": "Used for ETL of data, not real-time prioritization of cases."
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Pairing AI Builder with Power Automate flows lets you handle real-time classification results (e.g., case prioritization) and automatically update or route cases based on AI insights, improving response times and overall efficiency.",
+  
+  "category": "Architect a solution",
+  "weight": 5.5,
+  "examReference": "Combine AI Builder with flow automation",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 81,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A large retail chain wants a chatbot for customer support.\n\nRequirements:\n• Integrate with existing knowledge base\n• Let agents join if there's an escalation\n• Must adhere to compliance requirements\n• Must generate accurate, relevant responses to common queries\n• Must scale to high volumes\n\nWhich two requirements are non-functional? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "chatbot",
+    "requirements",
+    "non-functional",
+    "scalability",
+    "compliance"
+  ],
+
+  "hints": {
+    "easy": [
+      "Scalability and compliance are non-functional constraints. Others describe direct features or behaviors (functional)."
+    ]
+  },
+
+  "conceptsTested": [
+    "classify functional vs non-functional in chatbot scenario"
+  ],
+
+  "commonMistakes": [
+    "Considering accurate responses or knowledge base integration as non-functional"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Functional: knowledge base integration, agent escalation, accurate responses",
+      "Non-functional: compliance, scale to high volumes"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Scale to handle high volumes"
+    },
+    {
+      "letter": "B",
+      "text": "Require agent participation upon escalation"
+    },
+    {
+      "letter": "C",
+      "text": "Generate accurate, relevant responses"
+    },
+    {
+      "letter": "D",
+      "text": "Integrate with the existing knowledge base"
+    },
+    {
+      "letter": "E",
+      "text": "Adhere to all relevant regulatory and compliance requirements"
+    }
+  ],
+  
+  "correctAnswers": ["A", "E"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Scalability (A) and compliance (E) are non-functional constraints describing how the system must behave in terms of performance and regulations. The other options describe functional behaviors or features (agent escalation, knowledge base integration, accuracy).",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.2,
+  "examReference": "Identify non-functional constraints in chatbot requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 82,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A bank in the United States requires a solution to monitor and disclose financial transactions for money laundering suspicion.\n\nYou know the requirement may not be feasible because banks must follow strict laws and guidelines.\n\nYou need to verify the feasibility.\n\nWhich feasibility analysis should you check?",
+
+  "keyWords": [
+    "compliance feasibility",
+    "bank",
+    "anti-money laundering",
+    "legal"
+  ],
+
+  "hints": {
+    "easy": [
+      "They mention strict laws and guidelines. This indicates a compliance or legal feasibility angle."
+    ]
+  },
+
+  "conceptsTested": [
+    "feasibility analysis",
+    "compliance/legal constraints"
+  ],
+
+  "commonMistakes": [
+    "Focusing on technical or budget feasibility while ignoring legal constraints"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Check if solution aligns with banking laws, e.g. AML regs"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Requirement is technically feasible"
+    },
+    {
+      "letter": "B",
+      "text": "Level of effort is unfeasible"
+    },
+    {
+      "letter": "C",
+      "text": "Requirement will be adopted in the solution"
+    },
+    {
+      "letter": "D",
+      "text": "Requirement aligns with compliance standards"
+    }
+  ],
+  
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Because of strict banking regulations, the key feasibility question is whether the requirement aligns with legal or compliance standards. Technical feasibility is secondary in this scenario, so focusing on compliance feasibility (D) is correct.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Check compliance feasibility for banking solutions",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 83,
+  "topic": "Administration",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Easy",
+
+  "text": "DRAG DROP - A company plans to simplify its environment by replacing its current applications with a Microsoft Power Platform solution. You need to guide the company through the activities required during each project phase. When should you recommend the company perform each activity?",
+
+  "keyWords": [
+    "project phases",
+    "requirements",
+    "analysis",
+    "user training"
+  ],
+
+  "hints": {
+    "easy": [
+      "Planning phase: gather requirements, define scope. Analysis: process discovery or clarifying existing systems. Deployment: user training, go-live prep."
+    ]
+  },
+
+  "conceptsTested": [
+    "project lifecycle phase mapping"
+  ],
+
+  "commonMistakes": [
+    "Mixing up timeline for user training or scope definition"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Map standard tasks to correct phases: planning, analysis, deployment"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Gather requirements and define scope"
+      }
+    },
+    {
+      "source": {
+        "requirement": "Use a workshop to discover current processes"
+      }
+    },
+    {
+      "source": {
+        "requirement": "Conduct a user training session"
+      }
+    }
+  ],
+  
+  "correctAnswers": [
+    "Gather requirements and define scope: Planning",
+    "Use a workshop to discover current processes: Analysis",
+    "Conduct a user training session: Deployment"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Project planning phases typically handle scope and requirement definition. Analysis often involves deeper workshops to map existing processes. Deployment is when final user training sessions occur for go-live readiness.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.2,
+  "examReference": "Match project tasks to phases",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 84,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "A company plans to adopt Microsoft Power Platform.\n\nYou need to document the current enterprise architecture.\n\nWhich two components should you incorporate? Each correct answer presents a complete solution.\n(Choose two.)\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "enterprise architecture",
+    "org structure",
+    "applications used"
+  ],
+
+  "hints": {
+    "easy": [
+      "Typical enterprise architecture baseline includes the organizational structure (stakeholders, roles) and application landscape."
+    ]
+  },
+
+  "conceptsTested": [
+    "enterprise architecture documentation",
+    "core components"
+  ],
+
+  "commonMistakes": [
+    "Forgetting to include existing apps in the environment or ignoring the org hierarchy"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Document org structure and existing apps"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "data locations"
+    },
+    {
+      "letter": "B",
+      "text": "organizational structure"
+    },
+    {
+      "letter": "C",
+      "text": "process diagrams"
+    },
+    {
+      "letter": "D",
+      "text": "functional requirements"
+    },
+    {
+      "letter": "E",
+      "text": "applications used"
+    }
+  ],
+
+  "correctAnswers": ["B", "E"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "An enterprise architecture baseline typically includes the organizational structure to understand stakeholders and the list of existing applications. These two items are crucial for analyzing how a Power Platform solution will integrate into the current environment.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Establish an enterprise architecture baseline",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 85,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - A company is implementing a Microsoft Power Platform solution. You need to define the requirements. Which requirement should you use for each topic?",
+
+  "keyWords": [
+    "requirements",
+    "data",
+    "compliance",
+    "people"
+  ],
+
+  "hints": {
+    "easy": [
+      "Data requirements describe a specific measure or dataset to be shown. Compliance might involve GDPR or local regulations. People requirements revolve around user access or device usage."
+    ]
+  },
+
+  "conceptsTested": [
+    "classifying requirements by data, compliance, people"
+  ],
+
+  "commonMistakes": [
+    "Using broad or vague statements that are not easily measurable"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Data: show specific measure (like current month sales)",
+      "Compliance: mention GDPR or local regs",
+      "People: define usage or device constraints"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Data",
+        "options": [
+          "The sales team must be able to view current month sales.",
+          "Managers need the sales team to be accountable.",
+          "Managers must be able to support their sales team.",
+          "The sales team must make their clients happy."
+        ]
+      },
+      {
+        "name": "Compliance",
+        "options": [
+          "The Microsoft Power Platform solution must comply with the General Data Protection Regulation (GDPR).",
+          "The Microsoft Power Platform solution must comply with local regulations."
+        ]
+      },
+      {
+        "name": "People",
+        "options": [
+          "Users must be able to use both their mobile device and desktop to access the company app.",
+          "New processes must make the users happier.",
+          "Users must use the app to perform their work better.",
+          "New processes must make users more efficient."
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Data: The sales team must be able to view current month sales.",
+    "Compliance: The Microsoft Power Platform solution must comply with the General Data Protection Regulation (GDPR).",
+    "People: Users must be able to use both their mobile device and desktop to access the company app."
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A data requirement is a specific measure or dataset to display, such as 'current month sales.' A compliance requirement typically references a regulation or standard (e.g., GDPR). A people requirement focuses on user access or usage scenarios, such as multi-device support.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Categorize requirements by data/compliance/people",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},      
+	{
+  "id": 86,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A company is undergoing digital transformation.\n\nYou must conduct an in-person workshop with several business stakeholders to learn more about the company and its solution requirements. You have limited time to get the information.\n\nYou need to ensure the workshop is successful.\n\nWhich two actions should you perform? Each correct answer presents a complete solution. (Choose two.)\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "in-person workshop",
+    "limited time",
+    "agenda",
+    "time management"
+  ],
+
+  "hints": {
+    "easy": [
+      "Providing an agenda in advance and keeping the workshop on track ensures you cover the necessary topics in limited time."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "facilitating a workshop effectively",
+    "project management best practices"
+  ],
+
+  "commonMistakes": [
+    "Diving into solution details or final design too early",
+    "Allowing side conversations to consume time"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "In-person workshop with limited time",
+      "Need maximum info from business stakeholders"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Present the proposed solution as part of the workshop."
+    },
+    {
+      "letter": "B",
+      "text": "Publish the agenda in advance of the workshop."
+    },
+    {
+      "letter": "C",
+      "text": "Keep to the agenda by minimizing side conversations."
+    },
+    {
+      "letter": "D",
+      "text": "Explain the technical aspects of the solution to the stakeholders."
+    }
+  ],
+  
+  "correctAnswers": ["B", "C"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "For an effective workshop in a short time, provide the agenda beforehand so stakeholders can prepare. Then stick to that agenda, avoiding tangential discussions. Presenting a final solution or detailing the technical aspects can be premature if the workshop is meant to gather business needs.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.6,
+  "examReference": "Conduct effective requirement workshops",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 87,
+  "topic": "Power Automate",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - You are designing data loss policies for a Microsoft Power Platform implementation. You have the following requirements:\n• Solutions that use the HTTP connector must not include any other connectors.\n• Prevent the use of the Microsoft Forms connector.\n• Allow the use of the Azure DevOps connector.\n\nYou need to determine in which data policy group to add each connector. To which data policy group should you assign the connector?",
+
+  "keyWords": [
+    "data loss prevention",
+    "DLP policy",
+    "HTTP connector",
+    "Azure DevOps",
+    "Microsoft Forms",
+    "Business / Non-business / Blocked"
+  ],
+
+  "hints": {
+    "easy": [
+      "When solutions use the HTTP connector, no other connectors can be used in the same solution => put HTTP in a separate group (Business), Azure DevOps in Non-business, and block Microsoft Forms."
+    ]
+  },
+
+  "conceptsTested": [
+    "DLP connector grouping",
+    "Power Platform governance"
+  ],
+
+  "commonMistakes": [
+    "Placing all connectors in business or mixing them incorrectly"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "HTTP must be alone => separate group from others",
+      "Microsoft Forms blocked => Blocked group",
+      "Azure DevOps allowed => Non-business or separate from HTTP group"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "HTTP connector",
+        "choices": [
+          "Business",
+          "Non-business",
+          "Blocked"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Azure DevOps connector",
+        "choices": [
+          "Business",
+          "Non-business",
+          "Blocked"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Microsoft Forms connector",
+        "choices": [
+          "Business",
+          "Non-business",
+          "Blocked"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "HTTP connector: Business",
+    "Azure DevOps connector: Non-business",
+    "Microsoft Forms connector: Blocked"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Putting the HTTP connector in Business ensures that if a solution uses HTTP, it can’t include Non-business connectors like Azure DevOps. Meanwhile, Azure DevOps belongs in Non-business. Microsoft Forms is blocked entirely per the requirement.",
+  
+  "category": "Architect a solution",
+  "weight": 6.0,
+  "examReference": "Configure DLP policies for connectors",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	      {
+  "id": 87,
+  "topic": "Power Automate",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - You are designing data loss policies for a Microsoft Power Platform implementation. You have the following requirements:\n• Solutions that use the HTTP connector must not include any other connectors.\n• Prevent the use of the Microsoft Forms connector.\n• Allow the use of the Azure DevOps connector.\n\nYou need to determine in which data policy group to add each connector. To which data policy group should you assign the connector?",
+
+  "keyWords": [
+    "data loss prevention",
+    "DLP policy",
+    "HTTP connector",
+    "Azure DevOps",
+    "Microsoft Forms",
+    "Business / Non-business / Blocked"
+  ],
+
+  "hints": {
+    "easy": [
+      "When solutions use the HTTP connector, no other connectors can be used in the same solution => put HTTP in a separate group (Business), Azure DevOps in Non-business, and block Microsoft Forms."
+    ]
+  },
+
+  "conceptsTested": [
+    "DLP connector grouping",
+    "Power Platform governance"
+  ],
+
+  "commonMistakes": [
+    "Placing all connectors in business or mixing them incorrectly"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "HTTP must be alone => separate group from others",
+      "Microsoft Forms blocked => Blocked group",
+      "Azure DevOps allowed => Non-business or separate from HTTP group"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "HTTP connector",
+        "choices": [
+          "Business",
+          "Non-business",
+          "Blocked"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Azure DevOps connector",
+        "choices": [
+          "Business",
+          "Non-business",
+          "Blocked"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Microsoft Forms connector",
+        "choices": [
+          "Business",
+          "Non-business",
+          "Blocked"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "HTTP connector: Business",
+    "Azure DevOps connector: Non-business",
+    "Microsoft Forms connector: Blocked"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Putting the HTTP connector in Business ensures that if a solution uses HTTP, it can’t include Non-business connectors like Azure DevOps. Meanwhile, Azure DevOps belongs in Non-business. Microsoft Forms is blocked entirely per the requirement.",
+  
+  "category": "Architect a solution",
+  "weight": 6.0,
+  "examReference": "Configure DLP policies for connectors",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+  {
+  "id": 88,
+  "topic": "Security",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - You are designing a Microsoft Power Platform solution for a company. You have the following requirements:\n• Users in the human resources department must be able to create tasks.\n• Users in the human resources department must be able to assign cases to other users.\n\nYou create a table for cases and tasks. You need to recommend security settings to the company. What should you recommend?",
+
+  "keyWords": [
+    "Dataverse security",
+    "privileges",
+    "User-level create",
+    "Organization-level assign"
+  ],
+
+  "hints": {
+    "easy": [
+      "Creating tasks can be user-level for minimal exposure, while assigning cases across the organization requires an organization-level Assign privilege."
+    ]
+  },
+
+  "conceptsTested": [
+    "Dataverse security role configuration",
+    "privilege levels"
+  ],
+
+  "commonMistakes": [
+    "Granting too high privileges for tasks or restricting assignment to only the same BU"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "HR can create tasks => user-level create",
+      "HR can assign cases => org-level assign"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Users in the human resources department must be able to create tasks.",
+        "options": [
+          "User-level Create privilege on the Task entity",
+          "Business Unit-level Create privilege on the Task entity",
+          "Organization-level Create privilege on the Task entity"
+        ]
+      },
+      {
+        "name": "Users in the human resources department must be able to assign cases to other users.",
+        "options": [
+          "User-level Assign privilege on the Case entity",
+          "Business Unit-level Assign privilege on the Case entity",
+          "Organization-level Assign privilege on the Case entity"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Users in the human resources department must be able to create tasks.: User-level Create privilege on the Task entity",
+    "Users in the human resources department must be able to assign cases to other users.: Organization-level Assign privilege on the Case entity"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "To create tasks, a user-level Create privilege is sufficient to let HR users create tasks without oversharing. Assigning cases to any user across the organization requires an organization-level Assign privilege on the Case table.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Configure Dataverse security roles for tasks and assignments",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 89,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "A company has a list of contacts in a Microsoft Excel file. The company wants to load the contact information into a Microsoft Power Platform solution. You need to recommend a data-loading solution. What should you recommend?",
+
+  "keyWords": [
+    "load data",
+    "Excel file",
+    "contacts",
+    "Import from Excel"
+  ],
+
+  "hints": {
+    "easy": [
+      "Power Platform has an 'Import from Excel' wizard for Dataverse. That’s the simplest approach."
+    ]
+  },
+
+  "conceptsTested": [
+    "data import approach",
+    "Excel to Power Platform"
+  ],
+
+  "commonMistakes": [
+    "Trying advanced or custom flows instead of the built-in import feature"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Company wants a straightforward data load from Excel to Power Platform (Dataverse)."
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Use the Excel Template feature."
+    },
+    {
+      "letter": "B",
+      "text": "Add the contacts to a static worksheet."
+    },
+    {
+      "letter": "C",
+      "text": "Use the Import from Excel feature."
+    }
+  ],
+  
+  "correctAnswers": ["C"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "The built-in 'Import from Excel' feature is the quickest, most direct way to load existing contact data from an Excel file into Dataverse for a Power Platform solution. The other options do not complete the data import to the solution.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Import data from Excel to Dataverse",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
 	      
 	{
   "id": 301,
