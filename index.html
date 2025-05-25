@@ -5674,8 +5674,1167 @@
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
 },
+{
+  "id": 61,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "A company plans to implement robotic process automation (RPA).\n\nThe company wants to reuse existing online support content.\n\nYou need to recommend a component that uses the company's existing online support content.\n\nWhich component should you recommend?",
+
+  "keyWords": [
+    "RPA",
+    "reuse support content",
+    "online content",
+    "Power Virtual Agents"
+  ],
+
+  "hints": {
+    "easy": [
+      "Think about how to incorporate existing FAQ or knowledge base into a 'conversation' format.",
+      "Power Virtual Agents lets you import or generate topics from existing content."
+    ],
+    "medium": [
+      "Some might confuse other custom-coded bots. But 'Topics' is a specific feature name in PVA that can leverage existing content for Q&A flows."
+    ]
+  },
+
+  "conceptsTested": [
+    "Power Virtual Agents topics",
+    "reusing existing support content"
+  ],
+
+  "commonMistakes": [
+    "Looking for a 'Questions' or 'Conditions' item in the UI instead of 'Topics'",
+    "Using variables or expressions incorrectly to try to handle knowledge content"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "RPA usage",
+      "Reuse existing online support content"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Questions",
+      "analysis": "No standard 'Questions' component in PVA or RPA specifically."
+    },
+    {
+      "letter": "B",
+      "text": "Topics",
+      "analysis": "Power Virtual Agents Topics can incorporate existing FAQ or support content to build a chatbot flow."
+    },
+    {
+      "letter": "C",
+      "text": "Variables",
+      "analysis": "Variables store data, not knowledge content."
+    },
+    {
+      "letter": "D",
+      "text": "Conditions",
+      "analysis": "Conditions define logic branches, not knowledge-based content reuse."
+    }
+  ],
+
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Power Virtual Agents uses 'Topics' to handle conversation paths, often generated from existing FAQ or online support content. This allows reusing the company's current support material in a chatbot-like scenario, which can complement RPA solutions if needed.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Use PVA topics for knowledge-based Q&A",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	      {
+  "id": 62,
+  "topic": "Power Pages",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "A company plans to use Microsoft Power Pages. The company gathers business requirements.\n\nYou need to identify the functional requirements.\n\nWhich two requirements should you gather? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "Power Pages",
+    "functional vs non-functional",
+    "SSO login",
+    "submit request"
+  ],
+
+  "hints": {
+    "easy": [
+      "Functional = 'what system does' (like user can log in with SSO or user can submit a request). Non-functional = 'how well it does it' or compliance/performance."
+    ],
+    "medium": [
+      "Performance concurrency, data privacy, and caching are typical non-functional constraints."
+    ]
+  },
+
+  "conceptsTested": [
+    "functional vs non-functional classification",
+    "Power Pages scenarios"
+  ],
+
+  "commonMistakes": [
+    "Treating concurrency or data privacy as functional requirements instead of non-functional"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Identify functional vs non-functional in a portal scenario"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "A Power Pages site must be able to handle 100 concurrent external site visitors.",
+      "analysis": "Performance/scalability requirement => non-functional."
+    },
+    {
+      "letter": "B",
+      "text": "Users must be able to control the use of their personal data in Microsoft Dataverse.",
+      "analysis": "Data privacy => compliance or non-functional."
+    },
+    {
+      "letter": "C",
+      "text": "Users must be able to log in to a Power Pages site by using single sign-on.",
+      "analysis": "Describes a direct system feature => functional."
+    },
+    {
+      "letter": "D",
+      "text": "Azure Front Door and Power Pages must be used to improve caching capabilities.",
+      "analysis": "Caching/performance => non-functional."
+    },
+    {
+      "letter": "E",
+      "text": "Users must be able to submit a service request on a Power Pages site.",
+      "analysis": "User can do a direct action => functional."
+    }
+  ],
+
+  "correctAnswers": ["C", "E"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Single sign-on login and submitting service requests are specific system functions, thus functional requirements. Handling concurrency, data privacy, or caching are typical non-functional or compliance constraints, so those do not classify as functional.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Identify functional requirements for portals",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 63,
+  "topic": "Security",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "You are designing a Microsoft Power Platform solution for a customer.\n\nThe customer is developing an application that needs to use an existing Microsoft SharePoint list. The application must be able to:\n• allow view access for external customers.\n• use out-of-the-box processes for access for employees.\n\nYou need to recommend components for the application.\n\nWhich two components should you recommend? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "existing SharePoint list",
+    "external customers",
+    "internal employees",
+    "model-driven app",
+    "Power Pages"
+  ],
+
+  "hints": {
+    "easy": [
+      "Model-driven apps handle typical internal processes. External customers typically require a portal approach => Power Pages."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "SharePoint integration",
+    "portal for external users",
+    "model-driven for employees"
+  ],
+
+  "commonMistakes": [
+    "Using a single canvas app for both internal and external. External licensing scenario is complicated, so a portal is recommended."
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "View access for external customers",
+      "Use out-of-box processes for employees"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Custom pages",
+      "analysis": "Focused on internal custom user experiences in model-driven apps, not external or portal-based."
+    },
+    {
+      "letter": "B",
+      "text": "Canvas app",
+      "analysis": "Canvas apps can connect to SharePoint, but external user sharing is non-trivial or licensing-heavy."
+    },
+    {
+      "letter": "C",
+      "text": "Model-driven app",
+      "analysis": "Works well for out-of-box Dataverse logic, standard processes for employees."
+    },
+    {
+      "letter": "D",
+      "text": "Power Pages",
+      "analysis": "Formerly portals, allows external customers to see the data via secure web interface."
+    }
+  ],
+
+  "correctAnswers": ["C", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "A model-driven app is recommended for employees to leverage standard processes. Power Pages enables external users to view data from a SharePoint list (via Dataverse or connector approach) in a secure, out-of-the-box approach. Together, these meet both internal and external requirements.",
+  
+  "category": "Architect a solution",
+  "weight": 5.6,
+  "examReference": "Use portals for external access, model-driven for internal",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 64,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - You need to conduct discovery meetings to gather information for each job role. Which type of meeting should you use for each department?",
+
+  "keyWords": [
+    "discovery",
+    "job role",
+    "surveys",
+    "job shadowing",
+    "workshops"
+  ],
+
+  "hints": {
+    "easy": [
+      "Surveys: asynchronous input from widely scattered or busy staff. Job shadowing: observe real tasks. Workshops: real-time, in-person group discussion."
+    ],
+    "medium": [
+      "Sales might prefer a flexible approach => surveys. Construction workers prefer demonstration => job shadowing. Warranty staff might already meet regularly => workshop."
+    ]
+  },
+
+  "conceptsTested": [
+    "discovery techniques",
+    "meeting types"
+  ],
+
+  "commonMistakes": [
+    "Using a single approach for all roles",
+    "Forgetting that field staff might not have time for a workshop"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Appropriate discovery approach for each department"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "construction",
+        "choices": [
+          "job shadowing",
+          "surveys",
+          "workshops"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "sales",
+        "choices": [
+          "job shadowing",
+          "surveys",
+          "workshops"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "warranty",
+        "choices": [
+          "job shadowing",
+          "surveys",
+          "workshops"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "sales: surveys",
+    "construction: job shadowing",
+    "warranty: workshops"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Sales employees spread out or with unpredictable schedules are best reached via surveys. Construction workers appreciate hands-on demonstration of tasks, so job shadowing reveals real processes. Warranty staff regularly gather, so workshops let them discuss issues in depth collaboratively.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Tailor discovery method by department",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 65,
+  "topic": "Dataverse",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - You need to configure Microsoft Dataverse to retrieve external data for the sales and construction departments. Which connection methods should you use?",
+
+  "keyWords": [
+    "Dataverse",
+    "retrieve external data",
+    "dataflow",
+    "connector",
+    "virtual table"
+  ],
+
+  "hints": {
+    "easy": [
+      "Dataflows are for scheduled or batch-based ingestion, transformations, and mapping. Connectors handle real-time or immediate calls to external services. Virtual tables might also be an option, but not always required if a connector can do the job."
+    ],
+    "medium": [
+      "If the marketing data changes daily and requires transformations, dataflows are best. If the supplier data is used real-time in an app, a connector might be best."
+    ]
+  },
+
+  "conceptsTested": [
+    "dataflows usage",
+    "connector usage",
+    "Dataverse ingestion patterns"
+  ],
+
+  "commonMistakes": [
+    "Using a dataflow for real-time integration or a connector for large batch transformations"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Retrieve marketing data daily with transformations",
+      "Retrieve supplier data real-time"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Retrieve data from the third-party marketing data source.",
+        "choices": [
+          "connector",
+          "dataflow",
+          "virtual table"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Retrieve data from the supplier data source.",
+        "choices": [
+          "connector",
+          "dataflow",
+          "virtual table"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "Retrieve data from the third-party marketing data source: dataflow",
+    "Retrieve data from the supplier data source: connector"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Marketing data that requires transformations and scheduled loads is best ingested via a dataflow. Supplier data that needs immediate or real-time access can use a connector approach, so the system can call the supplier’s service on demand.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Select correct data integration approach in Dataverse",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},   
+	      {
+  "id": 66,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "You need to resolve the deployment plan issue. The IT manager reports that the deployment plan is not complete.\n\nWhat should you request?",
+
+  "keyWords": [
+    "deployment plan",
+    "incomplete",
+    "test plan"
+  ],
+
+  "hints": {
+    "easy": [
+      "A typical deployment plan includes environment setup, test plan, training, cutover tasks. If it’s incomplete, possibly the test plan is missing."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "deployment planning",
+    "testing strategy"
+  ],
+
+  "commonMistakes": [
+    "Forgetting testing is part of a complete deployment plan"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "A complete deployment plan"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "the IT manager adds a data migration strategy"
+    },
+    {
+      "letter": "B",
+      "text": "the project manager adds a testing plan"
+    },
+    {
+      "letter": "C",
+      "text": "the IT manager adds a responsibility matrix"
+    },
+    {
+      "letter": "D",
+      "text": "the project manager adds a risk assessment"
+    }
+  ],
+
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A deployment plan is incomplete without a testing plan that covers how the solution will be validated before go-live. Hence the project manager should add a testing plan.",
+  
+  "category": "Architect a solution",
+  "weight": 5.2,
+  "examReference": "Ensure complete deployment plan including testing",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
 	{
-  "id": 101,
+  "id": 67,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You need to identify a product that can perform the functions of the current tools with minimal custom development.\n\nWhich product should you use?",
+
+  "keyWords": [
+    "Project Operations",
+    "project scheduling",
+    "minimize custom code"
+  ],
+
+  "hints": {
+    "easy": [
+      "Dynamics 365 Project Operations merges the capabilities of project scheduling, resource management, finances, etc."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "Dynamics 365 product selection",
+    "project mgmt"
+  ],
+
+  "commonMistakes": [
+    "Choosing Customer Service or a custom approach that doesn't address scheduling, cost mgmt"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Minimal custom dev",
+      "Replace project scheduling and resource mgmt functionality"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Dynamics 365 Customer Service"
+    },
+    {
+      "letter": "B",
+      "text": "Power Apps with an industry accelerator"
+    },
+    {
+      "letter": "C",
+      "text": "Power Apps canvas app with a Microsoft template"
+    },
+    {
+      "letter": "D",
+      "text": "Dynamics 365 Project Operations"
+    }
+  ],
+
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Dynamics 365 Project Operations is designed to handle project-based functionalities with minimal custom development needed, covering scheduling, cost mgmt, resource allocation, etc. This is the best solution among the options.",
+  
+  "category": "Architect a solution",
+  "weight": 6.2,
+  "examReference": "Select correct D365 product for project mgmt",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},   
+	      {
+  "id": 68,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - You need to identify the user stories for each department. How should you define the user stories?",
+
+  "keyWords": [
+    "user stories",
+    "sales",
+    "construction",
+    "warranty",
+    "As a <role>, I need <function>, so that <benefit>"
+  ],
+
+  "hints": {
+    "easy": [
+      "User stories typically follow the format: 'As a <role>, I want/need <action>, so that <benefit>.'"
+    ],
+    "medium": [
+      "Sales might need to store or track something, construction might need to view or schedule resources, warranty might need to see coverage details."
+    ]
+  },
+
+  "conceptsTested": [
+    "user story definition",
+    "agile requirement format"
+  ],
+
+  "commonMistakes": [
+    "Writing stories that do not specify role, function, and benefit",
+    "Misaligning story to the department's actual problem"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Sales: store contracts securely",
+      "Construction: resource scheduling with upcoming jobs",
+      "Warranty: see contract coverage"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "sales",
+        "options": [
+          "As a salesperson, I need to store my contracts in a shared location to reduce the risk of losing them if my device fails.",
+          "As a salesperson, I need to ensure my commission is calculated correctly so that I get paid the right amount.",
+          "As a salesperson, I need to track my travel expenses so that I can be reimbursed.",
+          "As a sales manager, I need to review my team's performance so that I can assign territories effectively."
+        ]
+      },
+      {
+        "name": "construction",
+        "options": [
+          "As a construction scheduler, I need to be able to view potential contracts so that I can estimate required resources.",
+          "As a construction manager, I need to track labor hours so that I can manage project costs.",
+          "As a construction worker, I need to log my materials usage so that inventory can be maintained.",
+          "As a construction supervisor, I need to approve timesheets so that workers get paid correctly."
+        ]
+      },
+      {
+        "name": "warranty",
+        "options": [
+          "As a warranty inspector, I need to view a contract before I inspect a home so that I know what should be covered by the warranty.",
+          "As a warranty manager, I need to track inspection schedules so that I can ensure timely service.",
+          "As a warranty clerk, I need to record customer complaints so that they can be addressed promptly.",
+          "As a warranty department head, I need to analyze claim patterns so that I can identify quality issues."
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "sales: As a salesperson, I need to store my contracts in a shared location to reduce the risk of losing them if my device fails.",
+    "construction: As a construction scheduler, I need to be able to view potential contracts so that I can estimate required resources.",
+    "warranty: As a warranty inspector, I need to view a contract before I inspect a home so that I know what should be covered by the warranty."
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "These selected user stories map directly to the key departmental needs: storing contracts securely for sales, viewing future jobs for resource estimates in construction, and checking coverage for warranty inspections. Each story follows the 'As a <role>, I need <function>, so that <benefit>' format.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Craft appropriate user stories for each department",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 69,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - A medium-size company is evaluating Microsoft Power Platform functionality to enhance its business processes. The company currently uses a mix of spreadsheet tools and an outdated CRM system. The company requires the following business solutions:\n• bidirectional data sync between the outdated system and a new custom app\n• improved efficiency of data transfers\n• comprehensive real-time sales data displays\n\nYou need to configure the solution components for each requirement. Which components should you configure?",
+
+  "keyWords": [
+    "bidirectional sync",
+    "improved data transfers",
+    "real-time sales data",
+    "Power Automate",
+    "dataflows",
+    "Power BI"
+  ],
+
+  "hints": {
+    "easy": [
+      "Power Automate flows for bidirectional sync, dataflows for efficient ETL, Power BI for real-time dashboards."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "selecting correct Power Platform components for integration, ETL, dashboards"
+  ],
+
+  "commonMistakes": [
+    "Using dataflows for real-time sync or mixing up flows for large batch transformations"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Bidirectional sync",
+      "Improved data transfer efficiency",
+      "Real-time sales dashboards"
+    ],
+    "constraints": []
+  },
+
+  "requirements": [
+    "Bidirectional data sync between the outdated system and a new custom app",
+    "Improved efficiency of data transfers",
+    "Comprehensive real-time sales data displays"
+  ],
+  "choices": [
+    "Power Automate",
+    "Power Platform dataflows",
+    "Power BI",
+    "AI Builder",
+    "Custom connector",
+    "Data gateway"
+  ],
+  "correctAnswers": {
+    "Bidirectional data sync between the outdated system and a new custom app": "Power Automate",
+    "Improved efficiency of data transfers": "Power Platform dataflows",
+    "Comprehensive real-time sales data displays": "Power BI"
+  },
+  
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Use Power Automate for two-way data synchronization, dataflows for efficient ETL of data, and Power BI for interactive real-time dashboards to display sales data comprehensively.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.5,
+  "examReference": "Proper use of flows, dataflows, and Power BI",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 70,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - You are working on a project with a logistics company. The company plans to digitally transform its business by using Microsoft Power Platform. You lead several requirements workshops with stakeholders. The workshops result in the need for the following solutions:\n• Allow users to place orders, track order status, and receive notifications about order shipments.\n• Provide availability 24 hours a day, excluding scheduled maintenance windows.\n• Support real-time tracking of inventory levels.\n\nYou need to categorize each of the captured requirements. Which category should you use for each requirement?",
+
+  "keyWords": [
+    "logistics company",
+    "orders/shipments",
+    "availability",
+    "inventory levels",
+    "functional vs non-functional"
+  ],
+
+  "hints": {
+    "easy": [
+      "Placing orders, tracking status, receiving notifications are functional user actions. 24-hour availability is a non-functional performance/uptime requirement. Real-time inventory tracking is also a functional capability."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "functional vs non-functional classification"
+  ],
+
+  "commonMistakes": [
+    "Marking availability as functional or real-time tracking as non-functional"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Functional: place orders, track shipments, real-time inventory",
+      "Non-functional: 24/7 availability"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Allow users to place orders, track order status, and receive notifications about order shipments",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Technical constraint",
+          "Business constraint"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Provide availability 24 hours a day, excluding scheduled maintenance windows",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Technical constraint",
+          "Business constraint"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Support real-time tracking of inventory levels",
+        "choices": [
+          "Functional requirement",
+          "Non-functional requirement",
+          "Technical constraint",
+          "Business constraint"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "Allow users to place orders, track order status, and receive notifications about order shipments: Functional requirement",
+    "Provide availability 24 hours a day, excluding scheduled maintenance windows: Non-functional requirement",
+    "Support real-time tracking of inventory levels: Functional requirement"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Placing and tracking orders with notifications is a direct user action—functional. Real-time inventory tracking is also a system feature for users—functional. The system’s 24/7 availability is a performance/uptime requirement—non-functional.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.3,
+  "examReference": "Classify logistic solution requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 71,
+  "topic": "Integration",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - You are implementing a Microsoft Power Platform project for a company. The company has the following requirements for the project:\n• Employees must be able to connect to the Microsoft cloud environment from their on-premises network by using a private connection.\n• Employees must be able to create controls for applications that can be reused in applications and projects.\n\nYou need to implement the appropriate solutions. What should you use?",
+
+  "keyWords": [
+    "private connection",
+    "reusable controls",
+    "Azure ExpressRoute",
+    "Center of Excellence"
+  ],
+
+  "hints": {
+    "easy": [
+      "For private connection to the cloud: Azure ExpressRoute. For reusable app controls: Center of Excellence nurture or the Creator Kit can help, but in COE context we mention 'nurture components.'"
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "private connectivity",
+    "reusable controls in Power Platform"
+  ],
+
+  "commonMistakes": [
+    "Confusing data gateway with ExpressRoute for on-prem to cloud private connectivity",
+    "Mixing up Center of Excellence (COE) with other components"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Private connection to cloud",
+      "Reusable controls for apps"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Connect from the on-premises network to the Microsoft cloud environment.",
+        "options": [
+          "Azure Event Hub",
+          "Azure ExpressRoute",
+          "Custom connector",
+          "On-premises data gateway"
+        ]
+      },
+      {
+        "name": "Create controls that can be reused.",
+        "options": [
+          "Center of Excellence Developer Compliance Center",
+          "Center of Excellence nurture components",
+          "Center of Excellence theming components",
+          "Creator Kit"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Connect from the on-premises network to the Microsoft cloud environment.: Azure ExpressRoute",
+    "Create controls that can be reused.: Center of Excellence nurture components"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Azure ExpressRoute provides a private, dedicated link between on-prem and Microsoft cloud. For reusable controls and best practices, the Center of Excellence nurture components can be adopted to distribute shared elements across multiple Power Platform solutions.",
+  
+  "category": "Architect a solution",
+  "weight": 6.7,
+  "examReference": "Implement secure connectivity & COE best practices",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 72,
+  "topic": "General",
+  "type": "dragdrop",
+  "difficultyLevel": "Easy",
+
+  "text": "DRAG DROP - You need to recommend solutions to meet the organization's communication needs. What should you recommend?",
+
+  "keyWords": [
+    "communication approach",
+    "employees vs. workers",
+    "Teams",
+    "Power Pages"
+  ],
+
+  "hints": {
+    "easy": [
+      "Similar scenario: Teams for internal employees, a portal (Power Pages) for external or field staff to sign in."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "communication methods for different user groups"
+  ],
+
+  "commonMistakes": [
+    "Using one approach for all"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Internal employees => secure internal chat",
+      "External or field => portal for self-service"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": "Technologies",
+      "targets": []
+    },
+    {
+      "source": "Groups of users",
+      "targets": []
+    }
+  ],
+
+  "correctAnswers": [
+    "First Up employees \u2192 Microsoft Teams",
+    "Workers \u2192 Power Pages"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "As explained, employees use Teams for internal Q&A, while external or field workers use Power Pages for sign-in and self-service record access. This solution meets the distinct needs of each user group.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.2,
+  "examReference": "Recommend the right communication platform",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 73,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP - A national retail company has multiple data sources, including the following:\n• online e-commerce platform\n• CRM system\n• HR system\n• customer support system\n\nThe company requires a unified view that includes all relevant data for the following data source requirements:\n• include certification information for employees\n• understand purchasing behavior and preferences\n• enhance customer service\n\nYou need to configure the solutions. Which data source should you configure for each requirement?",
+
+  "keyWords": [
+    "data sources",
+    "HR system",
+    "e-commerce platform",
+    "customer support"
+  ],
+
+  "hints": {
+    "easy": [
+      "Certification => HR. Purchasing => e-commerce. Customer service => support system."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "matching data requirements to correct system"
+  ],
+
+  "commonMistakes": []
+  ,
+
+  "analysisHighlights": {
+    "requirements": [
+      "Employee certifications => HR",
+      "Purchasing => e-commerce",
+      "Customer service => support system"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Certification information for employees",
+        "choices": [
+          "HR system",
+          "CRM system",
+          "E-commerce platform",
+          "Customer support system"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Purchasing behavior and preferences",
+        "choices": [
+          "E-commerce platform",
+          "CRM system",
+          "HR system",
+          "Customer support system"
+        ]
+      }
+    },
+    {
+      "source": {
+        "requirement": "Enhance customer service",
+        "choices": [
+          "Customer support system",
+          "CRM system",
+          "E-commerce platform",
+          "HR system"
+        ]
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "Certification information for employees: HR system",
+    "Purchasing behavior and preferences: E-commerce platform",
+    "Enhance customer service: Customer support system"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "HR system holds employee certifications, an e-commerce platform tracks purchasing behavior, and the customer support system is the best place to gather data about service interactions to enhance customer service.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.9,
+  "examReference": "Map each requirement to correct data source",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},	
+{
+  "id": 74,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are meeting with a user at a financial institution to gather app requirements.\n\nThe app must:\n• be enabled for mobile use.\n• respond in less than five seconds.\n• ensure all data transmitted is encrypted.\n\nYou need to categorize the requirement types.\n\nWhich two requirement types are captured? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "financial institution",
+    "performance <5s",
+    "encryption",
+    "non-functional or compliance"
+  ],
+
+  "hints": {
+    "easy": [
+      "Performance and encryption are typically non-functional or compliance constraints. Mobile use can be functional or environmental. But the question specifically says pick two that define how the system does it => non-functional or compliance."
+    ]
+  },
+
+  "conceptsTested": [
+    "non-functional vs functional vs compliance"
+  ],
+
+  "commonMistakes": [
+    "Assigning encryption as functional when it's actually a security/compliance requirement"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Mobile use => functional or environmental",
+      "Less than 5s => performance => non-functional",
+      "Data encrypted => compliance or security => non-functional"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "non-functional",
+      "analysis": "Performance or encryption => non-functional."
+    },
+    {
+      "letter": "B",
+      "text": "feasibility"
+    },
+    {
+      "letter": "C",
+      "text": "functional",
+      "analysis": "Mobile usage is functional, but we only pick two from the entire set. The question might be referencing performance + encryption as non-functional. Let’s see the other answers."
+    },
+    {
+      "letter": "D",
+      "text": "exception"
+    },
+    {
+      "letter": "E",
+      "text": "compliance",
+      "analysis": "Encryption is typically compliance or security. So possibly non-functional as well, but since 'compliance' is an option, we might pick that for encryption."
+    }
+  ],
+
+  "correctAnswers": ["A", "E"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Performance constraints are typically classified as non-functional. Encryption of data is typically a compliance or security requirement, also non-functional in nature. Hence “A: non-functional” for performance, and “E: compliance” for encryption.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.7,
+  "examReference": "Differentiate performance vs encryption requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 75,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "A company plans to expand to other countries/regions. The COO must assess compliance risks related to the planned expansion.\n\nYou need to direct the COO to the compliance information.\n\nWhere should you direct the COO?",
+
+  "keyWords": [
+    "compliance",
+    "risk",
+    "Microsoft Trust Center",
+    "international expansions"
+  ],
+
+  "hints": {
+    "easy": [
+      "Microsoft Trust Center is the official site for compliance certifications and data privacy details across Microsoft cloud services."
+    ]
+  },
+
+  "conceptsTested": [
+    "compliance docs location",
+    "Microsoft Trust Center usage"
+  ],
+
+  "commonMistakes": [
+    "Pointing them to the M365 admin center or the Power Platform admin center, which do not have general compliance expansions info."
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Assess compliance for expansions"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Microsoft Defender"
+    },
+    {
+      "letter": "B",
+      "text": "Microsoft Power Platform admin center"
+    },
+    {
+      "letter": "C",
+      "text": "Microsoft Trust Center"
+    },
+    {
+      "letter": "D",
+      "text": "Microsoft 365 admin center"
+    }
+  ],
+
+  "correctAnswers": ["C"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "The Microsoft Trust Center is where you can find official compliance, privacy, and security documentation for Microsoft services. Directing the COO there helps them review the relevant compliance and regulatory standards that may impact international expansions.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Identify official Microsoft compliance resources",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},	      
+	      
+	{
+  "id": 301,
   "topic": "Power Automate",
   "type": "multiplechoice",
   "difficultyLevel": "Medium",
@@ -5778,7 +6937,7 @@
   "examArea": "Solution Architecture (35-40%)"
 },
 {
-  "id": 102,
+  "id": 302,
   "topic": "Dataverse",
   "type": "multiplechoice",
   "difficultyLevel": "Medium",
@@ -5876,7 +7035,7 @@
   "examArea": "Solution Envisioning and Requirements (45-50%)"
 },
 {
-  "id": 103,
+  "id": 303,
   "topic": "Power Apps",
   "type": "multiplechoice",
   "difficultyLevel": "Easy",
@@ -5972,7 +7131,7 @@
   "examArea": "Solution Architecture (35-40%)"
 },
 {
-  "id": 104,
+  "id": 304,
   "topic": "Power Pages",
   "type": "multiplechoice",
   "difficultyLevel": "Medium",
@@ -6068,7 +7227,7 @@
   "examArea": "Solution Envisioning and Requirements (45-50%)"
 },
 {
-  "id": 105,
+  "id": 305,
   "topic": "Integration",
   "type": "multiplechoice",
   "difficultyLevel": "Hard",
