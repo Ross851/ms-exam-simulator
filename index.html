@@ -332,96 +332,105 @@
   "topic": "Power Apps",
   "type": "multiplechoice",
   "difficultyLevel": "Easy",
-  "text": "A large company experiences high staff turnover rates. As a result, the company must add or remove multiple system user accounts daily. You need to recommend a security concept which will facilitate complex security profiles to entities for large groups of users across the Power Apps and Dynamics 365 applications. What should you recommend?",
+  
+  "text": "A large company experiences high staff turnover rates. As a result, the company must add or remove multiple system user accounts daily. You need to recommend a security concept which will facilitate complex security profiles to entities for large groups of users across Power Apps and Dynamics 365 applications. What should you recommend?",
+  
   "keyWords": [
-    "high staff turnover",
-    "multiple",
-    "daily",
-    "security",
+    "high turnover",
+    "user management",
+    "security profiles",
     "large groups",
-    "complex security profiles"
+    "Power Apps",
+    "Dynamics 365"
   ],
+  
   "hints": {
     "easy": [
-      "Think about group-based security",
-      "Consider scalability for many users",
-      "What reduces administrative overhead?"
+      "Think about group-based security in Power Apps or Dynamics 365.",
+      "Focus on how to manage big user groups efficiently without editing each user individually.",
+      "Recall which security approaches handle frequent additions/deletions of user accounts."
     ],
     "medium": [
-      "How can you manage many users efficiently?",
-      "Think about inheritance of permissions",
-      "Consider team-based approaches"
+      "Consider if role-based security alone is enough for big groups—there may be a more targeted grouping mechanism.",
+      "Look for solutions that reduce administrative overhead for daily staff changes.",
+      "Think about how privileges can be inherited by members of a group."
     ],
     "hard": [
-      "Evaluate role-based vs team-based security",
-      "Consider security inheritance patterns",
-      "Think about maintenance overhead"
+      "Evaluate how to handle user membership changes at scale (e.g., new hires, deactivations).",
+      "Consider advanced features such as security roles, sharing, and team ownership scenarios.",
+      "Remember that field-level or hierarchy security might not address group-level assignment effectively."
     ]
   },
+  
   "conceptsTested": [
-    "security management",
-    "scalability",
     "team-based security",
-    "user management",
-    "administrative efficiency"
+    "role inheritance",
+    "user provisioning",
+    "delegated administration",
+    "Power Platform governance"
   ],
+  
   "commonMistakes": [
-    "Choosing individual user management for high-volume scenarios",
-    "Selecting field-level security for broad access control",
-    "Confusing hierarchy security with team security",
-    "Not considering maintenance overhead"
+    "Using individual user roles for large-scale user changes, which is time-consuming.",
+    "Relying on field-level security to address entire entity permissions.",
+    "Trying to apply manager-based hierarchy for a scenario that is not strictly managerial.",
+    "Missing the concept of assigned vs. owner teams in Dataverse."
   ],
+  
   "analysisHighlights": {
     "requirements": [
-      "handle high turnover",
-      "manage multiple users daily",
-      "complex security profiles",
-      "cross-application"
+      "Facilitate complex security profiles for large user groups",
+      "Handle frequent staff turnover",
+      "Apply security consistently across Power Apps and Dynamics 365"
     ],
     "constraints": [
-      "large groups",
-      "frequent changes",
-      "administrative efficiency"
+      "Multiple user account additions/removals daily",
+      "Minimal administrative overhead"
     ],
     "patterns": [
-      "team-based security",
-      "role inheritance",
-      "group management"
+      "Team-based security for grouping users",
+      "Inheritance of privileges at the team level",
+      "Automatic membership handling"
     ]
   },
+  
   "options": [
     {
       "letter": "A",
       "text": "Hierarchy security",
       "isCorrect": false,
-      "analysis": "Hierarchy security works by managerial layers, not ideal for quickly assigning complex privileges."
+      "analysis": "Hierarchy security helps when you need to view records up/down the managerial chain but doesn’t simplify mass assignment of security to large user groups."
     },
     {
       "letter": "B",
       "text": "Field-level security",
       "isCorrect": false,
-      "analysis": "Field-level security only restricts certain fields, not entire entity-level privileges for large groups."
+      "analysis": "Field-level security restricts access to specific columns, not entire entity permissions for large groups."
     },
     {
       "letter": "C",
       "text": "User access management",
       "isCorrect": false,
-      "analysis": "Generic phrase that does not map directly to a recommended approach in Power Apps/Dynamics 365."
+      "analysis": "This is too generic and doesn’t map to a specialized Power Apps/Dynamics 365 mechanism for group-level security."
     },
     {
       "letter": "D",
       "text": "Team privileges",
       "isCorrect": true,
-      "analysis": "Team-based security allows assigning roles to a team, simplifying user access management for large user groups."
+      "analysis": "Team-based security allows assigning roles at the team level, making it easier to add/remove users from the team without individually modifying user-level security."
     }
   ],
+  
   "correctAnswers": ["D"],
   "isMultipleChoice": false,
-  "detailedExplanation": "Team privileges streamline security for large groups and reduce overhead when staff join or leave. Teams make it easier to manage roles for multiple users - membership changes but team privileges remain consistent.",
+  
+  "detailedExplanation": "Team privileges streamline security management for large groups, reducing overhead when employees join or leave. By placing users in a ‘team’ that has a defined security role, you can manage that role once, and membership changes automatically handle permissions for the new or departing user. This approach is generally more efficient than setting roles on each user individually.",
+  
   "category": "Architect a solution",
   "weight": 6.8,
   "examReference": "Design strategies for security",
   "source": "Custom generated",
+  
   "examArea": "Solution Architecture (35-40%)"
 },
   {
@@ -1681,7 +1690,499 @@
     "examReference": "Plan solution deployment",
     "source": "Custom generated",
     "examArea": "Solution Envisioning and Requirements (45-50%)"
-  }
+  },
+	{
+  "id": 101,
+  "topic": "Power Automate",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A manufacturing company wants to streamline its purchase order (PO) approval process. Currently, managers approve or reject purchase orders by email, and then an administrator manually updates a shared Excel file. You need to recommend a solution that automates and centralizes the approval process within Microsoft Power Platform. Which technology should the company adopt to manage purchase order approvals effectively?",
+  
+  "keyWords": [
+    "purchase order",
+    "approval process",
+    "Power Automate",
+    "automation",
+    "Excel"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about built-in approval processes in Power Automate.",
+      "Consider if the user scenario requires a direct email-based solution or a more robust platform-based approach.",
+      "Look for a standard connector that tracks approvals and updates data automatically."
+    ],
+    "medium": [
+      "Approvals can store decisions centrally, so you don’t rely on manually checking emails.",
+      "Consider how to unify the data in a single source of truth, rather than Excel.",
+      "Power Automate has built-in flows for routing approvals to managers or groups."
+    ],
+    "hard": [
+      "Evaluate advanced scenarios like sequential vs. parallel approvals and storing approval history for auditing.",
+      "Think about handling escalations, reminders, or multiple approval steps in a single flow.",
+      "Consider whether Dataverse might store purchase orders and track the approval state."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Power Automate approvals",
+    "flow design",
+    "collaboration & automation",
+    "data storage best practices",
+    "governance"
+  ],
+  
+  "commonMistakes": [
+    "Continuing to rely on email threads as the sole record of approval.",
+    "Ignoring the built-in Approval actions in Power Automate.",
+    "Using unconnected Excel sheets without real-time data synchronization.",
+    "Not notifying requestors or admins automatically about final decisions."
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Automate the approval process",
+      "Avoid manual data entry",
+      "Track decisions in a single system"
+    ],
+    "constraints": [
+      "Multiple managers approving",
+      "Existing process relies on emails + Excel"
+    ],
+    "technologies": [
+      "Power Automate Approvals",
+      "Dataverse or SharePoint list for PO data"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Continue using email but rely on an Excel macro for final updates",
+      "isCorrect": false,
+      "analysis": "This maintains the manual approach, leaving the admin to check emails and update Excel. It doesn't solve the real-time or centralized approval tracking problem."
+    },
+    {
+      "letter": "B",
+      "text": "Use Microsoft Forms to collect purchase orders and forward emails to managers",
+      "isCorrect": false,
+      "analysis": "While Forms can gather data, it doesn’t provide a robust approval tracking mechanism or unify manager decisions without manual steps."
+    },
+    {
+      "letter": "C",
+      "text": "Leverage the built-in Approval actions in Power Automate with a central data source",
+      "isCorrect": true,
+      "analysis": "This allows automated assignment of POs to managers, tracks the approvals, and writes back decisions in real time to a standard location (e.g., Dataverse or SharePoint)."
+    },
+    {
+      "letter": "D",
+      "text": "Develop a Power BI report that visualizes purchase orders and manager emails",
+      "isCorrect": false,
+      "analysis": "Power BI can visualize data but does not provide a built-in, interactive approval mechanism or reduce the manual overhead."
+    }
+  ],
+  
+  "correctAnswers": ["C"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Power Automate includes a comprehensive 'Approvals' feature that routes approval requests to designated managers, captures decisions in a centralized system, and logs final outcomes automatically. This eliminates the need for manual email checks and spreadsheet updates. You can store purchase order records in Dataverse or SharePoint, trigger the flow when a new PO is created, and let managers approve/reject from Teams or email. The system then writes the status back, offering real-time visibility into the entire approval process.",
+  
+  "category": "Architect a solution",
+  "weight": 6.5,
+  "examReference": "Design automated workflows with Approvals",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 102,
+  "topic": "Dataverse",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A retail company wants to track product returns across multiple warehouse locations. Each return record must link to a single product, but a product can appear in many returns. The company also wants to store a reference to the requesting customer's ID, but not all returns are tied to a known customer. You need to recommend the correct relationship and field types for these scenarios. Which approach should you take?",
+  
+  "keyWords": [
+    "Dataverse",
+    "relationships",
+    "one-to-many",
+    "lookup fields",
+    "product returns"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Consider 1:N relationships vs. N:N relationships in Dataverse.",
+      "Think about optional vs. required lookups for unknown customers."
+    ],
+    "medium": [
+      "A product can have many returns, so that suggests a one-to-many relationship from product to return.",
+      "Handling unknown customers might require a lookup that is not mandatory or a separate entity."
+    ],
+    "hard": [
+      "Evaluate the effect of enabling 'Business required' vs. 'Business recommended' in the column settings.",
+      "Consider whether you might need a custom entity for ephemeral or anonymous customers."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Dataverse entity relationships",
+    "lookup columns",
+    "handling optional references",
+    "1:N vs. N:N structures"
+  ],
+  
+  "commonMistakes": [
+    "Creating a many-to-many for products and returns, which complicates reporting.",
+    "Marking all lookups as required, preventing partial or unknown data from being saved.",
+    "Using text fields instead of lookups, losing referential integrity."
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Track which product is returned",
+      "A product can be linked to many returns",
+      "Customer references might be optional"
+    ],
+    "constraints": [
+      "Not all returns have a known customer",
+      "Must preserve referential integrity"
+    ],
+    "technologies": [
+      "Dataverse 1:N relationships",
+      "Optional lookups for partial data"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Configure a many-to-many (N:N) relationship between products and returns, and a required lookup for customers",
+      "isCorrect": false,
+      "analysis": "N:N is unnecessary here because each return references exactly one product, and requiring customer lookup prevents saving returns for unknown customers."
+    },
+    {
+      "letter": "B",
+      "text": "Create a one-to-many (1:N) relationship from product to return and use an optional lookup for the customer",
+      "isCorrect": true,
+      "analysis": "A 1:N relationship suits a single product linking to many return records. Optional lookups let returns exist without a known customer if needed."
+    },
+    {
+      "letter": "C",
+      "text": "Use a text field to capture product ID, and a required text field for customer ID",
+      "isCorrect": false,
+      "analysis": "This loses referential integrity and forces you to store all ID references as plain text, complicating any future relations or validation."
+    },
+    {
+      "letter": "D",
+      "text": "Build separate return entities for known vs. unknown customers, each with a many-to-one product link",
+      "isCorrect": false,
+      "analysis": "Splitting data for known vs. unknown complicates the model unnecessarily, doubling the entities you manage."
+    }
+  ],
+  
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "A one-to-many relationship is ideal for tracking which product a return is associated with: one product can correspond to multiple return records. By marking the customer lookup column as optional (i.e., 'Business recommended' or 'None' for requirement level), you allow returns to be saved without a known customer. This design preserves referential integrity for products, while providing flexibility for partial data on customer IDs.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 7.0,
+  "examReference": "Model data in Dataverse using relationships",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 103,
+  "topic": "Power Apps",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "An HR department uses a Canvas app to track job applicants. They want to show or hide certain sections of the form depending on whether a candidate is external or internal. You need to create a conditional expression that toggles these sections based on a radio button selection. Which approach should you use?",
+  
+  "keyWords": [
+    "Canvas app",
+    "conditional visibility",
+    "IF function",
+    "Power Apps formula"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Check the property of the control that determines if it’s visible or not.",
+      "Remember the formula syntax for IF statements in Power Apps: `If(condition, true, false)`."
+    ],
+    "medium": [
+      "Think about referencing the radio button’s selected value: e.g., `RadioButton.Selected.Value`.",
+      "You can also use the `Visible` property to dynamically hide or show a container."
+    ],
+    "hard": [
+      "Consider advanced scenarios: do you need multiple conditions, or do you handle other applicant statuses?",
+      "Check if a simpler approach like toggling between screens might be beneficial in complex flows."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Canvas app IF statements",
+    "control property references",
+    "conditional UI logic",
+    "basic formula usage"
+  ],
+  
+  "commonMistakes": [
+    "Using an incorrect property (like `Disabled` instead of `Visible`).",
+    "Forgetting to compare `RadioButton.Selected.Value` to the text string that indicates internal vs. external.",
+    "Putting the logic in OnSelect instead of the Visible property, so it never updates dynamically."
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Only show certain form fields for external candidates",
+      "Use a simple toggle via radio button"
+    ],
+    "constraints": [
+      "Canvas app environment",
+      "No complex code"
+    ],
+    "technologies": [
+      "IF function",
+      "Visible property binding"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Bind the Visible property to `If(RadioButton.Selected.Value = \"External\", true, false)`",
+      "isCorrect": true,
+      "analysis": "This standard IF approach dynamically checks the radio selection. If the user chooses External, the control is visible; if not, it’s hidden."
+    },
+    {
+      "letter": "B",
+      "text": "Add a second screen for external candidates and manually navigate with a button",
+      "isCorrect": false,
+      "analysis": "While this could work, it’s not the recommended approach for a simple show/hide scenario. It also complicates user flow with multiple screens."
+    },
+    {
+      "letter": "C",
+      "text": "Use a Flow expression in Power Automate to toggle the form’s visibility from the outside",
+      "isCorrect": false,
+      "analysis": "That’s not how Canvas app visibility typically works. You manage the property within the app itself, not from a Flow."
+    },
+    {
+      "letter": "D",
+      "text": "Set the form’s DataSource property to blank when internal is selected, forcing the controls to disappear",
+      "isCorrect": false,
+      "analysis": "This approach is non-standard and can cause data or form rendering issues. It doesn’t truly hide the controls; it just breaks the data binding."
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "In a Canvas app, the simplest approach to conditionally show or hide controls is to set their `Visible` property to an IF statement referencing the radio button selection. For instance, `If(RadioButton.Selected.Value = \"External\", true, false)`. This keeps logic within the UI layer, updates instantly, and doesn’t require additional screens or complex flows.",
+  
+  "category": "Architect a solution",
+  "weight": 5.5,
+  "examReference": "Design form logic for Canvas apps",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 104,
+  "topic": "Power Pages",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A software training institute uses Power Pages to allow customers to register for upcoming courses. They want users to sign in with their Microsoft or LinkedIn accounts, so that user identity is tracked for future communications. You need to recommend an authentication strategy that meets these requirements without custom code. Which approach should you suggest?",
+  
+  "keyWords": [
+    "Power Pages",
+    "portal authentication",
+    "external identity provider",
+    "LinkedIn",
+    "Microsoft"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about the out-of-box external identity providers in Power Pages.",
+      "Power Pages can be configured to accept Azure AD, LinkedIn, etc. without code."
+    ],
+    "medium": [
+      "Portals allow multiple identity providers if you register them in Site Settings.",
+      "LinkedIn and Microsoft are standard providers that can be enabled with a few steps."
+    ],
+    "hard": [
+      "Consider whether you also need local authentication or only social logins.",
+      "Check if the licensing covers external logins for all registrants."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Power Pages authentication",
+    "identity provider configuration",
+    "Azure AD B2C or LinkedIn sign-in"
+  ],
+  
+  "commonMistakes": [
+    "Thinking custom JavaScript or .NET dev is required for external auth.",
+    "Forgetting to enable and configure each identity provider in Power Pages admin.",
+    "Using built-in user accounts only, ignoring the available social logins."
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Allow sign-in with Microsoft or LinkedIn accounts",
+      "Track identity for course registration"
+    ],
+    "constraints": [
+      "No custom dev",
+      "Power Pages usage"
+    ],
+    "technologies": [
+      "Portal identity management",
+      "Power Pages admin center"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Create a custom .NET portal with OAuth 2.0 integration for LinkedIn and Microsoft",
+      "isCorrect": false,
+      "analysis": "This goes against the 'no custom code' constraint and bypasses standard Power Pages features."
+    },
+    {
+      "letter": "B",
+      "text": "Use Dataverse local authentication only, requiring users to sign up with a unique username",
+      "isCorrect": false,
+      "analysis": "That provides no LinkedIn or Microsoft sign-in. It’s purely local accounts in Dataverse."
+    },
+    {
+      "letter": "C",
+      "text": "Enable external identity providers (Azure AD, LinkedIn) in the Portal authentication settings",
+      "isCorrect": true,
+      "analysis": "Power Pages supports out-of-box authentication via Azure AD, LinkedIn, etc., with minimal config in the Portal admin settings."
+    },
+    {
+      "letter": "D",
+      "text": "Require each user to pass a multi-step manual verification from the admin team",
+      "isCorrect": false,
+      "analysis": "Not only is this manual, but it doesn’t leverage the external identity providers for single sign-on."
+    }
+  ],
+  
+  "correctAnswers": ["C"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Power Pages lets you configure multiple identity providers, including LinkedIn, Microsoft, and Azure AD, in the authentication settings. No custom code is required: you simply register the portal with each provider, specify the client IDs and secrets, and enable them in Site Settings. Users can then sign in with their social or Microsoft credentials, and the portal tracks their identity for subsequent visits.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.2,
+  "examReference": "Configure Power Pages authentication",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 105,
+  "topic": "Integration",
+  "type": "multiplechoice",
+  "difficultyLevel": "Hard",
+  
+  "text": "A financial services company needs to integrate its Power Platform solution with an Azure Service Bus queue to handle high-volume transaction events. The system must process thousands of messages daily, triggered from a variety of external applications. You need to recommend the best way to connect the Power Platform to the Azure Service Bus for sending and receiving messages in near real-time without custom code. Which approach should you suggest?",
+  
+  "keyWords": [
+    "Azure Service Bus",
+    "integration",
+    "messaging",
+    "high-volume",
+    "Power Platform"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Power Platform can connect to Azure Service Bus via connectors.",
+      "Think about built-in or standard connectors for messaging."
+    ],
+    "medium": [
+      "Power Automate has a Service Bus connector that can send messages to queues/topics.",
+      "Consider triggers and actions for retrieving or sending queue messages."
+    ],
+    "hard": [
+      "Evaluate message throughput and concurrency limits in the standard connector.",
+      "Plan for error handling and retries in flows that process queue messages.",
+      "Check advanced scenarios like session-based or ordered delivery if needed."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Azure Service Bus connector usage",
+    "Power Automate real-time triggers",
+    "high-throughput integration",
+    "messaging design"
+  ],
+  
+  "commonMistakes": [
+    "Attempting to code a custom connector from scratch when a standard connector exists.",
+    "Using the on-premises data gateway for a public Azure service.",
+    "Underestimating concurrency or performance impacts in a flow."
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Process thousands of daily messages",
+      "Send and receive in near real-time",
+      "Minimal custom code or overhead"
+    ],
+    "constraints": [
+      "Must scale with large transaction volume",
+      "Azure-based messaging"
+    ],
+    "technologies": [
+      "Power Automate Service Bus connector",
+      "Managed triggers & actions"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Implement a Custom Connector referencing the Azure Service Bus REST API",
+      "isCorrect": false,
+      "analysis": "While possible, this is more work than necessary. A standard connector for Service Bus already exists."
+    },
+    {
+      "letter": "B",
+      "text": "Use the built-in Azure Service Bus connector in Power Automate to create flows for queue interactions",
+      "isCorrect": true,
+      "analysis": "Power Automate’s Service Bus connector can send and receive messages from queues and topics with near real-time triggers and no custom code."
+    },
+    {
+      "letter": "C",
+      "text": "Sync transactions to Dataverse, then manually export them daily to an external queue",
+      "isCorrect": false,
+      "analysis": "This would not be near real-time, plus it demands daily manual exports, contradicting the requirement for automation."
+    },
+    {
+      "letter": "D",
+      "text": "Create an on-premises data gateway connection to the Service Bus endpoint",
+      "isCorrect": false,
+      "analysis": "Azure Service Bus is a public cloud service; using the on-prem data gateway is unnecessary and not typically how you connect to Azure-based messaging."
+    }
+  ],
+  
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Power Automate provides a built-in Azure Service Bus connector that allows flows to listen for new messages arriving in a queue or send messages to a queue or topic. This integration requires no custom code, supports high volumes, and can run automatically whenever events occur. It also handles standard error handling, retries, and concurrency settings suitable for large-scale scenarios.",
+  
+  "category": "Architect a solution",
+  "weight": 8.5,
+  "examReference": "Design advanced integrations with Azure services",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+}
 ];
 
       // Map category to examArea
