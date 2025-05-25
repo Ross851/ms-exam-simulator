@@ -1692,6 +1692,1320 @@
     "examArea": "Solution Envisioning and Requirements (45-50%)"
   },
 	{
+  "id": 17,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Easy",
+  "text": "HOTSPOT - A company reports the following issues with an existing data management system:\n• Users cannot search for specific records by using a user-friendly ID or record identifier.\n• Users occasionally enter data into fields that is not required.\n• The record form displays all fields. Many of the fields are not used.\n\nYou need to ensure that the Power Platform solution will ensure data quality can be properly maintained. Which component should you use?",
+  
+  "keyWords": [
+    "user-friendly ID",
+    "autonumber",
+    "business rule",
+    "data quality",
+    "form design"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Consider how to generate a unique, user-friendly record ID automatically.",
+      "Look at ways to enforce required fields or validations using no-code approaches.",
+      "Simplify form layouts to hide unused fields."
+    ],
+    "medium": [
+      "Think about how an autonumber column can facilitate quick searching.",
+      "Business rules or required field settings can prevent unwanted data entry.",
+      "You might also use custom forms to only show relevant fields."
+    ],
+    "hard": [
+      "Evaluate advanced data validation patterns or business process flows.",
+      "Consider user adoption impacts of showing too many fields vs. too few.",
+      "Think about post-creation changes if data fields become required later."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Autonumber columns",
+    "Business rules",
+    "Data validation",
+    "Form design best practices"
+  ],
+  
+  "commonMistakes": [
+    "Manually entering an 'ID' as text instead of using autonumber",
+    "Failing to enforce validation logic for optional vs. required fields",
+    "Overloading users with too many fields in a single form"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Generate user-friendly record IDs",
+      "Avoid filling non-required fields",
+      "Reduce form clutter"
+    ],
+    "constraints": [
+      "Users must easily search by ID",
+      "Users occasionally skip required data"
+    ],
+    "technologies": [
+      "Autonumber column",
+      "Business rules or required columns",
+      "Optimized form layouts"
+    ]
+  },
+  
+  "options": {
+    "areas": [
+      {
+        "name": "Ensure that users can search for specific records by using a unique identifier.",
+        "options": [
+          "Business rule",
+          "Autonumber column",
+          "Business process flow",
+          "Duplicate detection rule"
+        ],
+        "correctAnswer": "Autonumber column"
+      },
+      {
+        "name": "You must prevent data entry into columns that do not require entry.",
+        "options": [
+          "Business rule",
+          "Real time workflow",
+          "Business process flow",
+          "Duplicate detection rule"
+        ],
+        "correctAnswer": "Business rule"
+      }
+    ]
+  },
+  
+  "correctAnswers": [
+    "Ensure that users can search for specific records by using a unique identifier → Autonumber column",
+    "You must prevent data entry into columns that do not require entry → Business rule"
+  ],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "An autonumber column helps generate a friendly, consistent record ID that users can search. Business rules can validate or block data entry for fields that shouldn’t be used, and streamlining the form layout avoids clutter and confusion. Together, these address the company's issues with searchability, extraneous data, and overly complicated forms.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Design data models and enforce data quality",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 18,
+  "topic": "Power Apps",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Easy",
+  "text": "DRAG DROP - A new customer asks you to design a solution for a Power Apps app that uses Microsoft Dataverse. The customer wants to keep the service process simple and save on both licensing and development time. You need to recommend solutions for the customer. What should you recommend? To answer, drag the appropriate setting to the correct drop targets. Each source may be used once, more than once, or not at all. NOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "Dataverse",
+    "licensing",
+    "development time",
+    "security roles",
+    "model-driven app"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about out-of-box roles and minimal custom code solutions.",
+      "A basic model-driven app can reduce cost vs. heavy custom dev.",
+      "Power Automate flows can handle simple logic if needed."
+    ],
+    "medium": [
+      "Using standard security roles is often cheaper and easier than heavy custom role creation.",
+      "A basic model-driven app can be built quickly with standard forms and views.",
+      "Relying on out-of-box flows can reduce the need for C# or plugin development."
+    ],
+    "hard": [
+      "Consider advanced scenarios if the customer later needs custom business logic or offline usage.",
+      "Check licensing implications of model-driven vs. canvas apps or premium connectors.",
+      "Evaluate how scaling might require rethinking roles or custom code down the line."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Dataverse basic setup",
+    "model-driven app design",
+    "security roles",
+    "low-code/no-code patterns"
+  ],
+  
+  "commonMistakes": [
+    "Overengineering the security model with complex custom roles",
+    "Insisting on a fully custom canvas app for simple data entry",
+    "Using code-based plugins when simpler flows suffice"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Simplicity",
+      "Low licensing cost",
+      "Minimal dev overhead"
+    ],
+    "constraints": [
+      "Dataverse data store",
+      "Desire for a quick solution"
+    ],
+    "technologies": [
+      "Standard roles",
+      "model-driven app",
+      "Power Automate"
+    ]
+  },
+  
+  "requirements": [
+    "Security setup",
+    "Data entry interface",
+    "Business logic implementation"
+  ],
+  "choices": [
+    "Use standard security roles with minimal customization",
+    "Create custom security roles for each department",
+    "Enable field-level security for all columns",
+    "Leverage a basic model-driven app for data entry",
+    "Create a fully custom canvas app",
+    "Embed forms in a custom web portal",
+    "Avoid custom code; rely on out-of-the-box Power Automate flows if needed",
+    "Use Azure Functions for all workflows",
+    "Develop custom plugins using C#"
+  ],
+  "correctAnswers": {
+    "Security setup": "Use standard security roles with minimal customization",
+    "Data entry interface": "Leverage a basic model-driven app for data entry",
+    "Business logic implementation": "Avoid custom code; rely on out-of-the-box Power Automate flows if needed"
+  },
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Because the customer values simplicity and cost savings, standard security roles reduce admin overhead, a model-driven app can be built quickly using Dataverse views and forms, and basic flows handle any needed logic without requiring code-based plugins. This approach meets the customer’s needs while minimizing licensing and dev time.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Design a solution for licensing and capacity",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 19,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+  "text": "DRAG DROP - You are reviewing a list of business requirements submitted by a plumbing company. The company has the following requirements:\n• Send articles to technicians to allow technicians to help customers resolve issues.\n• Track work progress and inspections at customer sites.\n• Schedule technicians for service appointments.\n\nYou need to recommend solutions to meet the customer's requirements. What should you recommend? To answer, drag the appropriate solutions to the correct business requirements. Each solution may be used once, more than once, or not at all. NOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "knowledge articles",
+    "technicians",
+    "Dynamics 365 Field Service",
+    "scheduling",
+    "work orders"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Consider which application manages technician scheduling and inspections.",
+      "Knowledge articles can help technicians troubleshoot on site."
+    ],
+    "medium": [
+      "Dynamics 365 Field Service provides scheduling, work orders, and inspections.",
+      "Knowledge articles come from either Customer Service or Field Service knowledge base."
+    ],
+    "hard": [
+      "Evaluate licensing if they only need articles vs. full Field Service suite.",
+      "Remember that a 'work order' can track progress at a customer site."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Field Service capabilities",
+    "Knowledge management",
+    "scheduling & dispatch",
+    "inspections"
+  ],
+  
+  "commonMistakes": [
+    "Using Customer Voice or a Power BI dashboard to track progress instead of Field Service.",
+    "Relying on email or Word docs for knowledge articles instead of built-in knowledge management.",
+    "Using Outlook calendars for scheduling rather than Field Service scheduling."
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Article distribution to technicians",
+      "Track progress/inspections at sites",
+      "Technician scheduling"
+    ],
+    "constraints": [
+      "Field-based workforce",
+      "Need for quick knowledge references"
+    ],
+    "technologies": [
+      "Knowledge articles",
+      "Field Service (work orders, inspections, scheduling)"
+    ]
+  },
+  
+  "requirements": [
+    "Send articles to technicians",
+    "Track work progress and inspections at customer sites",
+    "Schedule technicians for service appointments"
+  ],
+  "choices": [
+    "Knowledge Management (Customer Service or Field Service Knowledge Articles)",
+    "Customer Voice",
+    "Power BI dashboard",
+    "Dynamics 365 Field Service (Work Orders, Inspections)",
+    "Power Automate approvals",
+    "Microsoft Project",
+    "Dynamics 365 Field Service scheduling",
+    "Microsoft Teams calendar integration",
+    "Outlook shared calendar"
+  ],
+  "correctAnswers": {
+    "Send articles to technicians": "Knowledge Management (Customer Service or Field Service Knowledge Articles)",
+    "Track work progress and inspections at customer sites": "Dynamics 365 Field Service (Work Orders, Inspections)",
+    "Schedule technicians for service appointments": "Dynamics 365 Field Service scheduling"
+  },
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Knowledge articles help technicians resolve issues quickly. Dynamics 365 Field Service handles on-site progress tracking via work orders and inspections. It also includes scheduling functionality so that dispatchers can assign the right technician at the right time. Together, these fulfill the plumbing company’s key requirements.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 7.5,
+  "examReference": "Recommend apps based on business requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+   {
+  "id": 20,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  "text": "You are designing a Power Platform solution. The company wants its development team to create an interactive slider visualization to indicate and filter timeframe data that can be reused across all of its apps, with full styling and code-based customization.\n\nYou need to recommend a technology that meets these requirements.\n\nWhich technology would you recommend the developers adopt to assist the implementation team?",
+  
+  "keyWords": [
+    "PCF",
+    "Power Apps Component Framework",
+    "custom control",
+    "reusable UI"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about how you add custom-coded UI controls in Power Apps.",
+      "Consider reusability across multiple forms or apps."
+    ],
+    "medium": [
+      "PCF allows advanced code-based customization for model-driven or canvas apps.",
+      "Web resources can display custom HTML/JS but aren't as integrated or easily reused."
+    ],
+    "hard": [
+      "Assess maintainability and styling at scale, plus the developer skill set (TypeScript, React).",
+      "Think about how teams can share controls in solutions across environments."
+    ]
+  },
+  
+  "conceptsTested": [
+    "PCF control development",
+    "reusable UI components",
+    "advanced styling",
+    "timeframe filtering"
+  ],
+  
+  "commonMistakes": [
+    "Using JavaScript alone for form logic, which doesn't produce a portable custom control.",
+    "Developing a separate canvas app instead of a single control that can be embedded.",
+    "Using web resources that are less integrated and harder to style consistently."
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Custom, interactive slider UI",
+      "Reusability across multiple apps",
+      "Full styling via code"
+    ],
+    "constraints": [
+      "Must be easily shared/deployed",
+      "Team has code capability"
+    ],
+    "technologies": [
+      "PCF (TypeScript/React)",
+      "solution layering"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Web resource",
+      "isCorrect": false,
+      "analysis": "A web resource can do custom HTML/JS, but it's less natively integrated than a PCF control and not as easily reused."
+    },
+    {
+      "letter": "B",
+      "text": "Power Apps Component Framework control",
+      "isCorrect": true,
+      "analysis": "PCF controls allow advanced custom-coded UI that is reusable across model-driven (and sometimes canvas) apps, with support for styling and code-based logic."
+    },
+    {
+      "letter": "C",
+      "text": "JavaScript alone",
+      "isCorrect": false,
+      "analysis": "You can script forms, but you don't get a fully self-contained, reusable control with rich styling or solution packaging."
+    },
+    {
+      "letter": "D",
+      "text": "Canvas app",
+      "isCorrect": false,
+      "analysis": "A canvas app is a full application, not a single component. It can’t be as easily embedded across multiple apps as a small custom control."
+    }
+  ],
+  
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Power Apps Component Framework (PCF) enables developers to create fully custom UI components using TypeScript and React, giving them the flexibility to style and code advanced features. These components can be packaged in a solution and reused across multiple apps. This fits the request for an interactive slider that can filter timeframe data and be consistently styled and deployed.",
+  
+  "category": "Architect a solution",
+  "weight": 7.0,
+  "examReference": "Identify opportunities for custom components",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	      {
+  "id": 21,
+  "topic": "Power Automate",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "You are designing a Power Platform solution for a company. The company issues each employee a tablet device.\n\nThe company wants to simplify the opportunity management process and automate when possible. The company identifies the following requirements:\n• Users must have a visual guide to know which data to enter in each step of the opportunity management process.\n• The system must automatically assign the opportunity to a manager for approval once all data is entered.\n• The system must notify an assignee each time an opportunity is assigned to them by using push notifications.\n• When a user selects a push notification, the associated opportunity must display.\n\nYou need to recommend the Power Platform components that will meet their requirements.\nWhich three Power Platform components should you recommend? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "push notifications",
+    "manager approval",
+    "business process flows",
+    "mobile",
+    "opportunity management"
+  ],
+  
+  "hints": {
+    "easy": [
+      "For a guided stage-based process, consider business process flows.",
+      "Push notifications typically come from Power Apps mobile or flows that target devices."
+    ],
+    "medium": [
+      "Cloud flows can handle assignment and notifications automatically.",
+      "Apps on tablets can receive push notifications if built in Power Apps."
+    ],
+    "hard": [
+      "Evaluate advanced scenarios for offline usage or multiple environment deployments.",
+      "Consider how to trigger the manager assignment upon stage completion in a business process flow."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Business process flows",
+    "mobile notifications",
+    "cloud flow automation",
+    "Power Apps user experience"
+  ],
+  
+  "commonMistakes": [
+    "Using a desktop flow instead of a cloud flow for manager assignment",
+    "Missing the out-of-box push notification features for mobile apps",
+    "Trying to rely on manual emails instead of automatic push notifications"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Guided data entry for opportunities",
+      "Automatic manager assignment",
+      "Push notifications with direct record access"
+    ],
+    "constraints": [
+      "Tablet-based workforce",
+      "Desire for minimal manual steps"
+    ],
+    "technologies": [
+      "Business process flows",
+      "Power Apps mobile",
+      "Power Automate cloud flows"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Business process flows",
+      "analysis": "Provides a guided, stage-based experience for users entering data."
+    },
+    {
+      "letter": "B",
+      "text": "Power Apps mobile apps",
+      "analysis": "Tablet/phone app usage with push notifications to open specific records."
+    },
+    {
+      "letter": "C",
+      "text": "Power Virtual Agents chatbots",
+      "analysis": "Used for automated chat interactions, not specifically needed for push notifications or guided data entry."
+    },
+    {
+      "letter": "D",
+      "text": "Power Automate desktop flows",
+      "analysis": "Desktop RPA flows are for automating tasks on a local machine, not best for manager assignment or push notifications."
+    },
+    {
+      "letter": "E",
+      "text": "Power Automate cloud flows",
+      "analysis": "Can automate the assignment process and send notifications."
+    }
+  ],
+  
+  "correctAnswers": ["A", "B", "E"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "Business process flows provide the visual, stage-based guidance for entering opportunity data. Power Apps mobile apps can receive push notifications and open the relevant record when a user taps the notification. Power Automate cloud flows automate the approval assignment process and send push notifications to the assignee’s device."
+  ,
+  "category": "Architect a solution",
+  "weight": 7.2,
+  "examReference": "Design user experiences and process automation",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	      {
+  "id": 22,
+  "topic": "Security",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A company is struggling to gather insights from won and lost opportunities.\nUsers must be able to access the company's solution from mobile and desktop devices. The solution must meet the following requirements:\n• Track opportunities and reasons for the win or loss of opportunities in the context of other related data.\n• Display data to users as charts and tables and provide drill-through capabilities.\n\nYou need to recommend a Power Platform tool to help the client visualize the data.\nWhich two technologies should you recommend? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "won/lost opportunities",
+    "mobile",
+    "visualizations",
+    "charts/tables",
+    "drill-through"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about the robust analytics and charting tool in Power Platform.",
+      "Consider how users can also interact with opportunity data in real time."
+    ],
+    "medium": [
+      "Power BI has advanced visualizations and drill-through, accessible on mobile or desktop.",
+      "Power Apps can also show data in context and can embed certain charts."
+    ],
+    "hard": [
+      "Evaluate whether advanced analytics (Power BI) vs. simpler form-based data display (Power Apps) is needed.",
+      "Consider embedding a Power BI dashboard inside a Power App for combined experiences."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Power BI visualizations",
+    "mobile/desktop accessibility",
+    "Power Apps data presentation",
+    "user adoption"
+  ],
+  
+  "commonMistakes": [
+    "Forgetting that Power Automate is for workflows, not in-depth data visualization",
+    "Assuming chatbots (PVA) can deliver drill-through analytics in a UI"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "View opportunities data with reasons for outcome",
+      "Access from any device",
+      "Detailed charts & drill-through"
+    ],
+    "constraints": [
+      "Need robust analytics",
+      "Desire for standard Power Platform tools"
+    ],
+    "technologies": [
+      "Power BI",
+      "Power Apps"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Power BI",
+      "analysis": "Provides robust analytics, charting, tabular reports, and drill-through. Accessible via desktop/mobile."
+    },
+    {
+      "letter": "B",
+      "text": "Power Automate",
+      "analysis": "Used for process automation, not advanced data visualizations or drill-through."
+    },
+    {
+      "letter": "C",
+      "text": "Power Virtual Agents",
+      "analysis": "Chatbots, not for in-depth charting or analytics."
+    },
+    {
+      "letter": "D",
+      "text": "Power Apps",
+      "analysis": "Can display data in forms and simple visuals, and is accessible on mobile/desktop. Can embed charts and basic analytics."
+    }
+  ],
+  
+  "correctAnswers": ["A", "D"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "Power BI handles sophisticated analytics with drill-through, visual charts, and is accessible on both desktop and mobile. Meanwhile, Power Apps can display and manage opportunity data in real time and can embed simpler charts or reference data for day-to-day usage. Combined, they address the user’s need to track reasons for won or lost opportunities in a highly visual format."
+  ,
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.8,
+  "examReference": "Design data visualization and mobile/desktop experiences",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 23,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  
+  "text": "You are designing a Power Platform solution.\nYou need to identify the non-functional requirements for the organization.\nWhich three non-functional requirements should you identify? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "non-functional requirements",
+    "usability",
+    "performance",
+    "compliance"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Functional = 'what the system does'; Non-functional = 'how well the system does it'.",
+      "Look for performance, usability, security, compliance, etc."
+    ],
+    "medium": [
+      "Business rules are typically functional if they dictate logic or process steps.",
+      "Non-functional includes constraints like load time, user experience, or regulatory needs."
+    ],
+    "hard": [
+      "Distinguish between operational procedures vs. system quality attributes.",
+      "Double-check if each choice is about design/behavior or system performance/quality."
+    ]
+  },
+  
+  "conceptsTested": [
+    "requirements classification",
+    "functional vs. non-functional",
+    "system qualities",
+    "performance & compliance"
+  ],
+  
+  "commonMistakes": [
+    "Misclassifying a process or data logic step as non-functional",
+    "Ignoring performance or compliance constraints as optional"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Identify system qualities (usability, performance)",
+      "Include compliance constraints"
+    ],
+    "constraints": [
+      "Organization’s need for quick load times",
+      "Potential regulatory standards"
+    ],
+    "technologies": [
+      "Architecture patterns",
+      "Performance metrics"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "business rules to identify top customers",
+      "analysis": "A functional requirement describing logic or a feature."
+    },
+    {
+      "letter": "B",
+      "text": "customer maintenance procedures",
+      "analysis": "Likely procedural/operational steps, describing process logic."
+    },
+    {
+      "letter": "C",
+      "text": "usability of business process flows",
+      "analysis": "Usability and user experience are typically considered non-functional requirements."
+    },
+    {
+      "letter": "D",
+      "text": "time-to-load forms",
+      "analysis": "Performance metrics (like form load time) are non-functional constraints."
+    },
+    {
+      "letter": "E",
+      "text": "solution regulatory compliance",
+      "analysis": "Compliance constraints are also non-functional requirements."
+    }
+  ],
+  
+  "correctAnswers": ["C", "D", "E"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "Non-functional requirements describe qualities of the system, such as usability, performance (like form load times), or external mandates (compliance). Business rules or maintenance steps typically define functional logic or processes, not system quality attributes."
+  ,
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Identify functional and non-functional requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	      {
+  "id": 24,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "You are designing a Microsoft Power Platform solution to help a company manage sales leads.\n\nThe solution has the following requirements:\n• Ensure that users follow a predefined sales process regardless of the device they use.\n• Respond to sales events by using organization-defined best practices.\n\nYou need to recommend a component for the app.\nWhat should you recommend?",
+  
+  "keyWords": [
+    "sales leads",
+    "sales process",
+    "BPF",
+    "devices",
+    "best practices"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Consider a feature that enforces step-by-step data entry across all device types.",
+      "Think about stage-based flows for leads or opportunities."
+    ],
+    "medium": [
+      "Business process flows (BPF) can guide the user from one stage to the next with best practices.",
+      "A cloud flow won't enforce a user’s front-end experience, it just automates in the background."
+    ],
+    "hard": [
+      "Evaluate advanced scenarios with branching BPF if the sales process is complex.",
+      "Consider interactive elements or parallel steps in multi-branch flows if needed."
+    ]
+  },
+  
+  "conceptsTested": [
+    "business process flows",
+    "sales process enforcement",
+    "device-agnostic design"
+  ],
+  
+  "commonMistakes": [
+    "Using an automated flow that doesn't ensure user data input in the correct order",
+    "Trying to rely on a custom UI approach instead of the built-in BPF engine"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Enforce a multi-step sales process on any device",
+      "Ensure best practices are followed"
+    ],
+    "constraints": [
+      "Leads must follow a specified path",
+      "Mobile or desktop usage"
+    ],
+    "technologies": [
+      "Business process flows"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Power Automate cloud flow",
+      "analysis": "Flows automate processes but do not enforce a multi-stage user experience in the UI."
+    },
+    {
+      "letter": "B",
+      "text": "Business process flow",
+      "analysis": "BPF enforces a stage-based process across devices to ensure consistent data entry and best practices."
+    },
+    {
+      "letter": "C",
+      "text": "Power Automate desktop flow",
+      "analysis": "Desktop flows are for RPA scenarios on local machines."
+    },
+    {
+      "letter": "D",
+      "text": "Playbook",
+      "analysis": "Playbooks help guide repeated tasks but do not enforce the step-by-step process across the UI."
+    }
+  ],
+  
+  "correctAnswers": ["B"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "A business process flow is specifically designed to guide users step by step, ensuring they follow a defined sales process. This approach works across desktop and mobile interfaces. The other options do not directly enforce the user experience in real time."
+  ,
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.5,
+  "examReference": "Design user experiences for leads/opportunities",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+}
+,{
+  "id": 25,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - A company has an on-premises data warehouse and analytics solution. The data warehouse consists of multiple multi-dimensional data cubes representing over five years of operational data. The data warehouse consolidates and normalizes data that is sourced from 20 different systems. The company plans to replace the existing solution with a Microsoft Power Platform solution that connects to the data warehouse. The company wants to provide analytical information to executives in a Microsoft Teams channel to support business planning. The new solution must meet these requirements:\n• Support the current data warehouse.\n• The solution must support drill-through capabilities into the data.\n• Retain at least seven years of historical data.\n\nYou need to recommend a solution. What should you recommend?",
+  
+  "keyWords": [
+    "on-prem data warehouse",
+    "data gateway",
+    "Power BI",
+    "Teams integration",
+    "drill-through"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about how to connect on-prem data to the cloud-based Power Platform.",
+      "Power BI is the main advanced analytical tool with drill-through."
+    ],
+    "medium": [
+      "The on-premises data gateway can securely connect to the warehouse from Power BI.",
+      "Teams can embed Power BI dashboards to share analytics with executives."
+    ],
+    "hard": [
+      "Consider using direct query or import mode based on performance needs.",
+      "Evaluate how large data sets or historical data might affect Power BI capacity."
+    ]
+  },
+  
+  "conceptsTested": [
+    "on-premises gateway usage",
+    "Power BI analytics & drill-through",
+    "Teams embedding"
+  ],
+  
+  "commonMistakes": [
+    "Using Dataverse for large historical data from a data warehouse, which might be too big or costly",
+    "Forgetting drill-through is a Power BI feature"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Leverage existing on-prem data warehouse",
+      "Provide drill-through analytics in Teams",
+      "Seven years of data"
+    ],
+    "constraints": [
+      "On-premises data environment",
+      "Executives wanting data in Teams"
+    ],
+    "technologies": [
+      "Data Gateway",
+      "Power BI"
+    ]
+  },
+  
+  "options": {
+    "areas": [
+      {
+        "name": "Data storage and normalization.",
+        "options": [
+          "Data Gateway",
+          "Azure Data Lake",
+          "Dataverse for Teams",
+          "Azure Analysis Services"
+        ],
+        "correctAnswer": "Data Gateway"
+      },
+      {
+        "name": "Visibility to key operational metrics from various Teams channels.",
+        "options": [
+          "Power BI",
+          "AI Builder",
+          "Teams adaptive cards",
+          "Microsoft Teams integration object"
+        ],
+        "correctAnswer": "Power BI"
+      }
+    ]
+  },
+  
+  "correctAnswers": [
+    "Data storage and normalization → Data Gateway",
+    "Visibility to key operational metrics from various Teams channels → Power BI"
+  ],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "The on-premises data gateway provides a secure bridge between Power BI in the cloud and the local data warehouse. Power BI then delivers drill-through reporting and can be embedded directly into Teams channels for executive visibility. This combination meets the requirement of supporting the existing data warehouse, drill-through analytics, and historical data retention."
+  ,
+  "category": "Architect a solution",
+  "weight": 7.2,
+  "examReference": "Recommend analytics components for hybrid data",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	      {
+  "id": 26,
+  "topic": "Security",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A company provides professional development certifications to technologists around the world. The company uses multiple call centers to support customers. The company plans to implement Dynamics 365 Customer Service.\n\nThe company must increase productivity for call center employees. The solution must:\n• Handle multiple customer interactions at once.\n• Ensure that users can access information from several business applications.\n• Interact with customers by using chat, phone calls, emails, and online reviews.\n• Implement all functionality in a single interface.\n\nYou need to recommend a solution that meets the requirements.\nWhat should you recommend?",
+  
+  "keyWords": [
+    "Omnichannel",
+    "multi-session",
+    "single interface",
+    "call center",
+    "productivity"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Dynamics 365 has an add-on for multi-channel experiences in a unified interface.",
+      "Look for something that integrates chat, phone, email, etc."
+    ],
+    "medium": [
+      "Omnichannel for Customer Service provides exactly that single interface for multiple channels.",
+      "USD is another interface but typically for on-prem or specialized contact centers."
+    ],
+    "hard": [
+      "Consider licensing for Omnichannel vs. out-of-box Customer Service.",
+      "Check if phone integration is needed (VoIP/telephony) or if chat is primary."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Omnichannel for Customer Service",
+    "multi-channel integration",
+    "single interface",
+    "productivity"
+  ],
+  
+  "commonMistakes": [
+    "Choosing older or third-party chat solutions lacking single-interface approach",
+    "Forgetting multi-session management in basic Customer Service"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Multiple interactions simultaneously",
+      "Chat/phone/email + various channels",
+      "Single UI for all"
+    ],
+    "constraints": [
+      "Need standard approach within D365 Customer Service"
+    ],
+    "technologies": [
+      "Omnichannel for Customer Service"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Omnichannel for Customer Service",
+      "analysis": "Combines multiple communication channels (chat, voice, etc.) in a single interface integrated with Customer Service."
+    },
+    {
+      "letter": "B",
+      "text": "Live Assist for Microsoft Dynamics 365 Powered by CafeX",
+      "analysis": "Legacy chat solution, does not unify phone calls, emails, or multiple apps in a single interface as robustly as Omnichannel."
+    },
+    {
+      "letter": "C",
+      "text": "LinkedIn connector",
+      "analysis": "Focuses on LinkedIn integration, not general multi-channel or single interface for call centers."
+    },
+    {
+      "letter": "D",
+      "text": "Unified Service Desk",
+      "analysis": "USD is for on-prem/hybrid call center scenarios with a dedicated client. Omnichannel is typically preferred for integrated multi-channel in the cloud."
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Omnichannel for Customer Service provides a single, integrated interface where agents can manage multiple simultaneous conversations across chat, phone, email, and more. This approach improves productivity and keeps all relevant business application data within reach."
+  ,
+  "category": "Architect a solution",
+  "weight": 7.0,
+  "examReference": "Design multi-channel solutions for Customer Service",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 27,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Easy",
+  
+  "text": "HOTSPOT - You are designing a Microsoft Power Platform solution for a company. Which components should you recommend?",
+  
+  "keyWords": [
+    "status change",
+    "business rule",
+    "real-time workflow",
+    "validation"
+  ],
+  
+  "hints": {
+    "easy": [
+      "A business rule can restrict changes if certain conditions (Reason field) are not met.",
+      "A real-time workflow can prompt or notify users immediately."
+    ],
+    "medium": [
+      "Remember that a synchronous workflow is effectively 'real-time'.",
+      "JavaScript or asynchronous plug-ins are alternatives, but not as recommended for immediate enforcement."
+    ],
+    "hard": [
+      "Consider how large scale usage might affect performance if you rely on real-time workflows for heavy logic.",
+      "Ensure you configure conditions properly in the business rule to block status changes if 'Reason' is missing."
+    ]
+  },
+  
+  "conceptsTested": [
+    "business rules for validation",
+    "real-time workflow triggers",
+    "synchronous vs. async logic"
+  ],
+  
+  "commonMistakes": [
+    "Using a background (async) workflow that doesn’t immediately stop changes",
+    "Forgetting that business rules can do immediate form-level enforcement"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Prevent record status change unless Reason is populated",
+      "Notify or prompt updates on opportunity product records"
+    ],
+    "constraints": [
+      "Immediate, synchronous enforcement"
+    ],
+    "technologies": [
+      "Business rule",
+      "Real-time workflow"
+    ]
+  },
+  
+  "options": {
+    "areas": [
+      {
+        "name": "Allow users to change the status of a record only if a custom column named Reason is populated.",
+        "options": [
+          "Business rule",
+          "Power Automate flow",
+          "Asynchronous plug-in",
+          "Background workflow"
+        ],
+        "correctAnswer": "Business rule"
+      },
+      {
+        "name": "Prompt users to update each opportunity product record when an opportunity is won or lost.",
+        "options": [
+          "JavaScript code",
+          "Real-time workflow",
+          "Power Automate flow",
+          "Asynchronous plug-in"
+        ],
+        "correctAnswer": "Real-time workflow"
+      }
+    ]
+  },
+  
+  "correctAnswers": [
+    "Allow users to change the status of a record only if a custom column named Reason is populated → Business rule",
+    "Prompt users to update each opportunity product record when an opportunity is won or lost → Real-time workflow"
+  ],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "A business rule is ideal for real-time validation to prevent record status changes unless a Reason is filled in. A real-time workflow immediately triggers when the opportunity is won or lost, prompting users to update related product records. This ensures synchronous, user-facing logic in both scenarios."
+  ,
+  "category": "Architect a solution",
+  "weight": 5.8,
+  "examReference": "Identify automation opportunities",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	      {
+  "id": 28,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "An organization plans to implement a solution to deliver the complete sales process for its sales teams. The organization does NOT have any physical barcode scanners.\n\nTo meet the organization's business requirements, the proposed solution must include the following capabilities:\n• Create and qualify leads to contacts\n• Generate quotes and convert quotes to orders\n• Scan product barcodes as part of the order generation process\n\nYou need to recommend a solution to help the organization achieve its requirements.\nWhat should you recommend?",
+  
+  "keyWords": [
+    "Dynamics 365 Sales",
+    "barcode scanning",
+    "mobile device camera",
+    "quote to order"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Dynamics 365 Sales handles leads, quotes, orders.",
+      "Think about scanning barcodes without hardware."
+    ],
+    "medium": [
+      "A canvas or model-driven app with phone/tablet camera scanning can stand in for a physical scanner.",
+      "Check if you can embed camera scanning in the standard Sales mobile app or a custom Power Apps mobile app."
+    ],
+    "hard": [
+      "Consider licensing implications of combining D365 Sales with a custom canvas app.",
+      "Evaluate offline needs if the user must scan barcodes in remote areas."
+    ]
+  },
+  
+  "conceptsTested": [
+    "lead-to-order process in D365 Sales",
+    "barcode scanning with device cameras",
+    "mobility"
+  ],
+  
+  "commonMistakes": [
+    "Forgetting that the device camera can be used for scanning if you don’t have dedicated scanners",
+    "Focusing only on standard D365 Sales forms with no custom scanning feature"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Full sales cycle from lead to order",
+      "Barcode scanning with no physical device"
+    ],
+    "constraints": [
+      "No dedicated barcode scanners"
+    ],
+    "technologies": [
+      "Dynamics 365 Sales",
+      "Power Apps mobile camera scanning"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Dynamics 365 mobile app and a Power Apps canvas app",
+      "analysis": "Use standard D365 Sales for quotes/orders plus a custom canvas app with the device camera to scan barcodes."
+    },
+    {
+      "letter": "B",
+      "text": "Dynamics 365 for Phones only",
+      "analysis": "Dynamics 365 for Phones does not natively include advanced barcode scanning outside of a custom extension."
+    },
+    {
+      "letter": "C",
+      "text": "Dynamics 365 Customer Service and Dynamics 365 Sales",
+      "analysis": "Customer Service is not required for scanning barcodes in a sales order scenario."
+    },
+    {
+      "letter": "D",
+      "text": "Unified Service Desk",
+      "analysis": "USD is specialized for on-prem/hybrid call center agent scenarios, not a mobile scanning scenario."
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "Dynamics 365 Sales covers the entire lead-to-order flow, while a Power Apps canvas app can leverage the tablet or phone camera to scan barcodes. Together, they fulfill the sales process requirements without needing external scanner hardware."
+  ,
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 7.0,
+  "examReference": "Design a solution for sales and data capture",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 29,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "You are creating a scope of work document for a solution.\nYou have the following requirements:\n• Track support cases, first response time, and resolution time.\n• Include a chat-like interface that allows managers to check the status of cases with minimal manual searching.\n• Allow cases to have multiple different priority levels.\n\nYou need to include the required Dynamics 365 and Microsoft Power Platform components.\nWhich two components should you include? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "case management",
+    "priority levels",
+    "chat-like interface",
+    "Dynamics 365 Customer Service",
+    "Power Virtual Agents"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about which D365 app tracks cases, response times, priorities.",
+      "A chat-like interface for managers suggests either Omnichannel or a simpler PVA approach."
+    ],
+    "medium": [
+      "Power Virtual Agents can offer a chat interface to quickly retrieve status info.",
+      "Customer Service is the standard for case management and SLA times."
+    ],
+    "hard": [
+      "Consider if you need a custom flow for real-time notifications or advanced SLA tracking in Customer Service.",
+      "Check if managers only need read-access or a more advanced multi-channel approach."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Dynamics 365 Customer Service",
+    "case SLAs",
+    "Power Virtual Agents chat interface",
+    "priority management"
+  ],
+  
+  "commonMistakes": [
+    "Using Power BI or Customer Voice for case tracking",
+    "Implementing a manual search instead of chat-based retrieval"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Case tracking + first response/resolution time",
+      "Chat-like interface for quick status updates",
+      "Multiple priority levels"
+    ],
+    "constraints": [
+      "Managers want minimal searching",
+      "Prefer integrated approach"
+    ],
+    "technologies": [
+      "Customer Service",
+      "Power Virtual Agents"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Dynamics 365 Customer Service",
+      "analysis": "Handles tracking of cases, FRT, resolution, and multiple priorities."
+    },
+    {
+      "letter": "B",
+      "text": "Power Virtual Agents",
+      "analysis": "Allows chat-like interface for checking status or triaging queries quickly."
+    },
+    {
+      "letter": "C",
+      "text": "Power BI",
+      "analysis": "Primarily for analytics and reporting, not necessarily the interactive chat interface."
+    },
+    {
+      "letter": "D",
+      "text": "Dynamics 365 Customer Voice",
+      "analysis": "Focuses on surveying and feedback, not case tracking or chat-like interactions."
+    }
+  ],
+  
+  "correctAnswers": ["A", "B"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "Dynamics 365 Customer Service is purpose-built to manage cases, define priorities, and record SLA metrics like first response and resolution time. Power Virtual Agents provides a chat-like interface so managers can quickly ask for case statuses without manual searching. The combination meets all stated requirements."
+  ,
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.5,
+  "examReference": "Select appropriate apps and chat experiences",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 30,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+  
+  "text": "A car dealership has a custom financing table.\nYou are working with a developer to add a button to a ribbon that displays a hidden section of a form when specific criteria are met.\nYou need to recommend tools and technologies for the developer.\nWhich two tools or technologies should you recommend? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+  
+  "keyWords": [
+    "ribbon customization",
+    "button",
+    "JavaScript",
+    "show/hide form section"
+  ],
+  
+  "hints": {
+    "easy": [
+      "Think about which tool modifies ribbons in a no-code environment.",
+      "Showing/hiding form sections with dynamic logic is often done with JavaScript or business rules."
+    ],
+    "medium": [
+      "Business rules can't add a custom ribbon button. The Ribbon Workbench is specialized for that.",
+      "JavaScript can be triggered by the ribbon button to show/hide a form section."
+    ],
+    "hard": [
+      "Evaluate alternative approaches like business rules, but they won't handle a custom button scenario as precisely.",
+      "Check if the developer might consider a custom PCF control, but that’s overkill for a simple show/hide scenario."
+    ]
+  },
+  
+  "conceptsTested": [
+    "Ribbon Workbench usage",
+    "JavaScript form manipulation",
+    "UI customization in model-driven apps"
+  ],
+  
+  "commonMistakes": [
+    "Using only the form editor to try adding a button on the ribbon, which is not supported natively",
+    "Trying to rely purely on business rules to create a custom button"
+  ],
+  
+  "analysisHighlights": {
+    "requirements": [
+      "Add a button to the ribbon",
+      "Conditionally display hidden form section"
+    ],
+    "constraints": [
+      "Criteria-based show/hide logic"
+    ],
+    "technologies": [
+      "Ribbon Workbench",
+      "JavaScript"
+    ]
+  },
+  
+  "options": [
+    {
+      "letter": "A",
+      "text": "Write a business rule.",
+      "analysis": "Business rules can show/hide fields but do not add a custom button to the ribbon."
+    },
+    {
+      "letter": "B",
+      "text": "Write a JavaScript code.",
+      "analysis": "JavaScript can conditionally show/hide form sections and respond to ribbon button actions."
+    },
+    {
+      "letter": "C",
+      "text": "Use the Ribbon Workbench.",
+      "analysis": "Ribbon Workbench is used to customize ribbons, including adding buttons."
+    },
+    {
+      "letter": "D",
+      "text": "Use the form editor.",
+      "analysis": "The form editor can place fields/sections but not create a custom ribbon button with advanced conditions."
+    }
+  ],
+  
+  "correctAnswers": ["B", "C"],
+  "isMultipleChoice": true,
+  
+  "detailedExplanation": "A custom button on the ribbon is typically added or modified via the Ribbon Workbench. JavaScript then manages the dynamic logic to show or hide the form section based on your specified criteria. A business rule alone cannot create a custom ribbon button, and the form editor doesn’t handle advanced ribbon modifications."
+  ,
+  "category": "Architect a solution",
+  "weight": 6.3,
+  "examReference": "Configure custom UI elements and form logic",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},     
+	{
   "id": 101,
   "topic": "Power Automate",
   "type": "multiplechoice",
