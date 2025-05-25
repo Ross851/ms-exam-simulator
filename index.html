@@ -7959,6 +7959,839 @@
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
 },
+	{
+  "id": 90,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are designing the data model for a school. The school wants to track students' enrollments in courses. The system must meet the following requirements:\n• Track the courses in which each student is enrolled.\n• Track the students that are enrolled in each course.\n• Track dates when each student enrolled in each course and the person who approved the enrollment.\n• Allow users to create a report that details which students are enrolled in which courses.\n\nYou need to recommend a data model that will fit the school's requirements. Which logical model should you recommend?",
+
+  "keyWords": [
+    "data model",
+    "school",
+    "student enrollment",
+    "course",
+    "junction table"
+  ],
+
+  "hints": {
+    "easy": [
+      "Look for a way to handle a many-to-many relationship between Students and Courses, plus enrollment-specific attributes (dates, approver)."
+    ],
+    "medium": [
+      "A bridging or junction entity (Enrollment) is needed to store the extra fields and link each student to each course."
+    ]
+  },
+
+  "conceptsTested": [
+    "data modeling",
+    "many-to-many relationships with additional attributes"
+  ],
+
+  "commonMistakes": [
+    "Using a direct many-to-many without a separate enrollment table, leaving nowhere to store date/approver details",
+    "Using a one-to-many approach, which prevents a single student from taking multiple courses or multiple students from a single course"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Students can enroll in multiple courses",
+      "Courses have multiple students",
+      "Need extra fields per enrollment record"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "A model with one-to-many relationships between Student and Enrollment, and between Course and Enrollment.",
+      "analysis": "Enrollment entity acts as a junction table with extra attributes. Best approach for storing enrollment details plus a many-to-many link."
+    },
+    {
+      "letter": "B",
+      "text": "A model with a many-to-many relationship between Student and Course.",
+      "analysis": "Pure many-to-many lacks a place to store enrollment date, approver, etc."
+    },
+    {
+      "letter": "C",
+      "text": "A model with a one-to-many relationship between Student and Course.",
+      "analysis": "Implies a student can only be linked to one course or vice versa—too restrictive."
+    },
+    {
+      "letter": "D",
+      "text": "A model with a many-to-one relationship between Student and Course.",
+      "analysis": "Implies a course can only have one student—also incorrect for the scenario."
+    }
+  ],
+
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A separate Enrollment entity (a junction table) that has a one-to-many relationship to both Student and Course supports a true many-to-many relationship while storing additional data (enrollment date, approver) in the Enrollment table. This design meets all the school's requirements.",
+  
+  "category": "Architect a solution",
+  "weight": 6.2,
+  "examReference": "Design a data model with junction entities for many-to-many relationships",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+}
+,
+{
+  "id": 91,
+  "topic": "Power Apps",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - A company plans to create a Power Apps portal to manage support cases for customers. The company has an account hierarchy for customers. The hierarchy supports accounts, cases, and contacts where both contacts and cases belong to their relevant account. The company has the following requirements:\n• Portal users must only see the notes for the cases that they manage.\n• Portal users must only see cases that are submitted by their colleagues.\n\nYou need to design the security model for the portal. Which entity permission scope should you use?",
+
+  "keyWords": [
+    "Power Apps portal",
+    "entity permissions",
+    "scope",
+    "account hierarchy",
+    "notes"
+  ],
+
+  "hints": {
+    "easy": [
+      "If users can only see notes for their own cases, that's 'Self' scope. For seeing colleagues' cases (within the same account), that's 'Account' scope."
+    ]
+  },
+
+  "conceptsTested": [
+    "portal entity permissions",
+    "Self vs Account scope"
+  ],
+
+  "commonMistakes": [
+    "Using 'Organization' scope that gives too broad access or 'Self' scope incorrectly for the colleague scenario"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Restrict notes to the user’s own cases => 'Self'",
+      "Restrict cases to the user’s account => 'Account'"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Portal users must only see the notes for the cases that they manage.",
+        "options": [
+          "Self",
+          "Account",
+          "Organization",
+          "Global"
+        ]
+      },
+      {
+        "name": "Portal users must only see cases that are submitted by their colleagues.",
+        "options": [
+          "Account",
+          "Self",
+          "Organization",
+          "Global"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Portal users must only see the notes for the cases that they manage.: Self",
+    "Portal users must only see cases that are submitted by their colleagues.: Account"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "For restricting notes to the portal user’s own cases, 'Self' scope ensures only the record owner sees them. For seeing colleague-submitted cases within the same account, 'Account' scope is needed to allow access to any records belonging to the same account hierarchy.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.9,
+  "examReference": "Implement portal security with entity permission scopes",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 92,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - A company offers continuing education courses for medical professionals. Each time a course is offered, the company tracks that the session has taken place in an Excel workbook. The company maintains a list of required qualifications for an educator to teach a course. Educator qualifications range from languages spoken to advanced degrees.\n\nThe company needs the following custom table relationships defined:\n• Associate educators with a list of their professional qualifications.\n• Assign a primary educator to each course that is held.\n• Collect information about every course that is held.\n\nYou need to determine the type of relationship that best fits the requirement. Which type of table relationship should you use?",
+
+  "keyWords": [
+    "course offerings",
+    "educator qualifications",
+    "table relationships"
+  ],
+
+  "hints": {
+    "easy": [
+      "Many educators have multiple qualifications => many-to-many with a junction. A single primary educator for each course => many-to-one or one-to-many. Tracking every course session => potentially a new table for each instance."
+    ]
+  },
+
+  "conceptsTested": [
+    "data modeling relationships",
+    "one-to-many vs many-to-many"
+  ],
+
+  "commonMistakes": [
+    "Trying to do a direct many-to-many for courses and educators without a separate sessions table"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Association of educators & qualifications => many-to-many",
+      "Primary educator for a course => many-to-one or a lookup",
+      "Collecting info about every course held => new table for sessions"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Associate educators with a list of their professional qualifications.",
+        "options": [
+          "Many-to-many relationship that uses a custom junction table",
+          "Many-to-one relationship that uses a lookup relationship",
+          "One-to-many relationship that uses a lookup relationship",
+          "Many-to-many relationship that uses a custom table"
+        ]
+      },
+      {
+        "name": "Assign a primary educator to each course that is held.",
+        "options": [
+          "Many-to-one relationship that uses a lookup relationship",
+          "Many-to-many relationship that uses a custom junction table",
+          "One-to-many relationship that uses a lookup relationship",
+          "Many-to-many relationship that uses a custom table"
+        ]
+      },
+      {
+        "name": "Collect information about every course that is held.",
+        "options": [
+          "Many-to-many relationship that uses a custom table",
+          "Many-to-many relationship that uses a custom junction table",
+          "Many-to-one relationship that uses a lookup relationship",
+          "One-to-many relationship that uses a lookup relationship"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Associate educators with a list of their professional qualifications.: Many-to-many relationship that uses a custom junction table",
+    "Assign a primary educator to each course that is held.: Many-to-one relationship that uses a lookup relationship",
+    "Collect information about every course that is held.: Many-to-many relationship that uses a custom table"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Educator qualifications require a many-to-many with a separate entity or junction table. Assigning one primary educator is typically a many-to-one (the course session has a single educator as a lookup). Collecting info about every course session can also be handled with a many-to-many approach, where each course can appear multiple times with different session data in a custom table.",
+  
+  "category": "Architect a solution",
+  "weight": 6.0,
+  "examReference": "Select correct relationship types for specialized data scenarios",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+{
+  "id": 93,
+  "topic": "Power Automate",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+  
+  "text": "HOTSPOT - You are designing the security model for a Power Platform solution. The security model must meet the following requirements:\n• Restrict sharing of data between Power Automate connectors.\n• Ensure that environment administrators only see users who require access in the enabled user list.\n\nYou need to recommend security features for the solution. What should you recommend?",
+
+  "keyWords": [
+    "security model",
+    "Power Automate connectors",
+    "restrict data sharing",
+    "environment admin user list"
+  ],
+
+  "hints": {
+    "easy": [
+      "Data Loss Prevention (DLP) policies prevent data from crossing boundaries between connectors. Security groups restrict which users show in the environment."
+    ]
+  },
+
+  "conceptsTested": [
+    "DLP policies",
+    "security groups",
+    "environment administration"
+  ],
+
+  "commonMistakes": [
+    "Using environment roles incorrectly to hide users or forgetting DLP for cross-connector data restrictions"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Prevent data crossing connectors => DLP policies",
+      "Show only relevant users => security group membership"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Restrict sharing of data between Power Automate connectors.",
+        "options": [
+          "Data loss prevention policy",
+          "Azure Key Vault",
+          "Connection references",
+          "Environment roles"
+        ]
+      },
+      {
+        "name": "Ensure that environment administrators only see users who require access in the enabled user list.",
+        "options": [
+          "Security group",
+          "Sharing settings",
+          "Field-level security",
+          "Business unit hierarchy"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Restrict sharing of data between Power Automate connectors.: Data loss prevention policy",
+    "Ensure that environment administrators only see users who require access in the enabled user list.: Security group"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A data loss prevention (DLP) policy limits how data can flow between connectors, addressing the requirement to restrict data sharing. Security groups define membership for environment users so that only relevant users appear as enabled in the environment.",
+  
+  "category": "Architect a solution",
+  "weight": 6.3,
+  "examReference": "Apply DLP policies & security groups in Power Platform",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 94,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "You are designing a database table for a client. You have the following requirements:\n• Maintain a comprehensive list of colors and their corresponding RGB values and hexadecimal values.\n• Prevent the addition of duplicate colors based on the hexadecimal value for the color.\n\nYou need to recommend a design for the table. Which two actions should the client perform after the table is created?\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "table design",
+    "unique color hex",
+    "alternate keys",
+    "business required"
+  ],
+
+  "hints": {
+    "easy": [
+      "Mark the color’s hex column as required (ensuring completeness), then create an alternate key on that column to prevent duplicates."
+    ]
+  },
+
+  "conceptsTested": [
+    "Dataverse table design",
+    "require columns",
+    "alternate keys"
+  ],
+
+  "commonMistakes": [
+    "Using a bulk deletion job or ignoring unique constraints"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Keep color hex mandatory, no duplicates on that column"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Mark the hex value column as business required."
+    },
+    {
+      "letter": "B",
+      "text": "Configure and schedule a recurring bulk record deletion job."
+    },
+    {
+      "letter": "C",
+      "text": "Create alternate keys for the table."
+    },
+    {
+      "letter": "D",
+      "text": "Mark the RGB value column as business required."
+    }
+  ],
+  
+  "correctAnswers": ["A", "C"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Marking the hex value as business required ensures every color record has a hex. Creating an alternate key on the hex column enforces uniqueness, preventing duplicate entries. Bulk deletion and making RGB required don’t solve the no-duplicates-on-hex requirement as effectively.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.6,
+  "examReference": "Implement column-level requirements and unique constraints",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 95,
+  "topic": "Power BI",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - A company uses Dynamics 365 Sales and Power BI. Sales managers must be able to keep track of changes to their pipeline in the following ways:\n• Notify the sales managers when an Opportunity changes sales stage.\n• Notify the sales managers when the pipeline drops below 2.5M USD.\n• When reviewing the pipeline in Power BI, a sales executive must be able to add a Playbook to an Opportunity.\n\nYou need to recommend a solution that meets the company requirements. Which combination of solutions should you recommend?",
+
+  "keyWords": [
+    "Dynamics 365 Sales",
+    "Power BI alerts",
+    "Dataverse connector",
+    "Power Automate",
+    "Playbook"
+  ],
+
+  "hints": {
+    "easy": [
+      "Opportunity stage changes => Dataverse triggers + Power Automate + Outlook. Pipeline drops => Power BI alerts + cloud flow. Adding a Playbook from Power BI => Power Apps visual embedded + Dataverse + D365 Sales."
+    ]
+  },
+
+  "conceptsTested": [
+    "Power BI alerts",
+    "Power Automate integration",
+    "embed a Power Apps visual in Power BI"
+  ],
+
+  "commonMistakes": [
+    "Using just Dataverse for the pipeline drop scenario, ignoring Power BI threshold alerts"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Notify on stage changes => Dataverse connector in Power Automate",
+      "Notify if pipeline <2.5M => Power BI alert + flow",
+      "Add a Playbook from pipeline view => Power Apps visual in PBI + D365 Sales"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Notify the sales managers when an Opportunity changes sales stage.",
+        "options": [
+          "Microsoft Power Automate, Microsoft Dataverse connector, and Microsoft 365 Outlook connector",
+          "Microsoft Power BI alerts, Microsoft Dataverse connector, and Microsoft 365 Outlook connector",
+          "Microsoft Power BI dashboards, Microsoft Dataverse connector, and Microsoft Teams connector",
+          "Microsoft Power Apps, Microsoft Dataverse connector, and Microsoft 365 Outlook connector"
+        ]
+      },
+      {
+        "name": "Notify the sales managers when the pipeline drops below 2.5M USD.",
+        "options": [
+          "Microsoft Power Automate, Microsoft Dataverse connector, and Microsoft Power BI alerts",
+          "Microsoft Power BI dashboards, Microsoft Dataverse connector, and Microsoft Teams connector",
+          "Microsoft Dynamics 365 Sales alerts, Microsoft Dataverse connector, and Microsoft 365 Outlook connector",
+          "Microsoft Power BI mobile, Microsoft Dataverse connector, and Microsoft 365 Outlook connector"
+        ]
+      },
+      {
+        "name": "When reviewing the pipeline in Power BI, a sales executive must be able to add a Playbook to an Opportunity.",
+        "options": [
+          "Power BI Power Apps visual, Microsoft Dataverse connector, and Microsoft Dynamics 365 Sales",
+          "Power BI dashboard, Microsoft Dataverse connector, and Microsoft Power Automate",
+          "Power BI mobile, Microsoft Dataverse connector, and Microsoft Dynamics 365 Sales",
+          "Power BI Q&A, Microsoft Dataverse connector, and Microsoft Power Automate"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Notify the sales managers when an Opportunity changes sales stage.: Microsoft Power Automate, Microsoft Dataverse connector, and Microsoft 365 Outlook connector",
+    "Notify the sales managers when the pipeline drops below 2.5M USD.: Microsoft Power Automate, Microsoft Dataverse connector, and Microsoft Power BI alerts",
+    "When reviewing the pipeline in Power BI, a sales executive must be able to add a Playbook to an Opportunity.: Power BI Power Apps visual, Microsoft Dataverse connector, and Microsoft Dynamics 365 Sales"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "For stage changes in Opportunities, a Power Automate flow triggers on record updates in Dataverse and sends emails via Outlook. For pipeline threshold alerts, combine Power BI alerts with a flow that uses Dataverse to identify managers and notify them. For adding a Playbook from Power BI, embed a Power Apps visual that connects to Dataverse and D365 Sales to create or link a Playbook record directly.",
+  
+  "category": "Architect a solution",
+  "weight": 6.4,
+  "examReference": "Combine Power BI alerts, flows, and Power Apps visuals for integrated solutions",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 96,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A company is implementing Dynamics 365 Sales. The company has turned off out-of-the-box quote calculations in order to implement its own custom calculations. When users update a line item on a quote, they expect to see an updated total for the quote in real time. Users are reporting inconsistent behavior, with some aggregations taking up to two hours.\n\nYou review the system design and notice many asynchronous workflows. You need to recommend a solution to enable the calculation in real time. Which two options should you recommend?\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "Dynamics 365 Sales",
+    "quote calculations",
+    "custom calculations",
+    "real-time workflows",
+    "synchronous plug-ins"
+  ],
+
+  "hints": {
+    "easy": [
+      "Asynchronous workflows cause delays. Real-time or synchronous processes are needed for immediate updates."
+    ],
+    "medium": [
+      "You can convert them to real-time workflows or synchronous plug-ins. Both guarantee immediate execution."
+    ]
+  },
+
+  "conceptsTested": [
+    "workflow vs real-time workflow vs plugin",
+    "quote calculation performance"
+  ],
+
+  "commonMistakes": [
+    "Leaving them asynchronous or using business process flows (not for immediate calculations)"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Immediate update => synchronous or real-time"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Consolidate asynchronous workflow into a single real-time workflow."
+    },
+    {
+      "letter": "B",
+      "text": "Consolidate multiple asynchronous workflows into a single asynchronous workflow."
+    },
+    {
+      "letter": "C",
+      "text": "Implement a business process flow to replace the existing workflows."
+    },
+    {
+      "letter": "D",
+      "text": "Convert the asynchronous workflows to a synchronous plug-in."
+    }
+  ],
+  
+  "correctAnswers": ["A", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "To achieve immediate (real-time) calculations, you can either transform the asynchronous workflows into a single real-time workflow or replace them with a synchronous plug-in. Both run at the time of the operation, preventing the delay inherent in asynchronous processes.",
+  
+  "category": "Architect a solution",
+  "weight": 6.1,
+  "examReference": "Use real-time workflows or synchronous plug-ins for immediate updates",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 97,
+  "topic": "Power Apps",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are designing a model-driven app that allows a company to manage sales opportunities. The company has a complex security model that includes the following requirements:\n• The vice president of sales must be able to see opportunities for sales managers and sales representatives.\n• Sales managers must be able to see opportunities for all sales representatives.\n• Sales representatives must only see opportunities that they own.\n\nYou need to recommend security tools for controlling user access. Which two tools should you recommend?\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "model-driven app",
+    "complex security",
+    "hierarchy",
+    "position"
+  ],
+
+  "hints": {
+    "easy": [
+      "Position hierarchy plus security roles is a standard solution. The account hierarchy is for customers, not staff. Field security profiles do not handle record-level access across roles."
+    ]
+  },
+
+  "conceptsTested": [
+    "hierarchical security using position hierarchy",
+    "security roles"
+  ],
+
+  "commonMistakes": [
+    "Using account hierarchy for users or using field security profiles for record-based requirements"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "A hierarchical model: VP > Sales Manager > Rep"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Account hierarchy"
+    },
+    {
+      "letter": "B",
+      "text": "Field security profile"
+    },
+    {
+      "letter": "C",
+      "text": "Position hierarchy"
+    },
+    {
+      "letter": "D",
+      "text": "Security roles"
+    }
+  ],
+  
+  "correctAnswers": ["C", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Position hierarchy ensures managers/VP can see subordinates' records, while security roles define the base permissions for each position or role. Account hierarchy is for customer data, field security is at the column level, not for hierarchical visibility.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Use position hierarchy and security roles for hierarchical access",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 98,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A company sells antique books. The company stores data about book locations in an existing system by using the following database fields: Room, Shelf. The company must import the data from the existing system into a Power Platform solution. Existing data must be modified to match the design of the new solution. You need to recommend a solution to combine the room and shelf fields into a single column during the import process. Which tool should you recommend?",
+
+  "keyWords": [
+    "data import",
+    "transformation",
+    "combine fields",
+    "room + shelf"
+  ],
+
+  "hints": {
+    "easy": [
+      "For combining columns in a more advanced transformation, dataflows are typically recommended (they incorporate Power Query)."
+    ],
+    "medium": []
+  },
+
+  "conceptsTested": [
+    "Power Platform dataflow usage",
+    "ETL transformation"
+  ],
+
+  "commonMistakes": [
+    "Using a direct CSV import or the Data Import Wizard, which do not handle advanced merges easily"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Need to transform data upon import, merging columns"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Power Platform dataflows"
+    },
+    {
+      "letter": "B",
+      "text": "Data Import Wizard"
+    },
+    {
+      "letter": "C",
+      "text": "Import from CSV"
+    },
+    {
+      "letter": "D",
+      "text": "Microsoft Excel Online"
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Dataflows allow robust transformations (like concatenating 'Room' and 'Shelf' into a single column) during the import process via Power Query. The other methods don’t natively offer that transformation step or require manual changes beforehand.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Use dataflows for advanced transformations during import",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},    
+	      {
+  "id": 99,
+  "topic": "Administration",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A company has a Power Platform environment that connects to a third-party marketing application. The company reports that the data in the Power Platform lead table does not match data from the marketing application. Issues include:\n• The owner data in the lead table and the third-party application do not match.\n• The Topic column has more information than the related record from the marketing application.\n• There are differences in how telephone numbers are formatted.\n\nYou need to determine which processes are causing the issues. Which three processes may be causing the differences observed?\n\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "Power Platform environment",
+    "third-party marketing",
+    "data mismatch",
+    "owner mismatch",
+    "topic extra info",
+    "telephone formatting"
+  ],
+
+  "hints": {
+    "easy": [
+      "Business rules can manipulate data at form or record level, workflows (classic or cloud flows) can modify data on create/update."
+    ],
+    "medium": [
+      "Dataflows can transform data on load but might not keep changing it after creation. Duplicate detection doesn't alter data, just flags duplicates."
+    ]
+  },
+
+  "conceptsTested": [
+    "business rules",
+    "classic workflow",
+    "Power Automate cloud flow",
+    "data transformation"
+  ],
+
+  "commonMistakes": [
+    "Thinking dataflows keep changing data after it’s loaded, or that duplicate detection modifies data"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Data mismatch after records are created => must be processes that run post-create or update"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Dataflow"
+    },
+    {
+      "letter": "B",
+      "text": "Business rule"
+    },
+    {
+      "letter": "C",
+      "text": "Classic workflow"
+    },
+    {
+      "letter": "D",
+      "text": "Power Automate cloud flow"
+    },
+    {
+      "letter": "E",
+      "text": "Duplicate detection rule"
+    }
+  ],
+  
+  "correctAnswers": ["B", "C", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Business rules, classic workflows, and Power Automate flows can all update data fields after they’re created or changed, causing mismatches from the original third-party data. Dataflows do transformations during import/sync but don’t continuously update records. Duplicate detection doesn’t alter data, just flags duplicates.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Identify processes that modify data after creation",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 100,
+  "topic": "General",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - You are supporting the go-live process for a company. The company is responsible for migrating data to the Power Platform by using a custom solution. The company reports the following issues:\n• Migration processes fail due to operation timeouts.\n• Records that include lookup columns often fail to load.\n\nYou need to recommend a solution. What should you recommend?",
+
+  "keyWords": [
+    "data migration",
+    "timeouts",
+    "lookup columns",
+    "batch size",
+    "load order"
+  ],
+
+  "hints": {
+    "easy": [
+      "Timeouts => reduce concurrency or batch size. Lookup failures => load in correct order so references exist first."
+    ]
+  },
+
+  "conceptsTested": [
+    "data migration best practices",
+    "batch concurrency",
+    "lookup dependencies"
+  ],
+
+  "commonMistakes": [
+    "Increasing batch size or loading all tables at once"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Migration timeouts => reduce concurrency or batch size",
+      "Lookup failures => correct load sequence so parent records exist"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Migration processes fail due to operation timeouts.",
+        "options": [
+          "Decrease multithreading and/or batch size settings",
+          "Increase multithreading and/or batch size settings",
+          "Use Power Platform Dataverse API instead of a custom solution",
+          "Migrate data during off-peak hours"
+        ]
+      },
+      {
+        "name": "Records that include lookup columns often fail to load.",
+        "options": [
+          "Ensure you are loading data into tables in a specific order",
+          "Load all tables simultaneously",
+          "Create temporary GUIDs for lookup columns",
+          "Disable lookup validation during import"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Migration processes fail due to operation timeouts.: Decrease multithreading and/or batch size settings",
+    "Records that include lookup columns often fail to load.: Ensure you are loading data into tables in a specific order"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Reducing parallel threads or batch sizes lessens the chance of hitting operation timeouts. For lookup columns, data must be loaded in the correct order: the referenced tables must have records created before the referencing tables. This ensures the lookup references exist.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.2,
+  "examReference": "Use best practices for data migration concurrency and dependency",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
 	      
 	{
   "id": 301,
