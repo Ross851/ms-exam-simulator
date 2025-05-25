@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Power Platform Question Analysis Tool</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.5/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+  const { useState, useEffect } = React;
+
+  // Lucide icons as SVG components
+  const ChevronLeft = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polyline points="15,18 9,12 15,6"></polyline>
+    </svg>
+  );
+  const ChevronRight = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polyline points="9,18 15,12 9,6"></polyline>
+    </svg>
+  );
+  const BookOpen = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+    </svg>
+  );
+  const Target = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <circle cx="12" cy="12" r="6"></circle>
+      <circle cx="12" cy="12" r="2"></circle>
+    </svg>
+  );
+  const Lightbulb = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M9 21h6"></path>
+      <path d="M12 3a6 6 0 0 0-6 6v7h12v-7a6 6 0 0 0-6-6z"></path>
+    </svg>
+  );
+  const AlertTriangle = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+      <line x1="12" y1="9" x2="12" y2="13"></line>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </svg>
+  );
+  const CheckCircle = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22,4 12,14.01 9,11.01"></polyline>
+    </svg>
+  );
+  const XCircle = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="15" y1="9" x2="9" y2="15"></line>
+      <line x1="9" y1="9" x2="15" y2="15"></line>
+    </svg>
+  );
+  const Eye = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+  );
+  const EyeOff = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+      <line x1="1" y1="1" x2="23" y2="23"></line>
+    </svg>
+  );
+  const Filter = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46 22,3"></polygon>
+    </svg>
+  );
+  const RotateCcw = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polyline points="1,4 1,10 7,10"></polyline>
+      <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+    </svg>
+  );
+
+  const QuestionAnalyzer = () => {
+
+    // BLOCK 1: Add New State Variables
+    const [questions, setQuestions] = useState([]);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [selectedAnswers, setSelectedAnswers] = useState({});
+    const [showAnalysis, setShowAnalysis] = useState(false);
+    const [showCorrectAnswers, setShowCorrectAnswers] = useState(false);
+    const [filterTopic, setFilterTopic] = useState('All');
+    const [filterDifficulty, setFilterDifficulty] = useState('All');
+    const [filterType, setFilterType] = useState('All');
+    const [filterExamArea, setFilterExamArea] = useState('All'); // NEW
+    const [filteredQuestions, setFilteredQuestions] = useState([]);
+    const [hintLevel, setHintLevel] = useState('easy');
+
+    // NEW QUIZ MODE STATES
+    const [quizMode, setQuizMode] = useState(false);
+    const [selectedQuestions, setSelectedQuestions] = useState([]);
+    const [questionCount, setQuestionCount] = useState(10);
+    const [randomize, setRandomize] = useState(false);
+    const [quizCompleted, setQuizCompleted] = useState(false);
+    const [quizScore, setQuizScore] = useState(null);
+    const [showQuizSetup, setShowQuizSetup] = useState(false);
+
+    useEffect(() => {
+      loadQuestions();
+    }, []);
+
+    useEffect(() => {
+      applyFilters();
+    }, [questions, filterTopic, filterDifficulty, filterType, filterExamArea]);
+
+    // BLOCK 2: Update Question Data Structure (applied in loadQuestions)
+    const loadQuestions = () => {
+      const sampleQuestions = [
+  {
+    "id": 1,
+    "topic": "Power Apps",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "A company uses two separate unlinked apps to manage sales leads: a Power Apps app and a third-party application. The client has the following requirements: • Manage all leads using the Power Apps app. • Create a lead in the Power Apps app when a user creates a lead in the third-party application. • Update leads in the Power Apps app when a user updates a lead in the third-party application. • Connect to the third-party application using an API. You need to recommend strategies to integrate the Power Apps app and the third-party application. Which three options can you use to achieve the goal? NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "two separate",
+      "unlinked apps",
+      "third-party",
+      "API",
+      "create",
+      "update",
+      "integrate",
+      "real-time"
+    ],
+    "hints": {
+      "easy": [
+        "Look for integration patterns",
+        "Consider API connectivity options",
+        "Think about what connects Power Platform to external systems"
+      ],
+      "medium": [
+        "Think about real-time synchronization",
+        "Consider orchestration tools",
+        "What enables custom API connections?"
+      ],
+      "hard": [
+        "Evaluate authentication methods",
+        "Consider error handling patterns",
+        "Think about scalability for API calls"
+      ]
+    },
+    "conceptsTested": [
+      "integration",
+      "API connectivity",
+      "data synchronization",
+      "workflow automation",
+      "custom connectors"
+    ],
+    "commonMistakes": [
+      "Choosing Dual-write for non-D365 F&O scenarios",
+      "Selecting batch processing (Dataflow) for real-time requirements",
+      "Forgetting about authentication and security",
+      "Not considering error handling and retries"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "manage all leads",
+        "create leads automatically",
+        "update leads automatically",
+        "API connection"
+      ],
+      "constraints": [
+        "third-party API",
+        "separate unlinked apps",
+        "real-time synchronization"
+      ],
+      "technologies": [
+        "Power Apps",
+        "Custom connector",
+        "Power Automate",
+        "Dataverse"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "Dual-write",
+        "isCorrect": false,
+        "analysis": "Dual-write is specific to Dynamics 365 Finance and Operations integration, not suitable for generic third-party APIs."
+      },
+      {
+        "letter": "B",
+        "text": "Custom connector",
+        "isCorrect": true,
+        "analysis": "A custom connector enables secure communication with a third-party API from Power Automate or Power Apps."
+      },
+      {
+        "letter": "C",
+        "text": "Dataflow",
+        "isCorrect": false,
+        "analysis": "Dataflows are for periodic data import/export, not real-time lead syncing."
+      },
+      {
+        "letter": "D",
+        "text": "Power Automate cloud flow",
+        "isCorrect": true,
+        "analysis": "Cloud flows can be triggered based on third-party system changes and automate lead creation/update processes."
+      },
+      {
+        "letter": "E",
+        "text": "Dataverse connector",
+        "isCorrect": true,
+        "analysis": "Allows flows or apps to interact with Dataverse, enabling create/update of lead records."
+      }
+    ],
+    "correctAnswers": ["B", "D", "E"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Combining a custom connector (to reach the external API), Power Automate (for orchestration), and the Dataverse connector (to interact with Power Apps lead data) provides a complete solution for near real-time integration.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Design strategies for app integration",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  },
+  {
+  "id": 2,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Easy",
+  "text": "DRAG DROP - You are designing a business continuity strategy for a client who has a Microsoft Power Platform solution. The client works with critical data where any data loss creates a high risk. You need to document the retry process for the stakeholders. Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.",
+  "requirements": [
+    "Step 1",
+    "Step 2",
+    "Step 3",
+    "Step 4"
+  ],
+  "choices": [
+    "The application makes a service call to the datacenter.",
+    "The application receives an exception after attempting the service call.",
+    "The application automatically tries the call again.",
+    "If the second call is successful, the application continues normally.",
+    "The application logs an error and notifies an administrator.",
+    "The application retries three times with exponential backoff.",
+    "The user manually retries the operation."
+  ],
+  "correctAnswers": {
+    "Step 1": "The application makes a service call to the datacenter.",
+    "Step 2": "The application receives an exception after attempting the service call.",
+    "Step 3": "The application automatically tries the call again.",
+    "Step 4": "If the second call is successful, the application continues normally."
+  },
+  "isMultipleChoice": false,
+  
+  "detailedExplanation": "A typical retry pattern is: invoke the call, catch the error, retry automatically, and continue if successful. This basic pattern handles transient failures without manual intervention.",
+  "category": "Architect a solution",
+  "weight": 6.8,
+  "examReference": "Design strategies for business continuity",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)",
+
+  "keyWords": [
+    "business continuity",
+    "retry",
+    "sequence",
+    "data loss",
+    "service call",
+    "exception",
+    "automatically"
+  ],
+  "hints": {
+    "easy": [
+      "Think about typical retry patterns",
+      "Follow the error flow sequence",
+      "What happens first in a service call?"
+    ],
+    "medium": [
+      "Consider automatic retry mechanisms",
+      "Think about success scenarios",
+      "What triggers a retry?"
+    ],
+    "hard": [
+      "Evaluate exponential backoff strategies",
+      "Consider circuit breaker patterns",
+      "Think about retry limits"
+    ]
+  },
+  "conceptsTested": [
+    "error handling",
+    "retry patterns",
+    "business continuity",
+    "resilience",
+    "automatic recovery"
+  ],
+  "commonMistakes": [
+    "Including manual retry steps in automatic flows",
+    "Missing the success path continuation",
+    "Adding complex retry logic too early",
+    "Confusing automatic vs manual retry"
+  ],
+  "analysisHighlights": {
+    "requirements": [
+      "business continuity",
+      "handle failures",
+      "automatic retry",
+      "document process"
+    ],
+    "constraints": [
+      "critical data",
+      "high risk",
+      "automatic process"
+    ],
+    "patterns": [
+      "retry pattern",
+      "exception handling",
+      "resilience pattern"
+    ]
+  }
+},
+  {
+  "id": 3,
+  "topic": "Power Apps",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+  "text": "A large company experiences high staff turnover rates. As a result, the company must add or remove multiple system user accounts daily. You need to recommend a security concept which will facilitate complex security profiles to entities for large groups of users across the Power Apps and Dynamics 365 applications. What should you recommend?",
+  "keyWords": [
+    "high staff turnover",
+    "multiple",
+    "daily",
+    "security",
+    "large groups",
+    "complex security profiles"
+  ],
+  "hints": {
+    "easy": [
+      "Think about group-based security",
+      "Consider scalability for many users",
+      "What reduces administrative overhead?"
+    ],
+    "medium": [
+      "How can you manage many users efficiently?",
+      "Think about inheritance of permissions",
+      "Consider team-based approaches"
+    ],
+    "hard": [
+      "Evaluate role-based vs team-based security",
+      "Consider security inheritance patterns",
+      "Think about maintenance overhead"
+    ]
+  },
+  "conceptsTested": [
+    "security management",
+    "scalability",
+    "team-based security",
+    "user management",
+    "administrative efficiency"
+  ],
+  "commonMistakes": [
+    "Choosing individual user management for high-volume scenarios",
+    "Selecting field-level security for broad access control",
+    "Confusing hierarchy security with team security",
+    "Not considering maintenance overhead"
+  ],
+  "analysisHighlights": {
+    "requirements": [
+      "handle high turnover",
+      "manage multiple users daily",
+      "complex security profiles",
+      "cross-application"
+    ],
+    "constraints": [
+      "large groups",
+      "frequent changes",
+      "administrative efficiency"
+    ],
+    "patterns": [
+      "team-based security",
+      "role inheritance",
+      "group management"
+    ]
+  },
+  "options": [
+    {
+      "letter": "A",
+      "text": "Hierarchy security",
+      "isCorrect": false,
+      "analysis": "Hierarchy security works by managerial layers, not ideal for quickly assigning complex privileges."
+    },
+    {
+      "letter": "B",
+      "text": "Field-level security",
+      "isCorrect": false,
+      "analysis": "Field-level security only restricts certain fields, not entire entity-level privileges for large groups."
+    },
+    {
+      "letter": "C",
+      "text": "User access management",
+      "isCorrect": false,
+      "analysis": "Generic phrase that does not map directly to a recommended approach in Power Apps/Dynamics 365."
+    },
+    {
+      "letter": "D",
+      "text": "Team privileges",
+      "isCorrect": true,
+      "analysis": "Team-based security allows assigning roles to a team, simplifying user access management for large user groups."
+    }
+  ],
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+  "detailedExplanation": "Team privileges streamline security for large groups and reduce overhead when staff join or leave. Teams make it easier to manage roles for multiple users - membership changes but team privileges remain consistent.",
+  "category": "Architect a solution",
+  "weight": 6.8,
+  "examReference": "Design strategies for security",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+  {
+    "id": 4,
+    "topic": "General",
+    "type": "hotspot",
+    "difficultyLevel": "Easy",
+    "text": "HOTSPOT - You are designing a Power Platform solution for a company that provides in-home appliance maintenance. When a customer schedules a service appointment, a dispatcher assigns one technician for a specific time and location. The solution must capture information about the technician assigned to each appointment and the list of tools that the technician must bring to the appointment. You need to recommend the data type for the captured information. Which data type should you use? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "technician assigned",
+      "tools",
+      "data type",
+      "one technician",
+      "list of tools",
+      "appointment"
+    ],
+    "hints": {
+      "easy": [
+        "Think about relationships between data",
+        "Consider single vs multiple selections",
+        "What data type links to other records?"
+      ],
+      "medium": [
+        "How do you reference a user record?",
+        "What allows multiple selections from a list?",
+        "Consider predefined vs dynamic lists"
+      ],
+      "hard": [
+        "Evaluate lookup vs choice performance",
+        "Consider data normalization",
+        "Think about reporting requirements"
+      ]
+    },
+    "conceptsTested": [
+      "data modeling",
+      "field types",
+      "relationships",
+      "Dataverse schema",
+      "data types"
+    ],
+    "commonMistakes": [
+      "Using text fields for relationships",
+      "Choosing single-select for multiple items",
+      "Not understanding lookup relationships",
+      "Confusing choices with lookups"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "single technician per appointment",
+        "multiple tools per appointment",
+        "capture assignments"
+      ],
+      "constraints": [
+        "one technician",
+        "list of tools",
+        "predefined options"
+      ],
+      "patterns": [
+        "1:N relationships",
+        "multi-select options",
+        "lookup fields"
+      ]
+    },
+    "options": {
+      "areas": [
+        {
+          "name": "Technician assigned",
+          "options": [
+            "Text",
+            "Lookup",
+            "Choices (multi-select option set)",
+            "Number"
+          ],
+          "correctAnswer": "Lookup"
+        },
+        {
+          "name": "Tools to bring",
+          "options": [
+            "Text",
+            "Lookup",
+            "Choices (multi-select option set)",
+            "Boolean"
+          ],
+          "correctAnswer": "Choices (multi-select option set)"
+        }
+      ]
+    },
+    "correctAnswers": [
+      "Technician assigned: Lookup",
+      "Tools to bring: Choices (multi-select option set)"
+    ],
+    "isMultipleChoice": false,
+    "detailedExplanation": "Use a Lookup to reference a single technician record. A multi-select Choices field is suitable for listing multiple required tools. Lookup fields relate to another entity (e.g. Users), while multi-select Choices let you choose multiple items from a predefined list.",
+    "category": "Architect a solution",
+    "weight": 6.8,
+    "examReference": "Design strategies for data models",
+    "source": "Custom generated",
+    "examArea": "Solution Architecture (35-40%)"
+  },
+  {
+    "id": 5,
+    "topic": "Power Automate",
+    "type": "hotspot",
+    "difficultyLevel": "Medium",
+    "text": "HOTSPOT - An animal welfare organization wants to track the movement of wolf packs in a region. Cameras at specific locations capture images when motion is detected within the camera sensor range. Staff upload the images manually to a shared drive and then analyse the images. The organization wants to automate image capture and analysis. The organization has the following requirements: • Save captured images in an appropriate location. • Analyse saved images by using an image recognition process. • Display data in real-time dashboards. You need to recommend the correct technology for the requirements. What should you recommend? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "automate",
+      "images",
+      "AI",
+      "image recognition",
+      "real-time",
+      "dashboards",
+      "save",
+      "analyse"
+    ],
+    "hints": {
+      "easy": [
+        "Think about automation tools",
+        "Consider AI capabilities in Power Platform",
+        "What handles file operations?"
+      ],
+      "medium": [
+        "What can process images automatically?",
+        "Consider trigger-based automation",
+        "Think about AI Builder capabilities"
+      ],
+      "hard": [
+        "Evaluate computer vision options",
+        "Consider processing performance",
+        "Think about real-time data flow"
+      ]
+    },
+    "conceptsTested": [
+      "AI Builder",
+      "automation",
+      "image processing",
+      "real-time processing",
+      "cloud flows"
+    ],
+    "commonMistakes": [
+      "Using manual processes for automation requirements",
+      "Forgetting about AI Builder for image analysis",
+      "Choosing desktop flows for cloud scenarios",
+      "Not considering real-time requirements"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "automate image capture",
+        "analyze images",
+        "real-time dashboards",
+        "image recognition"
+      ],
+      "constraints": [
+        "motion-triggered capture",
+        "automated analysis",
+        "real-time display"
+      ],
+      "technologies": [
+        "Power Automate",
+        "AI Builder",
+        "cloud storage"
+      ]
+    },
+    "options": {
+      "areas": [
+        {
+          "name": "Save captured images in an appropriate location",
+          "options": [
+            "Automated cloud flow",
+            "Manual upload to SharePoint",
+            "Desktop flow with Power Automate",
+            "Custom connector"
+          ],
+          "correctAnswer": "Automated cloud flow"
+        },
+        {
+          "name": "Analyse saved images by using an image recognition process",
+          "options": [
+            "AI Builder",
+            "Custom vision API with Azure Functions",
+            "Automated cloud flow + AI Builder",
+            "Image recognition using desktop automation"
+          ],
+          "correctAnswer": "Automated cloud flow + AI Builder"
+        }
+      ]
+    },
+    "correctAnswers": [
+      "Save captured images in an appropriate location: Automated cloud flow",
+      "Analyse saved images by using an image recognition process: Automated cloud flow + AI Builder"
+    ],
+    "isMultipleChoice": false,
+    "detailedExplanation": "An automated cloud flow can detect newly uploaded images and store them. AI Builder can then process images for recognition or object detection. Together, Power Automate (for automation) and AI Builder (for image analysis) meet the requirement of automating image capture/analysis and feeding results into real-time dashboards.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Recommend AI Builder capabilities based on business requirements",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  },
+  {
+    "id": 6,
+    "topic": "General",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "You are designing a Power Platform solution. The company wants its development team to adopt the construction of repeatable components for its implementation team to reuse on different entities and forms. You need to recommend a technology that meets these requirements. Which technology would you recommend the developers adopt to assist the implementation team?",
+    "keyWords": [
+      "repeatable components",
+      "reuse",
+      "different entities",
+      "forms",
+      "development team",
+      "implementation team"
+    ],
+    "hints": {
+      "easy": [
+        "Think about custom UI components",
+        "Consider code-based solutions",
+        "What allows reusability across forms?"
+      ],
+      "medium": [
+        "What framework enables custom controls?",
+        "Think about component reusability",
+        "Consider model-driven app components"
+      ],
+      "hard": [
+        "Evaluate PCF vs web resources",
+        "Consider maintenance and deployment",
+        "Think about TypeScript/React components"
+      ]
+    },
+    "conceptsTested": [
+      "Power Apps Component Framework",
+      "reusability",
+      "custom controls",
+      "development patterns",
+      "component architecture"
+    ],
+    "commonMistakes": [
+      "Choosing JavaScript for full component reusability",
+      "Selecting canvas apps for model-driven components",
+      "Using web resources instead of PCF",
+      "Not considering cross-entity reusability"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "repeatable components",
+        "reuse across entities",
+        "reuse across forms",
+        "development team adoption"
+      ],
+      "constraints": [
+        "implementation team usage",
+        "different entities",
+        "maintainability"
+      ],
+      "technologies": [
+        "PCF",
+        "model-driven apps",
+        "custom controls"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "JavaScript",
+        "isCorrect": false,
+        "analysis": "While you can script form logic with JavaScript, it doesn't provide fully reusable UI components."
+      },
+      {
+        "letter": "B",
+        "text": "Power Apps Component Framework control",
+        "isCorrect": true,
+        "analysis": "PCF controls enable developers to build custom, reusable controls for model-driven apps."
+      },
+      {
+        "letter": "C",
+        "text": "Web resource",
+        "isCorrect": false,
+        "analysis": "A web resource is a more traditional approach, but lacks the integrated reusability of a PCF control."
+      },
+      {
+        "letter": "D",
+        "text": "Canvas app",
+        "isCorrect": false,
+        "analysis": "A canvas app is a complete app, not a component framework for forms in model-driven apps."
+      }
+    ],
+    "correctAnswers": ["B"],
+    "isMultipleChoice": false,
+    "detailedExplanation": "PCF controls are specifically designed for repeatable, code-based custom UI components across forms. Power Apps Component Framework meets the requirement for consistent, reusable components.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Identify opportunities for components and templates",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  },
+  {
+    "id": 7,
+    "topic": "Power Pages",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "A company uses manual processes to track interactions with customers. The company wants to use Power Platform to improve productivity. The company has the following requirements: • Provide customers with an online portal where they can submit and review cases. • Ensure that customers can chat online with a customer service representative at any time. • Route chats to customer service representatives based on skill and availability. You need to recommend a solution to the company. Which three components should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "online portal",
+      "submit cases",
+      "review cases",
+      "chat online",
+      "any time",
+      "route chats",
+      "skill",
+      "availability"
+    ],
+    "hints": {
+      "easy": [
+        "Think about customer portals",
+        "Consider chat solutions",
+        "What handles skill-based routing?"
+      ],
+      "medium": [
+        "What provides 24/7 chat coverage?",
+        "Think about omnichannel capabilities",
+        "Consider self-service options"
+      ],
+      "hard": [
+        "Evaluate chatbot vs live agent strategies",
+        "Consider queue management",
+        "Think about skills-based routing algorithms"
+      ]
+    },
+    "conceptsTested": [
+      "customer portals",
+      "omnichannel",
+      "chatbots",
+      "skill-based routing",
+      "case management"
+    ],
+    "commonMistakes": [
+      "Forgetting about automated chat for 24/7 coverage",
+      "Not including omnichannel for routing",
+      "Choosing Field Service for case management",
+      "Missing the portal requirement"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "online portal",
+        "case submission/review",
+        "24/7 chat",
+        "skill-based routing"
+      ],
+      "constraints": [
+        "customer self-service",
+        "any time availability",
+        "representative skills"
+      ],
+      "technologies": [
+        "Power Pages",
+        "Virtual Agents",
+        "Omnichannel"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "Dynamics 365 Virtual Agents chatbots",
+        "isCorrect": true,
+        "analysis": "Enables chat automation, but Omnichannel is needed for skill-based routing to live agents."
+      },
+      {
+        "letter": "B",
+        "text": "Customer self-service portal",
+        "isCorrect": true,
+        "analysis": "Portal for customers to submit and review cases themselves."
+      },
+      {
+        "letter": "C",
+        "text": "Dynamics 365 Field Service",
+        "isCorrect": false,
+        "analysis": "Focused on onsite scheduling/dispatch, not standard case mgmt or chat."
+      },
+      {
+        "letter": "D",
+        "text": "Business process flows",
+        "isCorrect": false,
+        "analysis": "BPFs guide internal processes, but they don't directly address real-time chat or portals."
+      },
+      {
+        "letter": "E",
+        "text": "Omnichannel for Customer Service",
+        "isCorrect": true,
+        "analysis": "Handles live chat, skill-based routing, queueing for human agents."
+      }
+    ],
+    "correctAnswers": ["A", "B", "E"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Virtual Agents (A) handle automated chat for 24/7 coverage. The portal (B) allows case submission and review. Omnichannel (E) provides live chat with skill-based routing.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Identify opportunities to implement Power Pages",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  },
+  {
+    "id": 8,
+    "topic": "Power BI",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "A client uses Dynamics 365 Sales, Power BI datasets, and Power BI dataflows. The Dynamics 365 Sales implementation has security roles that restrict data export. You need to ensure that data has the same restrictions in Power BI as it does in Dynamics 365 Sales. You need to design the security to avoid sensitive data from being seen. Which two actions should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "security roles",
+      "restrict",
+      "same restrictions",
+      "Power BI",
+      "Dynamics 365 Sales",
+      "sensitive data"
+    ],
+    "hints": {
+      "easy": [
+        "Think about security inheritance",
+        "Consider row-level security",
+        "How does security flow from Dataverse?"
+      ],
+      "medium": [
+        "What enforces Dataverse security in Power BI?",
+        "Think about sharing restrictions",
+        "Consider RLS implementation"
+      ],
+      "hard": [
+        "Evaluate security models across platforms",
+        "Consider performance impacts of RLS",
+        "Think about security maintenance"
+      ]
+    },
+    "conceptsTested": [
+      "row-level security",
+      "security inheritance",
+      "Dataverse security",
+      "Power BI security",
+      "data governance"
+    ],
+    "commonMistakes": [
+      "Focusing only on export restrictions",
+      "Not implementing RLS in Power BI",
+      "Ignoring Dataverse security model",
+      "Over-sharing dashboards"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "maintain security restrictions",
+        "prevent sensitive data exposure",
+        "align with D365 security"
+      ],
+      "constraints": [
+        "existing security roles",
+        "data export restrictions",
+        "cross-platform security"
+      ],
+      "patterns": [
+        "security inheritance",
+        "row-level security",
+        "least privilege"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "Use Microsoft Dataverse restrictions before setting up the Power BI reports.",
+        "isCorrect": true,
+        "analysis": "Applying row-level security in Dataverse ensures only authorized data is exposed to the reporting layer."
+      },
+      {
+        "letter": "B",
+        "text": "Limit the role in Dynamics 365 Sales to only data allowed so it cannot be exported to Microsoft Excel.",
+        "isCorrect": false,
+        "analysis": "Preventing Excel export doesn't fully address applying the same security to Power BI."
+      },
+      {
+        "letter": "C",
+        "text": "Limit the role and ensure that exporting to Microsoft Excel is not allowed in both Dynamics 365 Sales and Power BI.",
+        "isCorrect": false,
+        "analysis": "Focusing just on blocking Excel export doesn't replicate row-level restrictions in Power BI."
+      },
+      {
+        "letter": "D",
+        "text": "Share Power BI dashboards only with users who are supported to see this data.",
+        "isCorrect": true,
+        "analysis": "You must share dashboards only with users who already have appropriate permissions in Dataverse."
+      }
+    ],
+    "correctAnswers": ["A", "D"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Implement row-level security via Dataverse roles, and share Power BI only with authorized users. This enforces consistent data protection. Dataverse row-level security extends to Power BI with the right setup.",
+    "category": "Architect a solution",
+    "weight": 6.8,
+    "examReference": "Design strategies for security",
+    "source": "Custom generated",
+    "examArea": "Solution Architecture (35-40%)"
+  },
+  {
+  "id": 9,
+  "topic": "Power Pages",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+  "text": "DRAG DROP - You need to recommend methods for assigning security to each group of users. The customer provides the following requirements: • Customers need the ability to submit a case through an online portal. • Portal must handle 75 concurrent users submitting cases. • Service data must be retained for at least six years. You need to determine which requirements are functional or non-functional. Which requirements are functional or non-functional? To answer, drag the appropriate types to the correct requirements. Each type may be used once, more than once, or not at all. NOTE: Each correct selection is worth one point.",
+  
+  "requirements": [
+    "Customers need the ability to submit a case through an online portal.",
+    "Portal must handle 75 concurrent users submitting cases.",
+    "Service data must be retained for at least six years."
+  ],
+  "choices": [
+    "Functional",
+    "Non-functional"
+  ],
+  "correctAnswers": {
+    "Customers need the ability to submit a case through an online portal.": "Functional",
+    "Portal must handle 75 concurrent users submitting cases.": "Non-functional",
+    "Service data must be retained for at least six years.": "Non-functional"
+  },
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Functional requirements describe features or behaviors (submitting cases), while non-functional cover performance (concurrent users), scalability, and retention mandates (six years).",
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 7.9,
+  "examReference": "Identify functional and non-functional requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)",
+
+  "keyWords": [
+    "functional",
+    "non-functional",
+    "submit case",
+    "75 concurrent",
+    "retained",
+    "six years",
+    "portal"
+  ],
+  "hints": {
+    "easy": [
+      "Think about features vs constraints",
+      "Consider what the system does vs how well it does it",
+      "Performance is typically non-functional"
+    ],
+    "medium": [
+      "Functional = what the system does",
+      "Non-functional = how the system performs",
+      "Consider scalability and retention as qualities"
+    ],
+    "hard": [
+      "Evaluate architectural qualities",
+      "Consider ISO 25010 categories",
+      "Think about measurable constraints"
+    ]
+  },
+  "conceptsTested": [
+    "requirements analysis",
+    "functional requirements",
+    "non-functional requirements",
+    "system qualities",
+    "constraints"
+  ],
+  "commonMistakes": [
+    "Confusing features with performance",
+    "Treating all numbers as non-functional",
+    "Not recognizing retention as non-functional",
+    "Missing the scalability aspect"
+  ],
+  "analysisHighlights": {
+    "requirements": [
+      "case submission capability",
+      "concurrent user handling",
+      "data retention period"
+    ],
+    "patterns": [
+      "functional = capabilities",
+      "non-functional = qualities",
+      "performance metrics"
+    ],
+    "categories": [
+      "functionality",
+      "performance",
+      "compliance"
+    ]
+  }
+},
+  {
+    "id": 10,
+    "topic": "General",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "You are a Power Platform consultant for an internet support company. The company lacks a budget to buy third-party ISVs or add-ons. The company requires a new system that achieves the following: • All support issues must come in by email, need to be logged, and assigned to the support group. • Accounts must synchronise with the parent company Oracle database. • Reports must be sent to the executives on a weekly basis. • No custom code will be used in the system. You need to recommend the components that should be configured. Which two components should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "no budget",
+      "third-party",
+      "email",
+      "Oracle",
+      "synchronise",
+      "no custom code",
+      "reports",
+      "weekly"
+    ],
+    "hints": {
+      "easy": [
+        "Think about out-of-box capabilities",
+        "Consider email integration options",
+        "What handles data synchronization?"
+      ],
+      "medium": [
+        "What processes emails automatically?",
+        "Think about database connectivity",
+        "Consider no-code solutions"
+      ],
+      "hard": [
+        "Evaluate server-side sync capabilities",
+        "Consider Oracle connector options",
+        "Think about report automation"
+      ]
+    },
+    "conceptsTested": [
+      "email integration",
+      "data synchronization",
+      "no-code solutions",
+      "server-side sync",
+      "reporting"
+    ],
+    "commonMistakes": [
+      "Choosing solutions requiring custom code",
+      "Selecting third-party add-ons",
+      "Missing server-side synchronization",
+      "Not considering Dataverse for data storage"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "email to case",
+        "Oracle sync",
+        "weekly reports",
+        "no custom code"
+      ],
+      "constraints": [
+        "no budget for ISVs",
+        "no custom development",
+        "existing Oracle database"
+      ],
+      "technologies": [
+        "Dataverse",
+        "server-side sync",
+        "Power Automate"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "Power Virtual Agents",
+        "isCorrect": false,
+        "analysis": "Chatbots are not required here, as issues come via email."
+      },
+      {
+        "letter": "B",
+        "text": "Microsoft Dataverse",
+        "isCorrect": true,
+        "analysis": "Dataverse can store and manage the support issues, accounts, etc. without custom code."
+      },
+      {
+        "letter": "C",
+        "text": "server-side synchronisation",
+        "isCorrect": true,
+        "analysis": "Server-side sync can process incoming emails into cases and integrate with external systems."
+      },
+      {
+        "letter": "D",
+        "text": "Microsoft Customer Voice",
+        "isCorrect": false,
+        "analysis": "Customer Voice is for surveys, not for core support ticket logging and Oracle sync."
+      }
+    ],
+    "correctAnswers": ["B", "C"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Dataverse for data management, and server-side synchronisation to handle incoming emails. Flows or connectors can sync with Oracle. No custom code is needed. These two components allow email-to-case and integrated data management without requiring custom code or third-party solutions.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Recommend components based on business requirements",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  },
+  {
+  "id": 11,
+  "topic": "Administration",
+  "type": "specialdragdrop", 
+  "difficultyLevel": "Medium",
+  "text": "DRAG DROP - You are performing a requirements analysis for a customer. The customer provides the following requirements: • Power Platform storage capacity must remain under 100 percent. • Customer service representatives must be sent an email when they are assigned a case. • Help desk technicians must be shown an error message when they try to delete a task row. • The plug-in pass rate must remain over 99 percent for the production environment. You need determine if the requirements are functional or non-functional. Which requirement type should you use? To answer, drag the appropriate requirement types to the correct requirements. Each requirement type may be used once, more than once, or not at all. NOTE: Each correct selection is worth one point.",
+  
+  "requirements": [
+    "Power Platform storage capacity must remain under 100 percent.",
+    "Customer service representatives must be sent an email when they are assigned a case.",
+    "Help desk technicians must be shown an error message when they try to delete a task row.",
+    "The plug-in pass rate must remain over 99 percent for the production environment."
+  ],
+  "choices": [
+    "Functional",
+    "Non-functional"
+  ],
+  "correctAnswers": {
+    "Power Platform storage capacity must remain under 100 percent.": "Non-functional",
+    "Customer service representatives must be sent an email when they are assigned a case.": "Functional",
+    "Help desk technicians must be shown an error message when they try to delete a task row.": "Functional",
+    "The plug-in pass rate must remain over 99 percent for the production environment.": "Non-functional"
+  },
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Functional covers behaviors and actions (email notifications, error messages), while non-functional includes performance, capacity, or success rate constraints (storage limits, pass rates).",
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 7.9,
+  "examReference": "Identify functional and non-functional requirements",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)",
+
+  "keyWords": [
+    "storage capacity",
+    "100 percent",
+    "email",
+    "assigned",
+    "error message",
+    "delete",
+    "pass rate",
+    "99 percent"
+  ],
+  "hints": {
+    "easy": [
+      "Capacity and performance are qualities",
+      "Actions and behaviors are functions",
+      "Think about measurable constraints"
+    ],
+    "medium": [
+      "What describes system behavior vs system quality?",
+      "Consider performance metrics",
+      "Email notifications are features"
+    ],
+    "hard": [
+      "Evaluate SLA requirements",
+      "Consider monitoring implications",
+      "Think about architectural qualities"
+    ]
+  },
+  "conceptsTested": [
+    "requirements classification",
+    "functional vs non-functional",
+    "system qualities",
+    "behaviors vs constraints"
+  ],
+  "commonMistakes": [
+    "Treating all percentages as functional",
+    "Confusing notifications with performance",
+    "Not recognizing capacity as non-functional",
+    "Missing the behavioral aspects"
+  ],
+  "analysisHighlights": {
+    "functional": [
+      "send email",
+      "show error message"
+    ],
+    "nonFunctional": [
+      "storage capacity",
+      "pass rate"
+    ],
+    "patterns": [
+      "actions = functional",
+      "constraints = non-functional",
+      "metrics = non-functional"
+    ]
+  }
+},
+  {
+    "id": 12,
+    "topic": "Power Automate",
+    "type": "multiplechoice",
+    "difficultyLevel": "Easy",
+    "text": "A company has a website that contains a form named Contact Us. Data from completed forms is saved to a shared document. An office administrator periodically reviews the document. The office administrator sends new submissions to another employee who creates contacts or updates existing contacts. You need to recommend a solution to automate the process. What should you recommend?",
+    "keyWords": [
+      "Contact Us",
+      "form",
+      "shared document",
+      "automate",
+      "creates contacts",
+      "updates",
+      "existing contacts"
+    ],
+    "hints": {
+      "easy": [
+        "Think about automating form processing",
+        "Consider contact management systems",
+        "What handles forms and contacts?"
+      ],
+      "medium": [
+        "What system manages contacts well?",
+        "Think about form-to-contact automation",
+        "Consider Customer Service capabilities"
+      ],
+      "hard": [
+        "Evaluate form processing options",
+        "Consider duplicate detection",
+        "Think about contact lifecycle"
+      ]
+    },
+    "conceptsTested": [
+      "form automation",
+      "contact management",
+      "process automation",
+      "Customer Service",
+      "workflow automation"
+    ],
+    "commonMistakes": [
+      "Choosing marketing for basic contact creation",
+      "Selecting analytics tools for operational tasks",
+      "Missing the Customer Service option",
+      "Overcomplicating with custom solutions"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "automate form processing",
+        "create/update contacts",
+        "eliminate manual review"
+      ],
+      "constraints": [
+        "existing shared document",
+        "manual process currently"
+      ],
+      "technologies": [
+        "Customer Service",
+        "Power Automate",
+        "contact management"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "Excel Online Connector",
+        "isCorrect": false,
+        "analysis": "This might help read data from Excel, but doesn't automatically create or update Dataverse contacts in a structured manner."
+      },
+      {
+        "letter": "B",
+        "text": "Dynamics 365 Customer Insights",
+        "isCorrect": false,
+        "analysis": "Primarily for analytics and segmenting customer data, not basic contact creation from a simple form."
+      },
+      {
+        "letter": "C",
+        "text": "Dynamics 365 Customer Service",
+        "isCorrect": true,
+        "analysis": "Can store and manage contacts, plus combine with Power Automate to handle new submissions automatically."
+      },
+      {
+        "letter": "D",
+        "text": "Dynamics 365 Marketing",
+        "isCorrect": false,
+        "analysis": "Marketing is mostly for campaign automation and lead nurturing, not direct 'Contact Us' form case creation."
+      }
+    ],
+    "correctAnswers": ["C"],
+    "isMultipleChoice": false,
+    "detailedExplanation": "Use Customer Service with a simple Power Automate flow to watch the shared doc for new rows, then create/update contacts automatically. Customer Service provides the right data model (contacts, cases), and automations can be built quickly without needing heavy marketing or analytics features.",
+    "category": "Architect a solution",
+    "weight": 6.8,
+    "examReference": "Identify automation opportunities",
+    "source": "Custom generated",
+    "examArea": "Solution Architecture (35-40%)"
+  },
+  {
+    "id": 13,
+    "topic": "Power Automate",
+    "type": "hotspot",
+    "difficultyLevel": "Medium",
+    "text": "HOTSPOT - You need to design a Power Platform solution that meets the following requirements: • Capture data from a row during deletion to be used in an automated process. • Use AI to process forms and automate data entry from paper-based forms. Which requirements can be met by using out-of-the-box Power Platform components? Instructions: For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "capture data",
+      "deletion",
+      "AI",
+      "process forms",
+      "paper-based",
+      "out-of-the-box",
+      "automated"
+    ],
+    "hints": {
+      "easy": [
+        "Think about Dataverse triggers",
+        "Consider AI Builder capabilities",
+        "What's available out-of-the-box?"
+      ],
+      "medium": [
+        "What triggers exist for deletion?",
+        "How does AI Builder handle forms?",
+        "Consider form processing models"
+      ],
+      "hard": [
+        "Evaluate pre-delete triggers",
+        "Consider OCR capabilities",
+        "Think about form recognition models"
+      ]
+    },
+    "conceptsTested": [
+      "Dataverse triggers",
+      "AI Builder",
+      "form processing",
+      "deletion events",
+      "out-of-box capabilities"
+    ],
+    "commonMistakes": [
+      "Thinking deletion can't be captured",
+      "Not knowing about AI Builder forms",
+      "Assuming custom code is needed",
+      "Missing standard trigger options"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "capture deletion data",
+        "AI form processing",
+        "paper form automation"
+      ],
+      "constraints": [
+        "out-of-the-box only",
+        "no custom code"
+      ],
+      "technologies": [
+        "Power Automate triggers",
+        "AI Builder",
+        "form recognition"
+      ]
+    },
+    "options": {
+      "areas": [
+        {
+          "name": "Capture data upon row deletion",
+          "options": ["Yes", "No"],
+          "correctAnswer": "Yes"
+        },
+        {
+          "name": "Use AI to process forms",
+          "options": ["Yes", "No"],
+          "correctAnswer": "Yes"
+        }
+      ]
+    },
+    "correctAnswers": [
+      "Capture data upon row deletion: Yes",
+      "Use AI to process forms: Yes"
+    ],
+    "isMultipleChoice": false,
+    "detailedExplanation": "Power Automate can trigger on row deletion in Dataverse ('When a row is deleted'). AI Builder can process forms out of the box. Both scenarios are supported by standard capabilities.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Identify automation opportunities with Power Automate",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  },
+  {
+    "id": 14,
+    "topic": "Integration",
+    "type": "multiplechoice",
+    "difficultyLevel": "Easy",
+    "text": "A company has a custom web-based API that is hosted on Azure. You design a Microsoft Power Platform solution to provide the company additional capabilities. You need to integrate the Microsoft Power Platform solution with the API. What should you recommend?",
+    "keyWords": [
+      "custom",
+      "web-based API",
+      "Azure",
+      "integrate",
+      "Power Platform"
+    ],
+    "hints": {
+      "easy": [
+        "Think about API connectivity",
+        "What enables custom integrations?",
+        "Consider REST API connections"
+      ],
+      "medium": [
+        "How do you connect to external APIs?",
+        "Think about authentication",
+        "Consider reusability"
+      ],
+      "hard": [
+        "Evaluate connector architecture",
+        "Consider security patterns",
+        "Think about rate limiting"
+      ]
+    },
+    "conceptsTested": [
+      "API integration",
+      "custom connectors",
+      "external connectivity",
+      "Azure integration"
+    ],
+    "commonMistakes": [
+      "Using data gateway for cloud APIs",
+      "Choosing desktop flows for API calls",
+      "Not considering authentication",
+      "Missing the custom connector option"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "integrate with custom API",
+        "Azure-hosted service",
+        "Power Platform connectivity"
+      ],
+      "constraints": [
+        "external API",
+        "web-based service"
+      ],
+      "technologies": [
+        "custom connector",
+        "REST API",
+        "Azure"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "Connection reference",
+        "isCorrect": false,
+        "analysis": "Connection references map an existing connector to an environment, not define a new custom integration."
+      },
+      {
+        "letter": "B",
+        "text": "Custom connector",
+        "isCorrect": true,
+        "analysis": "A custom connector is used to call external web APIs in the Power Platform."
+      },
+      {
+        "letter": "C",
+        "text": "Desktop flow",
+        "isCorrect": false,
+        "analysis": "Desktop flows are for RPA with legacy systems, not direct Azure web API integration."
+      },
+      {
+        "letter": "D",
+        "text": "Data gateway",
+        "isCorrect": false,
+        "analysis": "Gateway is for on-premises data, not for an Azure-hosted custom API."
+      }
+    ],
+    "correctAnswers": ["B"],
+    "isMultipleChoice": false,
+    "detailedExplanation": "A custom connector is the correct approach to integrate an external Azure-based API with Power Apps or Power Automate. Custom connectors let you wrap any REST-based API and use it natively within Power Platform solutions.",
+    "category": "Architect a solution",
+    "weight": 6.8,
+    "examReference": "Design strategies for integration",
+    "source": "Custom generated",
+    "examArea": "Solution Architecture (35-40%)"
+  },
+  {
+    "id": 15,
+    "topic": "Power Pages",
+    "type": "multiplechoice",
+    "difficultyLevel": "Medium",
+    "text": "You are designing a self-service portal for a company. The portal must meet the following requirements: • Customers must be able to submit and review cases. • Customers must be able to chat with service representatives in near real time. • Allow service representatives to select cases from queues and use knowledge articles to resolve customer concerns. You need to recommend solutions for the company that do not require custom development. Which three apps or services should you recommend? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.",
+    "keyWords": [
+      "self-service portal",
+      "submit cases",
+      "review cases",
+      "chat",
+      "real time",
+      "queues",
+      "knowledge articles",
+      "no custom development"
+    ],
+    "hints": {
+      "easy": [
+        "Think about portal solutions",
+        "Consider chat capabilities",
+        "What manages cases and knowledge?"
+      ],
+      "medium": [
+        "What enables external portals?",
+        "Think about omnichannel chat",
+        "Consider case management systems"
+      ],
+      "hard": [
+        "Evaluate portal security models",
+        "Consider chat routing algorithms",
+        "Think about knowledge management"
+      ]
+    },
+    "conceptsTested": [
+      "self-service portals",
+      "case management",
+      "real-time chat",
+      "knowledge management",
+      "customer service"
+    ],
+    "commonMistakes": [
+      "Including Field Service for cases",
+      "Missing the portal component",
+      "Not including Omnichannel",
+      "Forgetting knowledge articles"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "customer portal",
+        "case submission/review",
+        "real-time chat",
+        "queue management",
+        "knowledge articles"
+      ],
+      "constraints": [
+        "no custom development",
+        "self-service",
+        "representative workflows"
+      ],
+      "technologies": [
+        "Power Pages",
+        "Customer Service",
+        "Omnichannel"
+      ]
+    },
+    "options": [
+      {
+        "letter": "A",
+        "text": "Dynamics 365 Field Service",
+        "isCorrect": false,
+        "analysis": "Field Service is for scheduling onsite work, not general case or chat management."
+      },
+      {
+        "letter": "B",
+        "text": "Dynamics 365 Customer Service",
+        "isCorrect": true,
+        "analysis": "Provides case management, queues, and knowledge articles for service reps."
+      },
+      {
+        "letter": "C",
+        "text": "Omnichannel for Customer Service",
+        "isCorrect": true,
+        "analysis": "Enables real-time chat, skill-based routing for reps, integrating with Customer Service."
+      },
+      {
+        "letter": "D",
+        "text": "Customer Insights",
+        "isCorrect": false,
+        "analysis": "Focuses on customer data analytics, not direct portal or chat features."
+      },
+      {
+        "letter": "E",
+        "text": "Customer self-service portal",
+        "isCorrect": true,
+        "analysis": "Enables external customers to submit/review cases online with minimal custom dev."
+      }
+    ],
+    "correctAnswers": ["B", "C", "E"],
+    "isMultipleChoice": true,
+    "detailedExplanation": "Customer self-service portal (E) for case submission, Customer Service (B) for core case mgmt and knowledge, Omnichannel (C) for chat/queue routing. These three combined allow self-service case submission, real-time chat, queue selection, and knowledge article usage without custom code.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Identify opportunities to implement Power Pages",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  },
+  {
+    "id": 16,
+    "topic": "Administration",
+    "type": "hotspot",
+    "difficultyLevel": "Hard",
+    "text": "HOTSPOT - A multinational organisation uses a single Power Platform environment. The instance hosts multiple customisations for different users in different regions. Users in some regions complain about slow load time of the customisations. You need to architect a solution based on the main requirement. What should you recommend?",
+    "keyWords": [
+      "multinational",
+      "single environment",
+      "multiple regions",
+      "slow load time",
+      "performance",
+      "customisations"
+    ],
+    "hints": {
+      "easy": [
+        "Think about geographical distribution",
+        "Consider performance optimization",
+        "What affects load times?"
+      ],
+      "medium": [
+        "How do you handle global deployments?",
+        "Think about data residency",
+        "Consider multi-geo options"
+      ],
+      "hard": [
+        "Evaluate CDN strategies",
+        "Consider data sovereignty",
+        "Think about latency patterns"
+      ]
+    },
+    "conceptsTested": [
+      "global deployment",
+      "performance optimization",
+      "multi-geo",
+      "architecture patterns",
+      "scalability"
+    ],
+    "commonMistakes": [
+      "Using single instance for all scenarios",
+      "Not considering data residency",
+      "Ignoring network latency",
+      "Over-architecting simple scenarios"
+    ],
+    "analysisHighlights": {
+      "requirements": [
+        "improve load times",
+        "support multiple regions",
+        "maintain functionality"
+      ],
+      "constraints": [
+        "geographical distribution",
+        "existing customizations",
+        "user complaints"
+      ],
+      "patterns": [
+        "multi-geo deployment",
+        "regional instances",
+        "performance optimization"
+      ]
+    },
+    "options": {
+      "areas": [
+        {
+          "name": "Divisions actively collaborate on customers",
+          "options": [
+            "Single instance; use Microsoft Azure Traffic Manager where needed",
+            "Multi-tenant with one Power Platform environment in each region",
+            "Multiple instances in different regions; Power BI for reporting",
+            "Single multi-geo instance"
+          ],
+          "correctAnswer": "Multi-tenant with one Power Platform environment in each region"
+        },
+        {
+          "name": "Regions have separate customers but use the same functionality and need global reporting",
+          "options": [
+            "Multiple instances in different regions with data replication",
+            "Multi-tenant with one Power Platform environment in each region",
+            "Multiple instances in different regions; Power BI for reporting",
+            "Single multi-geo instance"
+          ],
+          "correctAnswer": "Multiple instances in different regions; Power BI for reporting"
+        },
+        {
+          "name": "Regions have separate functionality and customers but need global reporting on data",
+          "options": [
+            "Single instance; use Microsoft Azure Traffic Manager",
+            "Multi-tenant with one Power Platform environment in each region",
+            "Multiple instances in different regions; Power BI for reporting",
+            "Single multi-geo instance"
+          ],
+          "correctAnswer": "Multiple instances in different regions; Power BI for reporting"
+        }
+      ]
+    },
+    "correctAnswers": [
+      "Divisions actively collaborate on customers → Multi-tenant with one Power Platform environment in each region",
+      "Regions have separate customers but use the same functionality and need global reporting → Multiple instances in different regions; Power BI for reporting",
+      "Regions have separate functionality and customers but need global reporting on data → Multiple instances in different regions; Power BI for reporting"
+    ],
+    "isMultipleChoice": false,
+    "detailedExplanation": "Regional environments reduce latency. For collaboration, use regional environments. For separate customers/functionality, use multiple instances with Power BI for global reporting. This balances performance with data integration needs.",
+    "category": "Perform solution envisioning and requirement analysis",
+    "weight": 7.9,
+    "examReference": "Plan solution deployment",
+    "source": "Custom generated",
+    "examArea": "Solution Envisioning and Requirements (45-50%)"
+  }
+];
+
+      // Map category to examArea
+      const getExamAreaFromCategory = (category) => {
+        const categoryMap = {
+          "Perform solution envisioning and requirement analysis": "Solution Envisioning and Requirements (45-50%)",
+          "Architect a solution": "Solution Architecture (35-40%)",
+          "Implement the solution": "Solution Implementation (15-20%)"
+        };
+        return categoryMap[category] || "General";
+      };
+
+      const enrichedQuestions = sampleQuestions.map(q => ({
+        ...q,
+        examArea: getExamAreaFromCategory(q.category)
+      }));
+
+      setQuestions(enrichedQuestions);
+    };
+
+    // BLOCK 3: Enhanced Filter Logic
+    const applyFilters = () => {
+      let filtered = questions;
+
+      if (filterTopic !== 'All') {
+        filtered = filtered.filter(q => q.topic === filterTopic);
+      }
+      if (filterDifficulty !== 'All') {
+        filtered = filtered.filter(q => q.difficultyLevel === filterDifficulty);
+      }
+      if (filterType !== 'All') {
+        filtered = filtered.filter(q => q.type === filterType);
+      }
+      if (filterExamArea !== 'All') {
+        filtered = filtered.filter(q => q.examArea === filterExamArea);
+      }
+
+      setFilteredQuestions(filtered);
+      setCurrentQuestionIndex(0);
+    };
+
+    const resetFilters = () => {
+      setFilterTopic('All');
+      setFilterDifficulty('All');
+      setFilterType('All');
+      setFilterExamArea('All');
+    };
+
+    // Helper functions for question answer selections
+    const handleAnswerSelect = (questionId, answer) => {
+      setSelectedAnswers(prev => ({
+        ...prev,
+        [questionId]: answer
+      }));
+    };
+
+    const handleMultipleAnswerSelect = (questionId, answer) => {
+      setSelectedAnswers(prev => {
+        const currentAnswers = prev[questionId] || [];
+        const newAnswers = currentAnswers.includes(answer)
+          ? currentAnswers.filter(a => a !== answer)
+          : [...currentAnswers, answer];
+        return {
+          ...prev,
+          [questionId]: newAnswers
+        };
+      });
+    };
+
+    const handleDragDropAnswer = (questionId, requirement, answer) => {
+      setSelectedAnswers(prev => ({
+        ...prev,
+        [questionId]: {
+          ...prev[questionId],
+          [requirement]: answer
+        }
+      }));
+    };
+
+    // BLOCK 4: Quiz Logic Functions
+    const startQuiz = () => {
+      let questionsToUse = [...filteredQuestions];
+      if (randomize) {
+        questionsToUse = questionsToUse.sort(() => Math.random() - 0.5);
+      }
+      const selected = questionsToUse.slice(0, Math.min(questionCount, questionsToUse.length));
+      setSelectedQuestions(selected);
+      setQuizMode(true);
+      setShowQuizSetup(false);
+      setCurrentQuestionIndex(0);
+      setSelectedAnswers({});
+      setQuizCompleted(false);
+      setQuizScore(null);
+    };
+
+    const calculateScore = () => {
+      let correctAnswersCount = 0;
+      let totalQuestions = selectedQuestions.length;
+
+      selectedQuestions.forEach(question => {
+        const userAnswer = selectedAnswers[question.id];
+        if (!userAnswer) return;
+
+        let isCorrect = false;
+
+        if (question.type === 'multiplechoice') {
+          if (question.isMultipleChoice) {
+            const correctAnswers = question.correctAnswers || [];
+            const userAnswers = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
+            isCorrect =
+              correctAnswers.length === userAnswers.length &&
+              correctAnswers.every(ans => userAnswers.includes(ans));
+          } else {
+            isCorrect = question.correctAnswers.includes(userAnswer);
+          }
+        } else if (question.type === 'hotspot') {
+          const correctAnswers = question.correctAnswers || [];
+          const userAnswers = userAnswer || {};
+          isCorrect = question.options.areas.every(area =>
+            userAnswers[area.name] === area.correctAnswer
+          );
+        } else if (question.type === 'specialdragdrop') {
+          const correctAnswers = question.correctAnswers || {};
+          const userAnswers = userAnswer || {};
+          isCorrect = Object.keys(correctAnswers).every(req =>
+            userAnswers[req] === correctAnswers[req]
+          );
+        }
+
+        if (isCorrect) correctAnswersCount++;
+      });
+
+      const percentage = (correctAnswersCount / totalQuestions) * 100;
+      const examScore = Math.round((percentage / 100) * 1000); // Convert to 1000-point scale
+
+      return {
+        correct: correctAnswersCount,
+        total: totalQuestions,
+        percentage: percentage,
+        examScore: examScore,
+        passed: examScore >= 700
+      };
+    };
+
+    const finishQuiz = () => {
+      const score = calculateScore();
+      setQuizScore(score);
+      setQuizCompleted(true);
+    };
+
+    const exitQuiz = () => {
+      setQuizMode(false);
+      setSelectedQuestions([]);
+      setQuizCompleted(false);
+      setQuizScore(null);
+      setCurrentQuestionIndex(0);
+    };
+
+    // Render question types
+    const renderMultipleChoiceQuestion = (question) => {
+      const userAnswers = selectedAnswers[question.id] || [];
+      return (
+        <div className="space-y-3">
+          {question.options.map((option) => (
+            <div
+              key={option.letter}
+              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                userAnswers.includes(option.letter)
+                  ? 'border-blue-500 bg-blue-50'
+                  : 'border-gray-200 hover:border-gray-300'
+              } ${
+                showCorrectAnswers
+                  ? option.isCorrect
+                    ? 'border-green-500 bg-green-50'
+                    : userAnswers.includes(option.letter)
+                    ? 'border-red-500 bg-red-50'
+                    : ''
+                  : ''
+              }`}
+              onClick={() =>
+                question.isMultipleChoice
+                  ? handleMultipleAnswerSelect(question.id, option.letter)
+                  : handleAnswerSelect(question.id, option.letter)
+              }
+            >
+              <div className="flex items-start space-x-3">
+                <span className="font-bold text-lg">{option.letter}.</span>
+                <span className="flex-1">{option.text}</span>
+                {showCorrectAnswers && (
+                  <div className="flex items-center">
+                    {option.isCorrect ? (
+                      <CheckCircle />
+                    ) : userAnswers.includes(option.letter) ? (
+                      <XCircle />
+                    ) : null}
+                  </div>
+                )}
+              </div>
+              {showAnalysis && option.analysis && (
+                <div className="mt-2 p-3 bg-gray-50 rounded text-sm">
+                  <strong>Analysis:</strong> {option.analysis}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    const renderHotspotQuestion = (question) => {
+      const userAnswers = selectedAnswers[question.id] || {};
+      return (
+        <div className="space-y-4">
+          {question.options.areas.map((area, index) => (
+            <div key={index} className="border rounded-lg p-4">
+              <h4 className="font-semibold mb-3">{area.name}</h4>
+              <div className="space-y-2">
+                {area.options.map((option, optIndex) => (
+                  <div
+                    key={optIndex}
+                    className={`p-3 border-2 rounded cursor-pointer transition-all ${
+                      userAnswers[area.name] === option
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    } ${
+                      showCorrectAnswers
+                        ? option === area.correctAnswer
+                          ? 'border-green-500 bg-green-50'
+                          : userAnswers[area.name] === option
+                          ? 'border-red-500 bg-red-50'
+                          : ''
+                        : ''
+                    }`}
+                    onClick={() => handleDragDropAnswer(question.id, area.name, option)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>{option}</span>
+                      {showCorrectAnswers && (
+                        <div>
+                          {option === area.correctAnswer ? (
+                            <CheckCircle />
+                          ) : userAnswers[area.name] === option ? (
+                            <XCircle />
+                          ) : null}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    const renderDragDropQuestion = (question) => {
+      const userAnswers = selectedAnswers[question.id] || {};
+      return (
+        <div className="space-y-4">
+          {question.requirements?.map((requirement, index) => (
+            <div key={index} className="border rounded-lg p-4">
+              <div className="font-medium mb-3">{requirement}</div>
+              <div className="flex gap-2 flex-wrap">
+                {question.choices.map((choice, choiceIndex) => {
+                  const isSelected = userAnswers[requirement] === choice;
+                  const correctAnswer = question.correctAnswers[requirement];
+                  const isCorrect = choice === correctAnswer;
+                  const isWrong = showCorrectAnswers && isSelected && !isCorrect;
+                  return (
+                    <button
+                      key={choiceIndex}
+                      className={`px-4 py-2 border-2 rounded transition-all ${
+                        isSelected
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      } ${
+                        showCorrectAnswers
+                          ? isCorrect
+                            ? 'border-green-500 bg-green-50'
+                            : isWrong
+                            ? 'border-red-500 bg-red-50'
+                            : ''
+                          : ''
+                      }`}
+                      onClick={() => handleDragDropAnswer(question.id, requirement, choice)}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <span>{choice}</span>
+                        {showCorrectAnswers && (
+                          <>
+                            {isCorrect ? <CheckCircle /> : isWrong ? <XCircle /> : null}
+                          </>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    // BLOCK 5: Updated Filter Section & BLOCK 6/7: Quiz Setup & Results Modals
+    // Main return
+    // BLOCK 10: Update currentQuestion logic
+    const currentQuestion = quizMode
+      ? selectedQuestions[currentQuestionIndex]
+      : filteredQuestions[currentQuestionIndex];
+
+    if (!currentQuestion) {
+      return (
+        <div className="max-w-6xl mx-auto p-6">
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-bold mb-4">
+              {quizMode ? 'Quiz Complete' : 'No Questions Available'}
+            </h2>
+            <p className="text-gray-600">
+              {quizMode
+                ? 'You have completed all questions in this quiz.'
+                : 'Check your question file or filters.'}
+            </p>
+            {quizMode && (
+              <button
+                onClick={exitQuiz}
+                className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                Return to Study Mode
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="max-w-6xl mx-auto p-6 space-y-6">
+
+        {/* Quiz Setup Modal */}
+        {showQuizSetup && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+              <h2 className="text-2xl font-bold mb-4">Quiz Setup</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Number of Questions: {questionCount}
+                  </label>
+                  <input
+                    type="range"
+                    min="1"
+                    max={filteredQuestions.length}
+                    value={questionCount}
+                    onChange={(e) => setQuestionCount(parseInt(e.target.value))}
+                    className="w-full"
+                  />
+                  <div className="text-xs text-gray-500 mt-1">
+                    Max available: {filteredQuestions.length}
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="randomize"
+                    checked={randomize}
+                    onChange={(e) => setRandomize(e.target.checked)}
+                    className="rounded"
+                  />
+                  <label htmlFor="randomize" className="text-sm font-medium">
+                    Randomize question order
+                  </label>
+                </div>
+                
+                <div className="text-sm text-gray-600 p-3 bg-blue-50 rounded">
+                  <strong>PL-600 Exam Info:</strong><br/>
+                  • Passing Score: 700/1000<br/>
+                  • Typical Questions: 40+<br/>
+                  • Duration: ~100 minutes
+                </div>
+              </div>
+              
+              <div className="flex space-x-3 mt-6">
+                <button
+                  onClick={() => setShowQuizSetup(false)}
+                  className="flex-1 px-4 py-2 border rounded hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={startQuiz}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Start Quiz
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Quiz Results Modal */}
+        {quizCompleted && quizScore && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+              <h2 className="text-2xl font-bold mb-4 text-center">Quiz Complete!</h2>
+              
+              <div className="text-center space-y-4">
+                <div className={`text-6xl font-bold ${quizScore.passed ? 'text-green-600' : 'text-red-600'}`}>
+                  {quizScore.examScore}
+                </div>
+                <div className="text-gray-600">out of 1000</div>
+                
+                <div className={`text-xl font-semibold ${quizScore.passed ? 'text-green-600' : 'text-red-600'}`}>
+                  {quizScore.passed ? 'PASSED' : 'FAILED'}
+                </div>
+                
+                <div className="text-gray-700">
+                  {quizScore.correct} correct out of {quizScore.total} questions
+                  <br/>
+                  ({quizScore.percentage.toFixed(1)}%)
+                </div>
+                
+                <div className="text-sm text-gray-600 p-3 bg-gray-50 rounded">
+                  Passing score: 700/1000 (70%)
+                </div>
+              </div>
+              
+              <div className="flex space-x-3 mt-6">
+                <button
+                  onClick={exitQuiz}
+                  className="flex-1 px-4 py-2 border rounded hover:bg-gray-50"
+                >
+                  Exit Quiz
+                </button>
+                <button
+                  onClick={() => {
+                    setQuizCompleted(false);
+                    setCurrentQuestionIndex(0);
+                    setShowCorrectAnswers(true);
+                  }}
+                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Review Answers
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* BLOCK 8: Enhanced Header */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg">
+          <h1 className="text-3xl font-bold mb-2">
+            {quizMode ? 'PL-600 Practice Quiz' : 'Power Platform Question Analysis Tool'}
+          </h1>
+          <div className="flex flex-wrap items-center gap-4 text-blue-100">
+            {quizMode ? (
+              <>
+                <span>Quiz Question {currentQuestionIndex + 1} of {selectedQuestions.length}</span>
+                <span>•</span>
+                <span>{selectedQuestions[currentQuestionIndex]?.examArea}</span>
+                <div className="ml-auto">
+                  <button
+                    onClick={finishQuiz}
+                    className="px-4 py-1 bg-white bg-opacity-20 rounded hover:bg-opacity-30"
+                  >
+                    Finish Quiz
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <span>Question {currentQuestionIndex + 1} of {filteredQuestions.length}</span>
+                <span>•</span>
+                <span>{currentQuestion?.topic}</span>
+                <span>•</span>
+                <span>{currentQuestion?.difficultyLevel}</span>
+                <span>•</span>
+                <span>{currentQuestion?.examArea}</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* BLOCK 5: Enhanced Filters */}
+        <div className="bg-white p-4 rounded-lg border shadow-sm">
+          <div className="flex flex-wrap gap-4 items-center">
+            <div className="flex items-center space-x-2">
+              <Filter />
+              <span className="font-medium">Filters:</span>
+            </div>
+            
+            <select 
+              value={filterExamArea} 
+              onChange={(e) => setFilterExamArea(e.target.value)}
+              className="border rounded px-3 py-1"
+            >
+              <option value="All">All Exam Areas</option>
+              <option value="Solution Envisioning and Requirements (45-50%)">
+                Solution Envisioning (45-50%)
+              </option>
+              <option value="Solution Architecture (35-40%)">
+                Solution Architecture (35-40%)
+              </option>
+              <option value="Solution Implementation (15-20%)">
+                Solution Implementation (15-20%)
+              </option>
+            </select>
+            
+            <select 
+              value={filterTopic} 
+              onChange={(e) => setFilterTopic(e.target.value)}
+              className="border rounded px-3 py-1"
+            >
+              {Array.from(new Set(['All', ...questions.map(q => q.topic)]))
+                .map(topic => (
+                  <option key={topic} value={topic}>{topic}</option>
+                ))
+              }
+            </select>
+            
+            <select 
+              value={filterDifficulty} 
+              onChange={(e) => setFilterDifficulty(e.target.value)}
+              className="border rounded px-3 py-1"
+            >
+              {Array.from(new Set(['All', ...questions.map(q => q.difficultyLevel)]))
+                .map(diff => (
+                  <option key={diff} value={diff}>{diff}</option>
+                ))
+              }
+            </select>
+            
+            <select 
+              value={filterType} 
+              onChange={(e) => setFilterType(e.target.value)}
+              className="border rounded px-3 py-1"
+            >
+              {Array.from(new Set(['All', ...questions.map(q => q.type)]))
+                .map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))
+              }
+            </select>
+            
+            <button 
+              onClick={resetFilters}
+              className="flex items-center space-x-1 px-3 py-1 bg-gray-100 rounded hover:bg-gray-200"
+            >
+              <RotateCcw />
+              <span>Reset</span>
+            </button>
+            
+            <button 
+              onClick={() => setShowQuizSetup(true)}
+              className="flex items-center space-x-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              <Target />
+              <span>Start Quiz</span>
+            </button>
+            
+            <span className="text-sm text-gray-600">
+              Showing {filteredQuestions.length} of {questions.length} questions
+            </span>
+          </div>
+        </div>
+
+        {/* Question Container */}
+        <div className="bg-white rounded-lg border shadow-sm">
+          {/* Question Header */}
+          <div className="p-6 border-b">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex-1">
+                <div className="flex items-center space-x-2 mb-2">
+                  <span
+                    className={`px-2 py-1 rounded text-sm font-medium ${
+                      currentQuestion.difficultyLevel === 'Easy'
+                        ? 'bg-green-100 text-green-800'
+                        : currentQuestion.difficultyLevel === 'Medium'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : 'bg-red-100 text-red-800'
+                    }`}
+                  >
+                    {currentQuestion.difficultyLevel}
+                  </span>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm font-medium">
+                    {currentQuestion.type}
+                  </span>
+                  <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded text-sm font-medium">
+                    Weight: {currentQuestion.weight}%
+                  </span>
+                </div>
+                <div className="text-lg leading-relaxed whitespace-pre-line">
+                  {currentQuestion.text}
+                </div>
+              </div>
+            </div>
+            
+            {/* Keywords */}
+            {currentQuestion.keyWords && (
+              <div className="mb-4">
+                <span className="font-medium text-gray-700">Key Terms: </span>
+                {currentQuestion.keyWords.map((keyword, index) => (
+                  <span
+                    key={index}
+                    className="inline-block bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm mr-2 mb-1"
+                  >
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Question Body */}
+          <div className="p-6">
+            {currentQuestion.type === 'multiplechoice'
+              ? renderMultipleChoiceQuestion(currentQuestion)
+              : currentQuestion.type === 'hotspot'
+              ? renderHotspotQuestion(currentQuestion)
+              : renderDragDropQuestion(currentQuestion)}
+          </div>
+
+          {/* Controls */}
+          <div className="p-6 border-t bg-gray-50 flex flex-wrap gap-2">
+            <button
+              onClick={() => setShowAnalysis(!showAnalysis)}
+              className={`flex items-center space-x-2 px-4 py-2 rounded transition-colors ${
+                showAnalysis ? 'bg-blue-600 text-white' : 'bg-white border hover:bg-gray-50'
+              }`}
+            >
+              <Target />
+              <span>Analysis</span>
+            </button>
+            
+            <button
+              onClick={() => setShowCorrectAnswers(!showCorrectAnswers)}
+              className={`flex items-center space-x-2 px-4 py-2 rounded transition-colors ${
+                showCorrectAnswers ? 'bg-red-600 text-white' : 'bg-green-600 text-white'
+              }`}
+            >
+              {showCorrectAnswers ? <EyeOff /> : <Eye />}
+              <span>{showCorrectAnswers ? 'Hide Answers' : 'Show Answers'}</span>
+            </button>
+            
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-medium">Hints:</span>
+              <select
+                value={hintLevel}
+                onChange={(e) => setHintLevel(e.target.value)}
+                className="border rounded px-2 py-1 text-sm"
+              >
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Analysis Panel */}
+        {showAnalysis && (
+          <div className="bg-white rounded-lg border shadow-sm p-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Hints */}
+              <div>
+                <h3 className="flex items-center space-x-2 text-lg font-semibold mb-3">
+                  <Lightbulb />
+                  <span>Hints ({hintLevel})</span>
+                </h3>
+                <ul className="space-y-2">
+                  {currentQuestion.hints?.[hintLevel]?.map((hint, index) => (
+                    <li key={index} className="flex items-start space-x-2">
+                      <span className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-700">{hint}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Common Mistakes */}
+              <div>
+                <h3 className="flex items-center space-x-2 text-lg font-semibold mb-3">
+                  <AlertTriangle />
+                  <span>Common Mistakes</span>
+                </h3>
+                <ul className="space-y-2">
+                  {currentQuestion.commonMistakes?.map((mistake, index) => (
+                    <li key={index} className="flex items-start space-x-2">
+                      <span className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0" />
+                      <span className="text-gray-700">{mistake}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Concepts Tested */}
+              <div>
+                <h3 className="flex items-center space-x-2 text-lg font-semibold mb-3">
+                  <BookOpen />
+                  <span>Concepts Tested</span>
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {currentQuestion.conceptsTested?.map((concept, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                    >
+                      {concept}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Analysis Highlights */}
+              {currentQuestion.analysisHighlights && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Analysis Highlights</h3>
+                  <div className="space-y-3">
+                    {Object.entries(currentQuestion.analysisHighlights).map(([key, values]) => (
+                      <div key={key}>
+                        <span className="font-medium capitalize text-gray-700">{key}: </span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {Array.isArray(values)
+                            ? values.map((value, index) => (
+                                <span
+                                  key={index}
+                                  className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm"
+                                >
+                                  {value}
+                                </span>
+                              ))
+                            : (
+                              <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
+                                {values}
+                              </span>
+                            )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Detailed Explanation */}
+            {currentQuestion.detailedExplanation && (
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                <h4 className="font-semibold text-blue-900 mb-2">Detailed Explanation</h4>
+                <p className="text-blue-800">{currentQuestion.detailedExplanation}</p>
+              </div>
+            )}
+
+            {/* Category and Reference */}
+            <div className="mt-6 grid md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="font-medium">Category: </span>
+                <span className="text-gray-700">{currentQuestion.category}</span>
+              </div>
+              {currentQuestion.examReference && (
+                <div>
+                  <span className="font-medium">Exam Reference: </span>
+                  <span className="text-gray-700">{currentQuestion.examReference}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* BLOCK 9: Updated Navigation */}
+        <div className="flex justify-between items-center">
+          <button
+            onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
+            disabled={currentQuestionIndex === 0}
+            className="flex items-center space-x-2 px-4 py-2 bg-white border rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronLeft />
+            <span>Previous</span>
+          </button>
+
+          <div className="flex items-center space-x-4">
+            {quizMode && (
+              <button
+                onClick={exitQuiz}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              >
+                Exit Quiz
+              </button>
+            )}
+            
+            <span className="text-gray-600">
+              {currentQuestionIndex + 1} / {quizMode ? selectedQuestions.length : filteredQuestions.length}
+            </span>
+          </div>
+
+          <button
+            onClick={() =>
+              setCurrentQuestionIndex(
+                Math.min(
+                  (quizMode ? selectedQuestions.length : filteredQuestions.length) - 1,
+                  currentQuestionIndex + 1
+                )
+              )
+            }
+            disabled={
+              currentQuestionIndex ===
+              (quizMode ? selectedQuestions.length : filteredQuestions.length) - 1
+            }
+            className="flex items-center space-x-2 px-4 py-2 bg-white border rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span>Next</span>
+            <ChevronRight />
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  ReactDOM.render(<QuestionAnalyzer />, document.getElementById('root'));
+</script>
+</body>
+</html>
