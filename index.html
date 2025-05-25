@@ -3699,7 +3699,7 @@
   "difficultyLevel": "Medium",
   
   "text": "DRAG DROP - You are a Microsoft Power Platform solution architect capturing requirements for a national retail chain project.\n\nThe project has the following requirements:\n• Retail employees must use the application on a company-provided tablet device.\n• The app must store data offline.\n• Environment capacity must be monitored to ensure usage stays within 80 percent of available capacity.\n• Apps are shared with security group teams for users to access.\n\nYou need to identify the project's functional and non-functional requirements.\nHow should you categorize the requirements? To answer, drag the appropriate categories to the correct requirements. Each category may be used once, more than once, or not at all.\nNOTE: Each correct selection is worth one point.",
-  
+
   "keyWords": [
     "tablet device",
     "offline data",
@@ -3710,14 +3710,14 @@
 
   "hints": {
     "easy": [
-      "Device usage is typically environmental constraint. Offline storage is functional. Monitoring capacity is a non-functional/performance requirement. Sharing apps with security groups is functional (a user access scenario)."
+      "Device usage is typically environmental constraint. Offline storage is functional. Monitoring capacity is non-functional. Sharing apps with security groups is functional."
     ],
     "medium": [
-      "Think about how you differentiate environment capacity checks (non-functional, operational constraints).",
-      "Security group-based sharing is part of the 'what the system does' from a user access perspective."
+      "Environment capacity checks are a performance/operational constraint (non-functional).",
+      "Security group-based sharing is part of what the system must do from a user access perspective (functional)."
     ],
     "hard": [
-      "If a requirement is about how well or how resources are used, it tends to be non-functional. If it’s about the app usage or data handling, it's functional."
+      "If a requirement is about how well or how resources are used, it tends to be non-functional. Device constraints are environmental."
     ]
   },
 
@@ -3749,69 +3749,38 @@
     ]
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "Retail employees must use the application on a company-provided tablet device",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "The app must store data offline",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Environment capacity must be monitored to ensure usage stays within 80 percent",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Apps are shared with security group teams for users to access",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Environmental constraint",
-          "Compliance requirement"
-        ]
-      }
-    }
+  "requirements": [
+    "Retail employees must use the application on a company-provided tablet device",
+    "The app must store data offline",
+    "Environment capacity must be monitored to ensure usage stays within 80 percent",
+    "Apps are shared with security group teams for users to access"
   ],
-  "correctAnswers": [
-    "Retail employees must use the application on a company-provided tablet device: Environmental constraint",
-    "The app must store data offline: Functional requirement",
-    "Environment capacity must be monitored to ensure usage stays within 80 percent: Non-functional requirement",
-    "Apps are shared with security group teams for users to access: Functional requirement"
+
+  "choices": [
+    "Functional requirement",
+    "Non-functional requirement",
+    "Environmental constraint",
+    "Compliance requirement"
   ],
+
+  "correctAnswers": {
+    "Retail employees must use the application on a company-provided tablet device": "Environmental constraint",
+    "The app must store data offline": "Functional requirement",
+    "Environment capacity must be monitored to ensure usage stays within 80 percent": "Non-functional requirement",
+    "Apps are shared with security group teams for users to access": "Functional requirement"
+  },
   
   "isMultipleChoice": false,
 
-  "detailedExplanation": "Using a company-provided tablet is an environmental constraint, describing hardware usage. Storing data offline is a direct functional capability. Monitoring capacity is a non-functional performance/operational requirement. Sharing apps with security groups is a functional user-access scenario describing what the system must do.",
-  
+  "detailedExplanation": "Using a company-provided tablet is an environmental constraint (hardware usage). Storing data offline is a direct functional capability. Monitoring capacity is a non-functional performance/operational requirement. Sharing apps with security groups is a functional user-access scenario describing what the system must do.",
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 6.0,
   "examReference": "Identify requirement categories",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 {
   "id": 39,
   "topic": "General",
@@ -3992,13 +3961,12 @@
   "examReference": "Prioritize functional vs quick win items",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
-      {
+},{
   "id": 41,
   "topic": "General",
   "type": "specialdragdrop",
   "difficultyLevel": "Easy",
-  
+
   "text": "DRAG DROP - You are a Microsoft Power Platform architect.\n\nYou have identified several project risks.\n\nYou need to categorize potential risks that are specific to your customer.\n\nHow should you categorize the risks? To answer, drag the appropriate categories to the correct risks. Each category may be used once, more than once, or not at all.\nYou may need to drag the split bar between panes or scroll to view content.\n\nNOTE: Each correct selection is worth one point.",
 
   "keyWords": [
@@ -4008,7 +3976,7 @@
     "compliance risk",
     "delivery risk"
   ],
-  
+
   "hints": {
     "easy": [
       "Think about common risk categories: people, financial, compliance, delivery (schedule).",
@@ -4043,69 +4011,38 @@
     "technologies": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "User adoption is low",
-        "choices": [
-          "People risk",
-          "Compliance risk",
-          "Financial risk",
-          "Delivery risk"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Budget constraints",
-        "choices": [
-          "People risk",
-          "Compliance risk",
-          "Financial risk",
-          "Delivery risk"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Project timeline exceeds schedule",
-        "choices": [
-          "People risk",
-          "Compliance risk",
-          "Financial risk",
-          "Delivery risk"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Regulatory compliance",
-        "choices": [
-          "People risk",
-          "Compliance risk",
-          "Financial risk",
-          "Delivery risk"
-        ]
-      }
-    }
+  "requirements": [
+    "User adoption is low",
+    "Budget constraints",
+    "Project timeline exceeds schedule",
+    "Regulatory compliance"
   ],
 
-  "correctAnswers": [
-    "User adoption is low: People risk",
-    "Budget constraints: Financial risk",
-    "Project timeline exceeds schedule: Delivery risk",
-    "Regulatory compliance: Compliance risk"
+  "choices": [
+    "People risk",
+    "Compliance risk",
+    "Financial risk",
+    "Delivery risk"
   ],
+
+  "correctAnswers": {
+    "User adoption is low": "People risk",
+    "Budget constraints": "Financial risk",
+    "Project timeline exceeds schedule": "Delivery risk",
+    "Regulatory compliance": "Compliance risk"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "Low user adoption directly involves people and organizational engagement, so it is categorized as a people risk. Budget constraints obviously affect financial aspects, making it a financial risk. A project timeline that exceeds schedule is a delivery (time) risk, while meeting regulatory compliance obligations is a compliance risk.",
-  
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.5,
   "examReference": "Identify and categorize project risks",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 	{
   "id": 42,
   "topic": "General",
@@ -4258,62 +4195,36 @@
     "technologies": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "Users must be able to add multiple items to a shopping cart",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "The system must handle up to 10,000 concurrent users",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "The checkout process must comply with PCI standards",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Users can filter products by color or size",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement"
-        ]
-      }
-    }
+  "requirements": [
+    "Users must be able to add multiple items to a shopping cart",
+    "The system must handle up to 10,000 concurrent users",
+    "The checkout process must comply with PCI standards",
+    "Users can filter products by color or size"
   ],
 
-  "correctAnswers": [
-    "Users must be able to add multiple items to a shopping cart: Functional requirement",
-    "The system must handle up to 10,000 concurrent users: Non-functional requirement",
-    "The checkout process must comply with PCI standards: Non-functional requirement",
-    "Users can filter products by color or size: Functional requirement"
+  "choices": [
+    "Functional requirement",
+    "Non-functional requirement"
   ],
+
+  "correctAnswers": {
+    "Users must be able to add multiple items to a shopping cart": "Functional requirement",
+    "The system must handle up to 10,000 concurrent users": "Non-functional requirement",
+    "The checkout process must comply with PCI standards": "Non-functional requirement",
+    "Users can filter products by color or size": "Functional requirement"
+  },
   
   "isMultipleChoice": false,
 
   "detailedExplanation": "Features describing how users interact (e.g., adding items to a cart, filtering) are functional requirements. Concurrency limits and PCI compliance are constraints on how the system must operate—making them non-functional.",
-  
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.0,
   "examReference": "Identify functional vs non-functional in e-commerce scenario",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 	      
 {
   "id": 44,
@@ -5420,7 +5331,7 @@
   "difficultyLevel": "Easy",
   
   "text": "DRAG DROP - You need to recommend solutions to meet the organization's communication needs. What should you recommend?",
-  
+
   "keyWords": [
     "communication",
     "Teams",
@@ -5456,43 +5367,33 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "First Up employees",
-        "choices": [
-          "Microsoft Teams",
-          "Power Pages",
-          "Microsoft 365 Business Voice"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Workers",
-        "choices": [
-          "Microsoft Teams",
-          "Power Pages",
-          "Microsoft 365 Business Voice"
-        ]
-      }
-    }
+  "requirements": [
+    "First Up employees",
+    "Workers"
   ],
-  
-  "correctAnswers": [
-    "First Up employees: Microsoft Teams",
-    "Workers: Power Pages"
+
+  "choices": [
+    "Microsoft Teams",
+    "Power Pages",
+    "Microsoft 365 Business Voice"
   ],
+
+  "correctAnswers": {
+    "First Up employees": "Microsoft Teams",
+    "Workers": "Power Pages"
+  },
+
   "isMultipleChoice": false,
 
-  "detailedExplanation": "Microsoft Teams is the standard platform for internal employees to chat, call, and collaborate. Power Pages (formerly Power Apps portals) is well-suited for external workers to access relevant data and communications without requiring full corporate credentials, ensuring a secure and straightforward approach to gather or share info.",
+  "detailedExplanation": "Microsoft Teams is the standard platform for internal employees to chat, call, and collaborate. Power Pages (formerly Power Apps portals) is well-suited for external or field workers to access relevant data and communications without requiring full corporate credentials, ensuring a secure and straightforward approach to gather or share info.",
   
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.5,
   "examReference": "Appropriate communication platform recommendations",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 	      {
   "id": 59,
   "topic": "Power Automate",
@@ -5915,54 +5816,35 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "construction",
-        "choices": [
-          "job shadowing",
-          "surveys",
-          "workshops"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "sales",
-        "choices": [
-          "job shadowing",
-          "surveys",
-          "workshops"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "warranty",
-        "choices": [
-          "job shadowing",
-          "surveys",
-          "workshops"
-        ]
-      }
-    }
+  "requirements": [
+    "construction",
+    "sales",
+    "warranty"
   ],
 
-  "correctAnswers": [
-    "sales: surveys",
-    "construction: job shadowing",
-    "warranty: workshops"
+  "choices": [
+    "job shadowing",
+    "surveys",
+    "workshops"
   ],
+
+  "correctAnswers": {
+    "sales": "surveys",
+    "construction": "job shadowing",
+    "warranty": "workshops"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "Sales employees spread out or with unpredictable schedules are best reached via surveys. Construction workers appreciate hands-on demonstration of tasks, so job shadowing reveals real processes. Warranty staff regularly gather, so workshops let them discuss issues in depth collaboratively.",
-  
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.5,
   "examReference": "Tailor discovery method by department",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 {
   "id": 65,
   "topic": "Dataverse",
@@ -6006,33 +5888,22 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "Retrieve data from the third-party marketing data source.",
-        "choices": [
-          "connector",
-          "dataflow",
-          "virtual table"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Retrieve data from the supplier data source.",
-        "choices": [
-          "connector",
-          "dataflow",
-          "virtual table"
-        ]
-      }
-    }
+  "requirements": [
+    "Retrieve data from the third-party marketing data source.",
+    "Retrieve data from the supplier data source."
   ],
 
-  "correctAnswers": [
-    "Retrieve data from the third-party marketing data source: dataflow",
-    "Retrieve data from the supplier data source: connector"
+  "choices": [
+    "connector",
+    "dataflow",
+    "virtual table"
   ],
+
+  "correctAnswers": {
+    "Retrieve data from the third-party marketing data source.": "dataflow",
+    "Retrieve data from the supplier data source.": "connector"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "Marketing data that requires transformations and scheduled loads is best ingested via a dataflow. Supplier data that needs immediate or real-time access can use a connector approach, so the system can call the supplier’s service on demand.",
@@ -6042,7 +5913,8 @@
   "examReference": "Select correct data integration approach in Dataverse",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},   
+}
+,   
 	      {
   "id": 66,
   "topic": "General",
@@ -6335,11 +6207,7 @@
   
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 6.5,
-  "examReference": "Proper use of flows, dataflows, and Power BI",
-  "source": "Custom generated",
-  "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
-	{
+ {
   "id": 70,
   "topic": "General",
   "type": "specialdragdrop",
@@ -6378,57 +6246,36 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "Allow users to place orders, track order status, and receive notifications about order shipments",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Technical constraint",
-          "Business constraint"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Provide availability 24 hours a day, excluding scheduled maintenance windows",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Technical constraint",
-          "Business constraint"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Support real-time tracking of inventory levels",
-        "choices": [
-          "Functional requirement",
-          "Non-functional requirement",
-          "Technical constraint",
-          "Business constraint"
-        ]
-      }
-    }
+  "requirements": [
+    "Allow users to place orders, track order status, and receive notifications about order shipments",
+    "Provide availability 24 hours a day, excluding scheduled maintenance windows",
+    "Support real-time tracking of inventory levels"
   ],
 
-  "correctAnswers": [
-    "Allow users to place orders, track order status, and receive notifications about order shipments: Functional requirement",
-    "Provide availability 24 hours a day, excluding scheduled maintenance windows: Non-functional requirement",
-    "Support real-time tracking of inventory levels: Functional requirement"
+  "choices": [
+    "Functional requirement",
+    "Non-functional requirement",
+    "Technical constraint",
+    "Business constraint"
   ],
+
+  "correctAnswers": {
+    "Allow users to place orders, track order status, and receive notifications about order shipments": "Functional requirement",
+    "Provide availability 24 hours a day, excluding scheduled maintenance windows": "Non-functional requirement",
+    "Support real-time tracking of inventory levels": "Functional requirement"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "Placing and tracking orders with notifications is a direct user action—functional. Real-time inventory tracking is also a system feature for users—functional. The system’s 24/7 availability is a performance/uptime requirement—non-functional.",
-  
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 6.3,
   "examReference": "Classify logistic solution requirements",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 {
   "id": 71,
   "topic": "Integration",
@@ -6509,7 +6356,7 @@
 	{
   "id": 72,
   "topic": "General",
-  "type": "dragdrop",
+  "type": "specialdragdrop",
   "difficultyLevel": "Easy",
 
   "text": "DRAG DROP - You need to recommend solutions to meet the organization's communication needs. What should you recommend?",
@@ -6544,21 +6391,22 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": "Technologies",
-      "targets": []
-    },
-    {
-      "source": "Groups of users",
-      "targets": []
-    }
+  "requirements": [
+    "First Up employees",
+    "Workers"
   ],
 
-  "correctAnswers": [
-    "First Up employees \u2192 Microsoft Teams",
-    "Workers \u2192 Power Pages"
+  "choices": [
+    "Microsoft Teams",
+    "Power Pages",
+    "Microsoft 365 Business Voice"
   ],
+
+  "correctAnswers": {
+    "First Up employees": "Microsoft Teams",
+    "Workers": "Power Pages"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "As explained, employees use Teams for internal Q&A, while external or field workers use Power Pages for sign-in and self-service record access. This solution meets the distinct needs of each user group.",
@@ -6568,7 +6416,8 @@
   "examReference": "Recommend the right communication platform",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 {
   "id": 73,
   "topic": "General",
@@ -6595,8 +6444,7 @@
     "matching data requirements to correct system"
   ],
 
-  "commonMistakes": []
-  ,
+  "commonMistakes": [],
 
   "analysisHighlights": {
     "requirements": [
@@ -6607,57 +6455,36 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "Certification information for employees",
-        "choices": [
-          "HR system",
-          "CRM system",
-          "E-commerce platform",
-          "Customer support system"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Purchasing behavior and preferences",
-        "choices": [
-          "E-commerce platform",
-          "CRM system",
-          "HR system",
-          "Customer support system"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Enhance customer service",
-        "choices": [
-          "Customer support system",
-          "CRM system",
-          "E-commerce platform",
-          "HR system"
-        ]
-      }
-    }
+  "requirements": [
+    "Certification information for employees",
+    "Purchasing behavior and preferences",
+    "Enhance customer service"
   ],
 
-  "correctAnswers": [
-    "Certification information for employees: HR system",
-    "Purchasing behavior and preferences: E-commerce platform",
-    "Enhance customer service: Customer support system"
+  "choices": [
+    "HR system",
+    "CRM system",
+    "E-commerce platform",
+    "Customer support system"
   ],
+
+  "correctAnswers": {
+    "Certification information for employees": "HR system",
+    "Purchasing behavior and preferences": "E-commerce platform",
+    "Enhance customer service": "Customer support system"
+  },
+
   "isMultipleChoice": false,
 
-  "detailedExplanation": "HR system holds employee certifications, an e-commerce platform tracks purchasing behavior, and the customer support system is the best place to gather data about service interactions to enhance customer service.",
-  
+  "detailedExplanation": "The HR system holds employee certifications, the e-commerce platform tracks purchasing behavior, and the customer support system gathers data about service interactions to enhance customer service.",
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.9,
   "examReference": "Map each requirement to correct data source",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},	
+}
+,	
 {
   "id": 74,
   "topic": "General",
@@ -7357,39 +7184,35 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "Gather requirements and define scope"
-      }
-    },
-    {
-      "source": {
-        "requirement": "Use a workshop to discover current processes"
-      }
-    },
-    {
-      "source": {
-        "requirement": "Conduct a user training session"
-      }
-    }
+  "requirements": [
+    "Gather requirements and define scope",
+    "Use a workshop to discover current processes",
+    "Conduct a user training session"
   ],
-  
-  "correctAnswers": [
-    "Gather requirements and define scope: Planning",
-    "Use a workshop to discover current processes: Analysis",
-    "Conduct a user training session: Deployment"
+
+  "choices": [
+    "Planning",
+    "Analysis",
+    "Deployment"
   ],
+
+  "correctAnswers": {
+    "Gather requirements and define scope": "Planning",
+    "Use a workshop to discover current processes": "Analysis",
+    "Conduct a user training session": "Deployment"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "Project planning phases typically handle scope and requirement definition. Analysis often involves deeper workshops to map existing processes. Deployment is when final user training sessions occur for go-live readiness.",
-  
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.2,
   "examReference": "Match project tasks to phases",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 {
   "id": 84,
   "topic": "General",
@@ -7702,7 +7525,7 @@
   "source": "Custom generated",
   "examArea": "Solution Architecture (35-40%)"
 },
-	      {
+	     {
   "id": 87,
   "topic": "Power Automate",
   "type": "specialdragdrop",
@@ -7743,58 +7566,39 @@
     "constraints": []
   },
 
-  "options": [
-    {
-      "source": {
-        "requirement": "HTTP connector",
-        "choices": [
-          "Business",
-          "Non-business",
-          "Blocked"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Azure DevOps connector",
-        "choices": [
-          "Business",
-          "Non-business",
-          "Blocked"
-        ]
-      }
-    },
-    {
-      "source": {
-        "requirement": "Microsoft Forms connector",
-        "choices": [
-          "Business",
-          "Non-business",
-          "Blocked"
-        ]
-      }
-    }
+  "requirements": [
+    "HTTP connector",
+    "Azure DevOps connector",
+    "Microsoft Forms connector"
   ],
 
-  "correctAnswers": [
-    "HTTP connector: Business",
-    "Azure DevOps connector: Non-business",
-    "Microsoft Forms connector: Blocked"
+  "choices": [
+    "Business",
+    "Non-business",
+    "Blocked"
   ],
+
+  "correctAnswers": {
+    "HTTP connector": "Business",
+    "Azure DevOps connector": "Non-business",
+    "Microsoft Forms connector": "Blocked"
+  },
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "Putting the HTTP connector in Business ensures that if a solution uses HTTP, it can’t include Non-business connectors like Azure DevOps. Meanwhile, Azure DevOps belongs in Non-business. Microsoft Forms is blocked entirely per the requirement.",
-  
+
   "category": "Architect a solution",
   "weight": 6.0,
   "examReference": "Configure DLP policies for connectors",
   "source": "Custom generated",
   "examArea": "Solution Architecture (35-40%)"
-},
+}
+,
   {
   "id": 88,
   "topic": "Security",
-  "type": "hotspot",
+  "type": "specialdragdrop",
   "difficultyLevel": "Medium",
 
   "text": "HOTSPOT - You are designing a Microsoft Power Platform solution for a company. You have the following requirements:\n• Users in the human resources department must be able to create tasks.\n• Users in the human resources department must be able to assign cases to other users.\n\nYou create a table for cases and tasks. You need to recommend security settings to the company. What should you recommend?",
@@ -7829,41 +7633,36 @@
     "constraints": []
   },
 
-  "options": {
-    "areas": [
-      {
-        "name": "Users in the human resources department must be able to create tasks.",
-        "options": [
-          "User-level Create privilege on the Task entity",
-          "Business Unit-level Create privilege on the Task entity",
-          "Organization-level Create privilege on the Task entity"
-        ]
-      },
-      {
-        "name": "Users in the human resources department must be able to assign cases to other users.",
-        "options": [
-          "User-level Assign privilege on the Case entity",
-          "Business Unit-level Assign privilege on the Case entity",
-          "Organization-level Assign privilege on the Case entity"
-        ]
-      }
-    ]
+  "requirements": [
+    "Users in the human resources department must be able to create tasks.",
+    "Users in the human resources department must be able to assign cases to other users."
+  ],
+
+  "choices": [
+    "User-level Create privilege on the Task entity",
+    "Business Unit-level Create privilege on the Task entity",
+    "Organization-level Create privilege on the Task entity",
+    "User-level Assign privilege on the Case entity",
+    "Business Unit-level Assign privilege on the Case entity",
+    "Organization-level Assign privilege on the Case entity"
+  ],
+
+  "correctAnswers": {
+    "Users in the human resources department must be able to create tasks.": "User-level Create privilege on the Task entity",
+    "Users in the human resources department must be able to assign cases to other users.": "Organization-level Assign privilege on the Case entity"
   },
 
-  "correctAnswers": [
-    "Users in the human resources department must be able to create tasks.: User-level Create privilege on the Task entity",
-    "Users in the human resources department must be able to assign cases to other users.: Organization-level Assign privilege on the Case entity"
-  ],
   "isMultipleChoice": false,
 
   "detailedExplanation": "To create tasks, a user-level Create privilege is sufficient to let HR users create tasks without oversharing. Assigning cases to any user across the organization requires an organization-level Assign privilege on the Case table.",
-  
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.8,
   "examReference": "Configure Dataverse security roles for tasks and assignments",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},
+}
+,
 	{
   "id": 89,
   "topic": "General",
@@ -9966,13 +9765,14 @@
   "isMultipleChoice": true,
 
   "detailedExplanation": "Custom connectors can authenticate via Basic authentication (A), OAuth 2.0 (B), or an API key (D). OIDC is typically not provided as a separate built-in method, and 'pass-through' is not a standard option in custom connectors.",
-  
+
   "category": "Architect a solution",
   "weight": 6.3,
   "examReference": "Select correct auth types for custom connectors",
   "source": "Custom generated",
   "examArea": "Solution Architecture (35-40%)"
-},
+}
+,
 	{
   "id": 118,
   "topic": "Power Apps",
@@ -10135,7 +9935,7 @@
 	{
   "id": 120,
   "topic": "General",
-  "type": "sequence",
+  "type": "specialdragdrop",
   "difficultyLevel": "Medium",
 
   "text": "DRAG DROP -\nYou are a Microsoft Power Platform architect.\n\nYou must identify and document your organization's business processes to identify automation opportunities. You need to run task mining in Process Advisor.\n\nIn which order should you perform the actions?\nTo answer, move all actions from the list of actions to the answer area and arrange them in the correct order.",
@@ -10157,8 +9957,7 @@
     "task mining steps"
   ],
 
-  "commonMistakes": []
-  ,
+  "commonMistakes": [],
 
   "analysisHighlights": {
     "requirements": [
@@ -10167,7 +9966,7 @@
     "constraints": []
   },
 
-  "options": [
+  "requirements": [
     "Install the process advisor recorder (task mining agent)",
     "Create a new task mining process in process advisor",
     "Invite users and configure recordings for relevant tasks",
@@ -10175,22 +9974,25 @@
     "Generate an optimization report",
     "Create a Power Automate flow based on findings"
   ],
+
   "correctAnswers": [
     "Install the process advisor recorder (task mining agent)",
     "Create a new task mining process in process advisor",
     "Invite users and configure recordings for relevant tasks",
     "Review and analyze the recorded task data in process advisor"
   ],
+
   "isMultipleChoice": false,
 
   "detailedExplanation": "The correct order is: first install the recorder agent locally, then create a new task mining process in Process Advisor, invite users to record relevant tasks, and finally review and analyze the recorded data to identify automation opportunities.",
-  
+
   "category": "Perform solution envisioning and requirement analysis",
   "weight": 5.8,
   "examReference": "Implement Process Advisor task mining steps in order",
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
-},      
+}
+,      
 	{
   "id": 301,
   "topic": "Power Automate",
