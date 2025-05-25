@@ -8792,7 +8792,1437 @@
   "source": "Custom generated",
   "examArea": "Solution Envisioning and Requirements (45-50%)"
 },
-	      
+{
+  "id": 101,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "A company wants to add an interactive checklist to a Power Platform solution to ensure that salespeople are following the same steps when qualifying leads.\nYou need to recommend a solution that will incorporate this checklist.\nWhat should you recommend?",
+
+  "keyWords": [
+    "interactive checklist",
+    "guide salespeople",
+    "consistent steps",
+    "qualifying leads"
+  ],
+
+  "hints": {
+    "easy": [
+      "Business process flows in model-driven apps provide a guided, stage-based process that acts like a checklist."
+    ]
+  },
+
+  "conceptsTested": [
+    "business process flow usage",
+    "interactive guidance for leads"
+  ],
+
+  "commonMistakes": [
+    "Trying to use dashboards or forms alone for a checklist"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "An interactive stage-based checklist for leads"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Microsoft Customer Voice",
+      "analysis": "Used primarily for surveys and feedback, not an interactive step-based checklist."
+    },
+    {
+      "letter": "B",
+      "text": "Business Process Modeler task guide",
+      "analysis": "A tool in Lifecycle Services for documentation, mostly for D365 Finance/Operations, not standard Dataverse lead qualification."
+    },
+    {
+      "letter": "C",
+      "text": "Dashboards",
+      "analysis": "Dashboards show data visually, but do not enforce or guide steps for qualification."
+    },
+    {
+      "letter": "D",
+      "text": "Business Process Flow",
+      "analysis": "BPF provides a guided stage-based process for lead qualification—matches the requirement."
+    }
+  ],
+
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A Business Process Flow in a model-driven app provides an interactive, stage-based checklist that guides users through consistent steps for lead qualification. This ensures salespeople follow the same process.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Use business process flows for guided user experiences",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 102,
+  "topic": "Integration",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT - A company plans to create a Power Platform solution that integrates with Dynamics 365 Sales. The solution must meet the following requirements:\n• Connect directly with a Microsoft Azure SQL database as an external data source at run time where specific data is available in the Dynamics 365 Sales solution without the need for data replication.\n• An external system needs to send data to the company's Dynamics 365 Sales solution.\n\nYou need to recommend the most suitable solution to integrate Dynamics 365 Sales with both systems.\nWhat should you recommend?",
+
+  "keyWords": [
+    "Dynamics 365 Sales",
+    "Azure SQL external data",
+    "no replication",
+    "external system sends data in"
+  ],
+
+  "hints": {
+    "easy": [
+      "Read external data from Azure SQL at runtime => Virtual tables. External system to send data in => use the D365 Web API or standard endpoints."
+    ]
+  },
+
+  "conceptsTested": [
+    "virtual tables for live read access",
+    "Web API for data insertion"
+  ],
+
+  "commonMistakes": [
+    "Using dataflows or dual-write for the no-replication scenario, or trying to push in from external system with a custom plugin instead of the standard Web API"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Runtime external data => Virtual table",
+      "External system posting data => use D365 Web API"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Connect directly with a Microsoft Azure SQL database as an external data source at run time.",
+        "options": [
+          "Use virtual tables",
+          "Use dataflows",
+          "Use Power Automate flows",
+          "Use dual-write"
+        ]
+      },
+      {
+        "name": "An external system needs to send data to the company's Dynamics 365 Sales solution.",
+        "options": [
+          "Use Dynamics 365 Web API",
+          "Use custom plug-ins",
+          "Use web resources",
+          "Use Power Apps component framework"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Connect directly with a Microsoft Azure SQL database as an external data source at run time.: Use virtual tables",
+    "An external system needs to send data to the company's Dynamics 365 Sales solution.: Use Dynamics 365 Web API"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Virtual tables let you read Azure SQL data in real time without replication. An external system sending data to D365 typically uses the Dynamics 365 Web API for direct creation/updates in Dataverse.",
+  
+  "category": "Architect a solution",
+  "weight": 6.0,
+  "examReference": "Implement virtual tables and Web API integration",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	      {
+  "id": 103,
+  "topic": "Security",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT -\nA company is creating a Power Platform solution to manage employees.\n\nRequirements:\n• Only the human resource manager can change an employee's employment status when an employee is dismissed.\n• Only approved device types can access company data.\n\nYou need to recommend solutions to meet the requirements.\n\nWhat should you recommend? To answer, select the appropriate options in the answer area.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "restrict who can change status",
+    "restrict to approved device types",
+    "Dataverse security",
+    "conditional access"
+  ],
+
+  "hints": {
+    "easy": [
+      "HR manager can have a specific row-level or field-level security. Actually we might use row-level or field-level but typically a security role limiting update on that field. For device type => Azure AD conditional access."
+    ]
+  },
+
+  "conceptsTested": [
+    "field-level or row-level security",
+    "conditional access policies"
+  ],
+
+  "commonMistakes": [
+    "Using environment roles incorrectly or missing Azure AD conditional access for device compliance"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Only HR manager can change status => Dataverse security approach or field-level security",
+      "Only approved devices => conditional access"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Restricting who can change employee employment status",
+        "options": [
+          "Use row-level security with Dataverse security roles",
+          "Implement field-level security on the employment status field",
+          "Create a business rule to validate the current user",
+          "Use Power Automate approval flows"
+        ]
+      },
+      {
+        "name": "Restricting access to approved device types",
+        "options": [
+          "Implement conditional access policies in Azure AD",
+          "Create a mobile-only Power Apps solution",
+          "Use Intune mobile device management",
+          "Configure IP address restrictions"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Restricting who can change employee employment status: Implement field-level security on the employment status field",
+    "Restricting access to approved device types: Implement conditional access policies in Azure AD"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Setting field-level security for the 'employment status' column ensures only the HR manager profile can update it. For device-based restrictions, conditional access policies in Azure AD can enforce that only managed or compliant devices have access.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.7,
+  "examReference": "Use field-level security & conditional access for data/device restrictions",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 104,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are designing tables and columns for a Power Platform solution. The solution will contain an interactive experience dashboard.\nYou need to ensure that the columns you create can be used as global filters on the dashboard.\nWhich two data types can you use? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "interactive dashboard",
+    "global filters",
+    "column data types"
+  ],
+
+  "hints": {
+    "easy": [
+      "Typically, multi-select option sets are not supported as global filters. Single-choice Option Set, Two Options (Yes/No), Lookup, and DateTime are supported."
+    ]
+  },
+
+  "conceptsTested": [
+    "interactive dashboards global filter constraints",
+    "data type selection"
+  ],
+
+  "commonMistakes": [
+    "Assuming multiline text or other data types can be used for global filters."
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Columns must be filterable in an interactive experience dashboard."
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Multiline Text"
+    },
+    {
+      "letter": "B",
+      "text": "Choice"
+    },
+    {
+      "letter": "C",
+      "text": "Text"
+    },
+    {
+      "letter": "D",
+      "text": "Yes/No"
+    },
+    {
+      "letter": "E",
+      "text": "Lookup"
+    }
+  ],
+  
+  "correctAnswers": ["B", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Interactive dashboards often support filtering on Option Set (Choice) and Two Options (Yes/No), among others. Single line text is possible for searching but not necessarily a standard global filter. The official docs emphasize Option Set, Two Options, and Lookups. Here, the question specifically calls out 'Which two?'—Choice and Yes/No are commonly recognized as valid filter columns.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.6,
+  "examReference": "Ensure data types are supported for interactive dashboards",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 105,
+  "topic": "Security",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are designing a Power Platform solution for a company. Users must be granted access only to data that is relevant to them.\nYou need to recommend actions.\nWhich two recommendations should you make? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "relevant data access",
+    "restrict data",
+    "teams or roles"
+  ],
+
+  "hints": {
+    "easy": [
+      "Using security roles plus teams is a standard approach to ensure row-level data restrictions. Column security is separate. Business units might also be relevant if they want full org segmentation. But typically we do roles + teams."
+    ]
+  },
+
+  "conceptsTested": [
+    "Dataverse security roles",
+    "team-based ownership"
+  ],
+
+  "commonMistakes": [
+    "Enabling field-level security for row-based requirements or ignoring the need for roles"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Grant only relevant data => row-level ownership or role-based"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Add column security profiles to applicable teams."
+    },
+    {
+      "letter": "B",
+      "text": "Define and configure security roles."
+    },
+    {
+      "letter": "C",
+      "text": "Create teams and assign security roles and users to the teams."
+    },
+    {
+      "letter": "D",
+      "text": "Create business units and assign security roles to the business units."
+    }
+  ],
+  
+  "correctAnswers": ["B", "C"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Security roles define the privileges. Then, you can assign roles to teams, and add users to those teams. This ensures each user only sees data relevant to them. Column security profiles and business units can be used in some scenarios, but the question specifically points to controlling data visibility at the row level using roles + teams.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Team-based security roles for targeted data access",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 106,
+  "topic": "Power BI",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT -\nAn organization is optimizing its Microsoft Power Platform solution architecture.\nThey must address:\n• Label names for option sets and multiselect option sets should be added as separate fields for reporting.\n• When a case is reassigned, activities also get reassigned (user complaint).\n• Some Power BI reports on Dataverse data need near real-time updating.\n\nYou need to recommend a design solution.\n\nWhat should you recommend? To answer, select the appropriate option in the answer area.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "option set labels for reporting",
+    "case reassign = activity reassign issue",
+    "Power BI near real-time"
+  ],
+
+  "hints": {
+    "easy": [
+      "For option set label fields, store them in separate columns or generate them on load. For reassigning child records, tweak cascade settings. For near real-time, direct query or incremental refresh with minimal latency."
+    ]
+  },
+
+  "conceptsTested": [
+    "Dataverse relationship behaviors",
+    "option set label extraction",
+    "Power BI refresh approach"
+  ],
+
+  "commonMistakes": [
+    "Leaving default relationship as Parental causing forced reassign or ignoring direct query for near real-time"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Option set label columns for reporting",
+      "Fix reassign cascade issue",
+      "Near real-time BI updates"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Label names for option sets",
+        "options": [
+          "Use dataflows or a plugin to store label values in separate columns for reporting.",
+          "Store label in the same column as the numeric value.",
+          "Calculate label in real-time with JavaScript for reporting.",
+          "Use the default metadata approach only."
+        ]
+      },
+      {
+        "name": "When a case is reassigned, activities also get reassigned.",
+        "options": [
+          "Change relationship behavior from Parental to referential or custom.",
+          "Create a plugin to override the default cascade.",
+          "Enable cascade all in the relationship.",
+          "Use a business rule to revert assigned to field."
+        ]
+      },
+      {
+        "name": "Near real-time for Power BI",
+        "options": [
+          "Use DirectQuery to Dataverse or incremental refresh with minimal latency",
+          "Schedule refresh every 24 hours",
+          "Use dataflows to replicate data frequently",
+          "Enable out-of-the-box streaming dataset in Power BI"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Label names for option sets: Use dataflows or a plugin to store label values in separate columns for reporting.",
+    "When a case is reassigned, activities also get reassigned.: Change relationship behavior from Parental to referential or custom.",
+    "Near real-time for Power BI: Use DirectQuery to Dataverse or incremental refresh with minimal latency"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Storing option set labels in separate columns can be done with dataflows or a plugin. Changing the relationship from 'Parental' to 'Referential' or a custom cascade addresses the forced activity reassignment. For near real-time, either a DirectQuery approach or near real-time incremental refresh solves the performance and latency needs for Power BI reporting on Dataverse data.",
+  
+  "category": "Architect a solution",
+  "weight": 6.2,
+  "examReference": "Handle advanced Dataverse, relationship, and near real-time Power BI scenarios",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 107,
+  "topic": "Dataverse",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "You are designing a Microsoft Power Platform solution for a company that has multiple Microsoft Dataverse environments.\nYou need to prevent specific users from accessing specific environments.\nWhat should you do?",
+
+  "keyWords": [
+    "prevent environment access",
+    "Dataverse environment security",
+    "security roles"
+  ],
+
+  "hints": {
+    "easy": [
+      "Removing all security roles from a user in an environment means they cannot do anything in that environment."
+    ]
+  },
+
+  "conceptsTested": [
+    "environment-level access via security roles"
+  ],
+
+  "commonMistakes": [
+    "Using business units or removing them from Azure AD group incorrectly"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Block user from environment => no roles in that environment"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Remove all security roles from the users of the specific environments."
+    },
+    {
+      "letter": "B",
+      "text": "Remove the user from the business unit."
+    },
+    {
+      "letter": "C",
+      "text": "Remove the user from all security groups."
+    },
+    {
+      "letter": "D",
+      "text": "Remove the user from all teams."
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "In Dataverse, if a user has no security roles assigned in a specific environment, they effectively have no privileges and cannot access data. This is the simplest method to prevent environment access for certain users.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.0,
+  "examReference": "Control environment access with roles",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+{
+  "id": 108,
+  "topic": "Power Apps",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT -\nYou are designing a model-driven app for a hospital. The app will be used to track teams at the hospital, including:\n• Which staff are in each team.\n• Which department the team belongs to.\n\nYou need to recommend which team types to use.\n\nWhich team types should you recommend? To answer, select the appropriate options in the answer area.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "teams in Dataverse",
+    "department-level grouping",
+    "staff membership"
+  ],
+
+  "hints": {
+    "easy": [
+      "Business unit teams can align to departments. Owner teams let you group staff who share ownership. Access teams are for record-based sharing. AAD security group teams might be used if managed externally."
+    ]
+  },
+
+  "conceptsTested": [
+    "team types in Dataverse",
+    "business unit teams vs owner teams vs AAD group teams"
+  ],
+
+  "commonMistakes": [
+    "Using the wrong team type for department or staff membership"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Department-based grouping => business unit team",
+      "Staff membership grouping => owner team"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Department-based teams",
+        "options": [
+          "Business unit teams",
+          "Owner teams",
+          "AAD Security group teams",
+          "Access teams"
+        ]
+      },
+      {
+        "name": "Staff membership-based teams",
+        "options": [
+          "Owner teams",
+          "Business unit teams",
+          "Access teams",
+          "AAD Security group teams"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Department-based teams: Business unit teams",
+    "Staff membership-based teams: Owner teams"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Department alignment is typically best achieved with business unit teams. If you need to group staff within each department for record ownership or data access, use owner teams for that grouping. Access teams can be used for more ad hoc sharing scenarios.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Select correct team types for departmental vs staff membership",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 109,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Easy",
+
+  "text": "You are designing a Microsoft Power Platform solution for an automobile parts manufacturer. You create the following tables:\n\n- Car Model (Parent)\n- Engine (Child)\n\nYou need to recommend a relationship behavior.\n\nWhich relationship behavior should you recommend?",
+
+  "keyWords": [
+    "car model",
+    "engine",
+    "dataverse relationship",
+    "restrict or cascade"
+  ],
+
+  "hints": {
+    "easy": [
+      "Likely we want to prevent deleting a Car Model if engines exist => 'Referential, Restrict Delete'."
+    ]
+  },
+
+  "conceptsTested": [
+    "relationship behaviors: restrict, cascade, referential"
+  ],
+
+  "commonMistakes": [
+    "Using Parental if we do not want to automatically delete child records"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Engine must not exist w/o Car Model. Possibly want to restrict Car Model deletion if engines exist."
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Referential, Restrict Delete"
+    },
+    {
+      "letter": "B",
+      "text": "Custom"
+    },
+    {
+      "letter": "C",
+      "text": "Parental"
+    },
+    {
+      "letter": "D",
+      "text": "Referential, Remove Link"
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Using 'Referential, Restrict Delete' ensures that if any Engine records exist, you cannot delete the parent Car Model, preventing orphan child records. This meets the typical scenario for a required parent-child relationship in manufacturing data.",
+  
+  "category": "Architect a solution",
+  "weight": 5.2,
+  "examReference": "Use referential restrict delete for dependent child records",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},    
+	      {
+  "id": 110,
+  "topic": "Dataverse",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are designing a Microsoft Power Platform solution that uses Microsoft Dataverse.\nYou need to recommend a way to update currency exchange rates within Microsoft Dataverse.\nWhich two possible ways achieve this goal? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "Dataverse",
+    "update currency exchange rates",
+    "custom flows",
+    "AppSource solutions"
+  ],
+
+  "hints": {
+    "easy": [
+      "Either use a prebuilt currency solution from AppSource or create a custom Power Automate flow calling an exchange rate API. That’s standard. Manually editing them is also possible but not an 'automated approach'."
+    ]
+  },
+
+  "conceptsTested": [
+    "currency exchange rates in Dataverse",
+    "updating from external service or AppSource"
+  ],
+
+  "commonMistakes": [
+    "Trying to do iframes or pass-through only"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Auto or regular update from an external source"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Review AppSource for prebuilt solutions."
+    },
+    {
+      "letter": "B",
+      "text": "Create a Power Automate flow that uses a custom connection or HTTP request to an outside source for exchange rates."
+    },
+    {
+      "letter": "C",
+      "text": "Embed an iframe that points to a currency exchange service into a model-driven app."
+    },
+    {
+      "letter": "D",
+      "text": "Use the Power BI connector to establish a link that updates Microsoft Dataverse with the current exchange rate."
+    }
+  ],
+  
+  "correctAnswers": ["A", "B"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Option A: You can install a prebuilt solution from AppSource that handles currency updates. Option B: A custom flow calling an external API to retrieve rates and update them in Dataverse. iFrames (C) won't automatically update data. Power BI (D) is not used to push data back into Dataverse.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Set up currency updates in Dataverse with external solutions or flows",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 111,
+  "topic": "Power Apps",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A company provides mobile diagnostic imaging services. You are designing a Power Apps solution to manage patient appointments and procedures.\n\nPatient records are stored within the company's cloud patient billing system. Only the patient ID is stored in the app. The patient name and DOB must be visible to the technician to verify the patient's identity.\n\nYou need to recommend a solution to display the patient info.\nWhat should you recommend?",
+
+  "keyWords": [
+    "virtual table",
+    "external data",
+    "patient name/dob",
+    "only patient ID stored"
+  ],
+
+  "hints": {
+    "easy": [
+      "A virtual table can show real-time external data in the model-driven or canvas app, while physically only storing the ID locally."
+    ]
+  },
+
+  "conceptsTested": [
+    "virtual table usage",
+    "Dataverse external data scenario"
+  ],
+
+  "commonMistakes": [
+    "Replicating the patient data or iFrame approach"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Show external data for name, DOB in app, no local duplication"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Virtual table"
+    },
+    {
+      "letter": "B",
+      "text": "Business rule"
+    },
+    {
+      "letter": "C",
+      "text": "Privacy preference"
+    },
+    {
+      "letter": "D",
+      "text": "Data gateway"
+    },
+    {
+      "letter": "E",
+      "text": "Custom dataflow"
+    }
+  ],
+  
+  "correctAnswers": ["A"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "A virtual table allows the app to retrieve patient name/DOB directly from the external system at runtime. This approach means the system only stores the patient ID in Dataverse, fulfilling the requirement without duplicating data.",
+  
+  "category": "Architect a solution",
+  "weight": 5.5,
+  "examReference": "Leverage virtual tables for read-only external data",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	    {
+  "id": 112,
+  "topic": "Dataverse",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT -\nA company plans to deploy multiple Microsoft Dataverse environments. You are supporting the go-live process.\n\nThey report these issues:\n• Users can access account records but cannot read a column in the table.\n• A licensed user gets an insufficient permission error opening leads.\n• A licensed user does not appear in the list of users for security assignment.\n\nYou need to resolve each.\n\nWhat do you do? To answer, select the appropriate option in the answer area.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "Dataverse environment issues",
+    "can't read a column",
+    "insufficient permission on leads",
+    "user not visible for assignment"
+  ],
+
+  "hints": {
+    "easy": [
+      "Column read issue => field-level security. Insufficient permission => assign a security role. Missing user => they need to be synchronized or have a license in the environment."
+    ]
+  },
+
+  "conceptsTested": [
+    "field-level security",
+    "security roles",
+    "environment user sync"
+  ],
+
+  "commonMistakes": [
+    "Trying to fix user environment presence by re-adding them in Azure AD or ignoring license assignment"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Column read => field-level security profile",
+      "Insufficient permission => security role",
+      "Missing user => environment user sync or license"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Users can access account records but cannot read a column in the table",
+        "options": [
+          "Enable field-level security or update the user's field-level security profile to grant read access",
+          "Modify the user's security role to include read permission on the column",
+          "Create a new business unit and move the affected users",
+          "Update the column's audit settings"
+        ]
+      },
+      {
+        "name": "A licensed user gets an insufficient permission error opening leads",
+        "options": [
+          "Assign them the appropriate security role that grants lead read privileges",
+          "Enable sharing on the lead records",
+          "Create a new solution with read privileges for leads",
+          "Create a plugin to bypass security"
+        ]
+      },
+      {
+        "name": "A licensed user does not appear in the list of users for security assignment",
+        "options": [
+          "Wait for them to be synced or manually add them to the environment users if needed",
+          "Verify the user is enabled in the environment with a role",
+          "Remove and re-add the user from Azure AD",
+          "Create a support ticket"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Users can access account records but cannot read a column in the table: Enable field-level security or update the user's field-level security profile to grant read access",
+    "A licensed user gets an insufficient permission error opening leads: Assign them the appropriate security role that grants lead read privileges",
+    "A licensed user does not appear in the list of users for security assignment: Wait for them to be synced or manually add them to the environment users if needed"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Field-level security prevents reading certain columns. Adding or updating a security role with lead read is required for lead access. If a user doesn't show up in environment user listings, they may need synchronization from Azure AD or manually added if they have a valid license.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.9,
+  "examReference": "Resolve common environment user and security issues",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 113,
+  "topic": "Power Apps",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A company has a model-driven app. The app has forms using both business rules and JavaScript for logic.\nThey want to enforce the business rules across all forms.\nYou need to recommend a simplified form setup.\n\nWhat should you recommend?",
+
+  "keyWords": [
+    "business rules",
+    "JavaScript",
+    "all forms",
+    "consistency"
+  ],
+
+  "hints": {
+    "easy": [
+      "Use business rules for simpler logic that can apply across forms, reduce JavaScript usage to advanced scenarios only."
+    ]
+  },
+
+  "conceptsTested": [
+    "business rules vs JavaScript usage",
+    "unified logic"
+  ],
+
+  "commonMistakes": [
+    "Keeping each form's custom JavaScript or removing business rules"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Enforce business rules across all forms, reduce complexity"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Manage the business logic with a Power Apps Component Framework (PCF) control."
+    },
+    {
+      "letter": "B",
+      "text": "Evaluate whether complex parts of the logic can be solved by using a PCF control. Use Business Rules for the rest."
+    },
+    {
+      "letter": "C",
+      "text": "Remove the Business Rules and use only JavaScript."
+    },
+    {
+      "letter": "D",
+      "text": "Update logic to ensure Business Rules are optimized. Use JavaScript for the remaining functionality."
+    }
+  ],
+  
+  "correctAnswers": ["D"],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Business rules apply across forms for standard scenarios, ensuring consistent logic. JavaScript remains only for advanced or specialized requirements not covered by business rules.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.5,
+  "examReference": "Best practice to unify logic with business rules, limit JavaScript usage",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},    
+	      {
+  "id": 114,
+  "topic": "General",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "A local bank uses Power Platform apps to store customer data. All employees can currently see customer SSNs.\nThey only want the VP of finance to see and update SSNs.\nWhich two actions should you recommend? Each correct answer presents part of the solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "SSN data",
+    "restrict to single user",
+    "field-level security"
+  ],
+
+  "hints": {
+    "easy": [
+      "Enable field-level security on the SSN column, create a profile for the VP. That means read/update set to yes for them, no for others."
+    ]
+  },
+
+  "conceptsTested": [
+    "field-level security usage",
+    "restricting sensitive columns"
+  ],
+
+  "commonMistakes": [
+    "Trying to restrict entire table or environment roles"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Only VP sees/updates SSN => field-level security"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Set the values for read/update permission for SSN to yes."
+    },
+    {
+      "letter": "B",
+      "text": "Enable field-level security for the member table."
+    },
+    {
+      "letter": "C",
+      "text": "Create a field-level security profile."
+    },
+    {
+      "letter": "D",
+      "text": "Enable field-level security for the SSN column."
+    }
+  ],
+  
+  "correctAnswers": ["C", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "First, enable field-level security on the SSN column (D). Then, create a field-level security profile (C), granting read/write privileges only to the VP of finance. This ensures only the VP sees or updates SSNs.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.2,
+  "examReference": "Configure field-level security for sensitive data",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	   {
+  "id": 115,
+  "topic": "Power Pages",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT -\nA national repair service has a 24-hour call center for customers to schedule repairs. The solution dispatches a technician to do the repair. Customers sign in a portal to view repair data.\nThey contract with 3rd-party technicians who also need access to assigned service jobs.\n\nYou need to recommend an authentication strategy.\n\nWhich authentication models?\n\nTo answer, select the appropriate options in the answer area.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "portal authentication",
+    "customers + 3rd-party technicians",
+    "Azure AD B2C"
+  ],
+
+  "hints": {
+    "easy": [
+      "External non-employees typically use Azure AD B2C or external identity providers in Power Pages. For internal employees, Azure AD direct. But the question specifically: 'Which do we recommend for customers and for 3rd-party technicians?' => B2C for both."
+    ]
+  },
+
+  "conceptsTested": [
+    "portal identity strategy",
+    "Azure AD B2C usage"
+  ],
+
+  "commonMistakes": [
+    "Using standard Azure AD for external users or local portal accounts"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Portal for customers to see their data",
+      "3rd-party technicians => also external identities => B2C"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "Customers accessing portal",
+        "options": [
+          "Azure AD B2C",
+          "Local authentication",
+          "OAuth 2.0",
+          "Azure AD"
+        ]
+      },
+      {
+        "name": "Third-party technicians for assigned jobs",
+        "options": [
+          "Azure AD B2C",
+          "Azure AD guest users",
+          "Local authentication",
+          "OAuth 2.0"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "Customers accessing portal: Azure AD B2C",
+    "Third-party technicians for assigned jobs: Azure AD B2C"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "For external users (customers, 3rd-party technicians) in a Power Pages portal, Azure AD B2C is the recommended identity provider. This simplifies identity management while providing secure external logins.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.0,
+  "examReference": "Use Azure AD B2C for external portal authentication",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 116,
+  "topic": "General",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP -\nYou are designing a data model for a Microsoft Power Platform solution.\n\nRequirements:\n• When an account is assigned to a new salesperson, all associated opportunities also get assigned.\n• When a lead is assigned to a new salesperson, all phone call activities are assigned to the new salesperson.\n\nWhich cascading strategies should you recommend?\nTo answer, drag the appropriate cascading strategies to the correct requirements.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "account -> opportunity assignment",
+    "lead -> phone calls",
+    "cascade all"
+  ],
+
+  "hints": {
+    "easy": [
+      "Typically we want 'Cascade All' on the Assign for parent->child. This ensures child records also re-assign."
+    ]
+  },
+
+  "conceptsTested": [
+    "Dataverse relationship assignment behaviors"
+  ],
+
+  "commonMistakes": []
+  ,
+
+  "analysisHighlights": {
+    "requirements": [
+      "Opportunity reassign with account => cascade",
+      "Phone call reassign with lead => cascade"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Account -> Opportunity assignment"
+      }
+    },
+    {
+      "source": {
+        "requirement": "Lead -> Phone call assignment"
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "Account -> Opportunity assignment: Cascade All",
+    "Lead -> Phone call assignment: Cascade All"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "By setting the Assign action to 'Cascade All', if a parent record (account or lead) is reassigned to a new owner, the child (opportunity or phone calls) are also reassigned automatically. This meets the stated requirements.",
+  
+  "category": "Architect a solution",
+  "weight": 5.7,
+  "examReference": "Configure relationship cascading for assignment",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 117,
+  "topic": "Power Automate",
+  "type": "multiplechoice",
+  "difficultyLevel": "Medium",
+
+  "text": "You are a Microsoft Power Platform architect designing a solution.\nYou must use a custom connector to integrate Power Automate with a data source.\nYou need to authenticate the connector with the data source.\nWhich three authentication methods can you use? Each correct answer presents a complete solution.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "custom connector",
+    "authentication methods",
+    "Basic",
+    "API Key",
+    "OAuth 2.0"
+  ],
+
+  "hints": {
+    "easy": [
+      "Basic, API Key, and OAuth 2.0 are the recognized custom connector auth types. Possibly Azure AD, which is a form of OAuth 2.0. Typically no auth is also an option. This question specifically says three. Basic, API Key, and OAuth 2.0 are the big three."
+    ]
+  },
+
+  "conceptsTested": [
+    "custom connector auth options"
+  ],
+
+  "commonMistakes": [
+    "OpenID Connect or pass-through as a separate method"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Need recognized custom connector auth type"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "letter": "A",
+      "text": "Basic authentication"
+    },
+    {
+      "letter": "B",
+      "text": "Generic OAuth 2.0"
+    },
+    {
+      "letter": "C",
+      "text": "OpenID Connect (OIDC)"
+    },
+    {
+      "letter": "D",
+      "text": "API Key"
+    },
+    {
+      "letter": "E",
+      "text": "Pass-through"
+    }
+  ],
+  
+  "correctAnswers": ["A", "B", "D"],
+  "isMultipleChoice": true,
+
+  "detailedExplanation": "Custom connectors can authenticate via Basic authentication (A), OAuth 2.0 (B), or an API key (D). OIDC is typically not provided as a separate built-in method, and 'pass-through' is not a standard option in custom connectors.",
+  
+  "category": "Architect a solution",
+  "weight": 6.3,
+  "examReference": "Select correct auth types for custom connectors",
+  "source": "Custom generated",
+  "examArea": "Solution Architecture (35-40%)"
+},
+	{
+  "id": 118,
+  "topic": "Power Apps",
+  "type": "hotspot",
+  "difficultyLevel": "Medium",
+
+  "text": "HOTSPOT -\nYou are working with a customer to plan a go-live deployment to their production environment. The solution includes multiple apps and environment variables. The superuser team manages the production environment, which is secured by an environment Azure AD security group.\n\nThey have identified issues:\n• The superuser team cannot access make.powerapps.com to open and set environment variables.\n• Users are added to that environment Azure AD security group, but cannot access the model-driven app.\n• Users are added to that environment Azure AD security group, but cannot access the canvas app.\n\nYou need to fix these.\n\nWhat should you do? To answer, select the appropriate options in the answer area.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "go-live production",
+    "superuser team",
+    "cannot set environment variables",
+    "model-driven app access",
+    "canvas app access"
+  ],
+
+  "hints": {
+    "easy": [
+      "Environment Maker or System Customizer role for environment variables. For the model-driven app, assign a security role that includes privileges. For the canvas app, share the app with that group."
+    ]
+  },
+
+  "conceptsTested": [
+    "app sharing",
+    "security roles",
+    "environment role assignment"
+  ],
+
+  "commonMistakes": [
+    "Relying solely on environment security group membership to provide app access"
+  ],
+
+  "analysisHighlights": {
+    "requirements": [
+      "Access to environment variables => environment maker or solution customizer",
+      "Model-driven app => security role with table privileges or direct app share",
+      "Canvas app => share with that group or role"
+    ],
+    "constraints": []
+  },
+
+  "options": {
+    "areas": [
+      {
+        "name": "The superuser team cannot access make.powerapps.com to open and set environment variables",
+        "options": [
+          "Assign them a security role (e.g., Environment Maker) in that environment",
+          "Add them to the Power Platform Admin Center",
+          "Create a support ticket with Microsoft",
+          "Configure special environment variable maker privileges"
+        ]
+      },
+      {
+        "name": "Users are added to that environment Azure AD security group, but cannot access the model-driven app",
+        "options": [
+          "Assign them the appropriate security role that grants relevant table privileges",
+          "Share the model-driven app with individual users",
+          "Update the environment variable referencing the group",
+          "Create a separate environment for them"
+        ]
+      },
+      {
+        "name": "Users are added to that environment Azure AD security group, but cannot access the canvas app",
+        "options": [
+          "Share the canvas app with that security group",
+          "Enable incognito mode to test",
+          "Move the canvas app to a different environment",
+          "Change the canvas app to solution-aware"
+        ]
+      }
+    ]
+  },
+
+  "correctAnswers": [
+    "The superuser team cannot access make.powerapps.com to open and set environment variables: Assign them a security role (e.g., Environment Maker) in that environment",
+    "Users are added to that environment Azure AD security group, but cannot access the model-driven app: Assign them the appropriate security role that grants relevant table privileges",
+    "Users are added to that environment Azure AD security group, but cannot access the canvas app: Share the canvas app with that security group"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Environment Maker or a similar role is required to set environment variables. For the model-driven app, users need a security role with privileges on the relevant tables. For the canvas app, you must explicitly share it with the group. Merely being in the environment's security group isn't enough to open or run the app without these additional steps.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.7,
+  "examReference": "Assign roles and share apps properly in environment",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 119,
+  "topic": "Security",
+  "type": "specialdragdrop",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP -\nYou are designing a Microsoft Power Platform solution to be deployed to two separate companies in the same Microsoft 365 tenant: Contoso, Ltd. and Contoso Pharmaceuticals.\n\nThe solution must meet these security requirements:\n• Restrict Contoso, Ltd. users from seeing the Contoso Pharmaceuticals company.\n• Restrict access to specific forms.\n• Restrict access to specific tables.\n\nWhich security types do you recommend for each?\nTo answer, drag the appropriate security types to the correct restrictions.\nNOTE: Each correct selection is worth one point.",
+
+  "keyWords": [
+    "multiple companies same tenant",
+    "restrict seeing other company",
+    "restrict forms",
+    "restrict tables"
+  ],
+
+  "hints": {
+    "easy": [
+      "Use separate business units to isolate data between the two companies. Security roles define form and table-level access. There's no direct 'form-level security' object, but security roles can be used to hide forms if properly configured."
+    ]
+  },
+
+  "conceptsTested": [
+    "business units",
+    "security roles for forms/tables"
+  ],
+
+  "commonMistakes": []
+  ,
+
+  "analysisHighlights": {
+    "requirements": [
+      "Hide one company from the other => business units or separate environments. Typically business units in a single environment.",
+      "Restrict forms => security roles can control form access.",
+      "Restrict tables => also security roles."
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    {
+      "source": {
+        "requirement": "Restrict Contoso, Ltd. from seeing Contoso Pharmaceuticals"
+      }
+    },
+    {
+      "source": {
+        "requirement": "Restrict access to specific forms"
+      }
+    },
+    {
+      "source": {
+        "requirement": "Restrict access to specific tables"
+      }
+    }
+  ],
+
+  "correctAnswers": [
+    "Restrict Contoso, Ltd. from seeing Contoso Pharmaceuticals: Business units",
+    "Restrict access to specific forms: Security roles",
+    "Restrict access to specific tables: Security roles"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "Use separate business units to isolate records for the two companies. Then security roles define which forms each user can access, as well as which tables they have privileges on.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 6.1,
+  "examReference": "Use business units for data separation, security roles for forms/tables",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},
+	{
+  "id": 120,
+  "topic": "General",
+  "type": "sequence",
+  "difficultyLevel": "Medium",
+
+  "text": "DRAG DROP -\nYou are a Microsoft Power Platform architect.\n\nYou must identify and document your organization's business processes to identify automation opportunities. You need to run task mining in Process Advisor.\n\nIn which order should you perform the actions?\nTo answer, move all actions from the list of actions to the answer area and arrange them in the correct order.",
+
+  "keyWords": [
+    "process advisor",
+    "task mining",
+    "steps order"
+  ],
+
+  "hints": {
+    "easy": [
+      "1) Install recorder agent, 2) Create new task mining process, 3) Invite users to record tasks, 4) Review data in process advisor."
+    ]
+  },
+
+  "conceptsTested": [
+    "process advisor setup",
+    "task mining steps"
+  ],
+
+  "commonMistakes": []
+  ,
+
+  "analysisHighlights": {
+    "requirements": [
+      "Sequence of actions for task mining"
+    ],
+    "constraints": []
+  },
+
+  "options": [
+    "Install the process advisor recorder (task mining agent)",
+    "Create a new task mining process in process advisor",
+    "Invite users and configure recordings for relevant tasks",
+    "Review and analyze the recorded task data in process advisor",
+    "Generate an optimization report",
+    "Create a Power Automate flow based on findings"
+  ],
+  "correctAnswers": [
+    "Install the process advisor recorder (task mining agent)",
+    "Create a new task mining process in process advisor",
+    "Invite users and configure recordings for relevant tasks",
+    "Review and analyze the recorded task data in process advisor"
+  ],
+  "isMultipleChoice": false,
+
+  "detailedExplanation": "The correct order is: first install the recorder agent locally, then create a new task mining process in Process Advisor, invite users to record relevant tasks, and finally review and analyze the recorded data to identify automation opportunities.",
+  
+  "category": "Perform solution envisioning and requirement analysis",
+  "weight": 5.8,
+  "examReference": "Implement Process Advisor task mining steps in order",
+  "source": "Custom generated",
+  "examArea": "Solution Envisioning and Requirements (45-50%)"
+},      
 	{
   "id": 301,
   "topic": "Power Automate",
