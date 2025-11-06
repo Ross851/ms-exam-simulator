@@ -1,0 +1,322 @@
+name: Test Email Configuration
+
+# This workflow tests email notification configuration
+# Use this to validate GitHub Secrets setup before production deployment
+
+on:
+  # Allow manual triggering from Actions tab
+  workflow_dispatch:
+    inputs:
+      test_message:
+        description: 'Custom test message (optional)'
+        required: false
+        default: 'This is a test email from MS Exam Simulator monitoring system.'
+        type: string
+
+jobs:
+  test-email:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Secrets
+        run: |
+          echo "Validating required secrets are configured..."
+          
+          # Check if secrets are set (without revealing values)
+          if [ -z "${{ secrets.EMAIL_USERNAME }}" ]; then
+            echo "❌ ERROR: EMAIL_USERNAME secret is not set"
+            exit 1
+          fi
+          
+          if [ -z "${{ secrets.EMAIL_PASSWORD }}" ]; then
+            echo "❌ ERROR: EMAIL_PASSWORD secret is not set"
+            exit 1
+          fi
+          
+          if [ -z "${{ secrets.EMAIL_TO }}" ]; then
+            echo "❌ ERROR: EMAIL_TO secret is not set"
+            exit 1
+          fi
+          
+          echo "✅ All required secrets are configured"
+          echo "   - EMAIL_USERNAME: Set (length: ${#EMAIL_USERNAME})"
+          echo "   - EMAIL_PASSWORD: Set (length: ${#EMAIL_PASSWORD})"
+          echo "   - EMAIL_TO: Set (length: ${#EMAIL_TO})"
+        env:
+          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Send Test Email
+        run: |
+          python3 << 'EOF'
+          import smtplib
+          import os
+          from email.mime.text import MIMEText
+          from email.mime.multipart import MIMEMultipart
+          from datetime import datetime
+          
+          # Get configuration from secrets
+          email_username = os.environ.get('EMAIL_USERNAME')
+          email_password = os.environ.get('EMAIL_PASSWORD')
+          email_to = os.environ.get('EMAIL_TO')
+          test_message = os.environ.get('TEST_MESSAGE', 'This is a test email.')
+          
+          # Determine SMTP server based on email domain
+          if 'gmail.com' in email_username.lower():
+              smtp_server = 'smtp.gmail.com'
+              smtp_port = 587
+          elif 'outlook.com' in email_username.lower() or 'hotmail.com' in email_username.lower():
+              smtp_server = 'smtp-mail.outlook.com'
+              smtp_port = 587
+          elif 'office365.com' in email_username.lower():
+              smtp_server = 'smtp.office365.com'
+              smtp_port = 587
+          else:
+              # Default to common SMTP port, may need customization
+              smtp_server = 'smtp.gmail.com'  # Default, update as needed
+              smtp_port = 587
+          
+          print(f"📧 Preparing test email...")
+          print(f"   From: {email_username}")
+          print(f"   To: {email_to}")
+          print(f"   SMTP Server: {smtp_server}:{smtp_port}")
+          
+          # Create message
+          msg = MIMEMultipart('alternative')
+          msg['Subject'] = '✅ Test Email - MS Exam Simulator Monitoring'
+          msg['From'] = email_username
+          msg['To'] = email_to
+          
+          # Create plain text version
+          text_content = f"""
+          MS Exam Simulator - Email Configuration Test
+          =============================================
+          
+          This is a test email to validate your GitHub Secrets configuration.
+          
+          Test Details:
+          - Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}
+          - From: {email_username}
+          - To: {email_to}
+          - SMTP Server: {smtp_server}:{smtp_port}
+          
+          Custom Message:
+          {test_message}
+          
+          ✅ If you're reading this, your email configuration is working correctly!
+          
+          Next Steps:
+          1. Verify email formatting looks correct
+          2. Check email didn't go to spam folder
+          3. Confirm sender address is correct
+          4. Update production secrets if needed
+          
+          For more information, see: GITHUB_SECRETS_SETUP.md
+          
+          ---
+          This is an automated test message from GitHub Actions.
+          Repository: ms-exam-simulator
+          Workflow: Test Email Configuration
+          """
+          
+          # Create HTML version
+          html_content = f"""
+          <html>
+          <head>
+            <style>
+              body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+              .header {{ background-color: #0366d6; color: white; padding: 20px; text-align: center; }}
+              .content {{ padding: 20px; background-color: #f6f8fa; }}
+              .info-box {{ background-color: white; border-left: 4px solid #0366d6; padding: 15px; margin: 20px 0; }}
+              .success {{ color: #28a745; font-weight: bold; }}
+              .footer {{ background-color: #24292e; color: #999; padding: 15px; text-align: center; font-size: 12px; }}
+              code {{ background-color: #f6f8fa; padding: 2px 5px; border-radius: 3px; font-family: monospace; }}
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>✅ Email Configuration Test</h1>
+              <p>MS Exam Simulator Monitoring System</p>
+            </div>
+            
+            <div class="content">
+              <h2>Test Successful!</h2>
+              <p class="success">If you're reading this, your GitHub Secrets are configured correctly.</p>
+              
+              <div class="info-box">
+                <h3>Test Details</h3>
+                <ul>
+                  <li><strong>Timestamp:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}</li>
+                  <li><strong>From:</strong> {email_username}</li>
+                  <li><strong>To:</strong> {email_to}</li>
+                  <li><strong>SMTP Server:</strong> {smtp_server}:{smtp_port}</li>
+                </ul>
+              </div>
+              
+              <div class="info-box">
+                <h3>Custom Message</h3>
+                <p>{test_message}</p>
+              </div>
+              
+              <h3>Next Steps</h3>
+              <ol>
+                <li>Verify this email formatting looks correct</li>
+                <li>Check this email didn't go to spam folder</li>
+                <li>Confirm sender address matches expectations</li>
+                <li>If using test credentials, update to production secrets</li>
+              </ol>
+              
+              <p>For complete setup documentation, see <code>GITHUB_SECRETS_SETUP.md</code> in the repository.</p>
+            </div>
+            
+            <div class="footer">
+              <p>This is an automated test message from GitHub Actions</p>
+              <p>Repository: ms-exam-simulator | Workflow: Test Email Configuration</p>
+            </div>
+          </body>
+          </html>
+          """
+          
+          # Attach both versions
+          part1 = MIMEText(text_content, 'plain')
+          part2 = MIMEText(html_content, 'html')
+          msg.attach(part1)
+          msg.attach(part2)
+          
+          # Send email
+          try:
+              print(f"🔌 Connecting to {smtp_server}...")
+              server = smtplib.SMTP(smtp_server, smtp_port, timeout=30)
+              server.set_debuglevel(0)  # Set to 1 for verbose debugging
+              
+              print("🔒 Starting TLS encryption...")
+              server.starttls()
+              
+              print("🔐 Authenticating...")
+              server.login(email_username, email_password)
+              
+              print("📤 Sending email...")
+              server.send_message(msg)
+              
+              print("👋 Closing connection...")
+              server.quit()
+              
+              print("")
+              print("=" * 60)
+              print("✅ SUCCESS! Test email sent successfully")
+              print("=" * 60)
+              print("")
+              print("📬 Check your inbox at:", email_to)
+              print("⏱️  Email should arrive within 1-5 minutes")
+              print("📁 If not in inbox, check spam/junk folder")
+              print("")
+              print("Next steps:")
+              print("1. Verify email received and formatted correctly")
+              print("2. Check sender address matches EMAIL_USERNAME")
+              print("3. If using test credentials, update to production secrets")
+              print("4. See GITHUB_SECRETS_SETUP.md for complete guide")
+              print("")
+              
+          except smtplib.SMTPAuthenticationError as e:
+              print("")
+              print("=" * 60)
+              print("❌ AUTHENTICATION FAILED")
+              print("=" * 60)
+              print("")
+              print("Common causes:")
+              print("1. EMAIL_PASSWORD is not an app password")
+              print("2. 2-Factor Authentication not enabled on email account")
+              print("3. App password was not generated correctly")
+              print("4. Wrong email/password combination")
+              print("")
+              print("Solutions:")
+              print("• Gmail: Generate app password at https://myaccount.google.com/apppasswords")
+              print("• Outlook: Enable 2-step verification and create app password")
+              print("• Corporate: Contact IT for SMTP credentials")
+              print("")
+              print("Error details:", str(e))
+              raise
+              
+          except smtplib.SMTPException as e:
+              print("")
+              print("=" * 60)
+              print("❌ SMTP ERROR")
+              print("=" * 60)
+              print("")
+              print("An error occurred while sending email.")
+              print("This could be:")
+              print("• Network connectivity issue")
+              print("• SMTP server configuration problem")
+              print("• Rate limiting (too many emails sent)")
+              print("")
+              print("Error details:", str(e))
+              raise
+              
+          except Exception as e:
+              print("")
+              print("=" * 60)
+              print("❌ UNEXPECTED ERROR")
+              print("=" * 60)
+              print("")
+              print("An unexpected error occurred.")
+              print("Error details:", str(e))
+              print("")
+              print("Check:")
+              print("• All secrets are configured correctly")
+              print("• Email addresses are valid")
+              print("• SMTP server is accessible")
+              raise
+          
+          EOF
+        env:
+          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          TEST_MESSAGE: ${{ inputs.test_message }}
+
+      - name: Test Summary
+        if: always()
+        run: |
+          echo ""
+          echo "╔════════════════════════════════════════════════════════╗"
+          echo "║         EMAIL CONFIGURATION TEST COMPLETE              ║"
+          echo "╚════════════════════════════════════════════════════════╝"
+          echo ""
+          
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "✅ Status: SUCCESS"
+            echo ""
+            echo "Your email configuration is working correctly!"
+            echo ""
+            echo "What to do next:"
+            echo "1. Check recipient inbox for test email"
+            echo "2. Verify email formatting and content"
+            echo "3. If using personal test account, update to production secrets"
+            echo "4. Configure monitoring workflows to use these secrets"
+            echo ""
+          else
+            echo "❌ Status: FAILED"
+            echo ""
+            echo "Email configuration test failed. Check the logs above for details."
+            echo ""
+            echo "Troubleshooting:"
+            echo "1. Verify all three secrets are set (EMAIL_USERNAME, EMAIL_PASSWORD, EMAIL_TO)"
+            echo "2. Ensure EMAIL_PASSWORD is an app password, not regular password"
+            echo "3. Check email addresses for typos"
+            echo "4. Review GITHUB_SECRETS_SETUP.md for detailed help"
+            echo "5. See troubleshooting section for common issues"
+            echo ""
+          fi
+          
+          echo "📚 Documentation: GITHUB_SECRETS_SETUP.md"
+          echo "🔧 Troubleshooting: See 'Common Email Delivery Issues' section"
+          echo ""
