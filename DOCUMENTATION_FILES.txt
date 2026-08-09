@@ -1,0 +1,27 @@
+Documentation Files Created by Copilot
+========================================
+
+These are the files that were created to set up proper repository documentation:
+
+1. .gitignore           - Git ignore rules for excluding temp files and build artifacts
+2. CODE_OF_CONDUCT.md   - Community guidelines and code of conduct
+3. CONTRIBUTING.md      - Contribution guidelines for developers
+4. LICENSE              - MIT License for open source distribution
+5. README.md            - Project overview, features, and usage instructions
+
+To copy these files to a new repository:
+-----------------------------------------
+
+Option 1 - Use the provided script:
+  ./copy-docs-to-new-repo.sh /path/to/new/repository
+
+Option 2 - Manual copy:
+  1. Create and clone your new repository (e.g., sefirst-portal-monitoring)
+  2. Copy these 5 files to the new repository directory
+  3. In the new repository, run:
+     git add .
+     git commit -m "Add repository documentation"
+     git push origin main
+
+Note: These files do NOT include the exam simulator application files 
+(index.html, app.js, questions.js, etc.) - only the documentation files.
