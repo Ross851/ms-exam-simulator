@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>GH-600 Field Guide</title>
+<style>
+:root{color-scheme:light;
+--page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+--grid:#e1e0d9;--baseline:#c3c2b7;--ring:rgba(11,11,11,.10);
+--d1:#2a78d6;--d2:#eb6834;--d3:#1baf7a;--d4:#eda100;--d5:#e87ba4;--d6:#008300;
+--good:#0ca30c;--bad:#d03b3b;--goodtext:#006300}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;
+--page:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink2:#c3c2b7;--muted:#898781;
+--grid:#2c2c2a;--baseline:#383835;--ring:rgba(255,255,255,.10);
+--d1:#3987e5;--d2:#d95926;--d3:#199e70;--d4:#c98500;--d5:#d55181;--d6:#2ea043;
+--goodtext:#0ca30c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);
+font:16px/1.65 system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:52rem;margin:0 auto;padding:0 1rem 4rem}
+header.top{position:sticky;top:0;background:var(--page);border-bottom:1px solid var(--grid);
+padding:.5rem 0;z-index:5}
+nav{display:flex;gap:.35rem;overflow-x:auto;padding:.2rem 1rem;max-width:52rem;
+margin:0 auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;font-size:.82rem;padding:.32rem .7rem;border:1px solid var(--grid);
+border-radius:99px;text-decoration:none;color:var(--ink);background:var(--surface)}
+section{scroll-margin-top:3.4rem}
+h1{font-size:1.5rem;line-height:1.25;margin:2.4rem 0 .6rem;
+border-bottom:2px solid var(--grid);padding-bottom:.4rem}
+h2{font-size:1.18rem;margin:1.7rem 0 .5rem}
+h3{font-size:1.02rem;margin:1.3rem 0 .4rem}
+p,ul,ol{margin:.55rem 0}
+li{margin:.3rem 0}
+a{color:var(--d1);word-break:break-word}
+.sub{color:var(--ink2);font-size:.92rem}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:12px;
+padding:1rem 1.1rem;margin:1rem 0;overflow-x:auto}
+.callout{border-left:3px solid var(--d1);background:var(--surface);
+border-radius:0 10px 10px 0;padding:.6rem 1rem;margin:.9rem 0;font-size:.95rem}
+ol.steps{counter-reset:step;list-style:none;padding-left:0}
+ol.steps>li{counter-increment:step;position:relative;padding-left:2.6rem;margin:.9rem 0}
+ol.steps>li::before{content:counter(step);position:absolute;left:0;top:.05rem;
+width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--d1);
+color:var(--d1);font-weight:600;font-size:.9rem;display:flex;
+align-items:center;justify-content:center}
+figure{margin:1.2rem 0}
+figure svg{width:100%;height:auto;display:block;background:var(--surface);
+border:1px solid var(--ring);border-radius:12px}
+figcaption{font-size:.9rem;color:var(--ink2);margin-top:.45rem}
+figcaption strong{color:var(--ink)}
+figure.codefig{margin:1.1rem 0}
+figure.codefig figcaption{margin:0 0 .35rem;font-size:.9rem}
+pre.code{background:var(--surface);border:1px solid var(--ring);border-radius:10px;
+padding:.8rem 1rem;overflow-x:auto;font-size:.84rem;line-height:1.5;margin:0}
+pre.code code{font-family:ui-monospace,'Cascadia Code',Consolas,monospace;color:var(--ink)}
+code{background:var(--surface);border:1px solid var(--ring);padding:.1rem .35rem;
+border-radius:4px;font-size:.85em;font-family:ui-monospace,'Cascadia Code',Consolas,monospace}
+pre.code code{border:none;padding:0;background:none}
+svg text{font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+table{border-collapse:collapse;font-size:.9rem;margin:.7rem 0;width:100%}
+th,td{border-bottom:1px solid var(--grid);padding:.4rem .6rem;text-align:left;vertical-align:top}
+th{color:var(--ink2)}
+.pagefoot{color:var(--muted);font-size:.82rem;margin-top:3rem;
+border-top:1px solid var(--grid);padding-top:.8rem}
+nav a.active{background:var(--d1);color:#fff;border-color:var(--d1)}
+.badge{display:inline-block;font-size:.7rem;padding:.1rem .4rem;border-radius:99px;
+margin-left:.3rem;vertical-align:middle;font-weight:600;opacity:.85}
+.badge-heavy{background:var(--d2);color:#fff}
+.badge-mid{background:var(--d4);color:#fff}
+.badge-light{background:var(--d3);color:#fff}
+#back-top{position:fixed;bottom:1.5rem;right:1.5rem;width:2.6rem;height:2.6rem;
+border-radius:50%;background:var(--d1);color:#fff;border:none;cursor:pointer;
+font-size:1.2rem;display:none;align-items:center;justify-content:center;
+box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:10;transition:opacity .2s}
+#back-top:hover{opacity:.8}
+.qref{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.7rem;margin:1rem 0}
+.qref-card{background:var(--surface);border:1px solid var(--ring);border-radius:10px;
+padding:.7rem .9rem;font-size:.88rem}
+.qref-card h3{margin:0 0 .3rem;font-size:.92rem;color:var(--d1)}
+.qref-card ul{margin:.2rem 0;padding-left:1.2rem}
+.qref-card li{margin:.15rem 0;font-size:.84rem}
+details.codefig{margin:1.1rem 0}
+details.codefig>summary{cursor:pointer;font-size:.9rem;color:var(--ink2);
+padding:.4rem 0;user-select:none;list-style:none}
+details.codefig>summary::before{content:'▸ ';color:var(--muted)}
+details.codefig[open]>summary::before{content:'▾ '}
+details.codefig>summary:hover{color:var(--d1)}
+.scenario{background:var(--surface);border:1px solid var(--ring);border-radius:12px;
+padding:1rem 1.2rem;margin:1.2rem 0;position:relative}
+.scenario-q{font-weight:600;margin:0 0 .5rem;font-size:.95rem}
+.scenario-opts{margin:.4rem 0;padding-left:1.4rem;font-size:.9rem}
+.scenario-opts li{margin:.25rem 0;cursor:pointer;padding:.2rem .4rem;border-radius:6px;
+transition:background .15s}
+.scenario-opts li:hover{background:var(--grid)}
+.scenario-opts li.correct{color:var(--goodtext);font-weight:600}
+.scenario-opts li.picked-wrong{color:var(--bad);text-decoration:line-through;opacity:.7}
+.scenario-opts li.picked-right{background:rgba(12,163,12,.12);border-radius:6px;padding:.2rem .4rem}
+.scenario-reveal{border-top:1px solid var(--grid);margin-top:.6rem;padding-top:.5rem;
+font-size:.88rem;color:var(--ink2);display:none}
+.scenario-reveal.shown{display:block}
+.scenario-reasoning{border-top:1px solid var(--grid);margin-top:.6rem;padding-top:.5rem;
+font-size:.88rem;color:var(--ink2)}
+.scenario-reasoning strong{color:var(--ink)}
+.scenario .reveal-btn{display:inline-block;margin-top:.5rem;font-size:.82rem;
+color:var(--d1);cursor:pointer;border:1px solid var(--d1);padding:.2rem .6rem;
+border-radius:6px;background:none}
+.scenario .reveal-btn:hover{background:var(--d1);color:#fff}
+.scenario .score-dot{position:absolute;top:.8rem;right:1rem;width:.6rem;height:.6rem;
+border-radius:50%;background:var(--grid)}
+.scenario .score-dot.right{background:var(--good)}
+.scenario .score-dot.wrong{background:var(--bad)}
+.quiz-bar{background:var(--surface);border:1px solid var(--ring);border-radius:12px;
+padding:.8rem 1.2rem;margin:1rem 0;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.quiz-bar button{padding:.4rem .9rem;border-radius:8px;border:1px solid var(--d1);
+background:var(--d1);color:#fff;cursor:pointer;font-size:.88rem;font-weight:600}
+.quiz-bar button:hover{opacity:.85}
+.quiz-bar button.secondary{background:none;color:var(--d1)}
+.quiz-bar .timer{font-family:ui-monospace,monospace;font-size:1.1rem;font-weight:600;
+color:var(--ink);min-width:4rem}
+.quiz-bar .score-display{font-size:.9rem;color:var(--ink2)}
+.mnemonic{background:linear-gradient(135deg,var(--surface),var(--page));
+border:1px solid var(--d1);border-radius:12px;padding:.8rem 1.1rem;margin:.8rem 0}
+.mnemonic h4{margin:0 0 .3rem;font-size:.92rem;color:var(--d1)}
+.mnemonic p{margin:.2rem 0;font-size:.88rem}
+.mnemonic .hook{font-size:1.1rem;font-weight:700;letter-spacing:.5px;color:var(--ink)}
+.decision-table{margin:1rem 0}
+.decision-table td:first-child{font-weight:600;white-space:nowrap}
+.when-tag{display:inline-block;background:var(--d1);color:#fff;font-size:.72rem;
+padding:.1rem .4rem;border-radius:4px;margin-right:.3rem;font-weight:600}
+.use-tag{display:inline-block;background:var(--d3);color:#fff;font-size:.72rem;
+padding:.1rem .4rem;border-radius:4px;margin-right:.3rem;font-weight:600}
+.not-tag{display:inline-block;background:var(--bad);color:#fff;font-size:.72rem;
+padding:.1rem .4rem;border-radius:4px;margin-right:.3rem;font-weight:600}
+@media print{header.top{display:none}section{page-break-before:always}
+section:first-of-type{page-break-before:avoid}#back-top{display:none!important}
+details.codefig{display:block}details.codefig[open]>pre{display:block}}
+</style>
+</head>
+<body>
+<header class="top"><nav>
+<a href="#e2e">Full process</a>
+<a href="#g1">D1 SDLC <span class="badge badge-mid">15&#8211;20%</span></a>
+<a href="#g2">D2 Tools &amp; MCP <span class="badge badge-heavy">20&#8211;25%</span></a>
+<a href="#g3">D3 Memory <span class="badge badge-light">10&#8211;15%</span></a>
+<a href="#g4">D4 Evaluation <span class="badge badge-mid">15&#8211;20%</span></a>
+<a href="#g5">D5 Multi-agent <span class="badge badge-mid">15&#8211;20%</span></a>
+<a href="#g6">D6 Guardrails <span class="badge badge-light">10&#8211;15%</span></a>
+<a href="#scenarios">Scenarios</a>
+<a href="#ref">CLI Ref</a>
+</nav></header>
+<main>
+<p class="sub" style="margin-top:1.2rem">GH-600 Field Guide: the how-to companion to the study pack. Each section shows the full process for one exam domain: a diagram of the flow, a numbered walkthrough, and the actual files and commands you would write. Works offline.</p>
+
+<div class="callout">
+<p><strong>Naming drift:</strong> GitHub Docs now call the product the <strong>Copilot cloud agent</strong>. "Copilot coding agent" (CCA) is the earlier name and still appears in older material &#8212; and possibly in exam items written before the rename. Treat the two as exact synonyms. This guide uses "coding agent" throughout; every statement applies equally under either name.</p>
+</div>
+
+<section id="qref">
+<h1>Quick reference: the 10 facts that decide exam questions</h1>
+<div class="qref">
+<div class="qref-card"><h3>1. The lifecycle</h3><ul><li><strong>Plan &#8594; Act &#8594; Evaluate</strong> (cyclical)</li><li>Agents propose; humans + policy decide</li></ul></div>
+<div class="qref-card"><h3>2. Never merge to main</h3><ul><li>Own branch, open a PR, let checks + review gate</li><li>No direct pushes, no self-merges</li></ul></div>
+<div class="qref-card"><h3>3. Least privilege per role</h3><ul><li>Planner: <code>tools: ['read','search']</code></li><li>Executor: <code>tools: ['read','search','edit','execute']</code></li></ul></div>
+<div class="qref-card"><h3>4. MCP allow list layering</h3><ul><li>Org policy &#8594; Registry &#8594; Server &#8594; Tool</li><li>"Registry only" blocks unlisted servers</li></ul></div>
+<div class="qref-card"><h3>5. Durable memory = platform</h3><ul><li>Issues, PRs, commits, checks, artefacts</li><li>Context window is ephemeral; resume from the record</li></ul></div>
+<div class="qref-card"><h3>6. Root-cause &#8594; tuning lever</h3><ul><li>Reasoning error &#8594; revise instructions</li><li>Tool misuse &#8594; refine tool access</li><li>Context/env &#8594; refine memory scope</li></ul></div>
+<div class="qref-card"><h3>7. Permissions block zeroes the rest</h3><ul><li>Specifying one scope sets all others to <code>none</code></li><li>Use job-level, not workflow-level</li></ul></div>
+<div class="qref-card"><h3>8. Two reviews, two kinds</h3><ul><li>Copilot review: automatic, advisory</li><li>CODEOWNERS review: human, required for merge</li></ul></div>
+<div class="qref-card"><h3>9. Merge gate &#8800; deploy gate</h3><ul><li>Rulesets + checks &#8594; guards what enters main</li><li>Environment protection &#8594; guards what reaches prod</li></ul></div>
+<div class="qref-card"><h3>10. Velocity balance</h3><ul><li>Gate irreversible/compliance-sensitive actions</li><li>Don't gate low-risk actions; speed matters</li></ul></div>
+</div>
+</section>
+
+<section id="e2e">
+<h1>The full process end to end</h1>
+<p>Every domain in GH-600 is a slice of one lifecycle: an issue arrives, a plan is produced and approved, an agent implements, the platform verifies, humans and policy gate, and only then does anything reach production. Exam questions jump into the middle of this pipeline and ask "what happens next?" or "which control stops this?", so hold the whole story as a single picture.</p>
+<h2>The process</h2>
+<figure>
+<svg viewBox="0 0 720 310" role="img" aria-label="Pipeline from issue to production">
+<defs><marker id="e2e-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+<text x="16" y="20" font-size="13" fill="var(--ink)" font-weight="600">One agentic change, issue to production</text>
+<rect x="16" y="34" width="100" height="48" rx="10" fill="none" stroke="var(--d1)" stroke-width="2"/>
+<text x="66" y="54" font-size="12" fill="var(--ink2)" text-anchor="middle">Issue</text>
+<text x="66" y="70" font-size="12" fill="var(--muted)" text-anchor="middle">arrives &#183; D1</text>
+<rect x="148" y="34" width="150" height="48" rx="10" fill="none" stroke="var(--d1)" stroke-width="2"/>
+<text x="223" y="54" font-size="12" fill="var(--ink2)" text-anchor="middle">Planner agent</text>
+<text x="223" y="70" font-size="12" fill="var(--muted)" text-anchor="middle">read-only &#183; D1</text>
+<rect x="330" y="34" width="100" height="48" rx="10" fill="none" stroke="var(--d1)" stroke-width="2"/>
+<text x="380" y="54" font-size="12" fill="var(--ink2)" text-anchor="middle">plan.md</text>
+<text x="380" y="70" font-size="12" fill="var(--muted)" text-anchor="middle">artefact &#183; D1</text>
+<rect x="550" y="34" width="150" height="48" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="625" y="54" font-size="12" fill="var(--ink2)" text-anchor="middle">Human approves</text>
+<text x="625" y="70" font-size="12" fill="var(--muted)" text-anchor="middle">the plan &#183; D6</text>
+<line x1="116" y1="58" x2="146" y2="58" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<line x1="298" y1="58" x2="328" y2="58" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<line x1="430" y1="58" x2="548" y2="58" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<rect x="550" y="134" width="150" height="48" rx="10" fill="none" stroke="var(--d2)" stroke-width="2"/>
+<text x="625" y="154" font-size="12" fill="var(--ink2)" text-anchor="middle">Coder agent</text>
+<text x="625" y="170" font-size="12" fill="var(--muted)" text-anchor="middle">own branch &#183; D2</text>
+<rect x="398" y="134" width="120" height="48" rx="10" fill="none" stroke="var(--d1)" stroke-width="2"/>
+<text x="458" y="154" font-size="12" fill="var(--ink2)" text-anchor="middle">PR opens</text>
+<text x="458" y="170" font-size="12" fill="var(--muted)" text-anchor="middle">template &#183; D1</text>
+<rect x="216" y="134" width="150" height="48" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="291" y="154" font-size="12" fill="var(--ink2)" text-anchor="middle">Required checks</text>
+<text x="291" y="170" font-size="12" fill="var(--muted)" text-anchor="middle">CodeQL, secrets &#183; D4</text>
+<rect x="16" y="134" width="168" height="48" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="100" y="154" font-size="12" fill="var(--ink2)" text-anchor="middle">Copilot review +</text>
+<text x="100" y="170" font-size="12" fill="var(--muted)" text-anchor="middle">CODEOWNERS &#183; D6</text>
+<line x1="625" y1="82" x2="625" y2="132" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<line x1="550" y1="158" x2="520" y2="158" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<line x1="398" y1="158" x2="368" y2="158" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<line x1="216" y1="158" x2="186" y2="158" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<rect x="16" y="234" width="168" height="48" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="100" y="254" font-size="12" fill="var(--ink2)" text-anchor="middle">Ruleset gates</text>
+<text x="100" y="270" font-size="12" fill="var(--muted)" text-anchor="middle">the merge &#183; D6</text>
+<rect x="250" y="234" width="180" height="48" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="340" y="254" font-size="12" fill="var(--ink2)" text-anchor="middle">Deployment gate</text>
+<text x="340" y="270" font-size="12" fill="var(--muted)" text-anchor="middle">env approval &#183; D6</text>
+<rect x="496" y="234" width="130" height="48" rx="10" fill="none" stroke="var(--good)" stroke-width="2"/>
+<text x="561" y="254" font-size="12" fill="var(--ink2)" text-anchor="middle">Production</text>
+<text x="561" y="270" font-size="12" fill="var(--muted)" text-anchor="middle">audit trail stays</text>
+<line x1="100" y1="182" x2="100" y2="232" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<line x1="184" y1="258" x2="248" y2="258" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+<line x1="430" y1="258" x2="494" y2="258" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#e2e-ar)"/>
+</svg>
+<figcaption>The full pipeline. Row one is planning (D1), row two runs right to left through implementation and verification (D2, D1, D4, D6), row three is merge and deployment gates (D6).</figcaption>
+</figure>
+
+<ol class="steps">
+<li><p><strong>An issue arrives (D1).</strong> The issue is the system of record for intent: inputs, expected outputs, and success criteria.</p></li>
+<li><p><strong>A planner agent produces plan.md (D1).</strong> The planner is read-only. Output is a structured plan committed as an inspectable artefact.</p></li>
+<li><p><strong>A human approves the plan (D6).</strong> No action until the plan is checked and approved.</p></li>
+<li><p><strong>A coder agent implements on its own branch (D2).</strong> Write access, isolated branch, tightly scoped workflow permissions, never direct to main.</p></li>
+<li><p><strong>A PR opens from a template (D1 artefact, D6 governance).</strong> The PR is the anchor record. Template lives at <code>.github/pull_request_template.md</code>.</p></li>
+<li><p><strong>Required checks and reviews run (D4 signals, D6 gates).</strong> CodeQL and secret scanning are required. Copilot review runs automatically. CODEOWNERS pulls in accountable humans.</p></li>
+<li><p><strong>Ruleset, deployment gate, production (D6).</strong> Branch ruleset requires checks and CODEOWNERS review. Environment protection requires named approver before production deploy.</p></li>
+</ol>
+
+<div class="callout"><p>The speaker's one-liner: "evaluate the work by the standards of the workflow, not by the novelty of the author". Every gate already existed for humans; agentic development reuses them.</p></div>
+
+<h2>Gotchas and exam tips</h2>
+<ul>
+<li><strong>Order matters.</strong> Plan, approve, act, verify, gate, deploy.</li>
+<li><strong>Read-only planner, write-scoped executor.</strong></li>
+<li><strong>Merge gate and deployment gate are different controls.</strong> Rulesets govern what enters main; environment protection governs what reaches production.</li>
+<li><strong>The PR is the anchor, not the agent's memory.</strong></li>
+<li><strong>Two reviews, two kinds.</strong> Copilot PR review never satisfies a required-review rule.</li>
+</ul>
+</section>
+
+<section id="g1">
+<h1>Domain 1 how-to: wire agents into the SDLC</h1>
+<p>Domain 1 (15&#8211;20%) is about making an agent behave like a well-run contributor: structured task, readable plan, approval gate, own branch, PR that the workflow validates. The lifecycle is <strong>plan, act, evaluate</strong> &#8212; cyclical, not linear.</p>
+
+<h2>The process</h2>
+<figure>
+<svg viewBox="0 0 720 340" role="img" aria-label="Swimlane: human defines and approves, agent plans and executes, GitHub validates">
+<defs><marker id="g1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+<rect x="70" y="16" width="628" height="98" rx="10" fill="none" stroke="var(--grid)" stroke-width="1"/>
+<rect x="70" y="120" width="628" height="98" rx="10" fill="none" stroke="var(--grid)" stroke-width="1"/>
+<rect x="70" y="224" width="628" height="98" rx="10" fill="none" stroke="var(--grid)" stroke-width="1"/>
+<g font-size="12" fill="var(--muted)"><text x="12" y="69">Human</text><text x="12" y="173">Agent</text><text x="12" y="277">GitHub</text></g>
+<g fill="none" stroke="var(--d1)" stroke-width="2">
+<rect x="80" y="39" width="118" height="52" rx="10"/>
+<rect x="330" y="39" width="118" height="52" rx="10"/>
+<rect x="578" y="39" width="116" height="52" rx="10"/>
+<rect x="205" y="143" width="118" height="52" rx="10"/>
+<rect x="455" y="143" width="118" height="52" rx="10"/>
+<rect x="455" y="247" width="118" height="52" rx="10"/>
+</g>
+<g font-size="12" text-anchor="middle">
+<g fill="var(--ink)"><text x="139" y="61">Define task</text><text x="389" y="61">Approve plan</text><text x="636" y="61">Review + merge</text><text x="264" y="165">Draft plan.md</text><text x="514" y="165">Execute</text><text x="514" y="269">PR + checks</text></g>
+<g fill="var(--ink2)"><text x="139" y="79">issue form</text><text x="389" y="79">human gate</text><text x="636" y="79">policy decides</text><text x="264" y="183">no code changes</text><text x="514" y="183">own branch</text><text x="514" y="287">evidence</text></g>
+</g>
+<g fill="none" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g1-ar)">
+<path d="M139 91 V118 H264 V143"/>
+<path d="M264 143 V116 H389 V91"/>
+<path d="M389 91 V118 H514 V143"/>
+<path d="M514 195 V247"/>
+<path d="M573 273 H636 V91"/>
+<path d="M455 273 H420 V169 H455" stroke-dasharray="5 4"/>
+</g>
+<text x="414" y="232" font-size="12" fill="var(--muted)" text-anchor="end">fail: iterate</text>
+</svg>
+<figcaption>Plan/approve/execute/validate loop. The agent never crosses into the Human lane.</figcaption>
+</figure>
+
+<ol class="steps">
+<li><p><strong>Define the task as a structured issue.</strong> Three required fields: <em>inputs</em>, <em>outputs</em>, and <em>success criteria</em>. Encode as an issue form (<code>.github/ISSUE_TEMPLATE/agent-task.yml</code>).</p>
+<details class="codefig" open><summary><code>.github/ISSUE_TEMPLATE/agent-task.yml</code></summary>
+<pre class="code"><code>name: Agent task
+description: Delegate a scoped task to a coding agent
+title: "[agent] "
+labels: ["agent-task"]
+body:
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      description: Files, paths, APIs and constraints the agent may use
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Expected outputs
+      description: Artefacts the agent must produce
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: Success criteria
+      description: Measurable conditions that mean the task is done
+    validations:
+      required: true
+  - type: dropdown
+    id: autonomy
+    attributes:
+      label: Autonomy level
+      options:
+        - Plan only (await approval)
+        - Plan then execute after approval
+    validations:
+      required: true</code></pre></details>
+</li>
+<li><p><strong>Make the agent plan before it acts.</strong> The planner writes <code>plan.md</code> to its task branch and stops. Planner agents should be read-only.</p>
+<figure class="codefig"><figcaption><code>plan.md</code> skeleton</figcaption>
+<pre class="code"><code># Plan: &lt;task title&gt; (refs #142)
+
+## Goal
+One sentence restating the issue's success criteria.
+
+## Constraints
+- Only touch paths listed in the issue's Inputs field
+- No dependency or schema changes
+- One PR; no direct pushes to main
+
+## Steps
+1. Reproduce the failing behaviour with a test
+2. Implement the fix
+3. Run the full test suite and lint
+
+## Evidence checklist
+- [ ] New regression test fails before the change, passes after
+- [ ] CI checks green on the PR
+- [ ] Plan approved by a human before step 2 began
+
+## Checkpoint log
+- 2026-08-06: initial plan drafted, awaiting approval</code></pre>
+</figure>
+</li>
+<li><p><strong>Gate execution on plan approval.</strong> A human approves the plan before the agent writes any code.</p></li>
+<li><p><strong>Execute on an isolated branch, one PR per task.</strong> Branch naming convention: <code>agent/142-fix-invoice-rounding</code>. Never merge directly to main.</p></li>
+<li><p><strong>Validate by the standards of the workflow.</strong> Required Actions checks run, agent gathers evidence, failures feed back into execution.</p>
+<figure class="codefig"><figcaption><code>.github/pull_request_template.md</code></figcaption>
+<pre class="code"><code>## Task
+Closes #&lt;issue number&gt;
+
+## Approved plan
+Link to the approved plan.md (required for agent-authored PRs):
+
+## Agent compliance
+- [ ] Plan was approved by a human before execution began
+- [ ] All changes stay within the paths listed in the task's Inputs
+- [ ] Evidence checklist in the plan is complete, with links
+
+## Evidence
+- CI run: &lt;link&gt;
+- Tests added/updated: &lt;list&gt;</code></pre>
+</figure>
+</li>
+</ol>
+
+<h2>Gotchas and exam tips</h2>
+<ul>
+<li><strong>"Never merge directly to main" is a marked exam point.</strong></li>
+<li><strong>Know the three anti-patterns:</strong> execution without validation, no separation between planning and execution, unbounded autonomy with no inspectable artefacts.</li>
+<li><strong>The plan is an artefact, not a chat message.</strong></li>
+<li><strong>Durable state lives in GitHub records, not the agent.</strong></li>
+</ul>
+</section>
+
+<section id="g2">
+<h1>Domain 2 how-to: tools, MCP servers and safe execution</h1>
+<p>The heaviest domain (20&#8211;25%). Mental model: agents operate <em>through</em> the platform, not around it. MCP (Model Context Protocol) is the standardised layer for tool discovery and results.</p>
+
+<h2>The process</h2>
+<figure>
+<svg viewBox="0 0 720 300" role="img" aria-label="Agent requests flow through the organisation allow list and MCP registry">
+<defs><marker id="g2-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+<g font-size="13">
+<rect x="20" y="115" width="140" height="70" rx="10" fill="none" stroke="var(--d2)" stroke-width="2"/>
+<text x="90" y="145" text-anchor="middle" fill="var(--ink)">Copilot agent</text>
+<text x="90" y="165" text-anchor="middle" font-size="12" fill="var(--muted)">coding agent / CLI</text>
+<rect x="210" y="105" width="150" height="90" rx="10" fill="none" stroke="var(--d2)" stroke-width="2"/>
+<text x="285" y="138" text-anchor="middle" fill="var(--ink)">Org allow list</text>
+<text x="285" y="158" text-anchor="middle" font-size="12" fill="var(--muted)">policy: registry only</text>
+<rect x="410" y="105" width="140" height="90" rx="10" fill="none" stroke="var(--d2)" stroke-width="2"/>
+<text x="480" y="142" text-anchor="middle" fill="var(--ink)">MCP registry</text>
+<text x="480" y="162" text-anchor="middle" font-size="12" fill="var(--muted)">approved servers</text>
+<rect x="585" y="35" width="115" height="50" rx="10" fill="none" stroke="var(--d2)" stroke-width="2"/>
+<text x="642" y="65" text-anchor="middle" font-size="12" fill="var(--ink2)">GitHub MCP</text>
+<rect x="585" y="125" width="115" height="50" rx="10" fill="none" stroke="var(--d2)" stroke-width="2"/>
+<text x="642" y="155" text-anchor="middle" font-size="12" fill="var(--ink2)">Playwright</text>
+<rect x="585" y="220" width="115" height="50" rx="10" fill="none" stroke="var(--bad)" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="642" y="250" text-anchor="middle" font-size="12" fill="var(--muted)">unlisted server</text>
+<line x1="160" y1="150" x2="204" y2="150" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g2-ar)"/>
+<line x1="360" y1="150" x2="404" y2="150" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g2-ar)"/>
+<line x1="550" y1="128" x2="579" y2="70" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g2-ar)"/>
+<line x1="550" y1="150" x2="579" y2="150" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g2-ar)"/>
+<path d="M 285 195 L 285 245 L 570 245" fill="none" stroke="var(--bad)" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="424" y1="239" x2="436" y2="251" stroke="var(--bad)" stroke-width="2.5"/>
+<line x1="436" y1="239" x2="424" y2="251" stroke="var(--bad)" stroke-width="2.5"/>
+<text x="430" y="228" text-anchor="middle" font-size="12" fill="var(--muted)">not in the registry: blocked</text>
+</g>
+</svg>
+<figcaption>Org allow list decides which servers an agent may reach. Unlisted servers are refused before connection.</figcaption>
+</figure>
+
+<ol class="steps">
+<li><p><strong>Identify the tools the task actually needs.</strong> Map each need to a tool or MCP server. Everything else stays off.</p></li>
+<li><p><strong>Add the GitHub remote MCP server to your workspace.</strong> For local VS Code, use <code>.vscode/mcp.json</code> (top-level key: <code>servers</code>, type: <code>stdio</code> or <code>http</code>).</p></li>
+<li><p><strong>Configure MCP for the coding agent at the repository.</strong> Paste JSON into <strong>Settings &gt; Copilot &gt; MCP servers</strong> (top-level key: <code>mcpServers</code>, type: <code>local</code> or <code>http</code>).</p>
+<figure class="codefig"><figcaption>MCP config for repo Settings &gt; Copilot &gt; MCP servers</figcaption>
+<pre class="code"><code>{
+  "mcpServers": {
+    "github-mcp-server": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/readonly",
+      "tools": ["*"],
+      "headers": { "X-MCP-Toolsets": "repos,issues,pull_requests" }
+    }
+  }
+}</code></pre>
+</figure>
+</li>
+<li><p><strong>Fence it in at the organisation.</strong> Org admin sets an MCP registry URL and policy under <strong>Settings &gt; Copilot &gt; Policies</strong>. "Registry only" blocks unlisted servers.</p></li>
+<li><p><strong>Define a custom agent with role boundaries.</strong> Markdown files in <code>.github/agents/</code> with YAML frontmatter scoping capability.</p>
+<figure class="codefig"><figcaption><code>.github/agents/planner.agent.md</code></figcaption>
+<pre class="code"><code>---
+name: planner
+description: Read-only planning agent; produces implementation plans, never edits code
+tools: ["read", "search"]
+---
+
+You are a planning specialist. Analyse the issue and the codebase, then
+produce a step-by-step implementation plan as a Markdown checklist.
+
+Boundaries:
+- You MUST NOT modify, create or delete files.
+- You MUST NOT run shell commands.</code></pre>
+</figure>
+</li>
+<li><p><strong>Give the CI workflow least-privilege permissions.</strong> Declare every scope explicitly at job level; unlisted scopes become <code>none</code>.</p></li>
+<li><p><strong>Add timeouts, retries and an escalation path.</strong></p>
+<details class="codefig" open><summary><code>.github/workflows/agent-task.yml</code></summary>
+<pre class="code"><code>name: Agent task with safe execution
+on:
+  pull_request:
+    types: [opened, synchronize]
+permissions: {}
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run checks with bounded retries
+        timeout-minutes: 5
+        run: |
+          for attempt in 1 2 3; do
+            npm test &amp;&amp; exit 0
+            echo "Attempt $attempt failed"
+            sleep $((attempt * 10))
+          done
+          exit 1
+      - name: Escalate to a human
+        if: failure()
+        run: |
+          gh issue create \
+            --title "Agent task failed on ${{ github.head_ref }}" \
+            --body "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        env:
+          GH_TOKEN: ${{ secrets.ESCALATION_TOKEN }}</code></pre>
+</details>
+</li>
+</ol>
+
+<div class="callout"><p><strong>Key differences to memorise:</strong> <code>.vscode/mcp.json</code> uses <code>"servers"</code> and <code>"type": "stdio"</code>. The cloud config uses <code>"mcpServers"</code> and <code>"type": "local"</code>. Secrets in the cloud use the <code>COPILOT_MCP_</code> prefix.</p></div>
+
+<h2>Where configs live (exam's favourite trick)</h2>
+<figure class="codefig"><figcaption>Four config surfaces and who reads them</figcaption>
+<pre class="code"><code>WHAT                     WHERE                           WHO READS IT
+MCP servers (local IDE)  .vscode/mcp.json                VS Code Copilot
+MCP servers (cloud)      Repo Settings > Copilot > MCP   Coding agent
+Agent profiles           .github/agents/*.agent.md       Coding agent, CLI
+Prompt instructions      .github/copilot-instructions.md All Copilot modes
+MCP allow list/registry  Org Settings > Copilot > Policies Enforcement
+Workflow permissions     .github/workflows/*.yml         Actions runner
+Required checks          Repo Settings > Rules > Rulesets Merge gate</code></pre>
+</figure>
+
+<h2>Gotchas and exam tips</h2>
+<ul>
+<li><strong>The GitHub MCP server is on by default for the coding agent, read-only.</strong></li>
+<li><strong>Know where each config lives.</strong> Expect distractors that swap locations.</li>
+<li><strong>Tools frontmatter semantics:</strong> omitted or <code>["*"]</code> = all tools; list = only those; <code>[]</code> = none.</li>
+<li><strong>One <code>permissions</code> key zeroes the rest.</strong></li>
+</ul>
+</section>
+
+<section id="g3">
+<h1>Domain 3 how-to: durable memory and resumable state</h1>
+<p>Domain 3 (10&#8211;15%). Agent execution is ephemeral: when a run ends, its context window is gone. GitHub is the durable memory. Make agent work resumable by writing state into the platform record.</p>
+
+<h2>The process</h2>
+<figure>
+<svg viewBox="0 0 720 320" role="img" aria-label="Ephemeral agent runs writing to and reading from a durable GitHub record">
+<defs><marker id="g3-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+<text x="80" y="22" font-size="12" fill="var(--muted)">Ephemeral: context window lost when each run ends</text>
+<rect x="80" y="32" width="160" height="72" rx="10" fill="none" stroke="var(--d3)" stroke-width="2" stroke-dasharray="6 4"/>
+<rect x="290" y="32" width="160" height="72" rx="10" fill="none" stroke="var(--d3)" stroke-width="2" stroke-dasharray="6 4"/>
+<rect x="500" y="32" width="160" height="72" rx="10" fill="none" stroke="var(--d3)" stroke-width="2" stroke-dasharray="6 4"/>
+<g font-size="13" fill="var(--ink)" text-anchor="middle"><text x="160" y="62">Agent run 1</text><text x="370" y="62">Agent run 2</text><text x="580" y="62">Agent run 3</text></g>
+<g font-size="12" fill="var(--ink2)" text-anchor="middle"><text x="160" y="82">short-term memory</text><text x="370" y="82">short-term memory</text><text x="580" y="82">short-term memory</text></g>
+<line x1="150" y1="106" x2="150" y2="180" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g3-ar)"/>
+<line x1="340" y1="180" x2="340" y2="108" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g3-ar)"/>
+<line x1="400" y1="106" x2="400" y2="180" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g3-ar)"/>
+<line x1="550" y1="180" x2="550" y2="108" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g3-ar)"/>
+<line x1="610" y1="106" x2="610" y2="180" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g3-ar)"/>
+<rect x="60" y="184" width="620" height="86" rx="10" fill="none" stroke="var(--d3)" stroke-width="2"/>
+<text x="80" y="204" font-size="13" fill="var(--ink)">Durable record: the GitHub platform (long-term memory)</text>
+<rect x="85" y="216" width="130" height="38" rx="10" fill="none" stroke="var(--d3)" stroke-width="2"/>
+<rect x="230" y="216" width="130" height="38" rx="10" fill="none" stroke="var(--d3)" stroke-width="2"/>
+<rect x="375" y="216" width="130" height="38" rx="10" fill="none" stroke="var(--d3)" stroke-width="2"/>
+<rect x="520" y="216" width="140" height="38" rx="10" fill="none" stroke="var(--d3)" stroke-width="2"/>
+<g font-size="12" fill="var(--ink2)" text-anchor="middle"><text x="150" y="239">Plan doc</text><text x="295" y="239">PR comments</text><text x="440" y="239">Artefacts</text><text x="590" y="239">Commits + checks</text></g>
+</svg>
+<figcaption>Each run is ephemeral. Every run checkpoints state into the durable lane; every later run resumes by reading that lane first.</figcaption>
+</figure>
+
+<ol class="steps">
+<li><p><strong>Anchor the task to a pull request early.</strong> Create branch and open a draft PR as first act.</p></li>
+<li><p><strong>Maintain a plan document on the branch and checkpoint decisions into it.</strong></p>
+<figure class="codefig"><figcaption>Checkpointing a decision</figcaption>
+<pre class="code"><code>git add docs/agent-plan.md
+git commit -m "docs: checkpoint plan - drop caching approach, checks flagged race"
+git push</code></pre>
+</figure>
+</li>
+<li><p><strong>Persist evidence as workflow artefacts, because logs expire.</strong></p>
+<figure class="codefig"><figcaption>Artefact upload step</figcaption>
+<pre class="code"><code>- name: Upload test evidence
+  uses: actions/upload-artifact@v4
+  with:
+    name: test-report
+    path: reports/
+    retention-days: 30
+    if-no-files-found: error</code></pre>
+</figure>
+</li>
+<li><p><strong>Write progress comments to the PR.</strong></p>
+<figure class="codefig"><figcaption>Progress comment via gh</figcaption>
+<pre class="code"><code>gh pr comment 42 --body "Progress: auth middleware done, tests green. Next: rate limiting."
+gh pr comment 42 --edit-last --create-if-none \
+  --body "Status: 3/5 plan steps complete."</code></pre>
+</figure>
+</li>
+<li><p><strong>Resume by reading the record, not by redoing the work.</strong></p>
+<figure class="codefig"><figcaption>The resume sequence</figcaption>
+<pre class="code"><code>gh pr view 42 --json title,body,comments,commits,reviewDecision,statusCheckRollup
+gh pr checks 42 --required
+git log --oneline origin/main..HEAD</code></pre>
+</figure>
+</li>
+<li><p><strong>Scope memory to the task.</strong> Pull only what the current step needs.</p></li>
+<li><p><strong>Detect context rot and prune or reset.</strong> Checkpoint decisions, post a status comment, reset the session, resume from the durable record.</p></li>
+</ol>
+
+<div class="callout"><p><strong>Mental model:</strong> context window = short-term memory (volatile); issues, PRs, commits, checks, artefacts = long-term memory (durable, authoritative).</p></div>
+
+<h2>Gotchas and exam tips</h2>
+<ul>
+<li><strong>"Resume" means read, never redo.</strong></li>
+<li><strong>Logs expire; artefacts are the durable evidence.</strong></li>
+<li><strong>Context rot fix-list:</strong> scope memory, prune, checkpoint, reset.</li>
+<li><strong>Reverted attempts are memory too.</strong> History showing a tried-and-reverted approach steers the agent away from repeating it.</li>
+</ul>
+</section>
+
+<section id="g4">
+<h1>Domain 4 how-to: evaluation signals and the tuning loop</h1>
+<p>Domain 4 (15&#8211;20%). <strong>Observe, detect, correct</strong>: quantitative signals from scan output and workflow results, classify the root cause, tune the agent, write findings back to the plan.</p>
+
+<h2>The process</h2>
+<figure>
+<svg viewBox="0 0 720 320" role="img" aria-label="Evaluation signal sources flow into classify, tune, re-run loop">
+<defs><marker id="g4-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+<g font-size="12">
+<rect x="20" y="30" width="170" height="40" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="105" y="54" text-anchor="middle" fill="var(--ink2)">CodeQL SARIF checks</text>
+<rect x="20" y="82" width="170" height="40" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="105" y="106" text-anchor="middle" fill="var(--ink2)">Secret scanning alerts</text>
+<rect x="20" y="134" width="170" height="40" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="105" y="158" text-anchor="middle" fill="var(--ink2)">Run logs + artefacts</text>
+<rect x="260" y="54" width="170" height="100" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="345" y="78" text-anchor="middle" font-size="13" fill="var(--ink)">Classify root cause</text>
+<text x="345" y="100" text-anchor="middle">reasoning error</text>
+<text x="345" y="118" text-anchor="middle">tool misuse</text>
+<text x="345" y="136" text-anchor="middle">context / environment</text>
+<rect x="510" y="54" width="180" height="100" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="600" y="78" text-anchor="middle" font-size="13" fill="var(--ink)">Tune</text>
+<text x="600" y="100" text-anchor="middle">revise instructions</text>
+<text x="600" y="118" text-anchor="middle">refine memory scope</text>
+<text x="600" y="136" text-anchor="middle">adjust tool access</text>
+<rect x="260" y="200" width="170" height="44" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="345" y="226" text-anchor="middle">Plan document (ledger)</text>
+<rect x="510" y="250" width="180" height="44" rx="10" fill="none" stroke="var(--d4)" stroke-width="2"/>
+<text x="600" y="276" text-anchor="middle">Re-run required checks</text>
+</g>
+<g stroke="var(--muted)" stroke-width="1.6" fill="none">
+<path d="M190 50 L260 84" marker-end="url(#g4-ar)"/>
+<path d="M190 102 L260 104" marker-end="url(#g4-ar)"/>
+<path d="M190 154 L260 124" marker-end="url(#g4-ar)"/>
+<path d="M430 104 L510 104" marker-end="url(#g4-ar)"/>
+<path d="M345 154 L345 200" marker-end="url(#g4-ar)"/>
+<path d="M600 154 L600 250" marker-end="url(#g4-ar)"/>
+<path d="M510 272 L105 272 L105 178" marker-end="url(#g4-ar)"/>
+</g>
+</svg>
+<figcaption>Scan checks and run logs feed root-cause classification; tuning changes instructions, memory or tools; every finding is written back to the plan before the next pass.</figcaption>
+</figure>
+
+<ol class="steps">
+<li><p><strong>Wire up CodeQL so results arrive as checks.</strong> Add <code>.github/workflows/codeql.yml</code>. The <code>analyze</code> step uploads SARIF, which turns findings into a PR check.</p>
+<details class="codefig" open><summary><code>.github/workflows/codeql.yml</code></summary>
+<pre class="code"><code>name: "CodeQL"
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: "20 14 * * 1"
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+    strategy:
+      matrix:
+        include:
+          - language: javascript-typescript
+            build-mode: none
+    steps:
+      - uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"</code></pre>
+</details>
+</li>
+<li><p><strong>Enable secret scanning and push protection.</strong> Settings &#8594; Advanced Security. Push protection blocks a push containing a detectable secret before it lands.</p></li>
+<li><p><strong>Make the checks required.</strong> Settings &#8594; Rules &#8594; Rulesets. Add CodeQL check to required list.</p></li>
+<li><p><strong>Define success criteria in the plan document before the agent acts.</strong></p></li>
+<li><p><strong>Triage a failed run from the terminal.</strong></p>
+<figure class="codefig"><figcaption>Triage commands</figcaption>
+<pre class="code"><code>gh run list --branch agent/fix-auth --status failure --limit 5
+gh run view 17224310 --log-failed
+gh run view --log-failed --job 456789
+gh run download 17224310 -n test-results</code></pre>
+</figure>
+</li>
+<li><p><strong>Classify the root cause.</strong> <em>Reasoning error</em>: wrong conclusion from correct inputs. <em>Tool misuse</em>: wrong tool or bad parameters. <em>Context/environment</em>: missing dependency, expired token, context rot.</p></li>
+<li><p><strong>Tune the matching lever.</strong> Reasoning &#8594; revise instructions. Tool misuse &#8594; refine tool access. Context/env &#8594; refine memory scope.</p>
+<figure class="codefig"><figcaption>Tuning a reasoning error</figcaption>
+<pre class="code"><code>&lt;!-- BEFORE: underspecified --&gt;
+- Resolve all code scanning alerts before requesting review.
+
+&lt;!-- AFTER: intent, constraint and signal made explicit --&gt;
+- Resolve code scanning alerts by fixing the underlying code.
+- Never dismiss or suppress an alert.
+- After each fix, wait for the CodeQL check and read its result.</code></pre>
+</figure>
+</li>
+<li><p><strong>Write findings back to the plan and re-run.</strong></p></li>
+</ol>
+
+<div class="callout"><p><strong>Memorise the mapping:</strong> reasoning error &#8594; revise instructions; tool misuse &#8594; refine tool usage and access; context/environment &#8594; refine memory usage and fix the environment.</p></div>
+
+<h2>Gotchas and exam tips</h2>
+<ul>
+<li>Missing <code>security-events: write</code> is the classic reason a SARIF upload fails.</li>
+<li>Push protection is preventative; secret scanning alerts after the fact.</li>
+<li>A failing check only gates a merge if it is <em>required</em> via a ruleset.</li>
+<li>Suppressing an alert to go green = reasoning error, not tool misuse.</li>
+</ul>
+</section>
+
+<section id="g5">
+<h1>Domain 5 how-to: build a multi-agent team</h1>
+<p>Domain 5 (15&#8211;20%). Four-role team: <strong>orchestrator</strong>, <strong>planner</strong> (read-only), <strong>coder</strong> and <strong>designer</strong> (execute in parallel). Each agent is a markdown file; isolation comes from branches and permissions; arbitration comes from CODEOWNERS.</p>
+
+<h2>The process</h2>
+<figure>
+<svg viewBox="0 0 720 350" role="img" aria-label="Four-role agent team with branch lanes feeding validation">
+<defs><marker id="g5-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+<rect x="270" y="14" width="180" height="40" rx="10" fill="none" stroke="var(--d5)" stroke-width="2"/>
+<text x="360" y="39" text-anchor="middle" font-size="13" fill="var(--ink)">Orchestrator</text>
+<line x1="360" y1="54" x2="360" y2="86" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g5-ar)"/>
+<rect x="275" y="88" width="170" height="46" rx="10" fill="none" stroke="var(--d5)" stroke-width="2"/>
+<text x="360" y="106" text-anchor="middle" font-size="13" fill="var(--ink)">Planner</text>
+<text x="360" y="123" text-anchor="middle" font-size="12" fill="var(--ink2)">read-only, writes the plan</text>
+<line x1="330" y1="134" x2="202" y2="166" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g5-ar)"/>
+<line x1="390" y1="134" x2="518" y2="166" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g5-ar)"/>
+<rect x="60" y="168" width="280" height="88" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="72" y="186" font-size="12" fill="var(--muted)">branch: agents/coder-api</text>
+<rect x="100" y="196" width="200" height="46" rx="10" fill="none" stroke="var(--d5)" stroke-width="2"/>
+<text x="200" y="214" text-anchor="middle" font-size="13" fill="var(--ink)">Coder</text>
+<text x="200" y="231" text-anchor="middle" font-size="12" fill="var(--ink2)">writes src/api/** only</text>
+<rect x="380" y="168" width="280" height="88" rx="10" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="392" y="186" font-size="12" fill="var(--muted)">branch: agents/designer-ui</text>
+<rect x="420" y="196" width="200" height="46" rx="10" fill="none" stroke="var(--d5)" stroke-width="2"/>
+<text x="520" y="214" text-anchor="middle" font-size="13" fill="var(--ink)">Designer</text>
+<text x="520" y="231" text-anchor="middle" font-size="12" fill="var(--ink2)">writes src/ui/** only</text>
+<line x1="200" y1="256" x2="282" y2="286" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g5-ar)"/>
+<line x1="520" y1="256" x2="438" y2="286" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g5-ar)"/>
+<rect x="180" y="288" width="300" height="46" rx="10" fill="none" stroke="var(--d5)" stroke-width="2"/>
+<text x="330" y="306" text-anchor="middle" font-size="13" fill="var(--ink)">Validation</text>
+<text x="330" y="323" text-anchor="middle" font-size="12" fill="var(--ink2)">checks + CODEOWNERS review</text>
+<line x1="482" y1="311" x2="558" y2="311" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g5-ar)"/>
+<rect x="562" y="290" width="90" height="42" rx="10" fill="none" stroke="var(--d5)" stroke-width="2"/>
+<text x="607" y="315" text-anchor="middle" font-size="13" fill="var(--ink)">main</text>
+</svg>
+<figcaption>Orchestrator briefs planner; plan hands off to coder and designer in parallel on isolated branches; validation decides what merges.</figcaption>
+</figure>
+
+<ol class="steps">
+<li><p><strong>Write one markdown profile per agent.</strong> Files in <code>.github/agents/</code> (repo) or <code>agents/</code> in the org's <code>.github</code>/<code>.github-private</code> repo (org-wide). Named <code>&lt;name&gt;.agent.md</code>.</p></li>
+<li><p><strong>Scope permissions by role.</strong></p>
+<figure class="codefig"><figcaption>Planner (read-only) vs coder (write-scoped)</figcaption>
+<pre class="code"><code>---
+name: planner
+description: Reads the issue and codebase, writes an ordered plan. Never edits code.
+tools: ['read', 'search']
+---
+You are the planning agent. You are read-only. Do not implement anything.
+
+---
+name: coder-api
+description: Implements backend changes from an approved plan.
+tools: ['read', 'search', 'edit', 'execute']
+---
+Boundaries:
+- Work only from the approved plan in the PR.
+- Modify files under src/api/** and tests/api/** only.
+- Never touch .github/, src/ui/, or infrastructure code.
+- Commit to your branch; never merge.</code></pre>
+</figure>
+</li>
+<li><p><strong>Isolate execution with per-agent branches and concurrency groups.</strong></p>
+<figure class="codefig"><figcaption>Concurrency group in workflow</figcaption>
+<pre class="code"><code>concurrency:
+  group: coder-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true</code></pre>
+</figure>
+</li>
+<li><p><strong>Arbitrate overlapping areas with CODEOWNERS.</strong></p>
+<figure class="codefig"><figcaption><code>.github/CODEOWNERS</code></figcaption>
+<pre class="code"><code># Last matching pattern takes precedence
+*                  @acme/platform-team
+/src/api/          @acme/backend-team
+/src/ui/           @acme/design-system-team
+/.github/          @acme/platform-team</code></pre>
+</figure>
+</li>
+<li><p><strong>Document every handoff so post-hoc analysis works.</strong></p></li>
+<li><p><strong>Detect stalled or partial runs, then recover safely.</strong> Rollback = revert the branch or close the PR. Resume = read the PR, checks, commits. Escalate via CODEOWNERS.</p></li>
+<li><p><strong>Manage the lifecycle without breaking the workflow.</strong> Adding: new profile + branch prefix + CODEOWNERS line. Retiring: remove the profile, keep closed PRs and commit history.</p></li>
+</ol>
+
+<h2>Gotchas and exam tips</h2>
+<ul>
+<li><strong>Least privilege is the banker question:</strong> planning agents are read-only.</li>
+<li><strong>Agents never merge to main.</strong></li>
+<li><strong>CODEOWNERS precedence: last matching pattern wins.</strong> File found in <code>.github/</code>, then root, then <code>docs/</code>.</li>
+<li><strong>Concurrency:</strong> <code>cancel-in-progress: true</code> kills the old run; <code>false</code> queues the new one.</li>
+<li><strong>Conflict resolution is GitHub-native</strong> via CODEOWNERS, not agents negotiating.</li>
+</ul>
+</section>
+
+<section id="g6">
+<h1>Domain 6 how-to: install the guardrails</h1>
+<p>Domain 6 (10&#8211;15%). Governance as switches you flip in three places: repository settings, files in <code>.github/</code>, and workflow YAML. Know which control lives where, and right-size each gate to the risk of the action it guards.</p>
+
+<h2>The process</h2>
+<figure>
+<svg viewBox="0 0 720 320" role="img" aria-label="Gate chain showing where each governance control is configured">
+<defs><marker id="g6-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+<text x="16" y="24" font-size="14" font-weight="600" fill="var(--ink)">The gate chain</text>
+<g font-size="12">
+<rect x="16" y="50" width="122" height="56" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="77" y="74" text-anchor="middle" fill="var(--ink2)">Agent opens PR</text>
+<text x="77" y="92" text-anchor="middle" fill="var(--muted)">own branch, never main</text>
+<rect x="176" y="50" width="168" height="56" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="260" y="70" text-anchor="middle" fill="var(--ink2)">Ruleset gate</text>
+<text x="260" y="86" text-anchor="middle" fill="var(--ink2)">PR + status checks</text>
+<text x="260" y="100" text-anchor="middle" fill="var(--muted)">+ Copilot review</text>
+<rect x="382" y="50" width="150" height="56" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="457" y="74" text-anchor="middle" fill="var(--ink2)">Owner review</text>
+<text x="457" y="92" text-anchor="middle" fill="var(--muted)">human in the loop</text>
+<rect x="570" y="50" width="130" height="56" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="635" y="74" text-anchor="middle" fill="var(--ink2)">Merge to main</text>
+<text x="635" y="92" text-anchor="middle" fill="var(--muted)">PR = audit record</text>
+</g>
+<line x1="138" y1="78" x2="172" y2="78" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g6-ar)"/>
+<line x1="344" y1="78" x2="378" y2="78" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g6-ar)"/>
+<line x1="532" y1="78" x2="566" y2="78" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g6-ar)"/>
+<g font-size="12" fill="var(--muted)">
+<text x="260" y="126" text-anchor="middle">Repo or org: Settings &gt; Rules</text>
+<text x="457" y="126" text-anchor="middle">Repo file: .github/CODEOWNERS</text>
+</g>
+<polyline points="635,106 635,160 116,160 116,186" fill="none" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g6-ar)"/>
+<g font-size="12">
+<rect x="16" y="190" width="200" height="56" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="116" y="212" text-anchor="middle" fill="var(--ink2)">Deploy job runs</text>
+<text x="116" y="230" text-anchor="middle" fill="var(--ink2)">GITHUB_TOKEN scoped down</text>
+<rect x="266" y="190" width="200" height="56" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="366" y="212" text-anchor="middle" fill="var(--ink2)">Environment gate</text>
+<text x="366" y="230" text-anchor="middle" fill="var(--ink2)">required reviewers approve</text>
+<rect x="516" y="190" width="184" height="56" rx="10" fill="none" stroke="var(--d6)" stroke-width="2"/>
+<text x="608" y="212" text-anchor="middle" fill="var(--ink2)">Production deploy</text>
+<text x="608" y="230" text-anchor="middle" fill="var(--muted)">deployment log = audit</text>
+</g>
+<line x1="216" y1="218" x2="262" y2="218" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g6-ar)"/>
+<line x1="466" y1="218" x2="512" y2="218" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#g6-ar)"/>
+<g font-size="12" fill="var(--muted)">
+<text x="116" y="268" text-anchor="middle">Workflow file: permissions:</text>
+<text x="366" y="268" text-anchor="middle">Repo: Settings &gt; Environments</text>
+</g>
+</svg>
+<figcaption>Two chained gates: rulesets and owner review guard the merge; environment protection and a scoped token guard the deployment.</figcaption>
+</figure>
+
+<ol class="steps">
+<li><p><strong>Classify actions by risk before building any gate.</strong></p>
+<div class="card"><table>
+<thead><tr><th>Risk class</th><th>Example actions</th><th>Gate</th></tr></thead>
+<tbody>
+<tr><td>Low</td><td>Format code, update docs on a branch</td><td>Automated checks only</td></tr>
+<tr><td>Medium</td><td>Change app code, bump a dependency</td><td>Ruleset: PR + checks + Copilot review</td></tr>
+<tr><td>High</td><td>Touch auth or payment paths, edit CI config</td><td>CODEOWNERS + code owner review rule</td></tr>
+<tr><td>Critical</td><td>Production deploy, data deletion, secret rotation</td><td>Environment gate or blocked entirely</td></tr>
+</tbody>
+</table></div>
+</li>
+<li><p><strong>Create a ruleset to guard the default branch.</strong> Settings &#8594; Rules &#8594; Rulesets &#8594; New branch ruleset. Set enforcement to Active, target default branch, require PR before merging.</p></li>
+<li><p><strong>Add required status checks and automatic Copilot review.</strong></p>
+<details class="codefig" open><summary>Importable ruleset JSON</summary>
+<pre class="code"><code>{
+  "name": "agent-guardrails",
+  "target": "branch",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": { "include": ["~DEFAULT_BRANCH"], "exclude": [] }
+  },
+  "rules": [
+    { "type": "deletion" },
+    { "type": "non_fast_forward" },
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 1,
+        "require_code_owner_review": true,
+        "dismiss_stale_reviews_on_push": true,
+        "required_review_thread_resolution": true,
+        "allowed_merge_methods": ["squash"]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": true,
+        "required_status_checks": [
+          { "context": "Analyze (javascript-typescript)" },
+          { "context": "validate" }
+        ]
+      }
+    },
+    {
+      "type": "copilot_code_review",
+      "parameters": { "review_on_push": true, "review_draft_pull_requests": false }
+    }
+  ]
+}</code></pre>
+</details>
+</li>
+<li><p><strong>Map human ownership for high-risk paths via CODEOWNERS.</strong></p></li>
+<li><p><strong>Protect the deployment environment.</strong> Settings &#8594; Environments &#8594; New environment &#8594; Required reviewers.</p>
+<figure class="codefig"><figcaption>Deployment workflow gated by an environment</figcaption>
+<pre class="code"><code>name: Deploy
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  deployments: write
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://app.example.com
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/deploy.sh
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}</code></pre>
+</figure>
+</li>
+<li><p><strong>Scope the GITHUB_TOKEN to least privilege.</strong></p>
+<figure class="codefig"><figcaption>Least-privilege token block</figcaption>
+<pre class="code"><code>permissions:
+  contents: read
+  pull-requests: write
+# permissions: {}       # token can do nothing
+# permissions: read-all # read everything, write nothing</code></pre>
+</figure>
+</li>
+<li><p><strong>Prune for velocity, then check the audit trail.</strong> Remove approvals that don't materially reduce risk. Verify accountability end to end.</p></li>
+</ol>
+
+<div class="callout"><p><strong>Velocity balance is examined, not just gating.</strong> If an answer option adds human approval to every low-risk action, it is usually wrong.</p></div>
+
+<h2>Gotchas and exam tips</h2>
+<ul>
+<li>Copilot code review is a standalone ruleset rule; its approval never counts toward <code>required_approving_review_count</code>.</li>
+<li>The <code>permissions:</code> trap: specifying even one scope silently sets all others to <code>none</code>.</li>
+<li>Environment protection rules are configured only in Settings &#8594; Environments; the YAML <code>environment:</code> key just points at them.</li>
+<li>Use <code>~DEFAULT_BRANCH</code> in ruleset conditions rather than hardcoding <code>refs/heads/main</code>.</li>
+</ul>
+</section>
+
+<section id="scenarios">
+<h1>Exam scenarios: test yourself</h1>
+<p>Click an answer to check it. Wrong picks are struck through; correct answers highlight green.</p>
+
+<div class="quiz-bar">
+<button onclick="startQuiz()">Start timed practice</button>
+<button class="secondary" onclick="resetQuiz()">Reset all</button>
+<span class="timer" id="quiz-timer">--:--</span>
+<span class="score-display" id="quiz-score">0 / 0</span>
+</div>
+
+<h2>Domain 2: Tools &amp; MCP</h2>
+
+<div class="scenario" data-correct="1"><span class="score-dot"></span>
+<p class="scenario-q">Q1. A developer wants the Copilot coding agent to use a Playwright MCP server when working on their repository. Where should they add the MCP server configuration?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">In <code>.vscode/mcp.json</code> committed to the repository</li>
+<li data-idx="1">In the repository's Settings &gt; Copilot &gt; MCP servers</li>
+<li data-idx="2">In the organisation's Copilot policies page</li>
+<li data-idx="3">In the agent's <code>.agent.md</code> file under <code>mcp-servers</code></li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: B.</strong> The cloud-based coding agent does not read <code>.vscode/mcp.json</code> &#8212; that's for the local IDE only. The org policies page (C) controls allow lists, not individual server configs. An agent profile (D) can embed <code>mcp-servers</code>, but the standard repo-wide approach is Settings &gt; Copilot &gt; MCP servers.</p></div>
+</div>
+
+<div class="scenario" data-correct="2"><span class="score-dot"></span>
+<p class="scenario-q">Q2. An organisation admin wants to ensure agents can only use MCP servers that have been vetted by the security team. What should they configure?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Set each agent's <code>tools:</code> field to an empty array</li>
+<li data-idx="1">Remove all MCP server entries from <code>.vscode/mcp.json</code></li>
+<li data-idx="2">Set the Copilot MCP policy to "Registry only" and populate the registry with approved servers</li>
+<li data-idx="3">Add a branch ruleset blocking MCP tool calls</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: C.</strong> The MCP allow list at org level (Settings &gt; Copilot &gt; Policies) controls which servers agents can reach. "Registry only" means only vetted servers resolve; everything else is blocked.</p></div>
+</div>
+
+<div class="scenario" data-correct="0"><span class="score-dot"></span>
+<p class="scenario-q">Q3. A workflow step needs to comment on the agent's PR and commit a fix. Which minimal <code>permissions:</code> block is correct?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0"><code>contents: write</code> and <code>pull-requests: write</code></li>
+<li data-idx="1"><code>contents: write</code> only</li>
+<li data-idx="2"><code>write-all</code></li>
+<li data-idx="3"><code>contents: read</code> and <code>pull-requests: write</code></li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: A.</strong> Committing requires <code>contents: write</code>. Commenting on a PR requires <code>pull-requests: write</code>. D can't commit because contents is read-only. C works but violates least privilege.</p></div>
+</div>
+
+<h2>Domain 4: Evaluation &amp; Tuning</h2>
+
+<div class="scenario" data-correct="2"><span class="score-dot"></span>
+<p class="scenario-q">Q4. An agent resolves a CodeQL alert by adding a suppression comment instead of fixing the underlying vulnerability. What classification and fix apply?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Tool misuse &#8212; remove the agent's access to CodeQL</li>
+<li data-idx="1">Context/environment &#8212; clear the context window and restart</li>
+<li data-idx="2">Reasoning error &#8212; revise instructions to explicitly forbid suppression</li>
+<li data-idx="3">Tool misuse &#8212; change permissions to read-only</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: C.</strong> The agent used the tool correctly. The error was in <em>reasoning</em> about what "resolve" means &#8212; it took the easiest path. Fix: make instructions explicit about intended behaviour. "Took a shortcut or misread the goal" = reasoning error.</p></div>
+</div>
+
+<div class="scenario" data-correct="1"><span class="score-dot"></span>
+<p class="scenario-q">Q5. A CodeQL check shows "Resource not accessible by integration" when trying to upload SARIF. What is most likely missing?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">The <code>contents: write</code> permission on the workflow</li>
+<li data-idx="1">The <code>security-events: write</code> permission on the analyze job</li>
+<li data-idx="2">The agent needs admin access to the repository</li>
+<li data-idx="3">Secret scanning must be enabled first</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: B.</strong> SARIF upload requires <code>security-events: write</code> on the job running <code>codeql-action/analyze</code>. This is the classic fix for that error message.</p></div>
+</div>
+
+<h2>Domain 5: Multi-Agent Orchestration</h2>
+
+<div class="scenario" data-correct="2"><span class="score-dot"></span>
+<p class="scenario-q">Q6. A coder agent and a designer agent both modify the same CSS file on their isolated branches. How does GitHub-native arbitration resolve this?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">The orchestrator agent merges both changes automatically</li>
+<li data-idx="1">The second PR is automatically closed as a duplicate</li>
+<li data-idx="2">CODEOWNERS assigns the CSS path to a team who reviews both PRs and decides</li>
+<li data-idx="3">The concurrency group cancels the second agent's run</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: C.</strong> Multi-agent conflict resolution is GitHub-native: CODEOWNERS maps paths to owners, and when two PRs touch the same path, the human owners review both and decide. Agents never negotiate with each other.</p></div>
+</div>
+
+<div class="scenario" data-correct="3"><span class="score-dot"></span>
+<p class="scenario-q">Q7. An organisation wants to retire an agent without losing auditability. What is the correct approach?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Delete the agent's <code>.agent.md</code> file and all its closed PRs</li>
+<li data-idx="1">Rename the agent's file to <code>.agent.md.disabled</code></li>
+<li data-idx="2">Move the agent to a separate archive repository</li>
+<li data-idx="3">Remove the agent's profile but preserve its closed PRs and commit history</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: D.</strong> Retiring = remove the profile (so it's no longer invoked) + keep closed PRs, commits, and git history. This preserves auditability. Deleting PRs (A) destroys the audit trail.</p></div>
+</div>
+
+<h2>Domain 6: Guardrails &amp; Governance</h2>
+
+<div class="scenario" data-correct="2"><span class="score-dot"></span>
+<p class="scenario-q">Q8. An org wants to maximise delivery speed for agent-authored docs PRs while staying compliant. Which gate configuration is correct?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Require CODEOWNERS review + environment approval + manual test sign-off</li>
+<li data-idx="1">No gates &#8212; docs are low risk</li>
+<li data-idx="2">Require automated checks (lint, link-check) to pass; no human review required</li>
+<li data-idx="3">Require Copilot code review only, skip all other checks</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: C.</strong> Velocity balance: docs are low-risk and reversible &#8594; automated checks suffice. A over-gates. B is non-compliant. D skips required status checks.</p></div>
+</div>
+
+<div class="scenario" data-correct="1"><span class="score-dot"></span>
+<p class="scenario-q">Q9. A ruleset requires 1 approving review with <code>require_code_owner_review: true</code>. The Copilot code review rule approves the PR. Can the PR merge?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Yes &#8212; Copilot's approval satisfies the required review count</li>
+<li data-idx="1">No &#8212; Copilot's approval does not count towards <code>required_approving_review_count</code>; a human code owner must still approve</li>
+<li data-idx="2">Yes &#8212; if the code owner review requirement is met by any reviewer</li>
+<li data-idx="3">No &#8212; Copilot cannot review PRs opened by agents</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: B.</strong> Copilot code review is advisory only; its approval never satisfies <code>required_approving_review_count</code> or the code owner review requirement. A human must approve. One of the most likely exam questions verbatim.</p></div>
+</div>
+
+<h2>Domain 3: Memory &amp; State</h2>
+
+<div class="scenario" data-correct="2"><span class="score-dot"></span>
+<p class="scenario-q">Q10. An agent's session crashes mid-task after three commits on its branch. When a new session starts, what should the agent do first?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Re-read the original issue and start implementation from scratch</li>
+<li data-idx="1">Ask the user what was completed before the crash</li>
+<li data-idx="2">Read the PR body, comments, checks, and commit history to reconstruct state</li>
+<li data-idx="3">Load the conversation history from the previous session</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: C.</strong> Sessions are ephemeral &#8212; conversation history doesn't persist. The durable record (PR, commits, checks, artefacts) is the agent's long-term memory.</p></div>
+</div>
+
+<div class="scenario" data-correct="0"><span class="score-dot"></span>
+<p class="scenario-q">Q11. An agent has been working on a long task and its outputs are becoming increasingly inconsistent with its plan. What is the correct response?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Checkpoint current decisions into plan.md, reset the session, resume from the durable record</li>
+<li data-idx="1">Add the full PR conversation history to the context window for more detail</li>
+<li data-idx="2">Increase the model's context window size to fit more information</li>
+<li data-idx="3">Continue working &#8212; the agent will self-correct as it gets closer to completion</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: A.</strong> This is context rot. The fix: checkpoint (save decisions durably), prune/reset (clear the bloated window), and resume from the record. Adding MORE context (B, C) makes it worse.</p></div>
+</div>
+
+<h2>Domain 1: Architecture &amp; SDLC</h2>
+
+<div class="scenario" data-correct="2"><span class="score-dot"></span>
+<p class="scenario-q">Q12. A team configures their agent to analyse an issue, write code, open a PR, and request review &#8212; all in one continuous action. Which anti-pattern?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Unbounded autonomy with no inspectable artefacts</li>
+<li data-idx="1">Execution without validation</li>
+<li data-idx="2">No separation between planning and execution</li>
+<li data-idx="3">Direct merge to main without review</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: C.</strong> The agent plans and executes in one uninterrupted flow with no plan-approval gate. A PR exists (so A is wrong). It requests review (so B/D don't apply). The missing boundary is between thinking and acting.</p></div>
+</div>
+
+<h2>Cross-domain traps</h2>
+
+<div class="scenario" data-correct="1"><span class="score-dot"></span>
+<p class="scenario-q">Q13. An agent's PR has one human approval but CodeQL check is red. The agent dismissed the alert and requested review. Can it merge?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Yes &#8212; a human approved, which overrides failing checks</li>
+<li data-idx="1">No &#8212; the required status check (CodeQL) is failing; the ruleset blocks merge regardless of approvals</li>
+<li data-idx="2">Yes &#8212; dismissing the alert clears the check</li>
+<li data-idx="3">No &#8212; Copilot must also approve before merge is possible</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: B.</strong> A required status check that is red blocks merge even with human approval. Rulesets enforce checks AND reviews. Human approval can't override a red required check.</p></div>
+</div>
+
+<div class="scenario" data-correct="3"><span class="score-dot"></span>
+<p class="scenario-q">Q14. A planner agent reads the codebase and produces a plan, then the same agent edits two files to "get started" before the plan is reviewed. What has gone wrong, and where is the fix?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Memory issue (D3) &#8212; the agent forgot it was in planning mode</li>
+<li data-idx="1">Tool misuse (D4) &#8212; the agent used edit tools incorrectly</li>
+<li data-idx="2">Governance gap (D6) &#8212; add an environment gate before implementation</li>
+<li data-idx="3">Architecture violation (D1) enforced via tools config (D2) &#8212; the planner's <code>tools:</code> field should not include <code>edit</code></li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: D.</strong> The root issue is architectural: the planner shouldn't be able to edit. Enforcement: set <code>tools: ['read','search']</code> in the agent profile. Don't fix architectural violations with governance gates &#8212; make the violation physically impossible.</p></div>
+</div>
+
+<div class="scenario" data-correct="2"><span class="score-dot"></span>
+<p class="scenario-q">Q15. Two agents work in parallel on the same concurrency group. Agent B starts a new run while Agent A's run is in progress. <code>cancel-in-progress: true</code> is set. What happens to Agent A's run?</p>
+<ol class="scenario-opts" type="A">
+<li data-idx="0">Both runs complete normally</li>
+<li data-idx="1">Agent A's run is queued and runs after Agent B finishes</li>
+<li data-idx="2">Agent A's in-progress run is cancelled</li>
+<li data-idx="3">Both runs are cancelled and a new consolidated run starts</li>
+</ol>
+<div class="scenario-reveal"><p><strong>Answer: C.</strong> With <code>cancel-in-progress: true</code>, a new run in the same concurrency group cancels the existing in-progress run. With <code>false</code>, the new run queues (one pending run max). D is invented behaviour.</p></div>
+</div>
+
+<h2>Mnemonics</h2>
+<div class="mnemonic"><h4>The lifecycle</h4><p class="hook">PAE &#8212; "Plan, Act, Evaluate"</p><p>Cyclical. Any answer that codes before planning, or merges before evaluating, breaks PAE.</p></div>
+<div class="mnemonic"><h4>Branch discipline</h4><p class="hook">NEVER MAIN</p><p>Own branch, one PR, checks + review decide. No exceptions.</p></div>
+<div class="mnemonic"><h4>Failure classification</h4><p class="hook">RTE &#8212; "Reasoning, Tool, Environment"</p><p><strong>R</strong> = misread goal, shortcut &#8594; revise instructions. <strong>T</strong> = wrong tool/params &#8594; refine tool access. <strong>E</strong> = missing var, token, context rot &#8594; fix env, scope memory, reset.</p></div>
+<div class="mnemonic"><h4>Permissions mechanism</h4><p class="hook">SCOPE ZEROES</p><p>Specify one scope &#8594; every unlisted scope becomes <code>none</code>. Commit = <code>contents: write</code>. PR comment = <code>pull-requests: write</code>. SARIF = <code>security-events: write</code>.</p></div>
+<div class="mnemonic"><h4>Two gates, two places</h4><p class="hook">MERGE &#8800; DEPLOY</p><p>Rulesets + required checks guard the <em>merge</em>. Environment protection + required reviewers guard the <em>deploy</em>.</p></div>
+<div class="mnemonic"><h4>CODEOWNERS precedence</h4><p class="hook">LAST WINS</p><p>Last matching pattern takes precedence. Put catch-all <code>*</code> first, specifics below. File found in <code>.github/</code>, then root, then <code>docs/</code>.</p></div>
+<div class="mnemonic"><h4>Config surfaces</h4><p class="hook">CPR &#8212; "Cloud / Personal / Registry"</p><p><strong>C</strong>loud agent: repo Settings &gt; Copilot &gt; MCP (<code>mcpServers</code>, <code>local</code>). <strong>P</strong>ersonal IDE: <code>.vscode/mcp.json</code> (<code>servers</code>, <code>stdio</code>). <strong>R</strong>egistry: org Copilot policies.</p></div>
+<div class="mnemonic"><h4>Memory model</h4><p class="hook">CHECKPOINT, DON'T CRAM</p><p>Context window = short-term, dies with session. Platform record = long-term. Drift? Checkpoint, reset, resume from the record.</p></div>
+
+<h2>Decision tables</h2>
+<h3>Which control, where?</h3>
+<div class="card decision-table"><table>
+<thead><tr><th>Control</th><th>Lives in</th><th>Guards</th></tr></thead>
+<tbody>
+<tr><td>Branch ruleset</td><td>Settings &gt; Rules &gt; Rulesets</td><td>The merge</td></tr>
+<tr><td>Required status checks</td><td>Inside the ruleset</td><td>Merge blocked while any required check is red</td></tr>
+<tr><td>Copilot code review</td><td>Standalone ruleset rule</td><td>Advisory first-pass; never counts as human review</td></tr>
+<tr><td>CODEOWNERS</td><td><code>.github/</code>, root, or <code>docs/</code></td><td>Which humans must approve which paths</td></tr>
+<tr><td>Environment protection</td><td>Settings &gt; Environments</td><td>The deploy &#8212; required reviewers, wait timers</td></tr>
+<tr><td><code>permissions:</code> block</td><td>Workflow YAML (job level)</td><td>What the GITHUB_TOKEN can do</td></tr>
+<tr><td>MCP allow list / registry</td><td>Org/enterprise Copilot policies</td><td>Which MCP servers agents can reach</td></tr>
+<tr><td>Agent <code>tools:</code> frontmatter</td><td><code>.github/agents/*.agent.md</code></td><td>What the agent can physically do</td></tr>
+</tbody>
+</table></div>
+
+<h3>Distractor smells</h3>
+<div class="card"><table>
+<thead><tr><th>If an option says&#8230;</th><th>It's wrong because&#8230;</th></tr></thead>
+<tbody>
+<tr><td>"The agent merges its own PR"</td><td>Agents never merge; policy and humans decide</td></tr>
+<tr><td>"Copilot's approval satisfies the review requirement"</td><td>Copilot review never counts as a required human review</td></tr>
+<tr><td>"Human approval overrides the failing check"</td><td>Required checks block merge independently of reviews</td></tr>
+<tr><td>"Add the config to .vscode/mcp.json for the coding agent"</td><td>The cloud agent reads repo Settings, not workspace files</td></tr>
+<tr><td>"Add more context so the agent remembers"</td><td>Context rot &#8212; checkpoint and reset instead</td></tr>
+<tr><td>"Restart the task from scratch after a crash"</td><td>Resume from the durable record</td></tr>
+<tr><td>"Give the planner edit access for convenience"</td><td>Planners are read-only; least privilege per role</td></tr>
+<tr><td>"Require sign-off on every agent action"</td><td>Over-gating kills velocity; gate by risk class</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section id="ref">
+<h1>Consolidated reference</h1>
+<h3>Files and locations</h3>
+<div class="card"><table>
+<thead><tr><th>Path</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><code>.github/agents/&lt;name&gt;.agent.md</code></td><td>Custom agent profile (repo level)</td></tr>
+<tr><td><code>agents/</code> in org <code>.github</code>/<code>.github-private</code></td><td>Org-level agent profiles</td></tr>
+<tr><td><code>.github/copilot-instructions.md</code></td><td>Universal repo instructions for all Copilot modes</td></tr>
+<tr><td><code>.vscode/mcp.json</code></td><td>MCP servers for the local IDE</td></tr>
+<tr><td>Repo Settings &gt; Copilot &gt; MCP servers</td><td>MCP servers for the cloud coding agent</td></tr>
+<tr><td><code>.github/ISSUE_TEMPLATE/*.yml</code></td><td>Structured issue forms</td></tr>
+<tr><td><code>.github/pull_request_template.md</code></td><td>PR description template</td></tr>
+<tr><td><code>CODEOWNERS</code></td><td>Path &#8594; human owner mapping</td></tr>
+<tr><td><code>.github/workflows/*.yml</code></td><td>CI, permissions, concurrency, environments</td></tr>
+</tbody>
+</table></div>
+
+<h3>CLI cheat sheet</h3>
+<figure class="codefig"><figcaption>Commands for PR oversight and run triage</figcaption>
+<pre class="code"><code># PR oversight
+gh pr view 42 --comments
+gh pr view 42 --json reviewDecision,statusCheckRollup,mergeable
+gh pr checks 42 --required --watch
+gh pr diff 42
+gh pr comment 42 --body "..."
+gh pr comment 42 --edit-last --create-if-none --body "..."
+
+# Run triage
+gh run list --branch agent/fix-auth --status failure --limit 5
+gh run view 17224310 --log-failed
+gh run view --log-failed --job 456789
+gh run view 17224310 --exit-status
+gh run download 17224310 -n test-results
+
+# Resume sequence (Domain 3)
+gh pr view 42 --json title,body,comments,commits,reviewDecision,statusCheckRollup
+gh pr checks 42 --required
+git log --oneline origin/main..HEAD</code></pre>
+</figure>
+
+<h3>Failure classification</h3>
+<div class="card"><table>
+<thead><tr><th>Symptom</th><th>Class</th><th>Lever</th></tr></thead>
+<tbody>
+<tr><td>Hallucinated API, misread goal, took a shortcut</td><td>Reasoning</td><td>Revise instructions / constraints</td></tr>
+<tr><td>Wrong tool, bad parameters, tool abuse</td><td>Tool misuse</td><td>Refine tool access / allow lists</td></tr>
+<tr><td>Missing env var, expired token, context rot</td><td>Environment / context</td><td>Fix env, scope memory, checkpoint + reset</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<p class="pagefoot">GH-600 Field Guide &#183; built 6 August 2026 &#183; verify volatile product details against current GitHub Docs before exam day.</p>
+
+<button id="back-top" aria-label="Back to top">&#8593;</button>
+
+<script>
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', () => { backTop.style.display = window.scrollY > 600 ? 'flex' : 'none'; });
+backTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+const navLinks = document.querySelectorAll('nav a');
+const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+window.addEventListener('scroll', () => {
+  let current = null;
+  for (const s of sections) { if (s.getBoundingClientRect().top < 100) current = s; }
+  navLinks.forEach(a => a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id));
+}, {passive:true});
+let quizAnswered=0,quizCorrect=0;
+const scoreDisplay=document.getElementById('quiz-score');
+function armScenarios(){
+  document.querySelectorAll('.scenario').forEach(sc => {
+    const correctIdx=parseInt(sc.dataset.correct,10);
+    const opts=sc.querySelectorAll('.scenario-opts li');
+    const reveal=sc.querySelector('.scenario-reveal');
+    const dot=sc.querySelector('.score-dot');
+    let answered=false;
+    opts.forEach(li => {
+      li.addEventListener('click',()=>{
+        if(answered)return;
+        answered=true;quizAnswered++;
+        const pickedIdx=parseInt(li.dataset.idx,10);
+        const isRight=pickedIdx===correctIdx;
+        if(isRight){quizCorrect++;li.classList.add('picked-right');if(dot)dot.classList.add('right');}
+        else{li.classList.add('picked-wrong');if(dot)dot.classList.add('wrong');}
+        opts[correctIdx].classList.add('correct');
+        if(reveal)reveal.classList.add('shown');
+        if(scoreDisplay)scoreDisplay.textContent=quizCorrect+' / '+quizAnswered;
+      });
+    });
+  });
+}
+armScenarios();
+let timerInterval=null;
+function startQuiz(){
+  resetQuiz();
+  const total=document.querySelectorAll('.scenario').length;
+  let remaining=total*120;
+  const timerEl=document.getElementById('quiz-timer');
+  clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    remaining--;
+    const m=Math.floor(remaining/60),s=remaining%60;
+    timerEl.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    if(remaining<=0){clearInterval(timerInterval);timerEl.textContent="Time!";}
+  },1000);
+}
+function resetQuiz(){
+  quizAnswered=0;quizCorrect=0;
+  if(scoreDisplay)scoreDisplay.textContent='0 / 0';
+  clearInterval(timerInterval);
+  const timerEl=document.getElementById('quiz-timer');
+  if(timerEl)timerEl.textContent='--:--';
+  document.querySelectorAll('.scenario').forEach(sc=>{
+    const correctIdx=parseInt(sc.dataset.correct,10);
+    const optsList=sc.querySelector('.scenario-opts');
+    const fresh=optsList.cloneNode(true);
+    optsList.replaceWith(fresh);
+    const opts=fresh.querySelectorAll('li');
+    const reveal=sc.querySelector('.scenario-reveal');
+    const dot=sc.querySelector('.score-dot');
+    let answered=false;
+    if(reveal)reveal.classList.remove('shown');
+    if(dot)dot.classList.remove('right','wrong');
+    opts.forEach(li=>{
+      li.classList.remove('correct','picked-wrong','picked-right');
+      li.addEventListener('click',()=>{
+        if(answered)return;
+        answered=true;quizAnswered++;
+        const pickedIdx=parseInt(li.dataset.idx,10);
+        const isRight=pickedIdx===correctIdx;
+        if(isRight){quizCorrect++;li.classList.add('picked-right');if(dot)dot.classList.add('right');}
+        else{li.classList.add('picked-wrong');if(dot)dot.classList.add('wrong');}
+        opts[correctIdx].classList.add('correct');
+        if(reveal)reveal.classList.add('shown');
+        if(scoreDisplay)scoreDisplay.textContent=quizCorrect+' / '+quizAnswered;
+      });
+    });
+  });
+}
+</script>
+</main>
+</body>
+</html>
